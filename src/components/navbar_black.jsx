@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import hamburgerMenu from '../assets/images/navbar/hamburger_menu.svg';
 import hamburgerMenuBlack from '../assets/images/navbar/hamburger_menu_black.svg';
-import logo from '../assets/images/white_logo.png';
 import logoBlack from '../assets/images/black_logo.png';
-import person from '../assets/images/navbar/person.svg';
 import personBlack from '../assets/images/navbar/person_black.svg';
 
 function Navbar() {
@@ -24,14 +21,14 @@ function Navbar() {
         style={menuOpen ? {} : { backgroundColor: 'transparent' }}
       >
         <img
-          src={menuOpen ? hamburgerMenuBlack : hamburgerMenu}
+          src={hamburgerMenuBlack}
           alt='hamburger menu'
           onClick={handleMenuClick}
         />
 
         <div className='flex items-center justify-center w-full'>
           <img
-            src={menuOpen ? logoBlack : logo}
+            src={logoBlack}
             alt='logo'
             className='w-1/3'
             style={menuOpen ? {} : { filter: 'brightness(100%)' }}
@@ -39,7 +36,7 @@ function Navbar() {
         </div>
 
         <img
-          src={menuOpen ? personBlack : person}
+          src={personBlack}
           alt='person'
           style={menuOpen ? {} : { filter: 'brightness(100%)' }}
         />

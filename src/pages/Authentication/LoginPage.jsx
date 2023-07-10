@@ -1,9 +1,9 @@
 import React from 'react';
-import loginBackground from '../assets/images/login/login_background.jpg';
-import Logo from '../assets/images/white_logo.png';
-import GoogleLogo from '../assets/images/login/google_logo.svg';
-import FacebookLogo from '../assets/images/login/facebook_logo.svg';
-import EmailLogo from '../assets/images/login/email_logo.svg';
+import loginBackground from '../../assets/images/login/login_background.jpg';
+import Logo from '../../assets/images/white_logo.png';
+import GoogleLogo from '../../assets/images/login/google_logo.svg';
+import FacebookLogo from '../../assets/images/login/facebook_logo.svg';
+import EmailLogo from '../../assets/images/login/email_logo.svg';
 
 
 const LoginPage = () => {
@@ -77,17 +77,6 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-            </div>
-
-
-            <div class="w-full relative z-0 flex">
-                                <div className='w-full text-center self-center text-black'>Google</div>
-
-                <div class="absolute inset-y-0 left-0 z-10 self-start">
-                    <div class="flex h-full items-center justify-center">
-                        <img src={GoogleLogo} alt='Google Logo' className='pl-4 pt-3 self-start z-10'></img>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
