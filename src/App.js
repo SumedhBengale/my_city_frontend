@@ -7,6 +7,7 @@ import PropertiesPage from './pages/Properties/PropertiesPage';
 import ManagementPage from './pages/Management/ManagementPage';
 import AboutUsPage from './pages/AboutUs/AboutUsPage';
 import ContactUsPage from './pages/ContactUs/ContactUsPage';
+import Property from './pages/Property/Property';
 import React from 'react'
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
         <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
         <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
+        <Route exact path="/property" element={<Property></Property>} />
       </Routes>
     </Router>
   );
