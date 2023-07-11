@@ -20,12 +20,12 @@ function ManagementPage() {
       <div className="w-full pr-8 pt-16">
         <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
         <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-            <p className="text-white text-2xl font-bold">Who Are We?</p>
-            <p className='text-white text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+            <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
+            <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
         </div>
       </div>
 
-      <div className="text-2xl pl-8 pt-2 font-bold capitalize">Are you a property owner?</div>
+      <div className="font-custom text-2xl pl-8 pt-2 font-bold capitalize">Are you a property owner?</div>
 
       <div className="w-full pl-8 pt-5">
         <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
@@ -35,7 +35,7 @@ function ManagementPage() {
       </div>
 
       <div className="Rectangle w-full bg-gray-200 px-10 pt-10 mt-20" >
-            <div className='text-black text-2xl text-center font-bold'>Our Story</div>
+            <div className='text-black font-custom text-2xl text-center font-bold'>Our Story</div>
 
             <div className='text-black text-md pt-5 text-justify'>Our team has over three decades of experience in the vacation home sector, and our unrivaled knowledge of the city, as well as our attention on customer satisfaction, ensure that your stay in London is easy and unforgettable. We provide quality serviced apartments for both leisure and business. We assure that the property is kept in hotel-standard condition during our agreement, reducing your worries.</div>
             <div className='justify-center flex'>

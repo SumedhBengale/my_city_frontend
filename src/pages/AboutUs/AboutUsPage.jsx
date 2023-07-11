@@ -17,8 +17,8 @@ function AboutUsPage() {
       <div className="w-full pr-8 pt-16">
         <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
         <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-            <p className="text-white text-2xl font-bold">Who Are We?</p>
-            <p className='text-white text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+            <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
+            <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
         </div>
       </div>
 

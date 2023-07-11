@@ -22,14 +22,14 @@ function PropertiesPage() {
         <Navbar />
 
         <div className='h-full flex flex-col justify-center items-center mx-5'>
-          <div className='text-4xl text-white font-bold'>My City Residence</div>
-          <div className='text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+          <div className='font-custom text-4xl text-white font-bold'>My City Residence</div>
+          <div className='font-custom text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
           <SearchCard></SearchCard>
         </div>
     </div>
 
     <div className='mx-5 mt-5'>
-        <div className="text-black text-2xl font-bold capitalize">Nearby Properties</div>
+        <div className="text-black font-custom text-2xl font-bold capitalize">Nearby Properties</div>
         <div className='flex justify-between mt-3'>
             <div className='h-8 w-8 bg-gray-200 rounded-md flex justify-center items-center'>
                 <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
@@ -54,7 +54,7 @@ function PropertiesPage() {
 
         <div className='flex justify-center mt-10'>
             <div className="w-[178px] h-14 bg-zinc-900 rounded-xl backdrop-blur-md" >
-            <div className='text-white text-2xl h-full flex justify-center items-center'>View All</div>
+            <div className='text-white font-custom text-2xl h-full flex justify-center items-center'>View All</div>
             </div>
         </div>
 

@@ -4,7 +4,7 @@ import tick from '../../assets/images/management/tick.svg'
 function WhyUs() {
   return (
     <>
-        <div className='text-center text-2xl font-bold mt-10'>Why Us?</div>
+        <div className='text-center font-custom text-2xl font-bold mt-10'>Why Us?</div>
 
         <div className="flex flex-col md:flex-row justify-center items-center m-5">
             <div className=" w-full h-max bg-gray-200 rounded-2xl ">

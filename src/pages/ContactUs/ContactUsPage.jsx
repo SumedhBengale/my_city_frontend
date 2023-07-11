@@ -18,13 +18,13 @@ function ContactUs() {
       <div className="w-full pr-8 pt-16">
         <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
         <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-            <p className="text-white text-2xl font-bold">Who Are We?</p>
-            <p className='text-white text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+            <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
+            <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
         </div>
       </div>
           <div className='w-full h-full'>
             <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg'>
-              <div className='text-xl mx-3 mt-3 text-black font-bold'>Get In Touch</div>
+              <div className='font-custom text-xl mx-3 mt-3 text-black font-bold'>Get In Touch</div>
               <hr className="w-36 border-sm my-4 ml-3 border-[1px] border-black" />
               <input className=" max-w-lg mx-3 h-12 my-4 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
                     {/* Email Input */}
@@ -36,7 +36,7 @@ function ContactUs() {
                     {/* Email Input */}
                 </textarea>
 
-                <button className="bg-black text-white font-bold text-lg max-w-md h-12 rounded-lg mx-3 my-4">Submit</button>
+                <button className="bg-black text-white font-bold font-custom text-lg max-w-md h-12 rounded-lg mx-3 my-4">Submit</button>
 
                 <div className="mx-3 mb-5 flex flex-col text-center"><span className="text-zinc-800 text-xs font-normal leading-normal">Thank you so much for your interest! We’d love to hear from you and help you book your dream vacation! Please submit your email or email directly to: </span><span className="text-zinc-800 text-xs font-semibold leading-normal">info@mycityresidences.com</span></div>
 

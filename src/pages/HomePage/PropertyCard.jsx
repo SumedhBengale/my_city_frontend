@@ -11,7 +11,7 @@ function PropertyCard() {
         <div className="absolute bottom-36 left-0 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">$19.99</div>
         <img className="w-full h-2/3 p-4" src={placeholderRoomImage} alt="Placeholder"/>
     <div className="px-6 py-3">
-      <div className="font-bold text-2xl mb-2 overflow-ellipsis line-clamp-1">Amazing Highly Spacious</div>
+      <div className="font-bold font-custom text-2xl mb-2 overflow-ellipsis line-clamp-1">Amazing Highly Spacious</div>
       <p className="text-black">Lyall St, London SW1X 8DW, UK</p>
     </div>
 

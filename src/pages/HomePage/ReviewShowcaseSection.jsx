@@ -90,8 +90,8 @@ const HorizontalScrollView = () => {
 function ReviewShowcaseSection() {
   return (
     <>
-      <div className="text-3xl text-center text-black font-bold pt-10">Hear From Our Happy Guests</div>
-      <div className="text-slate-400 text-center text-lg pt-3">Read Our Recent Reviews</div>
+      <div className="font-custom text-3xl text-center text-black font-bold pt-10">Hear From Our Happy Guests</div>
+      <div className="text-slate-400 text-center font-custom text-lg pt-3">Read Our Recent Reviews</div>
       <HorizontalScrollView />
     </>
   );

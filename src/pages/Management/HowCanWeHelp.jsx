@@ -4,7 +4,7 @@ import tick from '../../assets/images/management/tick.svg'
 function HowCanWeHelp() {
   return (
     <>
-        <div className='text-center text-2xl font-bold mt-10'>How Can We Help?</div>
+        <div className='text-center font-custom text-2xl font-bold mt-10'>How Can We Help?</div>
 
 
         <div className="flex flex-col md:flex-row justify-center items-center m-5">

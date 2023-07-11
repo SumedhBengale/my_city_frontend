@@ -46,7 +46,7 @@ function Filter({ apply, close }) {
                     </svg>
 
                 </div>
-          <div className='w-full text-center font-bold text-xl mb-5'>Filter</div>
+          <div className='w-full text-center font-bold font-custom text-xl mb-5'>Filter</div>
           </div>
 
           <div>
@@ -127,7 +127,7 @@ function Filter({ apply, close }) {
             </div>
           </div>
           <div>
-            <div className='text-lg my-5 font-bold'>Amenities</div>
+            <div className='font-custom text-lg my-5 font-bold'>Amenities</div>
             {amenities.map((amenity) => (
                 <div key={amenity} className='flex items-center gap-3 mt-3'>
                     <input type='checkbox' id={amenity} name={amenity} value={amenity} onChange={()=>{
@@ -146,7 +146,7 @@ function Filter({ apply, close }) {
           </div>
 
           <div className='w-full h-3/4 bg-white rounded-2xl p-5'>
-          <div className='w-full text-center font-bold text-xl'>Filter</div>
+          <div className='w-full text-center font-bold font-custom text-xl'>Filter</div>
 
           <div className='mt-5'>
             <div className='w-full text-center font-bold'>Price</div>

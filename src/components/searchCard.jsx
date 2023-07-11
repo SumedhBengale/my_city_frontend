@@ -42,7 +42,7 @@ function SearchCard() {
                 <img src={locationPin} alt='location pin' className=''></img>
                 <div className='pl-2'>
                   <div className='text-sm'>Select Location</div>
-                  <div className='font-bold text-2xl'>Where to?</div>
+                  <div className='font-bold font-custom text-2xl'>Where to?</div>
                 </div>
               </div>
             <div className='text-white text-[18px] font-bold' onClick={()=>setFilterVisible(true)}>
@@ -56,7 +56,7 @@ function SearchCard() {
               <img src={calendar} alt='calendar' className=''></img>
               <div className='pl-2'>
                 <div className='text-sm'>Check-in Date</div>
-                <div className='text-2xl font-bold'>Select</div>
+                <div className='font-custom text-2xl font-bold'>Select</div>
               </div>
             </div>
 
@@ -64,7 +64,7 @@ function SearchCard() {
               <img src={calendar} alt='calendar' className=''></img>
               <div className='pl-2'>
                 <div className='text-sm'>Check-out Date</div>
-                <div className='text-2xl font-bold'>Select</div>
+                <div className='font-custom text-2xl font-bold'>Select</div>
               </div>
             </div>
 
@@ -75,7 +75,7 @@ function SearchCard() {
               <img src={guests} alt='calendar' className=''></img>
               <div className='pl-2'>
                 <div className='text-sm'>No. of guests</div>
-                <div className='text-2xl font-bold'>2{/*Get this input */}</div>
+                <div className='font-custom text-2xl font-bold'>2{/*Get this input */}</div>
               </div>
             </div>
 
@@ -83,7 +83,7 @@ function SearchCard() {
               <img src={rooms} alt='calendar' className=''></img>
               <div className='pl-2'>
                 <div className='text-sm'>No. of rooms</div>
-                <div className='text-2xl font-bold'>1{/*Get this input */}</div>
+                <div className='font-custom text-2xl font-bold'>1{/*Get this input */}</div>
               </div>
             </div>
 
