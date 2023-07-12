@@ -19,7 +19,7 @@ import Messages from './pages/Messages/Messages';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route exact path="/" element={<HomePage></HomePage>} />
         <Route exact path="/login" element={<LoginPage></LoginPage>} />
