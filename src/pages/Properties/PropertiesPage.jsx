@@ -19,14 +19,18 @@ function PropertiesPage() {
           height: '100vh',
         }}
       > {/* Background Image */}
+        <div className='z-10 relative'>
         <Navbar />
+        </div>
 
-        <div className='h-full flex flex-col justify-center items-center mx-5'>
-          <div className='font-custom text-4xl text-white font-bold'>My City Residence</div>
+
+        <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
+          <div className='font-custom text-4xl text-white font-bold text-center'>My City Residence</div>
           <div className='font-custom text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+
           <SearchCard></SearchCard>
         </div>
-    </div>
+      </div>
 
     <div className='mx-5 mt-5'>
         <div className="text-black font-custom text-2xl font-bold capitalize">Nearby Properties</div>
