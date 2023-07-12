@@ -1,6 +1,7 @@
 import React from 'react'
 import loginBackground from '../../assets/images/login/login_background.jpg';
 import Logo from '../../assets/images/white_logo.png';
+import { NavLink } from 'react-router-dom';
 
 function SignUp() {
     return (
@@ -32,8 +33,8 @@ function SignUp() {
                         {/* Confirm Password Input */}
                     </input>
                     {/*Forgot Password Link */}
-                    <div className="flex justify-end items-center mt-4">
-                        <div className="text-white flex">Already have an account? <div className='underline'>Login</div></div>
+                    <div className="flex justify-end items-center mt-4 text-white">
+                       <div>Already have an account?</div><NavLink to='/login' className='underline pl-2'>Login</NavLink>
                     </div>
                     <div className=" max-w-lg w-full flex justify-center items-center h-12 mt-4 px-2 bg-white rounded-lg font-bold text-black" type='text'>Sign Up</div>
                 </div>

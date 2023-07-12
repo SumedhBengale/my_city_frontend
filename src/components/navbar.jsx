@@ -1,49 +1,184 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import hamburgerMenu from '../assets/images/navbar/hamburger_menu.svg';
 import hamburgerMenuBlack from '../assets/images/navbar/hamburger_menu_black.svg';
-import logo from '../assets/images/white_logo.png';
 import logoBlack from '../assets/images/black_logo.png';
-import person from '../assets/images/navbar/person.svg';
 import personBlack from '../assets/images/navbar/person_black.svg';
+import person from '../assets/images/navbar/person.svg';
+import logo from '../assets/images/white_logo.png';
+import hamburgerMenu from '../assets/images/navbar/hamburger_menu.svg';
+import notification from '../assets/images/navbar/notification.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const location = useLocation();
 
   const handleMenuClick = () => {
+    if(accountMenuOpen === true){setAccountMenuOpen(false)}
+    console.log("Yes")
     setMenuOpen(!menuOpen);
   };
+
+  const handleAccountMenuClick = () => {
+    if(menuOpen === true){setMenuOpen(false)}
+    console.log('clicked');
+    setAccountMenuOpen(!accountMenuOpen);
+  }
 
   return (
     <>
       <div
         className={`flex justify-between p-3 relative ${
-          menuOpen ? 'bg-white' : 'bg-transparent'
+          menuOpen === true ? 'bg-white' : 'bg-transparent'
         }`}
-        style={menuOpen ? {} : { backgroundColor: 'transparent' }}
       >
         <img
-          src={menuOpen ? hamburgerMenuBlack : hamburgerMenu}
+          src={menuOpen === true ? hamburgerMenuBlack : hamburgerMenu}
           alt='hamburger menu'
           onClick={handleMenuClick}
         />
 
         <div className='flex items-center justify-center w-full'>
           <img
-            src={menuOpen ? logoBlack : logo}
+            src={menuOpen === true ? logoBlack : logo}
             alt='logo'
             className='w-1/3'
-            style={menuOpen ? {} : { filter: 'brightness(100%)' }}
           />
         </div>
 
         <img
-          src={menuOpen ? personBlack : person}
-          alt='person'
-          style={menuOpen ? {} : { filter: 'brightness(100%)' }}
+          src={notification}
+          alt='hamburger menu'
+          className='px-2 opacity-0'
+        />
+
+        <img
+          src={menuOpen === true ? personBlack : person}
+          alt='hamburger menu'
+          onClick={handleAccountMenuClick}
         />
       </div>
+
+      {accountMenuOpen && (
+        <div className='absolute top-0 flex flex-col w-full bg-white'>
+          <div
+            className='flex w-full justify-between p-3 relative'
+          >
+        
+        <img
+          src={hamburgerMenuBlack}
+          alt='hamburger menu'
+          className='opacity-0'
+        />
+
+        <div className='flex items-center justify-center w-full'>
+          <img
+            src={logoBlack}
+            alt='logo'
+            className='w-1/3'
+          />
+        </div>
+
+        <img
+          src={notification}
+          alt='notification menu'
+          onClick={()=>{
+            //Navigate to notifications page
+            navigate('/notifications')
+          }}
+          className='px-2'
+        />
+
+        <img
+          src={personBlack}
+          alt='hamburger menu'
+          onClick={handleAccountMenuClick}
+        />
+      </div>
+      
+      <div className='h-full mx-2 my-5'>
+          <hr className='w-full h-[2px] bg-black'></hr>
+      </div>
+
+      <div className='flex flex-col gap-3 pr-3'>
+        <NavLink
+          to='/notifications'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/notifications' ? 'underline font-bold' : ''
+          }`}
+        >
+          Notifications
+        </NavLink>
+        <NavLink
+          to='/messages'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/messages' ? 'underline font-bold' : ''
+          }`}
+        >
+          Messages
+        </NavLink>
+      </div>
+
+      <div className='h-full mx-2 my-5'>
+          <hr className='w-full h-[2px] bg-black'></hr>
+      </div>
+
+      <div className='flex flex-col gap-3 pr-3'>
+      <NavLink
+          to='/account'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/account' ? 'underline font-bold' : ''
+          }`}
+        >
+          Account
+        </NavLink>
+        <NavLink
+          to='/wishlist'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/wishlist' ? 'underline font-bold' : ''
+          }`}
+        >
+          Wishlist
+        </NavLink>
+        <NavLink
+          to='/trips'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/trips' ? 'underline font-bold' : ''
+          }`}
+        >
+          Trips
+        </NavLink>
+      </div>
+
+      <div className='h-full mx-2 my-5'>
+          <hr className='w-full h-[2px] bg-black'></hr>
+      </div>
+
+      <div className='flex flex-col gap-3 pr-3 pb-3'>
+      <NavLink
+          to='/help'
+          exact
+          className={`flex justify-end w-full  ${
+            location.pathname === '/help' ? 'underline font-bold' : ''
+          }`}
+        >
+          Help
+        </NavLink>
+        <div
+          className={`flex justify-end w-full`}
+        >
+          Log Out
+        </div>
+      </div>
+        </div>
+      )}
 
       {menuOpen && (
         <div className=''>

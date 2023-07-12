@@ -4,9 +4,10 @@ import Logo from '../../assets/images/white_logo.png';
 import GoogleLogo from '../../assets/images/login/google_logo.svg';
 import FacebookLogo from '../../assets/images/login/facebook_logo.svg';
 import EmailLogo from '../../assets/images/login/email_logo.svg';
-
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
   return (
     
     <div
@@ -33,7 +34,7 @@ const LoginPage = () => {
                 <div className="flex justify-end items-center mt-4">
                     <div className="text-white underline">Forgot Password?</div>
                 </div>
-                <div className=" max-w-lg w-full flex justify-center items-center h-12 mt-4 px-2 bg-white rounded-lg font-bold text-black" type='text' placeholder='Email'>Login</div>
+                <button className=" max-w-lg w-full flex justify-center items-center h-12 mt-4 px-2 bg-white rounded-lg font-bold text-black" onClick={()=>navigate('/')}>Login</button>
             </div>
 
 
@@ -45,7 +46,7 @@ const LoginPage = () => {
 
             <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0" >
             <div class="w-full relative h-full z-0 flex">
-                <div className='w-full text-center self-center text-black flex justify-center items-center'>Continue with Facebook</div>
+                <button className='w-full text-center self-center text-black flex justify-center items-center'>Continue with Facebook</button>
 
                 <div class="absolute inset-y-0 left-0 z-10 self-start">
                     <div class="flex h-full items-center justify-center">
@@ -57,7 +58,7 @@ const LoginPage = () => {
             
             <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0" >
             <div class="w-full relative h-full z-0 flex">
-                <div className='w-full text-center self-center text-black flex justify-center items-center'>Continue with Google</div>
+                <button className='w-full text-center self-center text-black flex justify-center items-center'>Continue with Google</button>
 
                 <div class="absolute inset-y-0 left-0 z-10 self-start">
                     <div class="flex h-full items-center justify-center">
@@ -69,7 +70,7 @@ const LoginPage = () => {
 
             <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0" >
             <div class="w-full relative h-full z-0 flex">
-                <div className='w-full text-center self-center text-black flex justify-center items-center'>Continue with Email</div>
+                <button className='w-full text-center self-center text-black flex justify-center items-center' onClick={()=>navigate('/signup')}>SignUp with Email</button>
 
                 <div class="absolute inset-y-0 left-0 z-10 self-start">
                     <div class="flex h-full items-center justify-center">

@@ -3,11 +3,12 @@ import placeholderRoomImage from '../../assets/images/home/placeholder_room_imag
 import bed from '../../assets/images/home/bed.svg'
 import shower from '../../assets/images/home/shower.svg'
 import person from '../../assets/images/home/person.svg'
-
+import { useNavigate } from 'react-router-dom'
 
 function PropertyCard() {
+  const navigate = useNavigate();
   return (
-    <div className="Rectangle w-full h-96 bg-gray-200 rounded-2xl backdrop-blur-[185px] mt-5" >
+    <div className="Rectangle w-full h-96 bg-gray-200 rounded-2xl backdrop-blur-[185px] mt-5" onClick={()=>navigate('/property')}>
         <div className="absolute bottom-36 left-0 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">$19.99</div>
         <img className="w-full h-2/3 p-4" src={placeholderRoomImage} alt="Placeholder"/>
     <div className="px-6 py-3">
