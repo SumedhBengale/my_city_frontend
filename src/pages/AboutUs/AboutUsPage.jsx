@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/navbar_black'
+import DesktopNavbar from '../../components/desktopNavbarBlack'
 import OurStorySection from './OurStorySection'
 import Image1 from '../../assets/images/about/about_img_1.jpg'
 import OurValuesSection from './OurValuesSection'
@@ -8,8 +9,12 @@ import OurPartnersSection from './OurPartnersSection'
 function AboutUsPage() {
   return (
     <>
-        <div className='z-20 absolute w-full'>
-        <Navbar />
+        <div class="hidden md:block z-20 absolute w-full pt-3">
+          <DesktopNavbar />
+        </div>
+
+        <div class="md:hidden z-20 absolute w-full">
+          <Navbar />
         </div>
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 

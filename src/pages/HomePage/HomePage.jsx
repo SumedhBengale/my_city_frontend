@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/navbar'
+import DesktopNavbar from '../../components/desktopNavbar'
 import homeBackground from '../../assets/images/home/home_top_image.jpg'
 import IntroductionSection from './IntroductionSection'
 import PropertyCard from './PropertyCard'
@@ -22,8 +23,12 @@ function Home() {
           height: '100vh',
         }}
       > {/* Background Image */}
-        <div className='z-20 absolute w-full'>
-        <Navbar />
+        <div class="hidden md:block z-20 absolute w-full pt-3">
+          <DesktopNavbar />
+        </div>
+
+        <div class="md:hidden z-20 absolute w-full">
+          <Navbar />
         </div>
 
 

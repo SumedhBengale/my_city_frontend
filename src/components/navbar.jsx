@@ -62,7 +62,7 @@ function Navbar() {
       </div>
 
       {accountMenuOpen && (
-        <div className='absolute top-0 flex flex-col w-full bg-white'>
+        <div className='absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl'>
           <div
             className='flex w-full justify-between p-3 relative'
           >
