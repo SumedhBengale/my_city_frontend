@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <>
       <div
-        className={`flex justify-between p-3 relative `}
+        className={`flex justify-between p-3`}
       >
         <img
           src={hamburgerMenuBlack}
@@ -178,7 +178,7 @@ function Navbar() {
       {menuOpen && (
         <div className=''>
           {menuOpen && (
-            <div className='fixed w-full bg-white flex flex-col'>
+            <div className=' w-full bg-white flex flex-col'>
               <NavLink
                 to='/'
                 exact

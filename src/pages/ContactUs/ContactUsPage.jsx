@@ -9,9 +9,9 @@ import email_black from '../../assets/images/contact/email_black.svg'
 function ContactUs() {
   return (
     <>
-      <div className='absolute top-0 w-full z-20'>
-      <Navbar className='z-20'/>
-      </div>
+      <div className='z-20 absolute w-full'>
+        <Navbar />
+        </div>
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}

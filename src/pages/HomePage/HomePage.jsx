@@ -22,7 +22,7 @@ function Home() {
           height: '100vh',
         }}
       > {/* Background Image */}
-        <div className='z-10 relative'>
+        <div className='z-20 absolute w-full'>
         <Navbar />
         </div>
 
