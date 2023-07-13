@@ -10,6 +10,7 @@ import ReviewShowcaseSection from './ReviewShowcaseSection'
 import FrequentQuestionsSection from './FrequentQuestionsSection'
 import SearchCard from '../../components/searchCard'
 import Footer from './Footer'
+import logoWhite from '../../assets/images/white_logo.png'
 
 function Home() {
   return (
@@ -31,11 +32,15 @@ function Home() {
           <Navbar />
         </div>
 
-
         <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
-          <div className='font-custom text-4xl text-white font-bold text-center'>My City Residence</div>
-          <div className='font-custom text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+          <div className='lg:hidden'>
+            <div className='font-custom text-4xl text-white font-bold text-center'>My City Residence</div>
+            <div className='font-custom text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+          </div>
 
+          <div className='hidden lg:block justify-center items-center'>
+            <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-20'></img>
+          </div>
           <SearchCard></SearchCard>
         </div>
       </div>
@@ -48,10 +53,12 @@ function Home() {
       <div className=" text-center text-zinc-900 text-opacity-20 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
       {/* Fill these with fetched data */}
-      <PropertyCard></PropertyCard>
-      <PropertyCard></PropertyCard>
-      <PropertyCard></PropertyCard>
-      <PropertyCard></PropertyCard>
+      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 gap-5 lg:px-20 mt-10'>
+        <PropertyCard></PropertyCard>
+        <PropertyCard></PropertyCard>
+        <PropertyCard></PropertyCard>
+        <PropertyCard></PropertyCard>
+      </div>
 
       <div className='flex justify-center mt-10'>
         <div className="w-[178px] h-14 bg-zinc-900 rounded-xl backdrop-blur-md" >
