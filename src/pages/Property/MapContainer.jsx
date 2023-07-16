@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import'./map.css';
 
 const mapStyles = {
-  width: '90%',
-  height: '400px',
+  width: '100%',
   
 };
 
@@ -13,14 +13,16 @@ class MapContainer extends Component {
     const { latitude, longitude } = this.props.coordinate; // Replace with your desired coordinate
 
     return (
-        <Map
-            google={google}
-            zoom={14}
-            style={mapStyles}
-            initialCenter={{ lat: latitude, lng: longitude }}
-        >
-            <Marker position={{ lat: latitude, lng: longitude }} />
-        </Map>
+          <div id='mapBox'>
+            <Map center={true}
+                google={google}
+                zoom={14}
+                style={mapStyles}
+                initialCenter={{ lat: latitude, lng: longitude }}
+            >
+                <Marker position={{ lat: latitude, lng: longitude }} />
+            </Map>
+          </div>
     );
   }
 }

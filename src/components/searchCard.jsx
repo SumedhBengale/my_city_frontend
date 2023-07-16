@@ -36,7 +36,7 @@ function SearchCard() {
         console.log('filter applied')
         console.log(data)
       }} close={()=>setFilterVisible(false)}></Filter>}
-      <div className="z-0 m-4 w-full md:max-w-[120px] md:w-4/5 h-96 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
+      <div className="z-0 m-4 w-full md:w-4/5 h-96 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
         <div className='grid grid-cols-2 gap-9 text-white'>
 
           <div className='col-span-2 flex justify-between'>{/* Location and Filter */}
@@ -103,7 +103,7 @@ function SearchCard() {
       </div>
 
 
-      <div className="z-0 mx-4 py-8 w-full bg-white text-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md hidden lg:block" >
+      <div className="z-0 mx-4 py-8 w-full max-w-7xl bg-white text-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md hidden lg:block" >
 
           <div className='col-span-2 flex justify-around gap-1'>
 

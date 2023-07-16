@@ -17,7 +17,7 @@ function Messages() {
                     </div>
                 </div>
 
-                <div className='flex flex-col gap-5 my-5'>
+                <div className='flex flex-col gap-5 my-5 container mx-auto'>
                     <SenderMessage message={'Sumedh Here'}></SenderMessage>
                     <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
                     <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
@@ -40,7 +40,7 @@ function Messages() {
             </div>
 
             {/*Show a Button at the bottom of the screen */}
-            <div className="flex items-center justify-between sticky bottom-0 p-2">
+            <div className="flex items-center justify-between sticky bottom-0 p-2 container mx-auto">
                 <input
                     type="text"
                     className="flex-grow mr-2 border rounded px-2 py-1 focus:outline-none"

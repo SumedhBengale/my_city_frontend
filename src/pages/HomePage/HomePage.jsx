@@ -44,11 +44,11 @@ function Home() {
           <SearchCard></SearchCard>
         </div>
       </div>
-      <div>
+      <div className='container mx-auto'>
         <IntroductionSection></IntroductionSection>
       </div> {/* Seperated into different file because it's static content */}
 
-      <div className='p-4'>
+      <div className='p-4 container mx-auto'>
       <div className=" text-center text-black font-custom text-4xl font-bold capitalize">Our Properties</div>
       <div className=" text-center text-zinc-900 text-opacity-20 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
@@ -62,7 +62,7 @@ function Home() {
 
       <div className='flex justify-center mt-10'>
         <div className="w-[178px] h-14 bg-zinc-900 rounded-xl backdrop-blur-md" >
-          <div className='text-white font-custom text-2xl h-full flex justify-center items-center'>View All</div>
+          <div className='text-white font-bold text-2xl h-full flex justify-center items-center'>View All</div>
         </div>
       </div>
 
@@ -75,10 +75,14 @@ function Home() {
       <KnowMoreSection></KnowMoreSection>
 
       {/* Seperated into different file because it's static content(for now) */}
-      <ReviewShowcaseSection></ReviewShowcaseSection>
+      <div className='container mx-auto'>
+        <ReviewShowcaseSection></ReviewShowcaseSection>
+      </div>
 
       {/* Seperated into different file because it's static content */}
-      <FrequentQuestionsSection></FrequentQuestionsSection>
+      <div className='container mx-auto'>
+        <FrequentQuestionsSection></FrequentQuestionsSection>
+      </div>
     
       <Footer></Footer>
     </>

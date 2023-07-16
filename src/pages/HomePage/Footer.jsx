@@ -11,7 +11,8 @@ import linkedin from '../../assets/images/home/linkedin.svg'
 function Footer() {
   return (
     <>
-    <div className="Rectangle w-full bg-zinc-100 backdrop-blur-[192px] mt-10" >
+    <div className="Rectangle w-full bg-zinc-100 mt-10" >
+        <div className='container mx-auto'>
         <img src={black_logo} alt='logo' className='w-1/2 sm:w-1/3 md:w-1/6 max-w-[300px] pt-5 pl-5'></img>
         <div className='flex flex-col md:flex-row justify-between md:mx-5'>
             <div className='pt-10 pl-5'>
@@ -87,7 +88,7 @@ function Footer() {
                 My City Residence ©2023. All rights reserved.
             </div>
         </div>
-
+        </div>
     </div>
     </>
   )

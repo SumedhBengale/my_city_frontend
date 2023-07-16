@@ -4,7 +4,7 @@ import know_more_image from '../../assets/images/home/know_more_image.jpg'
 function KnowMoreSection() {
   return (
     <>
-    <div className="w-full flex flex-col lg:flex-row justify-center items-center mt-10 lg:px-20">
+    <div className="w-full container mx-auto flex flex-col lg:flex-row justify-center items-center mt-10 lg:px-20">
         <img src={know_more_image} alt='know more' className='w-full max-h-[500px] p-5 object-cover rounded-2xl'></img>
         <div className='text-center lg:text-right'>
         <div className='font-custom text-4xl font-bold'>My City Residence</div>

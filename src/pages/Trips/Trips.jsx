@@ -15,7 +15,7 @@ function Trips() {
                                 <div className='text-lg text-center font-bold '>Trips</div>
                         </div>
                 </div>
-             <div className='flex justify-center mt-3'>
+             <div className='flex justify-center mt-3 md:hidden'>
 
                         <div className={`text-center w-full text-md font-bold 
                         ${selected === 'upcoming' ? 'text-black' : 'text-gray-400'}`}
@@ -30,34 +30,36 @@ function Trips() {
                         ${selected === 'past' ? 'text-black' : 'text-gray-400'}`}
                         onClick={() => setSelected('past')}
                         >Past</div>
+             </div>
 
+             <div className='md:block hidden'>
+                <div className='flex gap-10 m-5'>
+                    <div className={`w-min px-5 py-1 rounded-2xl ${selected === 'upcoming' ? 'bg-black': 'bg-transparent  border border-black'}`}>
+                    <div className={`text-center w-full text-md font-bold 
+                        ${selected === 'upcoming' ? 'text-white' : 'text-black'}`}
+                        onClick={() => setSelected('upcoming')}
+                        >Upcoming</div>
+                    </div>
 
+                    <div className={`w-min px-5 py-1 rounded-2xl ${selected === 'past' ? 'bg-black': 'bg-transparent  border border-black'}`}>
+                    <div className={`text-center w-full text-md font-bold 
+                        ${selected === 'past' ? 'text-white' : 'text-black'}`}
+                        onClick={() => setSelected('past')}
+                        >Past</div>
+                    </div>
+                </div>
              </div>
 
              {selected === 'upcoming' ?
-            <div className='flex flex-col gap-5 mx-5 my-5'>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
                 <UpcomingTripCard></UpcomingTripCard>
                 <UpcomingTripCard></UpcomingTripCard>
                 <UpcomingTripCard></UpcomingTripCard>
 
+
             </div>
             :
-            <div className='flex flex-col gap-5 mx-5 my-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
                 <PastTripCard></PastTripCard>
                 <PastTripCard></PastTripCard>
                 <PastTripCard></PastTripCard>

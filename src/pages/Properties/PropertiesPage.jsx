@@ -43,7 +43,7 @@ function PropertiesPage() {
         </div>
       </div>
 
-    <div className='mx-5 mt-5'>
+    <div className='mt-5 container mx-auto'>
         <div className="text-black font-custom text-2xl font-bold capitalize">Nearby Properties</div>
         <div className='flex justify-between mt-3 mb-5'>
             <div className='h-8 w-8 bg-gray-200 rounded-md flex justify-center items-center'>

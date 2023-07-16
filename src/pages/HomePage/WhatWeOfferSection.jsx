@@ -6,9 +6,10 @@ import capacityImage from '../../assets/images/home/capacity.svg'
 function WhatWeOfferSection() {
   return (
     <>
-      <div className="w-full bg-neutral-100 flex flex-col justify-center items-center mt-5 backdrop-blur-[185px] pb-10">
-        <div className='font-custom text-2xl font-bold mt-10'>What We Offer</div>
-        <div className="ThePerfectPlaceToStay w-[230px] text-center text-zinc-900 text-opacity-40 text-[18px] font-normal capitalize leading-snug">The perfect place to stay</div>
+      <div className="w-full bg-neutral-100 flex flex-col justify-center items-center mt-5 backdrop-blur-[185px] pb-10 px-5">
+        <div className='w-full container mx-auto'>
+        <div className='font-custom text-2xl text-center font-bold mt-10'>What We Offer</div>
+        <div className="ThePerfectPlaceToStay text-center text-zinc-900 text-opacity-40 text-[18px] font-normal capitalize leading-snug">The perfect place to stay</div>
         <div className='flex flex-col lg:flex-row'>
           <div className='flex flex-col justify-center items-center mt-10'>
             <img src={bookingImage} alt='booking' className='w-16'></img>
@@ -28,7 +29,7 @@ function WhatWeOfferSection() {
             <div className='text-md text-gray-400 text-center pt-3'>Our rental costs cover everything. There are no additional fees for utilising our wifi, television, towels, or changeovers.</div>
           </div>
         </div>
-
+        </div>
       </div>
     </>
   )

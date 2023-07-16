@@ -10,7 +10,7 @@ import email_black from '../../assets/images/contact/email_black.svg'
 function ContactUs() {
   return (
     <>
-      <div class="hidden md:block z-20 absolute w-full pt-3">
+      <div class="hidden md:block z-20 absolute top-0 w-full pt-3">
           <DesktopNavbar />
         </div>
 
@@ -20,29 +20,44 @@ function ContactUs() {
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}
-      <div className="w-full pr-8 pt-16">
-        <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
-        <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-            <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
-            <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+            <div className='md:hidden'>
+        <div className="w-full pr-8 pt-16">
+          <img src={Image1} alt="About Us" className="w-full h-full object-cover mix-blend-darken" />
+          <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
+              <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
+              <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+          </div>
         </div>
       </div>
-          <div className='w-full h-full'>
-            <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg'>
+
+      <div className='hidden md:block mt-16 relative md:mr-10 xl:mr-20'>
+        <div className='w-full md:h-[600px] rounded-r-[150px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
+        </div>
+        <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>
+          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>About Us</div>
+          <div className='text-white text-lg drop-shadow-lg'>We Offer Unique Places Suitable For Your Confort</div>
+
+        </div>
+      </div>
+          <div className='w-full h-full md:px-5'>
+            <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg container mt-10 mx-auto'>
               <div className='font-custom text-xl mx-3 mt-3 text-black font-bold'>Get In Touch</div>
               <hr className="w-36 border-sm my-4 ml-3 border-[1px] border-black" />
-              <input className=" max-w-lg mx-3 h-12 my-4 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
-                    {/* Email Input */}
-                </input>
-                <textarea 
-                //set number of lines
-                rows={5}
-                className=" max-w-lg mx-3 h-36 my-4 px-2 bg-white rounded-lg" type='text' placeholder='Description'>
-                    {/* Email Input */}
-                </textarea>
-
-                <button className="bg-black text-white font-bold font-custom text-lg max-w-md h-12 rounded-lg mx-3 my-4">Submit</button>
-
+              <div className='flex flex-col md:flex-row gap-5'>
+                <input className=" md:w-full mx-3 h-12 my-4 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
+                      {/* Email Input */}
+                  </input>
+                  <input 
+                  //set number of lines
+                  rows={5}
+                  className=" md:w-full mx-3 h-36 md:h-12 my-4 px-2 bg-white rounded-lg" type='text' placeholder='Description'>
+                      {/* Email Input */}
+                  </input>
+                  <div className='h-12 rounded-lg px-10 w-min'>
+                    <button className="bg-black text-white font-bold font-custom text-lg h-12 w-40 rounded-lg my-4">Submit</button>
+                  </div>
+                </div>
                 <div className="mx-3 mb-5 flex flex-col text-center"><span className="text-zinc-800 text-xs font-normal leading-normal">Thank you so much for your interest! We’d love to hear from you and help you book your dream vacation! Please submit your email or email directly to: </span><span className="text-zinc-800 text-xs font-semibold leading-normal">info@mycityresidences.com</span></div>
 
                 <div className='pt-5 pl-5'>
@@ -62,12 +77,8 @@ function ContactUs() {
                       </div>
               </div>
             </div>
-            <Footer></Footer>
-
           </div>
-          
-
-
+          <Footer></Footer>
     </>
   )
 }

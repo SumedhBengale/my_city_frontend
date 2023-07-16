@@ -179,7 +179,7 @@ function Filter({ apply, close }) {
 
 
       <div className='fixed z-20 w-full h-full flex justify-center items-center backdrop-filter backdrop-blur-md'>
-      <div className='h-max z-30 overflow-scroll bg-white rounded-2xl p-2 hidden md:block'>
+      <div className='h-max z-30 bg-white overflow-hidden rounded-2xl p-2 hidden md:block'>
           <div className='flex justify-between'>
               <div className='font-bold' onClick={()=>{close()}}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-black rounded-md text-black" fill="none"
