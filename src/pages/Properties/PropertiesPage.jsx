@@ -1,5 +1,6 @@
 import {React, useState} from 'react'
 import Navbar from '../../components/navbar'
+import DesktopNavbar from '../../components/desktopNavbar'
 import PropertiesBackground from '../../assets/images/properties/properties_top_image.jpg'
 import SearchCard from '../../components/searchCard'
 import filterBlack from '../../assets/images/properties/filter_black.svg'
@@ -19,8 +20,12 @@ function PropertiesPage() {
           height: '100vh',
         }}
       > {/* Background Image */}
-        <div className='z-20 absolute w-full'>
-        <Navbar />
+        <div class="hidden md:block z-20 absolute w-full pt-3">
+          <DesktopNavbar />
+        </div>
+
+        <div class="md:hidden z-20 absolute w-full">
+          <Navbar />
         </div>
 
 
