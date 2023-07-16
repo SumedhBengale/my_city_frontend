@@ -11,9 +11,9 @@ function KnowMoreSection() {
         <div className='font-custom text-lg'>Our Serviced Apartments</div>
         <div className='text-md text-slate-700 p-5'>My city Residence is the ultimate city break apartment, with everything you need right on your doorstep. Situated in the heart of London in outstanding zone 1 covering marylebone, knightsbridge, kensington and many more beautiful locations.</div>
 
-        <div className='flex justify-center lg:justify-end mt-5'>
-        <div className="w-[178px] h-14 bg-zinc-900 rounded-xl backdrop-blur-md" >
-          <div className='text-white font-custom text-2xl h-full flex justify-center items-center'>Know More</div>
+        <div className='flex justify-center lg:justify-end mt-5 '>
+        <div className="w-[178px] h-14 bg-black text-white hover:scale-105 transition duration-75 cursor-pointer  rounded-xl backdrop-blur-md" >
+          <div className=' font-bold text-2xl h-full flex justify-center items-center'>Know More</div>
         </div>
       </div>
       </div>

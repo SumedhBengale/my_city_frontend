@@ -61,8 +61,8 @@ function Home() {
       </div>
 
       <div className='flex justify-center mt-10'>
-        <div className="w-[178px] h-14 bg-zinc-900 rounded-xl backdrop-blur-md" >
-          <div className='text-white font-bold text-2xl h-full flex justify-center items-center'>View All</div>
+        <div className="w-[178px] h-14 bg-black text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
+          <div className=' font-bold text-2xl h-full flex justify-center items-center'>View All</div>
         </div>
       </div>
 

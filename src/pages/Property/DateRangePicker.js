@@ -141,6 +141,8 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
             className={`px-5 py-1.5 flex items-center justify-center rounded-full cursor-pointer ${
               !isSameMonth(day, monthStart)
                 ? 'text-gray-500'
+                : isSameDay(day, startDate) || isSameDay(day, endDate)
+                ? 'bg-blue-500 text-white'
                 : startDate && endDate && day > startDate && day < endDate
                 ? 'bg-white'
                 : ''

@@ -20,6 +20,12 @@ function Notifications() {
             <Notification/>
             <Notification/>
             <Notification/>
+            <Notification/>
+            <Notification/>
+            <Notification/>
+            <Notification/>
+            <Notification/>
+            <Notification/>
 
         </div>
     </>

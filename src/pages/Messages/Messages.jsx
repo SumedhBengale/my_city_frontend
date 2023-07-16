@@ -43,10 +43,10 @@ function Messages() {
             <div className="flex items-center justify-between sticky bottom-0 p-2 container mx-auto">
                 <input
                     type="text"
-                    className="flex-grow mr-2 border rounded px-2 py-1 focus:outline-none"
+                    className="flex-grow mr-2 border rounded px-2 py-1 focus:outline-none hover:scale-y-110 transition duration-75"
                     placeholder="Type Here..."
                 />
-                <button className="bg-black text-white px-4 py-2 rounded-lg">
+                <button className="bg-black text-white hover:scale-105 transition duration-75 px-4 py-2 rounded-lg">
                     Send
                 </button>
             </div>

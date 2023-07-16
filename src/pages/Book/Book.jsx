@@ -1,11 +1,21 @@
 import React from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
 import Image1 from '../../assets/images/property/placeholder1.png'
+import Navbar from '../../components/navbar_black'
+import DesktopNavbar from '../../components/desktopNavbarBlack'
 
 function Book() {
     return (
+    
     <div className='min-h-screen flex flex-col justify-between'>
-         <div className='flex w-full h-full bg-white shadow-lg justify-between'>
+        <div class="hidden md:block z-20 absolute w-full pt-3">
+          <DesktopNavbar />
+        </div>
+
+        <div class="md:hidden z-20 absolute w-full">
+          <Navbar />
+        </div>
+         <div className='flex w-full h-full bg-white shadow-lg justify-between mt-16 container mx-auto'>
             <div className='w-10 h-full' onClick={()=>{
                 window.history.back();
             }}>
@@ -15,23 +25,23 @@ function Book() {
                 <div className='text-lg text-center font-bold '>Confirm Booking</div>
             </div>
         </div>
-        <div className='flex justify-between m-5'>
-            <div className='w-1/2'>
-                <img src={Image1} alt='left arrow' className='w-full h-full rounded-lg'/>
+        <div className='flex flex-col sm:flex-row justify-center gap-5 p-5'>
+            <div className='h-40'>
+                <img src={Image1} alt='left arrow' className='w-full sm:w-96 md:w-96 h-full rounded-lg'/>
             </div>
-            <div className='w-1/2 p-2'>
+            <div className=' p-2 max-w-[400px]'>
                 <div className='text-md'>{'Entire Flat'}</div>
                 <div className='text-lg font-bold'>{'Apetite De Bone Lux Apartment'}</div>
-                <div className='text-[10px] text-ellipsis text-overflow:hidden line-clamp-3'>{'The flat features a bright and airy living space, designed with contemporary furnishings.'}</div>
+                <div className='text-[10px] text-ellipsis text-overflow:hidden line-clamp-3'>{'The flat featureshe flat features a bright and airy living space, designed with contemporary furnishingshe flat features a bright and airy living space, designed with contemporary furnishingshe flat features a bright and airy living space, designed with contemporary furnishingshe flat features a bright and airy living space, designed with contemporary furnishingshe flat features a bright and airy living space, designed with contemporary furnishings a bright and airy living space, designed with contemporary furnishings.'}</div>
             </div>
 
             
         </div>
-        <div className='h-full mx-2 my-5'>
+        <div className='h-full my-5 container mx-auto'>
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className='px-4'>
+        <div className='px-4 container mx-auto'>
             <div className='text-lg font-bold pb-4'>Your Trips</div>
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
@@ -50,11 +60,11 @@ function Book() {
             </div>
         </div>
 
-        <div className='h-full mx-2 my-5'>
+        <div className='h-full my-5 container mx-auto'>
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className='px-4 flex flex-col gap-2'>
+        <div className='px-4 flex flex-col gap-2 container mx-auto'>
             <div className='text-lg font-bold pb-4'>Price Details</div>
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
@@ -100,7 +110,7 @@ function Book() {
         </div>
 
         <div className='flex flex-grow justify-center items-end'>
-            <button className='w-1/2 h-10 mt-6 mb-12 text-white bg-black rounded-lg'>Confirm</button>
+            <button className='w-1/2 h-10 mt-6 mb-12 text-white bg-black hover:scale-105 transition duration-75 rounded-lg max-w-[400px]'>Confirm</button>
         </div>
     </div>
   )

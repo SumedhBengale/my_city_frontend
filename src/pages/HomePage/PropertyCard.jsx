@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 function PropertyCard() {
   const navigate = useNavigate();
   return (
-    <div className="w-full md:max-w-[600px] max-w-[400px] bg-gray-200 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
+    <div className="w-full md:max-w-[600px] max-w-[400px] bg-gray-200 hover:bg-gray-300 transition duration-75 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
         <div className="fixed bottom-40 left-3 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">$19.99</div>
         <img className="w-full p-4" src={placeholderRoomImage} alt="Placeholder"/>
         <div className="px-6 py-3">
