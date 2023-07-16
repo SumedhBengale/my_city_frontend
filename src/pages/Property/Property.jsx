@@ -9,9 +9,10 @@ import Footer from '../HomePage/Footer'
 import DateRangePicker from './DateRangePicker'
 import MapContainer from './MapContainer'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
+import { useNavigate } from 'react-router-dom'
 
 function Property() {
-
+  const navigate = useNavigate();
   const coordinate = {
     latitude: 37.7749,
     longitude: -122.4194,
@@ -91,7 +92,7 @@ function Property() {
             <div className='text-xs'>9-10 July</div>
           </div>
           <div className=' flex justify-center'>
-            <button className='text-white border border-black bg-black py-2 px-4 rounded-lg font-bold'>Book</button>
+            <button className='text-white border border-black bg-black py-2 px-4 rounded-lg font-bold' onClick={()=>navigate('/book')}>Book</button>
           </div>
         </div>
 
@@ -233,7 +234,7 @@ function Property() {
           </div>
           
           <div className=' flex justify-center'>
-            <button className='text-black border border-black py-2 px-4 rounded-lg font-bold'>Enquire</button>
+            <button className='text-black hover:scale-105 transition duration-75 hover:bg-black hover:text-white active:text-black active:bg-white border border-black py-2 px-4 rounded-lg font-bold'>Enquire</button>
           </div>
         </div>
 
@@ -262,7 +263,7 @@ function Property() {
             <div className='text-xs'>9-10 July</div>
           </div>
           <div className=' flex justify-center'>
-            <button className='text-white border border-black bg-black py-2 px-4 rounded-lg font-bold'>Book</button>
+            <button className='text-white border border-black bg-black hover:scale-105 transition duration-75 py-2 px-4 rounded-lg font-bold' onClick={()=>navigate('/book')}>Book</button>
           </div>
         </div>
       </div>

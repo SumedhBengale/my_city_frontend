@@ -41,8 +41,8 @@ function ManagementPage() {
 
         <div className="w-full pl-8 pt-5">
           <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
-          <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full">
-            <button className='w-32 h-12 bg-black text-white rounded-md'>Contact Now</button>
+          <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full bg-black text-white hover:scale-105 transition duration-75 cursor-pointer ">
+            <button className='w-32 h-12 rounded-md'>Contact Now</button>
           </div>
         </div>
       </div>
@@ -61,8 +61,8 @@ function ManagementPage() {
         <div className='grid grid-cols-2 gap-5'>
           <div className='flex justify-center items-center ml-20'>
             <div className='flex flex-col justify-center items-start'>
-              <div className="font-custom text-2xl  pb-5 font-bold capitalize">Are you a property owner?</div>
-              <button className='w-32 h-12 bg-black text-white rounded-md'>Contact Now</button>
+              <div className="font-custom text-2xl  pb-5 font-bold capitalize ">Are you a property owner?</div>
+              <button className='w-32 h-12 rounded-md bg-black text-white hover:scale-105 transition duration-75 cursor-pointer'>Contact Now</button>
             </div>
           </div>
 
@@ -106,13 +106,13 @@ function ManagementPage() {
             <div className='text-md lg:text-xl text-center md:text-left text-black px-10 pt-5'>When you decided to rent your property, we bet you never bargained for all the hassle that came with it.</div>
             <div className='text-md lg:text-xl text-center md:text-left text-black px-10 pt-3'>Our mission is to provide landlords with a ‘set and forget’ service. Set the property up and leave it to us to take care of EVERYTHING - all you have to do is check your bank each month.</div>
             <div className='w-full flex justify-center md:justify-start'>
-              <button className='bg-black text-white font-bold py-2 px-4 rounded-lg h-12 w-40 my-5 mx-10'>Schedule a Call</button>
+              <button className='bg-black text-white hover:scale-105 transition duration-75 cursor-pointer font-bold py-2 px-4 rounded-lg h-12 w-40 my-5 mx-10'>Schedule a Call</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className='text-2xl text-black text-center mt-5 mx-2'>Let Us Handle It All</div>
+      <div className='text-2xl text-black font-bold text-center mt-5 mx-2'>Let Us Handle It All</div>
 
       <div className="w-full pr-8 pt-16 relative lg:pr-20">
       <div className='w-full h-56 md:h-[400px] rounded-r-[50px] md:rounded-r-[150px]'>
@@ -151,7 +151,7 @@ function ManagementPage() {
         </div>
 
         <div className='w-full flex justify-center'>
-          <button className='bg-black text-white font-bold py-2 px-4 rounded-lg h-12 w-40 my-5 mx-10'>Schedule a Call</button>
+          <button className='bg-black text-white hover:scale-105 transition duration-75 cursor-pointer font-bold py-2 px-4 rounded-lg h-12 w-40 my-5 mx-10'>Schedule a Call</button>
         </div>
 
         <FrequentQuestionsSection></FrequentQuestionsSection>

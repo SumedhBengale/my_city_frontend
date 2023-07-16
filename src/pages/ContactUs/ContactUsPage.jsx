@@ -54,7 +54,7 @@ function ContactUs() {
                   className=" md:w-full mx-3 h-36 md:h-12 my-4 px-2 bg-white rounded-lg" type='text' placeholder='Description'>
                       {/* Email Input */}
                   </input>
-                  <div className='h-12 rounded-lg px-10 w-min'>
+                  <div className='h-12 rounded-lg px-10 w-min hover:scale-105 transition duration-75'>
                     <button className="bg-black text-white font-bold font-custom text-lg h-12 w-40 rounded-lg my-4">Submit</button>
                   </div>
                 </div>

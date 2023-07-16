@@ -31,7 +31,7 @@ function HowCanWeHelp() {
                         <div className='text-md px-4  text-left'>We constantly aim to go above and above to provide our landlords with outstanding customer service, regardless of the time of day.</div>
                     </div>
                     <div className='w-full flex justify-center'>
-                        <button className='bg-black text-white font-bold py-2 px-4 rounded-lg h-12 w-full max-w-md mx-10'>Schedule a Call</button>
+                        <button className='bg-black text-white hover:scale-105 transition duration-75 cursor-pointer font-bold py-2 px-4 rounded-lg h-12 w-full max-w-md mx-10'>Schedule a Call</button>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,7 @@ function SearchCard() {
                   <div className='font-bold font-custom text-xl'>Where to?</div>
                 </div>
               </div>
-            <div className='text-white text-[18px] font-bold' onClick={()=>setFilterVisible(true)}>
+            <div className='text-white text-[18px] font-bold active:scale-105 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
               <img src={filterIcon} alt='filter' className=''></img>
             </div>
           </div>
@@ -92,9 +92,9 @@ function SearchCard() {
           </div>
 
 
-          <div className="w-full col-span-2 h-10 bg-white rounded-lg border" onClick={()=>navigate('/properties')}>
+          <div className="w-full col-span-2 h-10 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>navigate('/properties')}>
           <div className="w-full relative h-full z-0 flex">
-              <div className='w-full text-center self-center text-black flex justify-center items-center'>Search</div>
+              <div className='w-full text-center self-center flex justify-center items-center'>Search</div>
           </div>
           </div>
 
@@ -156,15 +156,15 @@ function SearchCard() {
 
             <div className='h-20 w-[2px] bg-white'></div>
 
-            <div className='text-white text-[18px] font-bold flex items-center' onClick={()=>setFilterVisible(true)}>
+            <div className='text-white text-[18px] font-bold flex items-center hover:scale-110 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
               <img src={filterIcon} alt='filter' className=''></img>
             </div>
 
             <div className='h-20 w-[2px] bg-white'></div>
 
-            <div className="w-32 h-6 md:h-10 self-center bg-white rounded-lg border" onClick={()=>navigate('/properties')}>
+            <div className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>navigate('/properties')}>
               <div className="relative h-full z-0 flex">
-                  <div className='w-full text-center font-bold self-center text-black flex justify-center items-center'>Search</div>
+                  <div className='w-full text-center font-bold self-center flex justify-center items-center'>Search</div>
               </div>
             </div>
 
