@@ -3,14 +3,23 @@ import { NavLink, useLocation } from 'react-router-dom';
 import person from '../assets/images/navbar/person.svg';
 import notificationWhite from '../assets/images/navbar/notification_white.svg';
 import { useNavigate } from 'react-router-dom';
+import Notification from '../pages/Notifications/Notifications_Desktop'
 
 function DesktopNavbar() {
     const navigate = useNavigate();
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+    const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
     const location = useLocation();
   
+    const handleNotificationMenuClick = () => {
+      console.log('clicked');
+      accountMenuOpen ? setAccountMenuOpen(false) : console.log('account menu not open');
+      setNotificationMenuOpen(!notificationMenuOpen);
+    }
+
     const handleAccountMenuClick = () => {
       console.log('clicked');
+      notificationMenuOpen ? setNotificationMenuOpen(false) : console.log('notification menu not open');
       setAccountMenuOpen(!accountMenuOpen);
     }
   
@@ -62,10 +71,7 @@ function DesktopNavbar() {
                 <img
                     src={notificationWhite}
                     alt='notification menu'
-                    onClick={()=>{
-                    //Navigate to notifications page
-                    navigate('/notifications')
-                    }}
+                    onClick={handleNotificationMenuClick}
                     className='px-2 color-white'
                 />
         
@@ -76,6 +82,13 @@ function DesktopNavbar() {
                 />
               </div>
 
+              {notificationMenuOpen && (
+            <div className='w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl'>
+          <div className='relative top-0 right-0 w-96 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl'>
+                <Notification></Notification>
+          </div>
+            </div>
+        )}
 
 
 
