@@ -7,8 +7,8 @@ function HowCanWeHelp() {
         <div className='text-center font-custom text-2xl font-bold mt-10'>How Can We Help?</div>
 
 
-        <div className="flex flex-col md:flex-row justify-center items-center m-5">
-            <div className=" w-full h-max bg-gray-200 rounded-2xl ">
+        <div className="flex flex-col md:flex-row justify-center items-center m-5 container mx-auto">
+            <div className=" w-full h-max bg-gray-200 rounded-2xl">
                 <div className='text-md px-5 pb-8 pt-3 text-left'>We are constantly looking for new properties because of our high occupancy rate and rising demand. If you are a landlord wanting to rent or sell your property, you have come to the right place.</div>
                 <div className='flex flex-col gap-4 pb-5'>
                     <div className='flex justify-start items-center'>

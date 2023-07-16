@@ -33,21 +33,21 @@ const HorizontalScrollView = () => {
       onScroll={handleScroll}
       ref={scrollContainerRef}
     >
-      <div className="flex p-4 space-x-4 h-96">
+      <div className="flex h-96">
         {Array.from(Array(10).keys()).map((index) => {
           const distanceFromCenter = Math.abs(index - centerIndex);
           const scale = distanceFromCenter === 0 ? 1.25 : 1 - distanceFromCenter * 0.1;
           return (
             <div
               key={index}
-              className="flex-none flex items-center justify-center transition-all duration-300"
+              className="flex items-center justify-center transition-all duration-300"
               style={{
                 width: `${itemWidth}px`,
                 transform: `scale(${scale})`,
                 transformOrigin: 'center center',
               }}
             >
-              <div className="Rectangle h-72 w-2/3 p-4 bg-neutral-100 rounded-2xl border backdrop-blur-[185px]" >
+              <div className="h-72 w-2/3 p-4 bg-neutral-100 rounded-2xl border backdrop-blur-[185px]" >
                 <div className='flex justify-center flex-col'>
                   <div className='w-full flex justify-center'>
                     <img src={placeholder_user_image} alt="demo user" className="rounded-full w-1/4" />
@@ -89,11 +89,11 @@ const HorizontalScrollView = () => {
 
 function ReviewShowcaseSection() {
   return (
-    <>
-      <div className="font-custom text-3xl text-center text-black font-bold pt-10">Hear From Our Happy Guests</div>
+    <div className='w-full'>
+      <div className="font-custom text-3xl text-center text-black font-bold pt-10 container mx-auto">Hear From Our Happy Guests</div>
       <div className="text-slate-400 text-center font-custom text-lg pt-3">Read Our Recent Reviews</div>
       <HorizontalScrollView />
-    </>
+    </div>
   );
 }
 

@@ -14,22 +14,24 @@ function Wishlist() {
                 <div className='text-lg text-center font-bold '>Wishlist</div>
             </div>
         </div>
-        <div className='grid grid-cols-2 gap-2 mx-2 mt-6'>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
-            <WishItem></WishItem>
+        <div className='w-full px-5'>
+            <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 mt-6 container mx-auto'>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+                <WishItem></WishItem>
+            </div>
         </div>
         <div className='w-full flex justify-center'>
             <button className='w-1/2 h-12 mt-6 mb-12 text-white bg-black rounded-lg'>Edit Wishlist</button>

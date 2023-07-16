@@ -104,7 +104,7 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate, onClickOutside }) => 
   };
 
   return (
-    <div className="w-full m-10  p-5 h-96 bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
+    <div className="w-full md:w-1/2 lg:w-1/3 m-10  p-5 h-96 bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
       {renderHeader()}
       {renderDaysOfWeek()}
       {renderDays()}
