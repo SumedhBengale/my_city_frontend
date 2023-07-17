@@ -44,7 +44,7 @@ function ContactUs() {
             <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg container mt-10 mx-auto'>
               <div className='font-custom text-xl mx-3 mt-3 text-black font-bold'>Get In Touch</div>
               <hr className="w-36 border-sm my-4 ml-3 border-[1px] border-black" />
-              <div className='flex flex-col md:flex-row gap-5'>
+              <div className='flex flex-col md:flex-row gap-5 w-full justify-center'>
                 <input className=" md:w-full mx-3 h-12 my-4 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
                       {/* Email Input */}
                   </input>
@@ -54,7 +54,7 @@ function ContactUs() {
                   className=" md:w-full mx-3 h-36 md:h-12 my-4 px-2 bg-white rounded-lg" type='text' placeholder='Description'>
                       {/* Email Input */}
                   </input>
-                  <div className='h-12 rounded-lg px-10 w-min hover:scale-105 transition duration-75'>
+                  <div className=' rounded-lg px-10 w-full md:w-min hover:scale-105 transition duration-75 flex justify-center'>
                     <button className="bg-black text-white font-bold font-custom text-lg h-12 w-40 rounded-lg my-4">Submit</button>
                   </div>
                 </div>
