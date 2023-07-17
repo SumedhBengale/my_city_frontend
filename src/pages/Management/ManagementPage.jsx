@@ -41,8 +41,8 @@ function ManagementPage() {
 
         <div className="w-full pl-8 pt-5">
           <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
-          <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full bg-black text-white hover:scale-105 transition duration-75 cursor-pointer ">
-            <button className='w-32 h-12 rounded-md'>Contact Now</button>
+          <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full">
+            <button className='w-32 h-12 rounded-md bg-black text-white hover:scale-105 transition duration-75'>Contact Now</button>
           </div>
         </div>
       </div>
@@ -132,8 +132,8 @@ function ManagementPage() {
         </div>
           <div className='absolute top-8 h-full flex items-center justify-center pl-5'>
             <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max bg-white bg-opacity-5 rounded-2xl border border-white backdrop-blur-md">
-              <div className=" w-full text-center text-white font-custom text-sm md:text-xl px-2 pb-1">Management that is simple</div>
-              <div className=" w-full text-center text-white text-[10px] sm:text-lg px-2 font-normal pb-2 ">Our experienced staff will examine the condition, location, accessibility, and zoning rules of the property. We’ll discuss contracts and locate one that meets your demands once we’ve determined the financial sustainability of your property.</div>
+              <div className=" w-full text-center text-white font-custom text-sm md:text-xl px-2 pb-1">Verified Tenants</div>
+              <div className=" w-full text-center text-white text-[10px] sm:text-lg px-2 font-normal pb-2 ">We have been landlords and agents for a long period of time and understand how important it is to pick the finest quality renters for the property. Our renters are all professionals who have been carefully verified before moving in.</div>
             </div>
           </div>
         </div>
@@ -144,8 +144,8 @@ function ManagementPage() {
         </div>
           <div className='absolute top-8 h-full flex items-center justify-center pr-5'>
             <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max bg-white bg-opacity-5 rounded-2xl border border-white backdrop-blur-md">
-              <div className=" w-full text-center text-white font-custom text-sm md:text-xl px-2 pb-1">Management that is simple</div>
-              <div className=" w-full text-center text-white text-[10px] sm:text-lg px-2 font-normal pb-2 ">Our experienced staff will examine the condition, location, accessibility, and zoning rules of the property. We’ll discuss contracts and locate one that meets your demands once we’ve determined the financial sustainability of your property.</div>
+              <div className=" w-full text-center text-white font-custom text-sm md:text-xl px-2 pb-1">We Handle all the Tenants</div>
+              <div className=" w-full text-center text-white text-[10px] sm:text-lg px-2 font-normal pb-2 ">No more worrying about another late-night call from your renter. Our customer support representatives are in charge of all setup, daily operations, and guest communications.</div>
             </div>
           </div>
         </div>
