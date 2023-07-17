@@ -35,7 +35,7 @@ function Home() {
         <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
           <div className='lg:hidden'>
             <div className='font-custom text-4xl text-white font-bold text-center'>My City Residence</div>
-            <div className='font-custom text-lg w-3/4 text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+            <div className='font-custom text-lg w-full text-center text-white capitalize mb-10'>Discover your next home away from home</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>
