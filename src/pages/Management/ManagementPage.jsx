@@ -18,12 +18,16 @@ import Footer from '../../pages/HomePage/Footer'
 function ManagementPage() {
   return (
     <>
-    <div class="hidden md:block z-20 absolute top-0 w-full pt-3">
-          <DesktopNavbar />
+        <div className="hidden md:block z-20 fixed top-0 w-full">
+        {
+           <DesktopNavbar />
+        }
         </div>
 
-        <div class="md:hidden z-20 absolute w-full">
-          <Navbar />
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            <Navbar />
+          }
         </div>
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 

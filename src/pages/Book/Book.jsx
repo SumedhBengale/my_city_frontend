@@ -8,12 +8,16 @@ function Book() {
     return (
     
     <div className='min-h-screen flex flex-col justify-between'>
-        <div class="hidden md:block z-20 absolute w-full pt-3">
-          <DesktopNavbar />
+        <div className="hidden md:block z-20 fixed top-0 w-full">
+        {
+           <DesktopNavbar />
+        }
         </div>
 
-        <div class="md:hidden z-20 absolute w-full">
-          <Navbar />
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            <Navbar />
+          }
         </div>
          <div className='flex w-full h-full bg-white shadow-lg justify-between mt-16 container mx-auto'>
             <div className='w-10 h-full' onClick={()=>{

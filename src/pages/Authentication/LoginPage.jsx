@@ -1,13 +1,17 @@
-import React from 'react';
+import {React, useState} from 'react';
 import loginBackground from '../../assets/images/login/login_background.jpg';
 import Logo from '../../assets/images/white_logo.png';
 import GoogleLogo from '../../assets/images/login/google_logo.svg';
 import FacebookLogo from '../../assets/images/login/facebook_logo.svg';
 import EmailLogo from '../../assets/images/login/email_logo.svg';
 import { useNavigate } from 'react-router-dom';
+import {login} from './api'
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    //email and password controllers
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
   return (
     
     <div
@@ -24,17 +28,38 @@ const LoginPage = () => {
                 <img src={Logo} alt='My City Logo' className='w-48 self-start mb-5'></img>
                 <div className="w-full h-80 p-4 bg-white bg-opacity-5 rounded-2xl border backdrop-blur-md"> {/* Blur Rectangle */}
                     <div className="WelcomeBack text-white text-[18px] font-bold">Welcome Back</div>
-                    <input className="w-full h-12 mt-4 px-2 bg-white rounded-lg" type='text' placeholder='Email'>
+                    <input className="w-full h-12 mt-4 px-2 bg-white rounded-lg" type='text' placeholder='Email' onChange={(e)=>setEmail(e.target.value)}>
                         {/* Email Input */}
                     </input>
-                    <input className="w-full h-12 mt-4 px-2 bg-white rounded-lg" type='password' placeholder='Password'>
+                    <input className="w-full h-12 mt-4 px-2 bg-white rounded-lg" type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)}>
                         {/* Password Input */}
                     </input>
                     {/*Forgot Password Link */}
                     <div className="flex justify-end items-center mt-4">
                         <div className="text-white underline">Forgot Password?</div>
                     </div>
-                    <button className="w-full flex justify-center items-center h-12 mt-4 px-2 bg-white rounded-lg font-bold text-black" onClick={()=>navigate('/')}>Login</button>
+                    <button className="w-full flex justify-center items-center h-12 mt-4 px-2 bg-white rounded-lg font-bold text-black" onClick={async ()=>{
+                        console.log("clicked")
+                        await login(email, password).then((response)=>{
+                            if(response.status === 200){
+                                //Save token to local storage
+                                localStorage.setItem('token', response.token)
+                                console.log("Set Item")
+                                navigate('/')
+                                console.log("Navigated")
+                            }
+                            else if(response.status === 404){
+                                console.log("User not Found")
+                            }else if(response.status === 401){
+                                console.log("Incorrect Password")
+                            }
+                            else{
+                                console.log(response.status)
+                                console.log("Error")
+                            }}).catch((error)=>{
+                                console.log(error)
+                            })}}
+                            >Login</button>
                 </div>
 
 

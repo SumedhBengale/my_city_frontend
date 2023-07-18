@@ -1,6 +1,8 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import Navbar from '../../components/navbar'
+import NavbarBlack from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbar'
+import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 import homeBackground from '../../assets/images/home/home_top_image.jpg'
 import IntroductionSection from './IntroductionSection'
 import PropertyCard from './PropertyCard'
@@ -13,6 +15,25 @@ import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 
 function Home() {
+  const [blackNavbar, setBlackNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const screenHeight = window.innerHeight;
+      const scrollPosition = window.scrollY;
+      console.log(scrollPosition, screenHeight * 70 / 100)
+      if (scrollPosition >= screenHeight * 70 / 100) {
+        setBlackNavbar(true);
+      } else {
+        setBlackNavbar(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <>
       <div
@@ -21,21 +42,26 @@ function Home() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           width: '100%',
-          height: '100vh',
+          height: '80vh',
         }}
       > {/* Background Image */}
-        <div class="hidden md:block z-20 absolute w-full pt-3">
-          <DesktopNavbar />
+        <div className="hidden md:block z-20 fixed w-full">
+        {
+          blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />
+        }
         </div>
 
-        <div class="md:hidden z-20 absolute w-full">
-          <Navbar />
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            blackNavbar ? <NavbarBlack /> : <Navbar />
+          }
         </div>
+
 
         <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
           <div className='lg:hidden'>
-            <div className='font-custom text-4xl text-white font-bold text-center'>My City Residence</div>
-            <div className='font-custom text-lg w-full text-center text-white capitalize mb-10'>Discover your next home away from home</div>
+            <div className='font-custom text-2xl sm:text-4xl text-white font-bold text-center pt-10 pb-4'>My City Residence</div>
+            <div className=' text-lg w-full text-center text-white capitalize sm-3 sm:mb-10'>Discover your next home away from home</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>

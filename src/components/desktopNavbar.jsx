@@ -26,7 +26,7 @@ function DesktopNavbar() {
     return (
       <>
         
-        <div className=' w-full bg-transparent flex justify-end text-white gap-3 px-5'>
+        <div className=' w-full bg-transparent flex justify-end text-white gap-3 px-5  py-2'>
                 <NavLink
                   to='/'
                   exact
@@ -158,7 +158,10 @@ function DesktopNavbar() {
             Help
           </NavLink>
           <div
-            className={`flex justify-end w-full`}
+            className={`flex justify-end w-full`} onClick={() =>{
+              localStorage.removeItem('token');
+              navigate('/login')
+            }}
           >
             Log Out
           </div>

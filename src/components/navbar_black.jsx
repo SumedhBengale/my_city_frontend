@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <>
       <div
-        className={`flex justify-between p-3`}
+        className={`flex justify-between p-3 bg-white`}
       >
         <img
           src={hamburgerMenuBlack}
@@ -167,7 +167,10 @@ function Navbar() {
           Help
         </NavLink>
         <div
-          className={`flex justify-end w-full`}
+          className={`flex justify-end w-full`} onClick={() =>{
+            localStorage.removeItem('token');
+            navigate('/login')
+          }}
         >
           Log Out
         </div>
