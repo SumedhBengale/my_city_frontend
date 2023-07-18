@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/Authentication/LoginPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
@@ -18,10 +18,15 @@ import Messages from './pages/Messages/Messages';
 
 
 const App = () => {
+  const getToken = () => { localStorage.getItem('token') };
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<HomePage></HomePage>} />
+        <Route exact path="/" element={
+          //check whether the user is logged in or not
+          // getToken ? <HomePage></HomePage> : <Navigate to="/login"></Navigate>
+          <HomePage></HomePage>
+        } />
         <Route exact path="/login" element={<LoginPage></LoginPage>} />
         <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
         <Route exact path="/properties" element={<PropertiesPage></PropertiesPage>} />

@@ -3,8 +3,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import personBlack from '../assets/images/navbar/person_black.svg';
 import notification from '../assets/images/navbar/notification.svg';
 import Notification from '../pages/Notifications/Notifications_Desktop'
+import { useNavigate } from 'react-router-dom';
 
 function DesktopNavbar() {
+    const navigate = useNavigate();
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
     const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
     const location = useLocation();
@@ -25,7 +27,7 @@ function DesktopNavbar() {
     return (
       <>
         
-        <div className=' w-full bg-transparent flex justify-end text-black gap-3 px-5'>
+        <div className=' w-full bg-white flex justify-end text-black gap-3 px-5 py-2'>
                 <NavLink
                   to='/'
                   exact
@@ -157,7 +159,10 @@ function DesktopNavbar() {
             Help
           </NavLink>
           <div
-            className={`flex justify-end w-full`}
+            className={`flex justify-end w-full`} onClick={() =>{
+              localStorage.removeItem('token');
+              navigate('/login')
+            }}
           >
             Log Out
           </div>

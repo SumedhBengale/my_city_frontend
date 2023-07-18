@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import hamburgerMenuBlack from '../assets/images/navbar/hamburger_menu_black.svg';
 import logoBlack from '../assets/images/black_logo.png';
@@ -11,9 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
+  // const [color, setColor] = useState('bg-blue-500');
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const location = useLocation();
+
 
   const handleMenuClick = () => {
     if(accountMenuOpen === true){setAccountMenuOpen(false)}
@@ -30,7 +32,7 @@ function Navbar() {
   return (
     <>
       <div
-        className={`flex justify-between p-3 ${
+        className={`flex justify-between p-3 colored-div ${
           menuOpen === true ? 'bg-white' : 'bg-transparent'
         }`}
       >
@@ -172,7 +174,10 @@ function Navbar() {
           Help
         </NavLink>
         <div
-          className={`flex justify-end w-full`}
+          className={`flex justify-end w-full`} onClick={() =>{
+            localStorage.removeItem('token');
+            navigate('/login')
+          }}
         >
           Log Out
         </div>

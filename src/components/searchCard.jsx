@@ -36,15 +36,15 @@ function SearchCard() {
         console.log('filter applied')
         console.log(data)
       }} close={()=>setFilterVisible(false)}></Filter>}
-      <div className="z-0 m-4 w-full md:w-4/5 h-96 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
-        <div className='grid grid-cols-2 gap-9 text-white'>
+      <div className="z-0 m-4 w-full md:w-4/5 h-min sm:h-96 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
+        <div className='grid grid-cols-2 gap-3 sm:gap-9 text-white'>
 
           <div className='col-span-2 flex justify-between'>{/* Location and Filter */}
               <div className='flex'>
                 <img src={locationPin} alt='location pin' className=''></img>
                 <div className='pl-2'>
-                  <div className='text-sm'>Select Location</div>
-                  <div className='font-bold font-custom text-xl'>Where to?</div>
+                  <div className='text-xs sm:text-sm'>Select Location</div>
+                  <div className='font-custom text-md sm:text-md font-bold'>Where to?</div>
                 </div>
               </div>
             <div className='text-white text-[18px] font-bold active:scale-105 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
@@ -55,18 +55,18 @@ function SearchCard() {
           <div className='col-span-2 flex justify-between'>{/* Start and End Date Selector */}
 
             <div className='flex active:scale-90 transition ease-in duration-50' onClick={()=>setStartDatePickerVisible(true)}>
-              <img src={calendar} alt='calendar' className=''></img>
+              <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
               <div className='pl-2'>
-                <div className='text-sm'>Check-in Date</div>
-                <div className='font-custom text-xl font-bold'>Select</div>
+                <div className='text-xs sm:text-sm'>Check-in Date</div>
+                <div className='font-custom text-md sm:text-md font-bold'>Select</div>
               </div>
             </div>
 
-            <div className='flex active:scale-90 transition ease-in duration-50' onClick={()=>setEndDatePickerVisible(!endDatePickerVisible)}>
-              <img src={calendar} alt='calendar' className=''></img>
+            <div className='flex active:scale-90 transition ease-in duration-50 ' onClick={()=>setEndDatePickerVisible(!endDatePickerVisible)}>
+              <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
               <div className='pl-2'>
-                <div className='text-sm'>Check-out Date</div>
-                <div className='font-custom text-xl font-bold'>Select</div>
+                <div className='text-xs sm:text-sm'>Check-out Date</div>
+                <div className='font-custom text-md sm:text-md font-bold'>Select</div>
               </div>
             </div>
 
@@ -76,16 +76,16 @@ function SearchCard() {
             <div className='flex'>
               <img src={guests} alt='calendar' className=''></img>
               <div className='pl-2'>
-                <div className='text-sm'>No. of guests</div>
-                <div className='font-custom text-xl font-bold'>2{/*Get this input */}</div>
+                <div className='text-xs sm:text-sm'>Number of guests</div>
+                <div className='font-custom text-md sm:text-md font-bold'>2{/*Get this input */}</div>
               </div>
             </div>
 
             <div className='flex'>
               <img src={rooms} alt='calendar' className=''></img>
               <div className='pl-2'>
-                <div className='text-sm'>No. of rooms</div>
-                <div className='font-custom text-xl font-bold'>1{/*Get this input */}</div>
+                <div className='text-xs sm:text-sm'>Number of rooms</div>
+                <div className='font-custom text-md sm:text-md font-bold'>1{/*Get this input */}</div>
               </div>
             </div>
 
