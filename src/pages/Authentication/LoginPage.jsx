@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import loginBackground from '../../assets/images/login/login_background.jpg';
+import loginBackground from '../../assets/images/login/login_background.png';
 import Logo from '../../assets/images/white_logo.png';
 import GoogleLogo from '../../assets/images/login/google_logo.svg';
 import FacebookLogo from '../../assets/images/login/facebook_logo.svg';

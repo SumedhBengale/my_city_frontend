@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
-import Image1 from '../../assets/images/management/image1.png'
+import Image1 from '../../assets/images/property/placeholder1.png'
 import Image2 from '../../assets/images/management/image2.png'
 import Image4 from '../../assets/images/management/image4.png'
 import Image5 from '../../assets/images/management/image5.png'
@@ -36,15 +36,14 @@ function ManagementPage() {
           <div className='h-16 bg-transparent'></div>
           <FadeInSection>
           
-          <div className='md:hidden '>
-            <div className='w-full h-[300px] rounded-r-[50px]'>
-          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[50px] pr-5" />
+          <div className='md:hidden relative mr-5'>
+        <div className='w-full h-[300px] rounded-r-[70px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[70px] " />
         </div>
-        <div className='fixed bottom-0 pr-5 h-full w-full'>
-          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[70px] px-5'>
-            <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Blog</div>
-            <div className='text-white text-md drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
-          </div>
+        <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full pb-20 bg-gradient-to-b from-transparent via-gray to-black/60 rounded-r-[70px] px-10'>
+          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Blog</div>
+          <div className='text-white text-md drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
+
         </div>
       </div>
 
@@ -77,16 +76,18 @@ function ManagementPage() {
           </div>
         </div>
           </FadeInSection>
+          <div className='md:hidden'>
           <FadeInSection>
           <div className="font-custom font-bold text-2xl md:pl-8 sm:pt-8 pt-5 capitalize pl-5">Are you a property owner?</div>
 
-          <div className="w-full pl-8 pt-5">
-            <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
+          <div className="w-full pl-8 pt-5 h-[300px] rounded-l-[70px]">
+            <img src={Image2} alt="About Us" className="w-full h-full object-cover rounded-l-[70px]" />
             <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full">
               <button className='w-32 h-12 rounded-md bg-black font-bold text-white hover:scale-105 transition duration-75'>Contact Now</button>
             </div>
           </div>
           </FadeInSection>
+          </div>
           <FadeInSection>
 
       <div className="Rectangle w-full bg-gray-200 px-10 pt-10 mt-20">
