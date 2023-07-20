@@ -1,7 +1,6 @@
 import React from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
 import Image1 from '../../assets/images/property/placeholder1.png'
-import Navbar from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 
 function Book() {
@@ -13,13 +12,8 @@ function Book() {
            <DesktopNavbar />
         }
         </div>
-
-        <div className="md:hidden z-20 fixed w-full">
-          {
-            <Navbar />
-          }
-        </div>
-         <div className='flex w-full h-full bg-white shadow-lg justify-between mt-16 container mx-auto'>
+        
+         <div className='flex w-full h-full bg-white shadow-lg justify-between  md:mt-16 container mx-auto'>
             <div className='w-10 h-full' onClick={()=>{
                 window.history.back();
             }}>
@@ -29,7 +23,7 @@ function Book() {
                 <div className='text-lg text-center font-bold '>Confirm Booking</div>
             </div>
         </div>
-        <div className='flex flex-col sm:flex-row justify-center gap-5 p-5'>
+        <div className='flex flex-col sm:flex-row justify-start gap-5 p-5 container mx-auto'>
             <div className='h-40'>
                 <img src={Image1} alt='left arrow' className='w-full sm:w-96 md:w-96 h-full rounded-lg'/>
             </div>
@@ -41,6 +35,8 @@ function Book() {
 
             
         </div>
+
+
         <div className='h-full my-5 container mx-auto'>
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>

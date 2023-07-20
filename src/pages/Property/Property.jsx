@@ -182,12 +182,6 @@ function Property() {
     </div>
 
 
-
-
-
-
-
-
     <div className='hidden md:block'>
 
     <DesktopNavbar></DesktopNavbar>
