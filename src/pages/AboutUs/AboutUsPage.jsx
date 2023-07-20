@@ -31,8 +31,8 @@ function AboutUsPage() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[70px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full pb-20 bg-gradient-to-b from-transparent via-gray to-black/60 rounded-r-[70px] px-10'>
-          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Blog</div>
-          <div className='text-white text-md drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
+          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Who Are We?</div>
+          <div className='text-white text-md drop-shadow-lg'>Discover your next home away from home</div>
 
         </div>
       </div>
