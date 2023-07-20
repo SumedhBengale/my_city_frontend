@@ -13,7 +13,7 @@ function Notifications() {
                 <div className='text-lg text-center font-bold '>Notifications</div>
             </div>
         </div>
-        <div className='flex flex-col mx-2 mt-6'>
+        <div className='flex flex-col mx-2 mt-6 gap-1'>
             <Notification/>
             <Notification/>
             <Notification/>

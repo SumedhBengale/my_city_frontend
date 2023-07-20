@@ -47,7 +47,7 @@ const HorizontalScrollView = () => {
                 transformOrigin: 'center center',
               }}
             >
-              <div className="h-72 w-2/3 p-4 bg-neutral-100 rounded-2xl border backdrop-blur-[185px]" >
+              <div className="h-72 w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]" >
                 <div className='flex justify-center flex-col'>
                   <div className='w-full flex justify-center'>
                     <img src={placeholder_user_image} alt="demo user" className="rounded-full w-1/4" />
@@ -89,9 +89,9 @@ const HorizontalScrollView = () => {
 
 function ReviewShowcaseSection() {
   return (
-    <div className='w-full'>
-      <div className="font-custom text-3xl text-center text-black font-bold pt-10 container mx-auto">Hear From Our Happy Guests</div>
-      <div className="text-slate-400 text-center font-custom text-lg pt-3">Read Our Recent Reviews</div>
+    <div className='w-full bg-zinc-100'>
+      <div className="font-custom font-bold text-3xl text-center text-black pt-10 container mx-auto">Hear From Our Happy Guests</div>
+      <div className="text-zinc-900 text-opacity-40 text-center text-lg pt-3">Read Our Recent Reviews</div>
       <HorizontalScrollView />
     </div>
   );

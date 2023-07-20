@@ -31,12 +31,14 @@ function SearchCard() {
       </div>
       }
       {filterVisible &&
+      <div className='h-screen w-screen'>
       <Filter apply={(data)=>{
         setFilterVisible(false)
         console.log('filter applied')
         console.log(data)
-      }} close={()=>setFilterVisible(false)}></Filter>}
-      <div className="z-0 m-4 w-full md:w-4/5 h-min sm:h-96 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
+      }} close={()=>setFilterVisible(false)}></Filter>
+      </div>}
+      <div className="z-0 m-4 w-full md:w-3/5 h-min sm:h-80 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
         <div className='grid grid-cols-2 gap-3 sm:gap-9 text-white'>
 
           <div className='col-span-2 flex justify-between'>{/* Location and Filter */}
@@ -44,7 +46,7 @@ function SearchCard() {
                 <img src={locationPin} alt='location pin' className=''></img>
                 <div className='pl-2'>
                   <div className='text-xs sm:text-sm'>Select Location</div>
-                  <div className='font-custom text-md sm:text-md font-bold'>Where to?</div>
+                  <div className=' text-md sm:text-md font-bold'>Where to?</div>
                 </div>
               </div>
             <div className='text-white text-[18px] font-bold active:scale-105 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
@@ -53,48 +55,49 @@ function SearchCard() {
           </div>
 
           <div className='col-span-2 flex justify-between'>{/* Start and End Date Selector */}
-
-            <div className='flex active:scale-90 transition ease-in duration-50' onClick={()=>setStartDatePickerVisible(true)}>
-              <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
-              <div className='pl-2'>
-                <div className='text-xs sm:text-sm'>Check-in Date</div>
-                <div className='font-custom text-md sm:text-md font-bold'>Select</div>
+            <div className='flex flex-col gap-5'>
+              <div className='flex active:scale-90 transition ease-in duration-50' onClick={()=>setStartDatePickerVisible(true)}>
+                <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
+                <div className='pl-2'>
+                  <div className='text-xs sm:text-sm'>Check-in Date</div>
+                  <div className=' text-md sm:text-md font-bold'>Select</div>
+                </div>
               </div>
-            </div>
 
-            <div className='flex active:scale-90 transition ease-in duration-50 ' onClick={()=>setEndDatePickerVisible(!endDatePickerVisible)}>
-              <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
-              <div className='pl-2'>
-                <div className='text-xs sm:text-sm'>Check-out Date</div>
-                <div className='font-custom text-md sm:text-md font-bold'>Select</div>
+              <div className='col-span-2 flex justify-between'>{/* Number of Guests and Rooms Selector */}
+              <div className='flex'>
+                <img src={guests} alt='calendar' className=''></img>
+                <div className='pl-2'>
+                  <div className='text-xs sm:text-sm'>Number of guests</div>
+                  <div className=' text-md sm:text-md font-bold'>2{/*Get this input */}</div>
+                </div>
               </div>
             </div>
 
           </div>
+            <div className='flex flex-col gap-5'>
+              <div className='flex active:scale-90 transition ease-in duration-50 ' onClick={()=>setEndDatePickerVisible(!endDatePickerVisible)}>
+                <img src={calendar} alt='calendar' className='w-5 sm:w-7 h-full'></img>
+                <div className='pl-2'>
+                  <div className='text-xs sm:text-sm'>Check-out Date</div>
+                  <div className=' text-md sm:text-md font-bold'>Select</div>
+                </div>
+              </div>
 
-          <div className='col-span-2 flex justify-between'>{/* Number of Guests and Rooms Selector */}
-            <div className='flex'>
-              <img src={guests} alt='calendar' className=''></img>
-              <div className='pl-2'>
-                <div className='text-xs sm:text-sm'>Number of guests</div>
-                <div className='font-custom text-md sm:text-md font-bold'>2{/*Get this input */}</div>
+              <div className='flex'>
+                <img src={rooms} alt='calendar' className=''></img>
+                <div className='pl-2'>
+                  <div className='text-xs sm:text-sm'>Number of rooms</div>
+                  <div className=' text-md sm:text-md font-bold'>1{/*Get this input */}</div>
+                </div>
               </div>
             </div>
-
-            <div className='flex'>
-              <img src={rooms} alt='calendar' className=''></img>
-              <div className='pl-2'>
-                <div className='text-xs sm:text-sm'>Number of rooms</div>
-                <div className='font-custom text-md sm:text-md font-bold'>1{/*Get this input */}</div>
-              </div>
-            </div>
-
           </div>
 
 
           <div className="w-full col-span-2 h-10 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>navigate('/properties')}>
           <div className="w-full relative h-full z-0 flex">
-              <div className='w-full text-center self-center flex justify-center items-center'>Search</div>
+              <div className='w-full text-center self-center font-black flex justify-center items-center'>Search</div>
           </div>
           </div>
 
@@ -111,7 +114,7 @@ function SearchCard() {
                 <img src={locationPin} alt='location pin' className='w-8 h-8'></img>
                 <div className='pl-2'>
                   <div className='text-[12px]'>Select Location</div>
-                  <div className='font-bold font-custom text-xl'>Where to?</div>
+                  <div className='font-bold  text-xl'>Where to?</div>
                 </div>
               </div>
 
@@ -121,7 +124,7 @@ function SearchCard() {
               <img src={calendar} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>Check-in Date</div>
-                <div className='font-custom text-xl font-bold'>Select</div>
+                <div className=' text-xl font-bold'>Select</div>
               </div>
             </div>
 
@@ -131,7 +134,7 @@ function SearchCard() {
               <img src={calendar} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>Check-out Date</div>
-                <div className='font-custom text-xl font-bold'>Select</div>
+                <div className=' text-xl font-bold'>Select</div>
               </div>
             </div>
             <div className='h-20 w-[2px] bg-white'></div>
@@ -140,7 +143,7 @@ function SearchCard() {
               <img src={guests} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>No. of guests</div>
-                <div className='font-custom text-xl font-bold'>2{/*Get this input */}</div>
+                <div className=' text-xl font-bold'>2{/*Get this input */}</div>
               </div>
             </div>
           
@@ -150,7 +153,7 @@ function SearchCard() {
               <img src={rooms} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>No. of rooms</div>
-                <div className='font-custom text-xl font-bold'>1{/*Get this input */}</div>
+                <div className=' text-xl font-bold'>1{/*Get this input */}</div>
               </div>
             </div>
 

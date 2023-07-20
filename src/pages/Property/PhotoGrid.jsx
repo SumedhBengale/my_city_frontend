@@ -54,7 +54,7 @@ function PhotoGrid() {
     {!showAll && (
         <div className='flex justify-center items-center mt-5'>
             <button
-            className="bg-white text-black  hover:scale-105 transition duration-75 hover:bg-black hover:text-white active:text-black active:bg-white border-[1px] border-black py-2 px-4 rounded-lg w-48"
+            className="bg-white text-black font-bold hover:scale-105 transition duration-75 hover:bg-black hover:text-white active:text-black active:bg-white border-[1px] border-black py-2 px-4 rounded-lg w-48"
             onClick={handleShowAll}
             >
             Show All Photos

@@ -13,6 +13,7 @@ import FrequentQuestionsSection from './FrequentQuestionsSection'
 import SearchCard from '../../components/searchCard'
 import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
+import FadeInSection from '../../components/fadeIn/fadeInSection'
 
 function Home() {
   const [blackNavbar, setBlackNavbar] = useState(false);
@@ -60,8 +61,8 @@ function Home() {
 
         <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
           <div className='lg:hidden'>
-            <div className='font-custom text-2xl sm:text-4xl text-white font-bold text-center pt-10 pb-4'>My City Residence</div>
-            <div className=' text-lg w-full text-center text-white capitalize sm-3 sm:mb-10'>Discover your next home away from home</div>
+            <div className='font-custom font-bold text-2xl sm:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
+            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 sm:mb-10'>Discover your next home away from home</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>
@@ -71,15 +72,18 @@ function Home() {
         </div>
       </div>
       <div className='container mx-auto'>
+      <FadeInSection>
         <IntroductionSection></IntroductionSection>
+      </FadeInSection>
       </div> {/* Seperated into different file because it's static content */}
+      <FadeInSection>
 
       <div className='p-4 container mx-auto'>
-      <div className=" text-center text-black font-custom text-4xl font-bold capitalize">Our Properties</div>
-      <div className=" text-center text-zinc-900 text-opacity-20 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
+      <div className=" text-center text-black font-custom font-bold text-4xl capitalize">Our Properties</div>
+      <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
       {/* Fill these with fetched data */}
-      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 gap-5 lg:px-20 mt-10'>
+      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 gap-5 lg:px-10 mt-10'>
         <PropertyCard></PropertyCard>
         <PropertyCard></PropertyCard>
         <PropertyCard></PropertyCard>
@@ -93,24 +97,35 @@ function Home() {
       </div>
 
       </div>
+      </FadeInSection>
 
       {/* Seperated into different file because it's static content */}
+      <FadeInSection>
       <WhatWeOfferSection></WhatWeOfferSection>
+      </FadeInSection>
 
       {/* Seperated into different file because it's static content */}
+      <FadeInSection>
       <KnowMoreSection></KnowMoreSection>
+      </FadeInSection>
 
       {/* Seperated into different file because it's static content(for now) */}
-      <div className='container mx-auto'>
+      <FadeInSection>
+      <div className='mt-10'>
         <ReviewShowcaseSection></ReviewShowcaseSection>
       </div>
+      </FadeInSection>
 
       {/* Seperated into different file because it's static content */}
+      <FadeInSection>
       <div className='container mx-auto'>
         <FrequentQuestionsSection></FrequentQuestionsSection>
       </div>
+      </FadeInSection>
     
+      <FadeInSection>
       <Footer></Footer>
+      </FadeInSection>
     </>
   )
 }

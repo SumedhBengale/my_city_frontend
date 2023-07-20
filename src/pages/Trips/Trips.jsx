@@ -2,12 +2,19 @@ import {React, useState} from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
 import PastTripCard from './PastTripCard'
 import UpcomingTripCard from './UpcomingTripCard'
+import DesktopNavbar from '../../components/desktopNavbarBlack'
 
 function Trips() {
         const [selected, setSelected] = useState('upcoming')
     return (
         <>
-                 <div className='flex w-full h-full bg-white shadow-lg justify-between'>
+        <div className="hidden md:block z-20 fixed top-0 w-full">
+        {
+           <DesktopNavbar />
+        }
+        </div>
+
+                 <div className='flex w-full h-full bg-white shadow-lg justify-between md:mt-16 container mx-auto'>
                         <div className='w-10 h-full'>
                                 <img src={LeftArrow} alt='left arrow' onClick={()=>window.history.back()} className='w-6 h-6 m-3'/>
                         </div>
@@ -32,7 +39,7 @@ function Trips() {
                         >Past</div>
              </div>
 
-             <div className='md:block hidden'>
+             <div className='md:block hidden container mx-auto'>
                 <div className='flex gap-10 m-5'>
                     <div className={`w-min px-5 py-1 rounded-2xl ${selected === 'upcoming' ? 'bg-black': 'bg-transparent  border border-black'}`}>
                     <div className={`text-center w-full text-md font-bold 
@@ -49,34 +56,35 @@ function Trips() {
                     </div>
                 </div>
              </div>
+            <div className='container mx-auto'>
+                {selected === 'upcoming' ?
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
+                    <UpcomingTripCard></UpcomingTripCard>
+                    <UpcomingTripCard></UpcomingTripCard>
+                    <UpcomingTripCard></UpcomingTripCard>
 
-             {selected === 'upcoming' ?
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
-                <UpcomingTripCard></UpcomingTripCard>
 
-
+                </div>
+                :
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                    <PastTripCard></PastTripCard>
+                </div>
+                }
             </div>
-            :
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-                <PastTripCard></PastTripCard>
-            </div>
-            }
         </>
     )
 }

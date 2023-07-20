@@ -9,7 +9,9 @@ function PropertyCard() {
   const navigate = useNavigate();
   return (
     <div className="relative w-full md:max-w-[600px] max-w-[400px] bg-gray-200 hover:bg-gray-300 transition duration-75 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
-        <div className="absolute bottom-40 left-3 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">$19.99</div>
+        <div className="absolute bottom-36 left-3 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">
+        <div className="flex"><div className="text-white text-xl -translate-y-2 font-normal">€</div><div className="text-white text-xl font-bold">500</div><div className="text-white text-sm font-normal self-end">/night</div></div>
+        </div>
         <img className="w-full p-4" src={placeholderRoomImage} alt="Placeholder"/>
         <div className="px-6 py-3">
           <div className="font-bold font-custom text-2xl mb-2 overflow-ellipsis line-clamp-1">Amazing Highly Spacious</div>

@@ -1,12 +1,18 @@
 import React from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
 import WishItem from './WishItem'
+import DesktopNavbar from '../../components/desktopNavbarBlack'
 
 
 function Wishlist() {
   return (
     <>
-        <div className='flex w-full h-full bg-white shadow-lg justify-between'>
+    <div className="hidden md:block z-20 fixed top-0 w-full">
+        {
+           <DesktopNavbar />
+        }
+        </div>
+        <div className='flex w-full h-full bg-white shadow-lg justify-between md:mt-16 container mx-auto backdrop-filter backdrop-blur-md rounded-xl'>
             <div className='w-10 h-full' onClick={()=>window.history.back()}>
                 <img src={LeftArrow} alt='left arrow' className='w-6 h-6 m-3'/>
             </div>
@@ -15,7 +21,7 @@ function Wishlist() {
             </div>
         </div>
         <div className='w-full px-5'>
-            <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 mt-6 container mx-auto'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-10 mt-6 container mx-auto'>
                 <WishItem></WishItem>
                 <WishItem></WishItem>
                 <WishItem></WishItem>
