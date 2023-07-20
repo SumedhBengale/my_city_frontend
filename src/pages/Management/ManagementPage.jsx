@@ -37,11 +37,11 @@ function ManagementPage() {
           <FadeInSection>
           
           <div className='md:hidden '>
-            <div className='w-full md:h-[600px] rounded-r-[150px]'>
-          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150] pr-5" />
+            <div className='w-full h-[300px] rounded-r-[50px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[50px] pr-5" />
         </div>
         <div className='fixed bottom-0 pr-5 h-full w-full'>
-          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[90px] px-5'>
+          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[70px] px-5'>
             <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Blog</div>
             <div className='text-white text-md drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
           </div>
