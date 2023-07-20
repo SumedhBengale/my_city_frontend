@@ -8,6 +8,10 @@ module.exports = {
       fontFamily: {
         custom: ['Montserrat Alternates', 'Arial', 'sans-serif'],
       },
+      fontWeight: {
+        normal: 400,
+        bold: 700,
+      },
     },
   },
   plugins: [

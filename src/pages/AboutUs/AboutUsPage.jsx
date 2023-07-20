@@ -5,6 +5,7 @@ import OurStorySection from './OurStorySection'
 import Image1 from '../../assets/images/about/about_img_1.jpg'
 import OurValuesSection from './OurValuesSection'
 import OurPartnersSection from './OurPartnersSection'
+import FadeInSection from '../../components/fadeIn/fadeInSection'
 
 function AboutUsPage() {
   return (
@@ -23,12 +24,15 @@ function AboutUsPage() {
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}
+          <FadeInSection>
       <div className='md:hidden'>
-        <div className="w-full pr-8 pt-16">
-          <img src={Image1} alt="About Us" className="w-full h-full object-cover mix-blend-darken" />
-          <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-              <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
-              <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+      <div className="mr-8 pt-16 relative">
+          <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
+          <div className='w-1/2'>
+            <div className="absolute bottom-0 flex flex-col items-center pb-10 justify-end bg-gradient-to-b from-transparent via-black/40 to-black/60 rounded-r-[50px]">
+                <p className="text-white font-custom font-bold text-2xl">Who Are We?</p>
+                <p className='text-white text-md w-4/5 text-center capitalize'>Discover your next home away from home</p>
+            </div>
           </div>
         </div>
       </div>
@@ -38,15 +42,23 @@ function AboutUsPage() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>
-          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Who Are We?</div>
-          <div className='text-white text-lg drop-shadow-lg'>Discover your next home away from home</div>
+          <div className='text-white font-bold text-6xl  drop-shadow-lg font-custom'>Who Are We?</div>
+          <div className='text-white text-2xl drop-shadow-lg'>Discover your next home away from home</div>
 
         </div>
       </div>
+      </FadeInSection>
 
+        <FadeInSection>
         <OurStorySection></OurStorySection>
+        </FadeInSection>
+        <FadeInSection>
         <OurValuesSection></OurValuesSection>
+        </FadeInSection>
+        <FadeInSection>
         <OurPartnersSection></OurPartnersSection>
+        </FadeInSection>
+
 
     </>
   )

@@ -16,17 +16,17 @@ function Footer() {
         <img src={black_logo} alt='logo' className='w-1/2 sm:w-1/3 md:w-1/6 max-w-[300px] pt-5 pl-5'></img>
         <div className='flex flex-col md:flex-row justify-between md:mx-5'>
             <div className='pt-10 pl-5'>
-                <div className='font-custom text-xl font-bold'>Currency Switcher</div>
+                <div className='font-custom font-bold text-xl'>Currency Switcher</div>
             </div>
 
             <div className='pt-10 pl-5'>
-                <div className='font-custom text-xl font-bold'>Explore</div>
+                <div className='font-custom font-bold text-xl'>Explore</div>
                 <div className="text-black text-md pt-3 pl-3">Apartment</div>
                 <div className="text-black text-md pt-3 pl-3">Condominimum</div>
             </div>
 
             <div className='pt-10 pl-5'>
-                <div className='font-custom text-xl font-bold'>Company</div>
+                <div className='font-custom font-bold text-xl'>Company</div>
                 <div className="text-black text-md pt-3 pl-3">Properties</div>
                 <div className="text-black text-md pt-3 pl-3">Things to do</div>
                 <div className="text-black text-md pt-3 pl-3">Management</div>
@@ -35,7 +35,7 @@ function Footer() {
             </div>
 
             <div className='pt-10 pl-5'>
-                <div className='font-custom text-xl font-bold w-full'>Contact Us</div>
+                <div className='font-custom font-bold text-xl w-full'>Contact Us</div>
                     <div className=' flex items-center mt-5'>
                         <img src={location_black} alt='location' className='w-10 pr-3'></img>
                         <div className=" w-full text-black text-md flex items-center">Po Box 1046, Stockton On Tees, TS19 1XL</div>

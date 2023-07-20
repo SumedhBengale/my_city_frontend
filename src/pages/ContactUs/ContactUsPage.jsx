@@ -6,6 +6,7 @@ import Footer from '../HomePage/Footer'
 import location_black from '../../assets/images/contact/location_black.svg'
 import phone_black from '../../assets/images/contact/phone_black.svg'
 import email_black from '../../assets/images/contact/email_black.svg'
+import FadeInSetion from '../../components/fadeIn/fadeInSection'
 
 function ContactUs() {
   return (
@@ -24,29 +25,34 @@ function ContactUs() {
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}
-            <div className='md:hidden'>
-        <div className="w-full pr-8 pt-16">
-          <img src={Image1} alt="About Us" className="w-full h-full object-cover mix-blend-darken" />
-          <div className="flex flex-col items-center -translate-y-20 -my-10 w-full h-full">
-              <p className="text-white font-custom text-2xl font-bold">Who Are We?</p>
-              <p className='text-white font-custom text-lg w-2/3 text-center capitalize'>Discover your next home away from home</p>
+          <div className='h-16 bg-transparent'></div>
+          <FadeInSetion>
+            <div className='md:hidden relative'>
+            <div className='w-full md:h-[600px] rounded-r-[150px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150] pr-5" />
+        </div>
+        <div className='fixed bottom-0 pr-10 h-full w-full'>
+          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[90px] px-5'>
+            <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>About Us</div>
+            <div className='text-white text-lg drop-shadow-lg'>We Offer Unique Places Suitable For Your Confort</div>
           </div>
         </div>
       </div>
 
       <div className='hidden md:block mt-16 relative md:mr-10 xl:mr-20'>
-        <div className='w-full md:h-[600px] rounded-r-[150px]'>
+      <div className='w-full md:h-[600px] rounded-r-[150px]'>
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>
           <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>About Us</div>
           <div className='text-white text-lg drop-shadow-lg'>We Offer Unique Places Suitable For Your Confort</div>
-
         </div>
       </div>
-          <div className='w-full h-full md:px-5'>
+      </FadeInSetion>
+      <FadeInSetion>
+          <div className='w-full h-full px-5'>
             <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg container mt-10 mx-auto'>
-              <div className='font-custom text-xl mx-3 mt-3 text-black font-bold'>Get In Touch</div>
+              <div className='font-custom font-bold text-xl mx-3 mt-3 text-black'>Get In Touch</div>
               <hr className="w-36 border-sm my-4 ml-3 border-[1px] border-black" />
               <div className='flex flex-col md:flex-row gap-5 w-full justify-center'>
                 <input className=" md:w-full mx-3 h-12 my-4 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
@@ -82,7 +88,10 @@ function ContactUs() {
               </div>
             </div>
           </div>
-          <Footer></Footer>
+          </FadeInSetion>
+          <FadeInSetion>
+            <Footer></Footer>
+          </FadeInSetion>
     </>
   )
 }

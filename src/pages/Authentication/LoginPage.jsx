@@ -65,7 +65,7 @@ const LoginPage = () => {
 
                 <div class="flex items-center w-full py-4"> {/* Divider */}
                     <hr className=" w-full border-sm my-4" />
-                    <span class="flex-shrink font-custom text-lg text-white px-4 italic font-light">or</span>
+                    <span class="flex-shrink font-custom font-bold text-lg text-white px-4 italic font-light">or</span>
                     <hr className="w-full border-sm my-4" />
                 </div>
 

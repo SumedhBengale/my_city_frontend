@@ -42,7 +42,7 @@ const Carousel = () => {
                   >
                   {slides.map((slide, index) => (
                       <div key={index} className="w-full flex justify-center">
-                      <p className="font-custom text-2xl flex justify-start items-center font-bold mx-2">{slide}</p>
+                      <p className="font-custom font-bold text-2xl flex justify-start items-center font-bold mx-2">{slide}</p>
                       </div>
                   ))}
                   </div>
