@@ -24,15 +24,16 @@ function AboutUsPage() {
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}
+          <div className='h-16 bg-transparent'></div>
           <FadeInSection>
-      <div className='md:hidden'>
-      <div className="mr-8 pt-16 relative">
-          <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
-          <div className='w-1/2'>
-            <div className="absolute bottom-0 flex flex-col items-center pb-10 justify-end bg-gradient-to-b from-transparent via-black/40 to-black/60 rounded-r-[50px]">
-                <p className="text-white font-custom font-bold text-2xl">Who Are We?</p>
-                <p className='text-white text-md w-4/5 text-center capitalize'>Discover your next home away from home</p>
-            </div>
+      <div className='md:hidden relative'>
+            <div className='w-full md:h-[600px] rounded-r-[150px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150] pr-5" />
+        </div>
+        <div className='fixed bottom-0 pr-5 h-full w-full'>
+          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[90px] px-5'>
+            <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Who Are We?</div>
+            <div className='text-white text-lg drop-shadow-lg'>Discover your next home away from home</div>
           </div>
         </div>
       </div>

@@ -33,27 +33,22 @@ function ManagementPage() {
           {/* Hacky solution utilizing negative margins and translations, because if used absolute value to overlap text over image 
           then navbar menu get's messed up. 
           Will check later */}
+          <div className='h-16 bg-transparent'></div>
           <FadeInSection>
-      <div className='md:hidden'>
-        <div className="mr-8 pt-16 relative">
-          <img src={Image1} alt="About Us" className="w-full h-full object-cover" />
-          <div className='w-1/2'>
-            <div className="absolute bottom-0 flex flex-col items-center pb-10 justify-end bg-gradient-to-b from-transparent via-black/40 to-black/60 rounded-r-[50px]">
-                <p className="text-white font-custom font-bold text-4xl">Blog</p>
-                <p className='text-white text-md w-4/5 text-center capitalize'>The Starting Point of Your Adventure Well Connected to the Whole City</p>
-            </div>
-          </div>
+          
+          <div className='md:hidden '>
+            <div className='w-full md:h-[600px] rounded-r-[150px]'>
+          <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150] pr-5" />
         </div>
-
-        <div className="font-custom font-bold text-2xl pl-1 md:pl-8 sm:pt-8 pt-5 capitalize">Are you a property owner?</div>
-
-        <div className="w-full pl-8 pt-5">
-          <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
-          <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full">
-            <button className='w-32 h-12 rounded-md bg-black font-bold text-white hover:scale-105 transition duration-75'>Contact Now</button>
+        <div className='fixed bottom-0 pr-5 h-full w-full'>
+          <div className='h-full w-full text-center flex justify-end flex-col pb-10 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[90px] px-5'>
+            <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Blog</div>
+            <div className='text-white text-md drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
           </div>
         </div>
       </div>
+
+        
 
       <div className='hidden md:block mt-16 relative md:mr-10 xl:mr-20'>
         <div className='w-full md:h-[600px] rounded-r-[150px]'>
@@ -65,6 +60,7 @@ function ManagementPage() {
 
         </div>
       </div>
+
 
       <div className='hidden md:block mt-10'>
         <div className='grid grid-cols-2 gap-5'>
@@ -80,6 +76,16 @@ function ManagementPage() {
         </div>
           </div>
         </div>
+          </FadeInSection>
+          <FadeInSection>
+          <div className="font-custom font-bold text-2xl md:pl-8 sm:pt-8 pt-5 capitalize pl-5">Are you a property owner?</div>
+
+          <div className="w-full pl-8 pt-5">
+            <img src={Image2} alt="About Us" className="w-full h-full object-cover" />
+            <div className="flex flex-col items-end -translate-y-10 pr-10 -my-10 w-full h-full">
+              <button className='w-32 h-12 rounded-md bg-black font-bold text-white hover:scale-105 transition duration-75'>Contact Now</button>
+            </div>
+          </div>
           </FadeInSection>
           <FadeInSection>
 
