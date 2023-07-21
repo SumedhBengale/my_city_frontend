@@ -4,6 +4,7 @@ import person from '../assets/images/navbar/person.svg';
 import notificationWhite from '../assets/images/navbar/notification_white.svg';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../pages/Notifications/Notifications_Desktop'
+import logoWhite from '../assets/images/white_logo.png';
 
 function DesktopNavbar() {
     const navigate = useNavigate();
@@ -26,7 +27,11 @@ function DesktopNavbar() {
     return (
       <>
         
-        <div className=' w-full bg-transparent flex justify-end text-white gap-3 px-5  py-2'>
+        <div className=' w-full bg-transparent flex justify-between text-white gap-3 px-5  py-2'>
+        <div className='flex h-10'>
+            <img src={logoWhite} alt='My City Logo' className='h-10 self-start'></img>
+          </div>
+              <div className='flex h-10'>
                 <NavLink
                   to='/'
                   exact
@@ -72,15 +77,17 @@ function DesktopNavbar() {
                     src={notificationWhite}
                     alt='notification menu'
                     onClick={handleNotificationMenuClick}
-                    className='px-2 color-white'
+                    className='px-2 color-white h-6 mb-1 self-center'
                 />
         
                 <img
                     src={person}
                     alt='hamburger menu'
+                    className='h-8'
                     onClick={handleAccountMenuClick}
                 />
               </div>
+        </div>
 
               {notificationMenuOpen && (
             <div className='w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl relative'>
