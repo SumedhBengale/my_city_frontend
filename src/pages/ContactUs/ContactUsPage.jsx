@@ -32,7 +32,7 @@ function ContactUs() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[70px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full pb-20 bg-gradient-to-b from-transparent via-gray to-black/60 rounded-r-[70px] px-10'>
-          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>About Us</div>
+          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Contact Us</div>
           <div className='text-white text-md drop-shadow-lg'>We Offer Unique Places Suitable For Your Confort</div>
 
         </div>
@@ -43,7 +43,7 @@ function ContactUs() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>
-          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>About Us</div>
+          <div className='text-white font-bold text-3xl  drop-shadow-lg font-custom'>Contact Us</div>
           <div className='text-white text-lg drop-shadow-lg'>We Offer Unique Places Suitable For Your Confort</div>
         </div>
       </div>
