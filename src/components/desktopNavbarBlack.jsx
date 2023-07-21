@@ -95,8 +95,8 @@ function DesktopNavbar() {
 
   
         {accountMenuOpen && (
-            <div className='w-full bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl'>
-          <div className='relative top-0 right-0 w-48 flex flex-col bg-white rounded-xl'>
+            <div className='w-full bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl relative'>
+          <div className='absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl'>
   
         <div className='flex flex-col gap-3 pr-3 pt-3'>
           <NavLink

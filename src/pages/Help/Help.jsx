@@ -22,7 +22,7 @@ function Help() {
                     <div className='text-lg text-center font-bold '>Help</div>
                 </div>
             </div>
-            <div className='text-md font-bold p-5'>FAQ's</div>
+            <div className='text-md md:text-2xl font-bold text-center  p-5'>FAQ's</div>
             <div className='container mx-auto'>
                 <FrequentQuestionsSection></FrequentQuestionsSection>
             </div>

@@ -83,8 +83,8 @@ function DesktopNavbar() {
               </div>
 
               {notificationMenuOpen && (
-            <div className='w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl'>
-          <div className='relative top-0 right-0 w-96 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl'>
+            <div className='w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl relative'>
+          <div className='absolute top-0 right-5 w-96 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl'>
                 <Notification></Notification>
           </div>
             </div>
@@ -94,8 +94,8 @@ function DesktopNavbar() {
 
   
         {accountMenuOpen && (
-            <div className='w-full bg-transparent flex justify-end p-3 font-bold'>
-          <div className='relative top-0 right-0 w-48 flex flex-col bg-white rounded-xl'>
+            <div className='w-full bg-transparent flex justify-end p-3 font-bold relative'>
+          <div className='absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl'>
   
         <div className='flex flex-col gap-3 pr-3 pt-3'>
           <NavLink
