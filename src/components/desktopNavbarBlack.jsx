@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import personBlack from '../assets/images/navbar/person_black.svg';
 import notification from '../assets/images/navbar/notification.svg';
 import Notification from '../pages/Notifications/Notifications_Desktop'
+import logoBlack from '../assets/images/black_logo.png';
 import { useNavigate } from 'react-router-dom';
 
 function DesktopNavbar() {
@@ -27,7 +28,11 @@ function DesktopNavbar() {
     return (
       <>
         
-        <div className=' w-full bg-white flex justify-end text-black gap-3 px-5 py-2'>
+        <div className=' w-full bg-white flex justify-between text-black gap-3 px-5 py-2'>
+          <div className='flex h-10'>
+            <img src={logoBlack} alt='My City Logo' className='h-10 self-start'></img>
+          </div>
+              <div className='flex h-10'>
                 <NavLink
                   to='/'
                   exact
@@ -73,14 +78,16 @@ function DesktopNavbar() {
                     src={notification}
                     alt='notification menu'
                     onClick={handleNotificationMenuClick}
-                    className='px-2 color-white'
+                    className='px-2 color-white h-8'
                 />
         
                 <img
                     src={personBlack}
                     alt='hamburger menu'
+                    className='h-8'
                     onClick={handleAccountMenuClick}
                 />
+                </div>
               </div>
 
               {notificationMenuOpen && (
