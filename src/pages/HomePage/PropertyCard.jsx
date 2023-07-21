@@ -12,7 +12,9 @@ function PropertyCard() {
         <div className="absolute bottom-40 left-3 rounded-full px-3 py-1 text-sm font-semibold text-white m-2">
         <div className="flex"><div className="text-white text-xl -translate-y-2 font-normal">€</div><div className="text-white text-xl font-bold">500</div><div className="text-white text-sm font-normal self-end">/night</div></div>
         </div>
-        <img className="w-full p-4" src={placeholderRoomImage} alt="Placeholder"/>
+        <div className='w-full p-4'>
+          <img className="w-full rounded-xl" src={placeholderRoomImage} alt="Placeholder"/>
+        </div>
         <div className="px-6 py-3">
           <div className="font-bold font-custom text-2xl mb-2 overflow-ellipsis line-clamp-1">Amazing Highly Spacious</div>
           <p className="text-black">Lyall St, London SW1X 8DW, UK</p>

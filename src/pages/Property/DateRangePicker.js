@@ -58,7 +58,7 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
       <div>
         <div className="font-bold"> Please select the Date Range</div>
         <div className="flex items-center justify-between py-2">
-          <span className="font-custom font-bold text-lg font-semibold">
+          <span className="font-custom font-bold text-lg">
             {format(currentMonth, 'MMMM yyyy')}
           </span>
           <div className="flex justify-end gap-2">
@@ -143,7 +143,7 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   };
 
   return (
-    <div className="m-10 p-5 h-96 bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
+    <div className="m-3 sm:m-10 p-5 h-min bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
       {renderHeader()}
       {renderDaysOfWeek()}
       {renderDays()}
