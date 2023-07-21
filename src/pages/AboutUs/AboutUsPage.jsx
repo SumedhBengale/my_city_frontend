@@ -37,8 +37,8 @@ function AboutUsPage() {
         </div>
       </div>
 
-      <div className='hidden md:block relative mt-16 md:mr-10 xl:mr-20'>
-        <div className='w-full md:h-[600px] rounded-r-[150px]'>
+      <div className='hidden md:block relative md:mr-10 xl:mr-20'>
+        <div className='w-full md:h-[400px] lg:h-[500px] rounded-r-[150px]'>
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>

@@ -57,7 +57,7 @@ function Navbar() {
       </div>
 
       {accountMenuOpen && (
-        <div className='absolute top-0 flex flex-col w-full bg-white'>
+        <div className='absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl'>
           <div
             className='flex w-full justify-between p-3 relative'
           >
@@ -93,15 +93,15 @@ function Navbar() {
         />
       </div>
       
-      <div className='h-full mx-2 my-5'>
+      <div className='h-full mx-2 mb-3'>
           <hr className='w-full h-[2px] bg-black'></hr>
       </div>
 
-      <div className='flex flex-col gap-3 pr-3'>
+      <div className=' gap-3 pr-3'>
         <NavLink
           to='/notifications'
           exact
-          className={`flex justify-end w-full  ${
+          className={`flex justify-end w-full pb-1  ${
             location.pathname === '/notifications' ? 'underline font-bold' : ''
           }`}
         >
@@ -118,15 +118,15 @@ function Navbar() {
         </NavLink>
       </div>
 
-      <div className='h-full mx-2 my-5'>
+      <div className='h-full mx-2 my-3'>
           <hr className='w-full h-[2px] bg-black'></hr>
       </div>
 
-      <div className='flex flex-col gap-3 pr-3'>
+      <div className=' pr-3'>
       <NavLink
           to='/account'
           exact
-          className={`flex justify-end w-full  ${
+          className={`flex justify-end w-full pb-1  ${
             location.pathname === '/account' ? 'underline font-bold' : ''
           }`}
         >
@@ -135,7 +135,7 @@ function Navbar() {
         <NavLink
           to='/wishlist'
           exact
-          className={`flex justify-end w-full  ${
+          className={`flex justify-end w-full pb-1 ${
             location.pathname === '/wishlist' ? 'underline font-bold' : ''
           }`}
         >
@@ -144,7 +144,7 @@ function Navbar() {
         <NavLink
           to='/trips'
           exact
-          className={`flex justify-end w-full  ${
+          className={`flex justify-end w-full ${
             location.pathname === '/trips' ? 'underline font-bold' : ''
           }`}
         >
@@ -152,22 +152,22 @@ function Navbar() {
         </NavLink>
       </div>
 
-      <div className='h-full mx-2 my-5'>
+      <div className='h-full mx-2 my-3'>
           <hr className='w-full h-[2px] bg-black'></hr>
       </div>
 
-      <div className='flex flex-col gap-3 pr-3 pb-3'>
+      <div className=' pr-3 pb-3'>
       <NavLink
           to='/help'
           exact
-          className={`flex justify-end w-full  ${
+          className={`flex justify-end w-full pb-1 ${
             location.pathname === '/help' ? 'underline font-bold' : ''
           }`}
         >
           Help
         </NavLink>
         <div
-          className={`flex justify-end w-full`} onClick={() =>{
+          className={`flex justify-end w-full pb-1`} onClick={() =>{
             localStorage.removeItem('token');
             navigate('/login')
           }}

@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      width:{
+        '50/100': '50vw',
+        '40/100': '40vw',
+        '20/100': '20vw',
+      },
       fontFamily: {
         custom: ['Montserrat Alternates', 'Arial', 'sans-serif'],
       },
@@ -15,6 +20,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     require('tailwindcss'),
     require('autoprefixer'),
   ]
