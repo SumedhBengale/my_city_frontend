@@ -14,9 +14,11 @@ import SearchCard from '../../components/searchCard'
 import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
+import Filter from '../../components/filter'
 
 function Home() {
   const [blackNavbar, setBlackNavbar] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +39,14 @@ function Home() {
   }, []);
   return (
     <>
+     {filterVisible &&
+      <div className='h-screen w-screen absolute'>
+      <Filter apply={(data)=>{
+        setFilterVisible(false)
+        console.log('filter applied')
+        console.log(data)
+      }} close={()=>setFilterVisible(false)}></Filter>
+      </div>}
       <div
         style={{
           backgroundImage: `url(${homeBackground})`,
@@ -68,7 +78,7 @@ function Home() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-20'></img>
           </div>
-          <SearchCard></SearchCard>
+          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
         </div>
       </div>
       <div className='container mx-auto'>

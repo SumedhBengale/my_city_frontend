@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 import OurStorySection from './OurStorySection'

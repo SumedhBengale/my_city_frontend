@@ -5,16 +5,14 @@ import calendar from '../assets/images/home/calendar.svg'
 import guests from '../assets/images/home/guests.svg'
 import rooms from '../assets/images/home/rooms.svg'
 import CustomDatePicker from './CustomDatePicker'
-import Filter from './filter.jsx'
 import { useNavigate } from 'react-router-dom'
 
 
-function SearchCard() {
+function SearchCard({setFilterVisible}) {
   const [startDatePickerVisible, setStartDatePickerVisible] = useState(false)
   const [endDatePickerVisible, setEndDatePickerVisible] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const [filterVisible, setFilterVisible] = useState(false)
   const navigate = useNavigate()
   return (
     <>
@@ -30,14 +28,7 @@ function SearchCard() {
         <CustomDatePicker selectedDate={endDate} setSelectedDate={(date)=>{setEndDate(date); console.log(date); setEndDatePickerVisible(false)}} onClickOutside={()=>setEndDatePickerVisible(false)}></CustomDatePicker>
       </div>
       }
-      {filterVisible &&
-      <div className='h-screen w-screen'>
-      <Filter apply={(data)=>{
-        setFilterVisible(false)
-        console.log('filter applied')
-        console.log(data)
-      }} close={()=>setFilterVisible(false)}></Filter>
-      </div>}
+
       <div className="z-0 m-4 w-full md:w-3/5 h-min sm:h-80 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
         <div className='grid grid-cols-2 gap-3 sm:gap-9 text-white'>
 

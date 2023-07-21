@@ -1,6 +1,4 @@
-import React from 'react'
-import Placeholder1 from '../../assets/images/property/placeholder1.png'
-
+import {React, useState} from 'react'
 import Star from '../../assets/images/property/star.svg'
 import PhotoGrid from './PhotoGrid'
 import Amenities from './Amenities'
@@ -10,8 +8,10 @@ import DateRangePicker from './DateRangePicker'
 import MapContainer from './MapContainer'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 import { useNavigate } from 'react-router-dom'
+import Carousel from './Carousel'
 
 function Property() {
+  const [carouselVisible, setCarouselVisible] = useState(false)
   const navigate = useNavigate();
   const coordinate = {
     latitude: 37.7749,
@@ -20,6 +20,19 @@ function Property() {
 
   return (
     <>
+    {carouselVisible && (
+        <div
+          className="fixed top-0 h-full w-full bg-black/20 z-30 flex justify-center items-center"
+        >
+          <div
+            className="h-full w-full flex justify-center items-center backdrop-filter backdrop-blur-sm"onClick={()=>setCarouselVisible(false)}
+          >
+            <div className="w-4/5 md:w-1/2" onClick={(e) => e.stopPropagation()}>
+              <Carousel />
+            </div>
+          </div>
+        </div>
+      )}
     <div className='md:hidden'>
     <div className='absolute z-10 w-full'>
         <div className='flex justify-between m-3'>
@@ -44,13 +57,11 @@ function Property() {
       </div>
 
       <div className='absolute top-0 w-full z-0'>
-        <img src={Placeholder1} alt="placeholder" className='w-full h-full object-cover'/>
+        <Carousel/>
         <div className='flex justify-between w-full p-5 items-center'>
           <div className='text-xl text-black font-custom font-bold'>Apetite De Bone Lux Apartment</div>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M20.16 4.99992C19.1 3.93713 17.6948 3.28846 16.1983 3.17109C14.7019 3.05372 13.2128 3.47539 12 4.35992C10.7277 3.41356 9.14399 2.98443 7.56792 3.15896C5.99185 3.33348 4.54044 4.0987 3.50597 5.30051C2.47151 6.50231 1.93082 8.05144 1.9928 9.63594C2.05478 11.2204 2.71482 12.7226 3.84 13.8399L10.05 20.0599C10.57 20.5717 11.2704 20.8585 12 20.8585C12.7296 20.8585 13.43 20.5717 13.95 20.0599L20.16 13.8399C21.3276 12.6652 21.9829 11.0762 21.9829 9.41992C21.9829 7.76365 21.3276 6.17465 20.16 4.99992ZM18.75 12.4599L12.54 18.6699C12.4693 18.7413 12.3852 18.7979 12.2925 18.8366C12.1999 18.8752 12.1004 18.8951 12 18.8951C11.8996 18.8951 11.8001 18.8752 11.7075 18.8366C11.6148 18.7979 11.5307 18.7413 11.46 18.6699L5.25 12.4299C4.46576 11.6283 4.02661 10.5514 4.02661 9.42992C4.02661 8.30846 4.46576 7.23158 5.25 6.42992C6.04916 5.64091 7.12697 5.19849 8.25 5.19849C9.37303 5.19849 10.4508 5.64091 11.25 6.42992C11.343 6.52365 11.4536 6.59804 11.5754 6.64881C11.6973 6.69958 11.828 6.72572 11.96 6.72572C12.092 6.72572 12.2227 6.69958 12.3446 6.64881C12.4664 6.59804 12.577 6.52365 12.67 6.42992C13.4692 5.64091 14.547 5.19849 15.67 5.19849C16.793 5.19849 17.8708 5.64091 18.67 6.42992C19.465 7.22107 19.9186 8.29211 19.9335 9.41361C19.9485 10.5351 19.5236 11.6179 18.75 12.4299V12.4599Z" fill="black"/>
-          </svg>
+
         </div>
         <div className='flex flex-row justify-between w-full p-5 items-center'>
           <div className='flex'>
@@ -101,7 +112,7 @@ function Property() {
         </div>
 
         <div className="container px-5 my-4">
-          <PhotoGrid />
+          <PhotoGrid carouselOpen={()=>setCarouselVisible(true)}/>
         </div>
 
         <div className='h-full mx-2 my-2'>
@@ -110,11 +121,10 @@ function Property() {
 
         <Amenities></Amenities>
 
-        <div className='h-full mx-2 my-2'>
-            <hr className='w-full h-[2px] bg-black'></hr>
-        </div>
-
         {/* Map and Rules */}
+        <div className='p-10 w-full md:col-span-4'>
+        <MapContainer coordinate={coordinate} />
+        </div>
 
         <div className='flex m-5'>
           <div className='w-full rounded-lg bg-gray-200'>
@@ -167,7 +177,7 @@ function Property() {
         <div className='text-lg font-custom font-bold pl-5'>{7} Nights in Apetite De Bone</div>
         <div className='text-sms pl-5'>{'16 Jun'} to {'22 Jun'}</div>
 
-        <div className='flex justify-center'>
+        <div className=' justify-center'>
           <DateRangePicker onClickOutside={()=>{}} setSelectedDate={()=>{}}></DateRangePicker>
         </div>
 
@@ -188,7 +198,7 @@ function Property() {
 
     <div className='grid grid-cols-2 gap-3 container mx-auto'>
       <div className='w-full relative'>
-      <div className=' p-5 flex w-full justify-between absolute top-0'>
+      <div className=' p-5 flex w-full justify-between absolute top-0 z-20'>
           <div className="w-10 h-10 bg-zinc-300 flex justify-center items-center rounded-full" onClick={()=>window.history.back()}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <g clip-path="url(#clip0_223_1275)">
@@ -207,15 +217,11 @@ function Property() {
           </svg>
           </div>
         </div>
-        <img src={Placeholder1} alt="placeholder" className='w-full h-full object-cover'/>
+        <Carousel/>
       </div>
       <div>
       <div className='flex justify-between w-full p-5 items-center'>
           <div className='text-xl text-black font-custom font-bold'>Apetite De Bone Lux Apartment</div>
-
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M20.16 4.99992C19.1 3.93713 17.6948 3.28846 16.1983 3.17109C14.7019 3.05372 13.2128 3.47539 12 4.35992C10.7277 3.41356 9.14399 2.98443 7.56792 3.15896C5.99185 3.33348 4.54044 4.0987 3.50597 5.30051C2.47151 6.50231 1.93082 8.05144 1.9928 9.63594C2.05478 11.2204 2.71482 12.7226 3.84 13.8399L10.05 20.0599C10.57 20.5717 11.2704 20.8585 12 20.8585C12.7296 20.8585 13.43 20.5717 13.95 20.0599L20.16 13.8399C21.3276 12.6652 21.9829 11.0762 21.9829 9.41992C21.9829 7.76365 21.3276 6.17465 20.16 4.99992ZM18.75 12.4599L12.54 18.6699C12.4693 18.7413 12.3852 18.7979 12.2925 18.8366C12.1999 18.8752 12.1004 18.8951 12 18.8951C11.8996 18.8951 11.8001 18.8752 11.7075 18.8366C11.6148 18.7979 11.5307 18.7413 11.46 18.6699L5.25 12.4299C4.46576 11.6283 4.02661 10.5514 4.02661 9.42992C4.02661 8.30846 4.46576 7.23158 5.25 6.42992C6.04916 5.64091 7.12697 5.19849 8.25 5.19849C9.37303 5.19849 10.4508 5.64091 11.25 6.42992C11.343 6.52365 11.4536 6.59804 11.5754 6.64881C11.6973 6.69958 11.828 6.72572 11.96 6.72572C12.092 6.72572 12.2227 6.69958 12.3446 6.64881C12.4664 6.59804 12.577 6.52365 12.67 6.42992C13.4692 5.64091 14.547 5.19849 15.67 5.19849C16.793 5.19849 17.8708 5.64091 18.67 6.42992C19.465 7.22107 19.9186 8.29211 19.9335 9.41361C19.9485 10.5351 19.5236 11.6179 18.75 12.4299V12.4599Z" fill="black"/>
-          </svg>
         </div>
         <div className='flex flex-row justify-between w-full p-5 items-center'>
           <div className='flex'>
@@ -272,7 +278,7 @@ function Property() {
 
         <div className='container mx-auto'>
         <div className="my-10">
-          <PhotoGrid />
+          <PhotoGrid carouselOpen={()=>setCarouselVisible(true)}/>
         </div>
 
         <div className='h-full mx-2 my-2'>
@@ -280,10 +286,6 @@ function Property() {
         </div>
 
         <Amenities></Amenities>
-
-        <div className='h-full mx-2 my-2'>
-            <hr className='w-full h-[2px] bg-black'></hr>
-        </div>
 
         <div className='lg:flex lg:flex-row md:grid md:grid-cols-6 pt-10'>
         {/* Map and Rules */}

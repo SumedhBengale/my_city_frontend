@@ -11,11 +11,12 @@ import Footer from '../HomePage/Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
 import SortDropdown from './sortDropdown'
+import Filter from '../../components/filter'
 
 function PropertiesPage() {
     const [sortValue, setsortValue] = useState('r-hl')
     const [blackNavbar, setBlackNavbar] = useState(false);
-
+    const [filterVisible, setFilterVisible] = useState(false);
     const handleSelectChange = (value) => {
       setsortValue(value);
       console.log(value)
@@ -40,6 +41,15 @@ function PropertiesPage() {
     }, []);
   return (
     <>
+      {filterVisible &&
+      <div className='h-screen w-screen absolute'>
+      <Filter apply={(data)=>{
+        setFilterVisible(false)
+        console.log('filter applied')
+        console.log(data)
+      }} close={()=>setFilterVisible(false)}></Filter>
+      </div>}
+
     <div
         style={{
           backgroundImage: `url(${PropertiesBackground})`,
@@ -71,13 +81,13 @@ function PropertiesPage() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-20'></img>
           </div>
-          <SearchCard></SearchCard>
+          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
         </div>
       </div>
 
     <div className='px-5 container mx-auto'>
     <FadeInSection>
-      <PropertiesSection sortValue={sortValue} handleSelectChange={handleSelectChange}></PropertiesSection>
+      <PropertiesSection sortValue={sortValue} handleSelectChange={handleSelectChange} setFilterVisible={setFilterVisible}></PropertiesSection>
     </FadeInSection>
 
     </div>
@@ -94,13 +104,13 @@ export default PropertiesPage
 
 
 
-function PropertiesSection({sortValue, handleSelectChange}) {
+function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
   return (
     <>
        <div className="text-black font-custom font-bold text-2xl pt-10 capitalize">Nearby Properties</div>
 
 <div className='flex justify-between mt-3 mb-5'>
-    <div className='h-10 w-10 bg-gray-200 rounded-md flex justify-center items-center p-1'>
+    <div className='h-10 w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
         <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
     </div>
     <div className="flex z-10 items-center">
