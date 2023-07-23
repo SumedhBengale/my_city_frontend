@@ -42,11 +42,11 @@ function Navbar() {
           onClick={handleMenuClick}
         />
 
-        <div className='flex items-center justify-center w-full'>
+        <div className='flex justify-center w-full'>
           <img
             src={menuOpen === true ? logoBlack : logo}
             alt='logo'
-            className='w-1/3'
+            className='h-12'
           />
         </div>
 
