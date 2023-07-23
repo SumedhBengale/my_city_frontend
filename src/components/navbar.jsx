@@ -51,12 +51,6 @@ function Navbar() {
         </div>
 
         <img
-          src={notification}
-          alt='hamburger menu'
-          className='px-2 opacity-0'
-        />
-
-        <img
           src={menuOpen === true ? personBlack : person}
           alt='hamburger menu'
           onClick={handleAccountMenuClick}
@@ -64,7 +58,7 @@ function Navbar() {
       </div>
 
       {accountMenuOpen && (
-        <div className='absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl h-20'>
+        <div className='absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl'>
           <div
             className='flex w-full justify-between p-3 relative'
           >
@@ -79,7 +73,7 @@ function Navbar() {
           <img
             src={logoBlack}
             alt='logo'
-            className='w-1/3'
+            className='h-12'
           />
         </div>
 
@@ -129,7 +123,7 @@ function Navbar() {
           <hr className='w-full h-[2px] bg-black'></hr>
       </div>
 
-      <div className=' gap-3 pr-3'>
+      <div className=' pr-3'>
       <NavLink
           to='/account'
           exact
@@ -185,6 +179,7 @@ function Navbar() {
         </div>
       )}
 
+      
       {menuOpen && (
         <div className=''>
           {menuOpen && (

@@ -39,15 +39,9 @@ function Navbar() {
           <img
             src={logoBlack}
             alt='logo'
-            className='w-1/3'
+            className='h-12'
           />
         </div>
-
-        <img
-          src={notification}
-          alt='hamburger menu'
-          className='px-2 opacity-0'
-        />
 
         <img
           src={personBlack}
@@ -72,7 +66,7 @@ function Navbar() {
           <img
             src={logoBlack}
             alt='logo'
-            className='w-1/3'
+            className='h-12'
           />
         </div>
 

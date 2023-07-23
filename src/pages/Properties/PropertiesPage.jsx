@@ -114,7 +114,7 @@ function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
         <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
     </div>
     <div className="flex z-10 items-center">
-        <div className="text-[12px] self-center">Sort by:</div>
+        <div className="flex self-center">Sort by:</div>
         <SortDropdown/>
     </div>
 </div>

@@ -16,7 +16,7 @@ const SortDropdown = () => {
   return (
     <div className='relative'>
       <button
-        className='px-4 text-black rounded-md'
+        className='px-4 text-zinc-900 text-opacity-40 rounded-md'
         onClick={toggleDropdown}
       >
         {
