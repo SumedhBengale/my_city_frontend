@@ -53,17 +53,17 @@ function ContactUs() {
             <div className='flex flex-col justify-start h-full bg-gray-200 md:px-5 m-5 rounded-lg container mt-10 mx-auto'>
               <div className='font-custom font-bold text-xl mx-3 md:mx-0 mt-3 text-black'>Get In Touch</div>
               <hr className="w-36 border-sm my-4 ml-3 mx-3 md:mx-0 border-[1px] border-black" />
-              <div className='flex flex-col md:max-w-2xl gap-3 w-full justify-center md:items-start'>
-                <input className=" md:w-full mx-3 h-12 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
+              <div className='flex flex-col md:max-w-2xl w-full justify-center md:items-start'>
+                <input className=" md:w-full mx-3 h-12 px-2 mt-3 bg-white rounded-lg" type='email' placeholder='Email'>
                       {/* Email Input */}
                   </input>
                   <textarea 
                   //set number of lines
                   rows={5}
-                  className="md:w-full mx-3 h-36 md:h-36 p-2 bg-white rounded-lg" type='text' placeholder='Message'>
+                  className="md:w-full mx-3 mt-3 h-36 md:h-36 p-2 bg-white rounded-lg" type='text' placeholder='Message'>
                       {/* Email Input */}
                   </textarea>
-                  <div className=' rounded-lg px-3 w-full md:w-min hover:scale-105 transition duration-75'>
+                  <div className=' rounded-lg px-3 w-full md:w-min hover:scale-105 transition duration-75 mt-3'>
                     <button className="bg-black text-white font-bold font-custom text-lg h-12 w-full md:w-40 rounded-lg my-2">Submit</button>
                   </div>
                 </div>

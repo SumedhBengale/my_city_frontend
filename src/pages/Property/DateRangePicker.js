@@ -6,14 +6,17 @@ import {
   subMonths,
   startOfMonth,
   endOfMonth,
-  startOfISOWeek,
-  endOfISOWeek,
+  startOfWeek,
+  endOfWeek,
   isSameDay,
+  getWeekOfMonth,
   isSameMonth,
   addDays,
 } from 'date-fns';
 import LeftArrow from '../../assets/images/property/left.svg';
 import RightArrow from '../../assets/images/property/right.svg';
+
+
 
 const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -21,11 +24,12 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   const [endDate, setEndDate] = useState(null);
   const datePickerRef = useRef(null);
 
-  const weekdaysShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const handleDateClick = (day) => {
     if (startDate === null) {
       // Set the start date if it hasn't been selected yet
+      console.log(format(day, 'e'));
       setStartDate(day);
       setEndDate(null); // Clear the end date
     } else if (endDate === null) {
@@ -48,8 +52,8 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
 
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
-  const monthStartDate = startOfISOWeek(monthStart);
-  const monthEndDate = endOfISOWeek(monthEnd);
+  const monthStartDate = startOfWeek(monthStart);
+  const monthEndDate = endOfWeek(monthEnd);
 
   const days = [];
   let day = monthStartDate;
@@ -59,8 +63,11 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
     day = addDays(day, 1);
   }
 
+
   const isWithinRange = (day) => {
     if (startDate === null || endDate === null) {return false} 
+
+    //Day is in the week of the end date
     return startDate.getTime() <= day.getTime() && day.getTime() <= endDate.getTime()
    }
 
@@ -91,7 +98,7 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
       <div>
         <div className="font-bold"> Please select the Date Range</div>
         <div className="flex items-center justify-between py-2">
-          <span className="font-custom font-bold text-lg">
+          <span className="font-custom font-normal text-md">
             {format(currentMonth, 'MMMM yyyy')}
           </span>
           <div className="flex justify-end gap-2">
@@ -110,7 +117,7 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
           </div>
         </div>
       </div>
-      <div className="flex mb-2">
+      <div className="flex mb-2 justify-around">
         {weekdaysShort.map((day) => (
           <div key={day} className="w-12 text-center text-sm text-gray-600 font-medium">
             {day}
@@ -118,21 +125,37 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
         ))}
       </div>
       <div className="grid grid-cols-7">
+
+
         {days.map((day) => (
           <div className=' py-2 flex justify-center items-center'>
           <div
             key={day}
-            className={`flex w-full items-center justify-center  cursor-pointer ${
+            className={`flex w-full items-center justify-center cursor-pointer ${
               !isSameMonth(day, monthStart)
                 ? 'text-gray-500'
                 : isSameDay(day, startDate)
-                ?  //Gradient black to gray
-                `bg-gradient-to-r from-black to-gray-300 text-white rounded-l-2xl`
+                ? `bg-black text-white rounded-l-2xl`
                 : isSameDay(day, endDate)
-                ? 'bg-gradient-to-l from-black to-gray-300 text-white rounded-r-2xl'
-                : (startDate === null || endDate === null) ? "" : (day.getTime() === startDate?.getTime() || day.getTime() === endDate?.getTime()) 
-                ? 'bg-red'
-                : isWithinRange(day) ? 'bg-gray-300  text-white' : ''
+                ? 'bg-black text-white rounded-r-2xl'
+                : (startDate === null || endDate === null) ? "" 
+                : isWithinRange(day) && (getWeekOfMonth(day) !== getWeekOfMonth(endDate)) ? 
+                format(day, 'e') === '1' ? 'bg-gradient-to-r from-black/70 to-black/60 rounded-l-2xl' : 
+                format(day, 'e') === '2' ? 'bg-gradient-to-r from-black/60 to-black/50' : 
+                format(day, 'e') === '3' ? 'bg-gradient-to-r from-black/50 to-black/40' : 
+                format(day, 'e') === '4' ? 'bg-gradient-to-r from-black/40 to-black/30' : 
+                format(day, 'e') === '5' ? 'bg-gradient-to-r from-black/30 to-black/20' : 
+                format(day, 'e') === '6' ? 'bg-gradient-to-r from-black/20 to-black/10' : 
+                format(day, 'e') === '7' ? 'bg-gradient-to-r from-black/10 to-black/0 rounded-r-2xl' : ''
+                : isWithinRange(day) && (getWeekOfMonth(day) === getWeekOfMonth(endDate)) ? 
+                format(day, 'e') === '7' ? 'bg-gradient-to-l from-black/70 to-black/60 rounded-r-2xl' : 
+                format(day, 'e') === '6' ? 'bg-gradient-to-l from-black/60 to-black/50' : 
+                format(day, 'e') === '5' ? 'bg-gradient-to-l from-black/50 to-black/40' : 
+                format(day, 'e') === '4' ? 'bg-gradient-to-l from-black/40 to-black/30' : 
+                format(day, 'e') === '3' ? 'bg-gradient-to-l from-black/30 to-black/20' : 
+                format(day, 'e') === '2' ? 'bg-gradient-to-l from-black/20 to-black/10' : 
+                format(day, 'e') === '1' ? 'bg-gradient-to-l from-black/10 to-black/0 rounded-l-2xl' : ''
+                : ''
             }`}
             onClick={() => handleDateClick(day)}
           >
