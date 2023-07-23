@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth,startOfWeek,endOfWeek, isSameMonth, isSameDay, addDays } from 'date-fns';
+import { format, addMonths, subMonths, startOfMonth, endOfMonth,startOfISOWeek,endOfISOWeek, isSameMonth, isSameDay, addDays } from 'date-fns';
 import LeftArrow from '../assets/images/home/left.svg';
 import RightArrow from '../assets/images/home/right.svg';
 
@@ -9,7 +9,7 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate, onClickOutside }) => 
   const datePickerRef = useRef(null);
 
 
-  const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdaysShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const handleDateClick = (day) => {
       console.log("handleDateClick")
@@ -62,7 +62,7 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate, onClickOutside }) => 
 
   const renderDaysOfWeek = () => {
     return (
-      <div className="flex mb-2">
+      <div className="flex mb-2 justify-around">
         {weekdaysShort.map((day) => (
           <div key={day} className="w-12 text-center text-sm text-gray-600 font-medium">
             {day}
@@ -75,8 +75,8 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate, onClickOutside }) => 
   const renderDays = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(currentMonth);
-    const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
-    const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
+    const startDate = startOfISOWeek(monthStart, { weekStartsOn: 1 });
+    const endDate = endOfISOWeek(monthEnd, { weekStartsOn: 1 });
 
     const days = [];
     let day = startDate;

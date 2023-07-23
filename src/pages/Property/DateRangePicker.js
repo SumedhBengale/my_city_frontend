@@ -6,8 +6,8 @@ import {
   subMonths,
   startOfMonth,
   endOfMonth,
-  startOfWeek,
-  endOfWeek,
+  startOfISOWeek,
+  endOfISOWeek,
   isSameDay,
   isSameMonth,
   addDays,
@@ -21,14 +21,14 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   const [endDate, setEndDate] = useState(null);
   const datePickerRef = useRef(null);
 
-  const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdaysShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const handleDateClick = (day) => {
-    if (!startDate) {
+    if (startDate === null) {
       // Set the start date if it hasn't been selected yet
       setStartDate(day);
       setEndDate(null); // Clear the end date
-    } else if (!endDate) {
+    } else if (endDate === null) {
       // Set the end date if the start date has been selected
       if (day >= startDate) {
         setEndDate(day);
@@ -40,10 +40,29 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
       // Clear both start and end dates if both have been selected
       setStartDate(null);
       setEndDate(null);
+      setStartDate(day);
     }
     console.log(startDate)
     console.log(endDate)
   };
+
+  const monthStart = startOfMonth(currentMonth);
+  const monthEnd = endOfMonth(currentMonth);
+  const monthStartDate = startOfISOWeek(monthStart);
+  const monthEndDate = endOfISOWeek(monthEnd);
+
+  const days = [];
+  let day = monthStartDate;
+
+  while (day <= monthEndDate) {
+    days.push(day);
+    day = addDays(day, 1);
+  }
+
+  const isWithinRange = (day) => {
+    if (startDate === null || endDate === null) {return false} 
+    return startDate.getTime() <= day.getTime() && day.getTime() <= endDate.getTime()
+   }
 
   const handlePrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
@@ -53,8 +72,22 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
-  const renderHeader = () => {
-    return (
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+        onClickOutside();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClickOutside]);
+
+  return (
+    <div className="m-3 sm:m-10 p-5 h-min bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
       <div>
         <div className="font-bold"> Please select the Date Range</div>
         <div className="flex items-center justify-between py-2">
@@ -77,24 +110,6 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
           </div>
         </div>
       </div>
-    );
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
-        onClickOutside();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onClickOutside]);
-
-  const renderDaysOfWeek = () => {
-    return (
       <div className="flex mb-2">
         {weekdaysShort.map((day) => (
           <div key={day} className="w-12 text-center text-sm text-gray-600 font-medium">
@@ -102,51 +117,30 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
           </div>
         ))}
       </div>
-    );
-  };
-
-  const renderDays = () => {
-    const monthStart = startOfMonth(currentMonth);
-    const monthEnd = endOfMonth(currentMonth);
-    const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
-    const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
-
-    const days = [];
-    let day = startDate;
-
-    while (day <= endDate) {
-      days.push(day);
-      day = addDays(day, 1);
-    }
-
-    return (
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7">
         {days.map((day) => (
+          <div className=' py-2 flex justify-center items-center'>
           <div
             key={day}
-            className={`px-5 py-1.5 flex items-center justify-center rounded-full cursor-pointer ${
+            className={`flex w-full items-center justify-center  cursor-pointer ${
               !isSameMonth(day, monthStart)
                 ? 'text-gray-500'
-                : isSameDay(day, startDate) || isSameDay(day, endDate)
-                ? 'bg-blue-500 text-white'
-                : startDate && endDate && day > startDate && day < endDate
-                ? 'bg-white'
-                : ''
+                : isSameDay(day, startDate)
+                ?  //Gradient black to gray
+                `bg-gradient-to-r from-black to-gray-300 text-white rounded-l-2xl`
+                : isSameDay(day, endDate)
+                ? 'bg-gradient-to-l from-black to-gray-300 text-white rounded-r-2xl'
+                : (startDate === null || endDate === null) ? "" : (day.getTime() === startDate?.getTime() || day.getTime() === endDate?.getTime()) 
+                ? 'bg-red'
+                : isWithinRange(day) ? 'bg-gray-300  text-white' : ''
             }`}
             onClick={() => handleDateClick(day)}
           >
             {format(day, 'd')}
           </div>
+          </div>
         ))}
       </div>
-    );
-  };
-
-  return (
-    <div className="m-3 sm:m-10 p-5 h-min bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
-      {renderHeader()}
-      {renderDaysOfWeek()}
-      {renderDays()}
     </div>
   );
 };
