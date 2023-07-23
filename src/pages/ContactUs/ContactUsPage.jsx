@@ -50,24 +50,24 @@ function ContactUs() {
       </FadeInSetion>
       <FadeInSetion>
           <div className='w-full h-full px-5'>
-            <div className='flex flex-col h-full bg-gray-200 m-5 rounded-lg container mt-10 mx-auto'>
-              <div className='font-custom font-bold text-xl mx-3 mt-3 text-black'>Get In Touch</div>
-              <hr className="w-36 border-sm my-4 ml-3 border-[1px] border-black" />
-              <div className='flex flex-col md:flex-row gap-3 w-full justify-center md:items-center'>
+            <div className='flex flex-col justify-start h-full bg-gray-200 md:px-5 m-5 rounded-lg container mt-10 mx-auto'>
+              <div className='font-custom font-bold text-xl mx-3 md:mx-0 mt-3 text-black'>Get In Touch</div>
+              <hr className="w-36 border-sm my-4 ml-3 mx-3 md:mx-0 border-[1px] border-black" />
+              <div className='flex flex-col md:max-w-2xl gap-3 w-full justify-center md:items-start'>
                 <input className=" md:w-full mx-3 h-12 px-2 bg-white rounded-lg" type='email' placeholder='Email'>
                       {/* Email Input */}
                   </input>
-                  <input 
+                  <textarea 
                   //set number of lines
                   rows={5}
-                  className=" md:w-full mx-3 h-36 md:h-12 px-2 bg-white rounded-lg" type='text' placeholder='Description'>
+                  className="md:w-full mx-3 h-36 md:h-36 p-2 bg-white rounded-lg" type='text' placeholder='Message'>
                       {/* Email Input */}
-                  </input>
-                  <div className=' rounded-lg px-3 w-full md:w-min hover:scale-105 transition duration-75 flex justify-center'>
+                  </textarea>
+                  <div className=' rounded-lg px-3 w-full md:w-min hover:scale-105 transition duration-75'>
                     <button className="bg-black text-white font-bold font-custom text-lg h-12 w-full md:w-40 rounded-lg my-2">Submit</button>
                   </div>
                 </div>
-                <div className="mx-3 mb-5 flex flex-col text-center"><span className="text-zinc-800 text-xs font-normal leading-normal">Thank you so much for your interest! We’d love to hear from you and help you book your dream vacation! Please submit your email or email directly to: </span><span className="text-zinc-800 text-xs font-semibold leading-normal">info@mycityresidences.com</span></div>
+                <div className="mx-3 my-5 flex flex-col text-center"><span className="text-zinc-800 text-xs font-normal leading-normal">Thank you so much for your interest! We’d love to hear from you and help you book your dream vacation! Please submit your email or email directly to: </span><span className="text-zinc-800 text-xs font-semibold leading-normal">info@mycityresidences.com</span></div>
 
                 <div className='pt-5 pl-5'>
                       <div className=' flex items-center h-full mt-5'>
