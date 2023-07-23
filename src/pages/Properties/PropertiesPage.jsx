@@ -74,8 +74,8 @@ function PropertiesPage() {
 
         <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
           <div className='lg:hidden'>
-            <div className='font-custom font-bold text-2xl sm:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
-            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 sm:mb-10'>Discover your next home away from home</div>
+          <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
+            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>Discover your next home away from home</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>

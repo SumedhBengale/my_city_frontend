@@ -29,8 +29,8 @@ function SearchCard({setFilterVisible}) {
       </div>
       }
       <div className='px-2 sm:px-10 w-full flex justify-center'>
-      <div className="z-0 m-4 w-full md:w-3/5 lg:w-full h-min sm:h-80 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
-        <div className='grid grid-cols-2 gap-3 sm:gap-9 text-white'>
+      <div className="z-0 m-4 w-full md:w-3/5 lg:w-full h-min md:h-min bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
+        <div className='grid grid-cols-2 gap-3 md:gap-9 text-white'>
 
           <div className='col-span-2 flex justify-between'>{/* Location and Filter */}
               <div className='flex'>
@@ -86,12 +86,11 @@ function SearchCard({setFilterVisible}) {
           </div>
 
 
-          <div className="w-full col-span-2 h-10 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>navigate('/properties')}>
+          <div className="w-full col-span-2 h-10 md:mb-3 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>navigate('/properties')}>
           <div className="w-full relative h-full z-0 flex">
               <div className='w-full text-center self-center font-black flex justify-center items-center'>Search</div>
           </div>
           </div>
-
         </div>
 
       </div>
