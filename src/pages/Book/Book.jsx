@@ -12,7 +12,7 @@ function Book() {
            <DesktopNavbar />
         }
         </div>
-        
+        <div>
          <div className='flex w-full h-full bg-white shadow-lg justify-between  md:mt-16 '>
             <div className='w-10 h-full' onClick={()=>{
                 window.history.back();
@@ -111,6 +111,7 @@ function Book() {
 
         <div className='flex flex-grow justify-center items-end'>
             <button className='w-1/2 h-10 mt-6 mb-12 text-white bg-black hover:scale-105 transition duration-75 rounded-lg max-w-[400px]'>Confirm</button>
+        </div>
         </div>
         </div>
         </div>
