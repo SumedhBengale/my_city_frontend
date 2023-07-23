@@ -7,7 +7,7 @@ function WhyUs() {
         <div className='text-center font-custom font-normal text-3xl my-10'>Why Us?</div>
 
         <div className="flex flex-col md:flex-row justify-center items-center mb-10">
-            <div className=" w-full h-max bg-gray-200 rounded-2xl ">
+            <div className=" w-full h-max bg-gray-200 ">
                 <div className='flex flex-col gap-4 pb-5 mt-8 container mx-auto'>
                     <div className='flex justify-start items-center'>
                         <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />

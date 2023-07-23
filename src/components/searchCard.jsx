@@ -28,8 +28,8 @@ function SearchCard({setFilterVisible}) {
         <CustomDatePicker selectedDate={endDate} setSelectedDate={(date)=>{setEndDate(date); console.log(date); setEndDatePickerVisible(false)}} onClickOutside={()=>setEndDatePickerVisible(false)}></CustomDatePicker>
       </div>
       }
-
-      <div className="z-0 m-4 w-full md:w-3/5 h-min sm:h-80 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
+      <div className='px-2 sm:px-10 w-full flex justify-center'>
+      <div className="z-0 m-4 w-full md:w-3/5 lg:w-full h-min sm:h-80 bg-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md lg:hidden" >
         <div className='grid grid-cols-2 gap-3 sm:gap-9 text-white'>
 
           <div className='col-span-2 flex justify-between'>{/* Location and Filter */}
@@ -95,7 +95,7 @@ function SearchCard({setFilterVisible}) {
         </div>
 
       </div>
-
+      </div>
 
       <div className="z-0 mx-4 py-8 w-full max-w-7xl bg-white text-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md hidden lg:block" >
 
