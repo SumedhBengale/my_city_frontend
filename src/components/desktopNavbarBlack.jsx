@@ -29,10 +29,10 @@ function DesktopNavbar() {
       <>
         
         <div className=' w-full bg-white flex justify-between text-black gap-3 px-5 py-2'>
-          <div className='flex h-10'>
-            <img src={logoBlack} alt='My City Logo' className='h-10 self-start'></img>
+          <div className='flex h-12'>
+            <img src={logoBlack} alt='My City Logo' className='h-12 self-start'></img>
           </div>
-              <div className='flex h-10'>
+              <div className='flex h-12'>
                 <NavLink
                   to='/'
                   exact
@@ -40,7 +40,7 @@ function DesktopNavbar() {
                     location.pathname === '/' ? 'underline font-bold' : ''
                   }`}
                 >
-                  Home Page
+                  Home
                 </NavLink>
                 <NavLink
                   to='/properties'
@@ -74,6 +74,10 @@ function DesktopNavbar() {
                 >
                   Contact Us
                 </NavLink>
+                
+                </div>
+
+                <div className='flex gap-1'>
                 <img
                     src={notification}
                     alt='notification menu'

@@ -12,6 +12,7 @@ import Carousel from './Carousel'
 
 function Property() {
   const [carouselVisible, setCarouselVisible] = useState(false)
+  const [showFullDescription, setShowFullDescription] = useState(false)
   const navigate = useNavigate();
   const coordinate = {
     latitude: 37.7749,
@@ -111,7 +112,7 @@ function Property() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className="container px-5 my-4">
+        <div className="container mx-auto justify-center px-5 my-4">
           <PhotoGrid carouselOpen={()=>setCarouselVisible(true)}/>
         </div>
 
@@ -122,7 +123,7 @@ function Property() {
         <Amenities></Amenities>
 
         {/* Map and Rules */}
-        <div className='p-10 w-full md:col-span-4'>
+        <div className='px-10 w-full md:col-span-4'>
         <MapContainer coordinate={coordinate} />
         </div>
 
@@ -174,9 +175,6 @@ function Property() {
 
         </div> */}
 
-        <div className='text-lg font-custom font-bold pl-5'>{7} Nights in Apetite De Bone</div>
-        <div className='text-sms pl-5'>{'16 Jun'} to {'22 Jun'}</div>
-
         <div className=' justify-center'>
           <DateRangePicker onClickOutside={()=>{}} setSelectedDate={()=>{}}></DateRangePicker>
         </div>
@@ -196,7 +194,7 @@ function Property() {
 
     <DesktopNavbar></DesktopNavbar>
 
-    <div className='grid grid-cols-2 gap-3 container mx-auto'>
+    <div className='grid grid-cols-2 gap-3 container mx-auto px-5'>
       <div className='w-full relative'>
       <div className=' p-5 flex w-full justify-between absolute top-0 z-20'>
           <div className="w-10 h-10 bg-zinc-300 flex justify-center items-center rounded-full" onClick={()=>window.history.back()}>
@@ -249,9 +247,11 @@ function Property() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className=" w-full px-5 text-black text-xs font-normal leading-normal">The flat features a bright and airy living space, designed with contemporary furnishings and tasteful decor. Relax in the comfortable living room, complete with plush seating and a large flat-screen TV. The fully equipped kitchen boasts state-of-the-art appliances, making it a pleasure to prepare your favorite meals. </div>
+        <div className={`w-full px-5 text-black text-xs font-normal leading-normal overflow-hidden overflow-ellipsis ${
+          showFullDescription ? 'line-clamp-none' : 'line-clamp-3'
+        }`}>The flat features a bright and airy living space, designed with contemporary furnishings and tasteful decor. Relax in the comfortable living room, complete with plush seating and a large flat-screen TV. The fully equipped kitchen boasts state-of-the-art appliances, making it a pleasure to prepare your favorite meals. </div>
 
-        <div className=" w-full text-black underline font-bold text-xs px-5 py-2">{`Read More >`}</div>
+        <div className=" w-full text-black underline font-bold text-xs px-5 py-2" onClick={()=>{setShowFullDescription(!showFullDescription);console.log("OHHH")}}>{`${showFullDescription ? 'Collapse' : "Read More"} >`}</div>
 
         <div className='mx-2 my-2'>
             <hr className='w-full h-[2px] bg-black'></hr>
@@ -277,10 +277,12 @@ function Property() {
         </div> */}  
 
         <div className='container mx-auto'>
-        <div className="my-10">
-          <PhotoGrid carouselOpen={()=>setCarouselVisible(true)}/>
-        </div>
-
+          <div className='w-full flex justify-center'>
+            <div className="my-10 w-full lg:w-4/5">
+              <PhotoGrid carouselOpen={()=>setCarouselVisible(true)}/>
+            </div>
+          </div>
+        
         <div className='h-full mx-2 my-2'>
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
@@ -289,11 +291,11 @@ function Property() {
 
         <div className='lg:flex lg:flex-row md:grid md:grid-cols-6 pt-10'>
         {/* Map and Rules */}
-        <div className='p-10 w-full md:col-span-4'>
+        <div className='px-10 w-full md:col-span-4'>
         <MapContainer coordinate={coordinate} />
         </div>
           <div className='flex justify-center md:col-span-2'>
-          <div className='w-96 md:w-40 rounded-lg bg-gray-200 pr-3 grow-0'>
+          <div className='w-96 md:w-40 rounded-lg bg-gray-200 h-full pr-3 grow-0'>
             
             <div className='pl-5 text-lg font-custom font-bold py-3'>Rules</div>
 
@@ -337,10 +339,8 @@ function Property() {
 
         
         <div className='flex flex-col md:col-span-6'>
-        <div className='text-lg font-custom font-bold md:text-center lg:text-start pl-10'>{7} Nights in Apetite De Bone</div>
-        <div className='text-sms pl-10 md:text-center lg:text-left'>{'16 Jun'} to {'22 Jun'}</div>
 
-        <div className='flex justify-center md:grid md:col-span-2'>
+        <div className='flex justify-center'>
           <DateRangePicker onClickOutside={()=>{}} setSelectedDate={()=>{}}></DateRangePicker>
         </div>
         </div>

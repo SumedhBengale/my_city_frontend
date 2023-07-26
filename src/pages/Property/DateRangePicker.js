@@ -94,7 +94,18 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   }, [onClickOutside]);
 
   return (
-    <div className="m-3 sm:m-10 p-5 h-min bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
+    <div className='m-3 sm:mt-10 lg:mt-0'>
+    <div className='text-lg font-custom font-bold pl-5'>{
+      //End date - Start date
+      startDate === null || endDate === null ? 'Select the Date Range' :
+      (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + ' Nights in Apetite De Bone'
+    }</div>
+    <div className='text-sms pl-5'>{`${
+      startDate === null ? '' : format(startDate, 'dd MMMM')
+    } - ${
+      endDate === null ? '' : format(endDate, 'dd MMMM')
+    }`}</div>
+    <div className=" p-5 h-min lg:h-full bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
       <div>
         <div className="font-bold"> Please select the Date Range</div>
         <div className="flex items-center justify-between py-2">
@@ -164,6 +175,7 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

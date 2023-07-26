@@ -11,7 +11,7 @@ function PropertyCard() {
     <div className=" w-full md:max-w-[600px] max-w-[400px] bg-gray-200 hover:bg-gray-300 transition duration-75 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
         <div className='relative w-full'>
           <div className="absolute bottom-7 left-3 rounded-full pl-4 text-sm font-semibold text-white">
-          <div className="flex"><div className="text-white text-xl -translate-y-2 font-normal">€</div><div className="text-white text-xl font-bold">500</div><div className="text-white text-sm font-normal self-end">/night</div></div>
+          <div className="flex"><div className="text-white text-xl -translate-y-2 font-normal">£</div><div className="text-white text-xl font-bold">500</div><div className="text-white text-sm font-normal self-end">/night</div></div>
           </div>
           <div className='w-full p-4'>
             <img className="w-full rounded-xl" src={placeholderRoomImage} alt="Placeholder"/>
@@ -24,7 +24,7 @@ function PropertyCard() {
 
     {/*Also fetch these values from the API */}
     <div className='flex justify-between px-5'>
-        <div className='flex justify-between'>
+        <div className='flex justify-between gap-4'>
             <div className='flex'>
                 <img src={bed} alt='bed' className=''></img>
                 <div className='pl-2'>1</div>

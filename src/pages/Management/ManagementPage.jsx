@@ -7,7 +7,7 @@ import Image4 from '../../assets/images/management/image4.png'
 import Image5 from '../../assets/images/management/image5.png'
 import Image6 from '../../assets/images/management/image6.png'
 import Image7 from '../../assets/images/management/image7.png'
-import mcr from '../../assets/images/management/mcr.jpg'
+import mcr from '../../assets/images//black_logo.png'
 import WhatWeOffer from './WhatWeOffer'
 import HowCanWeHelp from './HowCanWeHelp'
 import HowItWorks from './HowItWorks'
@@ -54,9 +54,10 @@ function ManagementPage() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px] px-10'>
-          <div className='text-white font-bold text-6xl  drop-shadow-lg font-custom'>Blog</div>
-          <div className='text-white text-2xl drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
-
+          <div className='lg:mb-32'>
+            <div className='text-white font-bold text-6xl  drop-shadow-lg font-custom'>Blog</div>
+            <div className='text-white text-2xl drop-shadow-lg'>The Starting Point of Your Adventure Well Connected to the Whole City</div>
+          </div>
         </div>
       </div>
 
@@ -96,7 +97,7 @@ function ManagementPage() {
 
             <div className='text-black text-md pt-5 text-justify'>Our team has over three decades of experience in the vacation home sector, and our unrivaled knowledge of the city, as well as our attention on customer satisfaction, ensure that your stay in London is easy and unforgettable. We provide quality serviced apartments for both leisure and business. We assure that the property is kept in hotel-standard condition during our agreement, reducing your worries.</div>
             <div className='justify-center flex'>
-                <img src={mcr} alt="mcr" className='w-16 h-16 object-cover rounded-xl mt-10 mb-10' />
+                <img src={mcr} alt="mcr" className='w-full h-14 object-contain mt-10 mb-10' />
             </div>
           </div>
         </div>
@@ -120,11 +121,11 @@ function ManagementPage() {
          <div className='w-full h-56 md:h-[400px] rounded-r-[50px] md:rounded-r-[150px] relative'>
           <img src={Image4} alt="About Us" className="w-full pr-5 h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] " />
             <div className='absolute top-0 h-full w-full flex items-center justify-center pr-5'>
-              <div className=" w-3/4 h-36 m-2 px-1 bg-white bg-opacity-5 rounded-2xl flex flex-col md:gap-2 pt-3 border border-white backdrop-blur-md">
-                <div className=" w-full text-center text-white font-custom font-bold text-md px-2 pb-2">Do You Struggle With...</div>
-                <div className=" w-full text-center text-white text-xs font-normal pb-1 ">Selling/ Renting Your Property?</div>
-                <div className=" w-full text-center text-white text-xs font-normal pb-1">Troublesome Tenants?</div>
-                <div className=" w-full text-center text-white text-xs font-normal pb-1">Bills Not Getting Paid?</div>
+              <div className=" w-3/4 h-full m-2 px-1 flex flex-col justify-center md:gap-2">
+                <div className=" w-full text-center text-white font-custom font-bold text-xl px-2 pb-2">Do You Struggle With...</div>
+                <div className=" w-full text-center text-white text-md font-normal pb-1 ">Selling/ Renting Your Property?</div>
+                <div className=" w-full text-center text-white text-md font-normal pb-1">Troublesome Tenants?</div>
+                <div className=" w-full text-center text-white text-md font-normal pb-1">Bills Not Getting Paid?</div>
               </div>
             </div>
           </div>

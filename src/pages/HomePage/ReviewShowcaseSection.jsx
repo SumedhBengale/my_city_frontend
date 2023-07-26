@@ -4,7 +4,8 @@ import placeholder_user_image from '../../assets/images/home/placeholder_user_im
 const HorizontalScrollView = () => {
   const scrollContainerRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
-  const itemWidth = 300; // Adjust this value according to your element width
+  const itemWidth = 
+  window.innerWidth > 1200 ? 600 : 300; 
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -21,7 +22,7 @@ const HorizontalScrollView = () => {
     if (scrollContainer) {
       const scrollX = scrollContainer.scrollLeft;
       const containerWidth = scrollContainer.offsetWidth;
-      const newCenterIndex = Math.floor((scrollX + containerWidth/ 7) / itemWidth);
+      const newCenterIndex = Math.floor((scrollX + containerWidth/ 10) / itemWidth);
       setCenterIndex(newCenterIndex);
       console.log(newCenterIndex);
     }
@@ -35,7 +36,9 @@ const HorizontalScrollView = () => {
       ref={scrollContainerRef}
     >
      
-    <div className="flex h-96 ">
+    <div className={`flex ${
+        window.innerWidth > 1200 ? 'h-[500px]' : 'h-96'
+    } `}>
       <div className='flex w-20/100 sm:w-40/100'><div className='w-full bg-transparent'></div></div>
         {Array.from(Array(10).keys()).map((index) => {
           const distanceFromCenter = Math.abs(index - centerIndex);
@@ -43,14 +46,16 @@ const HorizontalScrollView = () => {
           return (
             <div
               key={index}
-              className="flex items-center justify-center transition-all duration-300"
+              className={`flex items-center justify-center transition-all duration-300`}
               style={{
                 width: `${itemWidth}px`,
                 transform: `scale(${scale})`,
                 transformOrigin: 'center center',
               }}
             >
-              <div className="h-72 w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]" >
+              <div className={` ${
+        window.innerWidth > 1200 ? 'h-86' : 'h-72'
+    } w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]`} >
                 <div className='flex justify-center flex-col'>
                   <div className='w-full flex justify-center '>
                     <img src={placeholder_user_image} alt="demo user" className="rounded-full w-1/4" />

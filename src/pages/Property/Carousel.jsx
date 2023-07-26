@@ -43,7 +43,7 @@ const Carousel = () => {
 
   return (
     <div
-      className="w-full h-[500px] relative overflow-hidden"
+      className="w-full h-[500px] relative overflow-hidden rounded-2xl"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >

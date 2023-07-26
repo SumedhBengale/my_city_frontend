@@ -42,9 +42,10 @@ function AboutUsPage() {
           <img src={Image1} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[150px] " />
         </div>
         <div className='absolute bottom-0 h-full text-center flex justify-end flex-col w-full backdrop-filter backdrop-blur-sm pb-20 bg-gradient-to-b from-transparent via-gray to-black/40 rounded-r-[150px]'>
+        <div className='lg:mb-32'>
           <div className='text-white font-bold text-6xl  drop-shadow-lg font-custom'>Who Are We?</div>
           <div className='text-white text-2xl drop-shadow-lg'>Discover your next home away from home</div>
-
+        </div>
         </div>
       </div>
       </FadeInSection>

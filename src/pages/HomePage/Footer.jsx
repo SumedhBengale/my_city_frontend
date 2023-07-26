@@ -1,4 +1,4 @@
-import React from 'react'
+import {React, useState} from 'react'
 import black_logo from '../../assets/images/black_logo.png'
 import location_black from '../../assets/images/home/location_black.svg'
 import phone_black from '../../assets/images/home/phone_black.svg'
@@ -9,14 +9,78 @@ import instagram from '../../assets/images/home/instagram.svg'
 import linkedin from '../../assets/images/home/linkedin.svg'
 
 function Footer() {
-  return (
+    const [currencySwitcherVisible, setCurrencySwitcherVisible] = useState(false);
+    const [selectedCurrency, setSelectedCurrency] = useState('Property Currency');
+  
+    const currencies = {
+      'AUD': "Australian Dollar",
+      'CAD': "Canadian Dollar",
+      'EUR': "Euro",
+      'USD': "US Dollar",
+      'SGD': "Singapore Dollar",
+      'GBP': 'Pound Sterling',
+      'INR': 'Indian Rupee',
+    };  
+
+    const handleCurrencySelect = (currency) => {
+        setSelectedCurrency(currency);
+        setCurrencySwitcherVisible(false);
+        };
+
+    return (
     <>
+    {currencySwitcherVisible && (
+        <div className='fixed bottom-0 h-screen w-screen backdrop-blur-lg bg-black/40 flex justify-center items-end md:items-center z-50'>
+            <div className=' w-full md:w-1/2 bg-white rounded-2xl p-5'>
+            <div className='flex justify-between mb-5'>
+              <div className='font-bold' onClick={()=>setCurrencySwitcherVisible(false)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-black rounded-md text-black" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                              d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+              </div>
+        <div className='w-full text-center font-bold font-custom text-xl mb-1'>Currency Switcher</div>
+        </div>
+            <div className=''>
+                <div className='font-bold px-4 py-2 bg-gray-100 mb-2'>Suggested Currencies</div>
+                {
+                    Object.keys(currencies).map((currency) => (
+                        !['GBP', 'INR'].includes(currency) && (
+                            <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
+                            {currency + ' - ' + currencies[currency]}
+                            </div>
+                        )
+                    ))
+                }
+            </div>
+            <div className=''>
+                <div className='font-bold px-4 py-2 bg-gray-100 mb-2'>All Currencies</div>
+                {
+                    Object.keys(currencies).map((currency) => (
+                        ['GBP', 'INR'].includes(currency) && (
+                        <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
+                            {currency + ' - ' + currencies[currency]}
+                        </div>
+                        )
+                    ))
+                }
+                <div className={`px-4 py-2 cursor-pointer ${selectedCurrency === 'Property Currency' ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect('Property Currency')}>
+                    Property Currency
+                </div>
+            </div>
+            </div>
+        </div>
+      )}
     <div className="Rectangle w-full bg-zinc-100 mt-10" >
         <div className='container mx-auto'>
-        <img src={black_logo} alt='logo' className='w-1/2 sm:w-1/3 md:w-1/6 max-w-[300px] pt-5 pl-5'></img>
+            <div className='flex justify-center'>        
+                <img src={black_logo} alt='logo' className='h-20 max-w-[300px] pt-5 pl-5'></img>
+            </div>
+
         <div className='flex flex-col md:flex-row justify-between md:mx-5'>
             <div className='pt-10 pl-5'>
-                <div className='font-custom font-bold text-xl'>Currency Switcher</div>
+                <div className='font-custom font-bold text-xl' onClick={()=> setCurrencySwitcherVisible(!currencySwitcherVisible)}>Currency Switcher</div>
             </div>
 
             <div className='pt-10 pl-5'>
