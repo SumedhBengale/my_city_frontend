@@ -85,7 +85,7 @@ function PropertiesPage() {
         </div>
       </div>
 
-    <div className='px-5 container mx-auto'>
+    <div className='px-5 md:container md:mx-auto'>
     <FadeInSection>
       <PropertiesSection sortValue={sortValue} handleSelectChange={handleSelectChange} setFilterVisible={setFilterVisible}></PropertiesSection>
     </FadeInSection>
@@ -109,13 +109,14 @@ function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
     <>
        <div className="text-black font-custom font-bold text-2xl pt-10 capitalize">Nearby Properties</div>
 
-<div className='flex justify-between mt-3 mb-5'>
-    <div className='h-10 w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
-        <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
-    </div>
+<div className='flex justify-end mt-3 mb-5'>
+    
     <div className="flex z-10 items-center">
         <div className="flex self-center">Sort by:</div>
         <SortDropdown/>
+    </div>
+    <div className='h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
+        <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
     </div>
 </div>
 
