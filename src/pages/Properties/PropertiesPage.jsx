@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useRef} from 'react'
 import Navbar from '../../components/navbar'
 import NavbarBlack from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbar'
@@ -17,6 +17,7 @@ function PropertiesPage() {
     const [sortValue, setsortValue] = useState('r-hl')
     const [blackNavbar, setBlackNavbar] = useState(false);
     const [filterVisible, setFilterVisible] = useState(false);
+    const nearbyPropertiesRef = useRef(null);
     const handleSelectChange = (value) => {
       setsortValue(value);
       console.log(value)
@@ -35,9 +36,16 @@ function PropertiesPage() {
       };
   
       window.addEventListener('scroll', handleScroll);
+      //Scroll to the ref 'nearbyPropertiesRef' when the page loads
+      window.scrollTo({
+        top: nearbyPropertiesRef.current.offsetTop-50,
+        behavior: 'smooth',
+      });
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
+      
+
     }, []);
   return (
     <>
@@ -85,7 +93,8 @@ function PropertiesPage() {
         </div>
       </div>
 
-    <div className='px-5 md:container md:mx-auto'>
+    <div className='px-5 md:container md:mx-auto'
+    ref={nearbyPropertiesRef}>
     <FadeInSection>
       <PropertiesSection sortValue={sortValue} handleSelectChange={handleSelectChange} setFilterVisible={setFilterVisible}></PropertiesSection>
     </FadeInSection>
@@ -109,7 +118,7 @@ function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
     <>
        <div className="text-black font-custom font-bold text-2xl pt-10 capitalize">Nearby Properties</div>
 
-<div className='flex justify-end mt-3 mb-5'>
+<div className='flex justify-between sm:justify-end mt-3 mb-5 gap-5'>
     
     <div className="flex z-10 items-center">
         <div className="flex self-center">Sort by:</div>
