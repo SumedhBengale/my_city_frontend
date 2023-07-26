@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 function PropertyCard() {
   const navigate = useNavigate();
   return (
-    <div className=" w-full md:max-w-[600px] max-w-[400px] bg-gray-200 hover:bg-gray-300 transition duration-75 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
+    <div className=" w-full  md:max-w-[600px] max-w-[400px] bg-gray-200 hover:bg-gray-300 transition duration-75 rounded-2xl backdrop-blur-[185px] pb-5 mb-5" onClick={()=>navigate('/property')}>
         <div className='relative w-full'>
           <div className="absolute bottom-7 left-3 rounded-full pl-4 text-sm font-semibold text-white">
           <div className="flex"><div className="text-white text-xl -translate-y-2 font-normal">£</div><div className="text-white text-xl font-bold">500</div><div className="text-white text-sm font-normal self-end">/night</div></div>
@@ -23,22 +23,22 @@ function PropertyCard() {
         </div>
 
     {/*Also fetch these values from the API */}
-    <div className='flex justify-between px-5'>
-        <div className='flex justify-between gap-4'>
+    <div className='grid grid-cols-1 xs:grid-cols-2 px-5 gap-1 xs:gap-5'>
+        <div className='flex justify-start gap-2 w-full'>
             <div className='flex'>
                 <img src={bed} alt='bed' className=''></img>
-                <div className='pl-2'>1</div>
+                <div className='pl-1'>1</div>
             </div>
             <div className='flex'>
                 <img src={shower} alt='shower' className=''></img>
-                <div className='pl-2'>1</div>
+                <div className='pl-1'>1</div>
             </div>
             <div className='flex'>
                 <img src={person} alt='person' className=''></img>
-                <div className='pl-2'>1</div>
+                <div className='pl-1'>1</div>
             </div>
         </div>
-        <div className='text-md'>Condominimum</div>
+        <div className='text-md overflow-hidden text-start xs:text-end overflow-ellipsis'>Condominimum</div>
     </div>
   </div>
   )

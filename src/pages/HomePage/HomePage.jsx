@@ -81,11 +81,12 @@ function Home() {
           <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
         </div>
       </div>
-      <div className='container mx-auto'>
+      <div className='md:container md:mx-auto'>
       <FadeInSection>
         <IntroductionSection></IntroductionSection>
       </FadeInSection>
-      </div> {/* Seperated into different file because it's static content */}
+      </div> 
+      {/* Seperated into different file because it's static content */}
       <FadeInSection>
 
       <div className='p-4 container mx-auto'>
@@ -93,7 +94,7 @@ function Home() {
       <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
       {/* Fill these with fetched data */}
-      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 gap-5 lg:px-10 mt-10'>
+      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:px-10 mt-10'>
         <PropertyCard></PropertyCard>
         <PropertyCard></PropertyCard>
         <PropertyCard></PropertyCard>
