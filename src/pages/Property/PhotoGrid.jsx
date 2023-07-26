@@ -40,16 +40,17 @@ function PhotoGrid({carouselOpen}) {
 
   return (
     <>
-    <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 md:px-10">
       {displayedImages.map((image, index) => (
         <div
         key={index}
-        className={`bg-gray-200 ${index === 0 ? 'col-span-2 md:row-span-2 md:col-span-2' : index === 1 ? 'col-span-2 md:col-span-1' : index === 2 ? 'col-span-2 md:col-span-1' : 'col-span-2 md:col-span-1'}`}
+        className={`bg-gray-200 rounded-lg ${index === 0 ? 'col-span-2 md:row-span-2 md:col-span-2' : index === 1 ? 'col-span-2 md:col-span-1' : index === 2 ? 'col-span-2 md:col-span-1' : 'col-span-2 md:col-span-1'}`}
         onClick={()=>carouselOpen()}
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: 'cover',
           height: index === 0 ? '31rem' : '15rem',
+          //Rounded
         }}
       />
       ))}

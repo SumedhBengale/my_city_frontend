@@ -37,7 +37,7 @@ function SearchCard({setFilterVisible}) {
                 <img src={locationPin} alt='location pin' className=''></img>
                 <div className='pl-2'>
                   <div className='text-xs sm:text-sm'>Select Location</div>
-                  <div className=' text-md sm:text-md font-bold'>Where to?</div>
+                  <div className=' text-md sm:text-md font-bold'>Select</div>
                 </div>
               </div>
             <div className='text-white text-[18px] font-bold active:scale-105 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
@@ -104,7 +104,7 @@ function SearchCard({setFilterVisible}) {
                 <img src={locationPin} alt='location pin' className='w-8 h-8'></img>
                 <div className='pl-2'>
                   <div className='text-[12px]'>Select Location</div>
-                  <div className='font-bold  text-xl'>Where to?</div>
+                  <div className='font-bold  text-xl'>Select</div>
                 </div>
               </div>
 
@@ -133,7 +133,7 @@ function SearchCard({setFilterVisible}) {
               <img src={guests} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>No. of guests</div>
-                <div className=' text-xl font-bold'>2{/*Get this input */}</div>
+                <div className=' text-lg font-bold'>2{/*Get this input */}</div>
               </div>
             </div>
           
@@ -143,23 +143,28 @@ function SearchCard({setFilterVisible}) {
               <img src={rooms} alt='calendar' className='w-8 h-8'></img>
               <div className='pl-2'>
                 <div className='text-[12px]'>No. of rooms</div>
-                <div className=' text-xl font-bold'>1{/*Get this input */}</div>
+                <div className=' text-lg font-bold'>1{/*Get this input */}</div>
               </div>
             </div>
 
             <div className='h-20 w-[2px] bg-white'></div>
 
-            <div className='text-white text-[18px] font-bold flex items-center hover:scale-110 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
-              <img src={filterIcon} alt='filter' className=''></img>
-            </div>
-
-            <div className='h-20 w-[2px] bg-white'></div>
-
+            <div className='flex gap-3'>
             <div className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>navigate('/properties')}>
               <div className="relative h-full z-0 flex">
                   <div className='w-full text-center font-bold self-center flex justify-center items-center'>Search</div>
               </div>
             </div>
+
+            <div className='text-white text-[18px] font-bold flex items-center hover:scale-110 transition duration-75 cursor-pointer' onClick={()=>setFilterVisible(true)}>
+              <img src={filterIcon} alt='filter' className=''></img>
+            </div>
+
+            </div>
+
+
+
+            
 
           </div>
       </div>

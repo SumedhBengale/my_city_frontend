@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar'
 import NavbarBlack from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbar'
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
-import PropertiesBackground from '../../assets/images/properties/properties_top_image.png'
+import PropertiesBackground from '../../assets/images/properties/properties_top_image.jpg'
 import SearchCard from '../../components/searchCard'
 import filterBlack from '../../assets/images/properties/filter_black.svg'
 import PropertyCard from '../HomePage/PropertyCard'
@@ -72,14 +72,14 @@ function PropertiesPage() {
         </div>
 
 
-        <div className='h-full flex flex-col justify-center items-center mx-5 z-0'>
+        <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
           <div className='lg:hidden'>
-          <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
+            <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
             <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>Discover your next home away from home</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>
-            <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-20'></img>
+            <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
           <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
         </div>

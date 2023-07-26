@@ -11,7 +11,7 @@ function HowCanWeHelp() {
             <div className=" w-full h-max bg-gray-200 text-zinc-800 rounded-2xl">
                 <div className='text-md px-5 pb-8 pt-3 text-left'>We are constantly looking for new properties because of our high occupancy rate and rising demand. If you are a landlord wanting to rent or sell your property, you have come to the right place.</div>
                 <div className='flex flex-col gap-4 pb-5'>
-                    <div className='flex justify-start items-center'>
+                    <div className={`flex justify-start items-center `}>
                         <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
                         <div className='text-md px-4 text-zinc-800   text-left'>We would like to rent or buy your property</div>
                     </div>

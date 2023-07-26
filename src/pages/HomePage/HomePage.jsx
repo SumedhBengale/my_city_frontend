@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar'
 import NavbarBlack from '../../components/navbar_black'
 import DesktopNavbar from '../../components/desktopNavbar'
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
-import homeBackground from '../../assets/images/home/home_top_image.jpg'
+import homeBackground from '../../assets/images/home/home_top_image.png'
 import IntroductionSection from './IntroductionSection'
 import PropertyCard from './PropertyCard'
 import WhatWeOfferSection from './WhatWeOfferSection'
@@ -58,7 +58,7 @@ function Home() {
   return (
     <>
      {filterVisible &&
-      <div className='h-screen w-screen absolute'>
+      <div className='h-screen w-screen absolute overflow-scroll'>
       <Filter apply={(data)=>{
         setFilterVisible(false)
         console.log('filter applied')
@@ -87,7 +87,7 @@ function Home() {
         </div>
 
 
-        <div className='h-full flex flex-col justify-center items-center z-0 bg-black/20'>
+        <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
           <div className='lg:hidden'>
             <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
             <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>Discover your next home away from home</div>
@@ -157,9 +157,9 @@ function Home() {
       </div>
       </FadeInSection>
     
-      <FadeInSection>
+      {/* <FadeInSection> */}
       <Footer></Footer>
-      </FadeInSection>
+      {/* </FadeInSection> */}
     </>
   )
 }

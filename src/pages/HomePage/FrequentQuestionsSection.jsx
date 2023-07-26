@@ -45,7 +45,7 @@ function FrequentQuestion(
     <div className='mx-5 mt-5'>
       <div className="Rectangle w-full bg-white rounded-lg border border-black flex flex-col py-3">
         <div className='flex justify-between'>
-          <div className='text-md ml-3 w-3/4 flex items-center capitalize'>{question}</div>
+          <div className='text-md ml-3 w-3/4 flex font-bold items-center capitalize'>{question}</div>
           <img src={plus} alt='plus' className='w-8 mr-3' onClick={()=>setAnswerVisible(!answerVisible)}/>
         </div>
         {answerVisible && <div className='px-3'>{answer}</div>}
