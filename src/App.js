@@ -26,8 +26,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={
             //check whether the user is logged in or not
-            // getToken ? <HomePage></HomePage> : <Navigate to="/login"></Navigate>
-            <HomePage></HomePage>
+            getToken ? <HomePage></HomePage> : <Navigate to="/login"></Navigate>
           } />
           <Route exact path="/login" element={<LoginPage></LoginPage>} />
           <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
@@ -35,7 +34,7 @@ const App = () => {
           <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
           <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
           <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
-          <Route exact path="/property" element={<Property></Property>} />
+          <Route exact path="/property/:id" element={<Property></Property>} />
           <Route exact path='/wishlist' element={<Wishlist></Wishlist>} />
           <Route exact path='/book' element={<Book></Book>} />
           <Route exact path="/trips" element={<Trips></Trips>} />

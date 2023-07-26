@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens:{
+        'xs': '320px',
+      },
       width:{
         '50/100': '50vw',
         '40/100': '40vw',
