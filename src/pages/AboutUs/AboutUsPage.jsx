@@ -6,6 +6,7 @@ import Image1 from '../../assets/images/about/about_img_1.jpg'
 import OurValuesSection from './OurValuesSection'
 import OurPartnersSection from './OurPartnersSection'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
+import Footer from '../HomePage/Footer'
 
 function AboutUsPage() {
   return (
@@ -59,6 +60,8 @@ function AboutUsPage() {
         <FadeInSection>
         <OurPartnersSection></OurPartnersSection>
         </FadeInSection>
+        <Footer></Footer>
+
 
 
     </>

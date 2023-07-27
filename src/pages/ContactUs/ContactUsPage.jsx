@@ -92,9 +92,9 @@ function ContactUs() {
             </div>
           </div>
           </FadeInSetion>
-          <FadeInSetion>
+          {/* <FadeInSetion> */}
             <Footer></Footer>
-          </FadeInSetion>
+          {/* </FadeInSetion> */}
     </>
   )
 }

@@ -192,9 +192,9 @@ function ManagementPage() {
         <FadeInSection>
         <FrequentQuestionsSection></FrequentQuestionsSection>
         </FadeInSection>
-        <FadeInSection>
+        {/* <FadeInSection> */}
         <Footer></Footer>
-        </FadeInSection>
+        {/* </FadeInSection> */}
 
     </>
   )
