@@ -39,10 +39,10 @@ function PropertiesPage() {
       //Scroll to the ref 'nearbyPropertiesRef' when the page loads
       if (nearbyPropertiesRef.current) {
         console.log('scrolling')
-        window.scrollTo({
+        setTimeout(() => window.scrollTo({
           top: nearbyPropertiesRef.current.offsetTop - 50,
           behavior: 'smooth',
-        });
+        }), 100);
       }
       return () => {
         window.removeEventListener('scroll', handleScroll);
