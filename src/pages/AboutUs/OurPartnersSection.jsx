@@ -1,6 +1,5 @@
 import React from 'react'
 import Carousel from './Carousel'
-import Footer from '../HomePage/Footer'
 
 function OurPartnersSection() {
   return (
@@ -11,7 +10,6 @@ function OurPartnersSection() {
 
         <Carousel></Carousel>
 
-        <Footer></Footer>
 
     </>
   )

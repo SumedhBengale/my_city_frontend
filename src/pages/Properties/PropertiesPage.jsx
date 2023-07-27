@@ -103,9 +103,9 @@ function PropertiesPage() {
     </FadeInSection>
 
     </div>
-    <FadeInSection>
+    {/* <FadeInSection> */}
     <Footer></Footer>
-    </FadeInSection>
+    {/* </FadeInSection> */}
 
     </>
   )
