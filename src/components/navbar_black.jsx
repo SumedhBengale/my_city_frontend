@@ -183,7 +183,7 @@ function Navbar() {
                   location.pathname === '/' ? 'underline font-bold' : ''
                 }`}
               >
-                Home Page
+                Home
               </NavLink>
               <NavLink
                 to='/properties'

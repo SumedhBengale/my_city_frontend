@@ -37,10 +37,13 @@ function PropertiesPage() {
   
       window.addEventListener('scroll', handleScroll);
       //Scroll to the ref 'nearbyPropertiesRef' when the page loads
-      window.scrollTo({
-        top: nearbyPropertiesRef.current.offsetTop-50,
-        behavior: 'smooth',
-      });
+      if (nearbyPropertiesRef.current) {
+        console.log('scrolling')
+        window.scrollTo({
+          top: nearbyPropertiesRef.current.offsetTop - 50,
+          behavior: 'smooth',
+        });
+      }
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
