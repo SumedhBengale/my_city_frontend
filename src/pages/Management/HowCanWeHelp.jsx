@@ -1,8 +1,7 @@
-import {React, useRef, useState, useEffect} from 'react'
+import {React, useRef, useEffect} from 'react'
 import tick from '../../assets/images/management/tick.svg'
 
 function HowCanWeHelp() {
-    const [color, setColor] = useState('white'); //state for the color of the text
     const ref = useRef(null);
     const b1 = useRef(null);
     const b2 = useRef(null);
@@ -54,7 +53,6 @@ function HowCanWeHelp() {
   return (
     <>
         <div className='text-center font-custom font-bold text-2xl mt-10'>How Can We Help?</div>
-        <div className={`h-5 w-full bg-${color}`}s></div>
         <div className='mx-5' ref={ref}>
         <div className="flex flex-col md:flex-row justify-center items-center m-5 container mx-auto">
             <div className=" w-full h-min bg-gray-200 text-zinc-800 rounded-2xl">
