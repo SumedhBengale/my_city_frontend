@@ -1,20 +1,7 @@
 import React, { useState } from 'react';
-import Placeholder1 from '../../assets/images/property/placeholder1.png';
-import Placeholder2 from '../../assets/images/property/placeholder2.png';
-import Placeholder3 from '../../assets/images/property/placeholder3.png';
-import Placeholder4 from '../../assets/images/property/placeholder4.png';
-import Placeholder5 from '../../assets/images/property/placeholder5.png';
 
 
-const Carousel = () => {
-  const images = [
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-  ]
-
+const Carousel = ({images}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
 

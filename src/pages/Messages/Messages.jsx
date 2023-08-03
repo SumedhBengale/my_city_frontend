@@ -1,9 +1,37 @@
-import React from 'react'
-import LeftArrow from '../../assets/images/property/left.svg'
-import SenderMessage from './SenderMessage'
-import ReceiverMessage from './ReceiverMessage'
+import React, { useEffect, useState } from 'react';
+import LeftArrow from '../../assets/images/property/left.svg';
+import SenderMessage from './SenderMessage';
+import ReceiverMessage from './ReceiverMessage';
+import { addMessage, getChat } from './api';
 
 function Messages() {
+  const [messages, setMessages] = useState(null);
+  const [chatId, setChatId] = useState(null);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    // Fetch chat and set initial messages
+    getChat().then((data) => {
+      setChatId(data.chat._id);
+      if (data.chat.messages.length > 0) {
+        console.log(data.chat)
+        setMessages(data.chat.messages);
+        console.log(data.chat.messages);
+      }
+    });
+  }, []);
+
+  const handleSend = () => {
+    addMessage(chatId, text).then((data) => {
+      console.log(data);
+      if (data.status === 201) {
+        console.log(data.chat.messages)
+        setMessages(data.chat.messages);
+        setText('');
+      }
+    });
+  };
+
   return (
     <>
         <div className='flex flex-col h-screen justify-between'>
@@ -18,20 +46,9 @@ function Messages() {
                 </div>
 
                 <div className='flex flex-col gap-5 my-5 container mx-auto'>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
-                    <SenderMessage message={'Sumedh Here'}></SenderMessage>
-                    <ReceiverMessage message={'Reply from Other Party'}></ReceiverMessage>
+                    {messages !== null && messages.map((message) => (
+                        message.sender === 'user' ? <SenderMessage message={message.message} /> : <ReceiverMessage message={message.message} />
+                    ))}
 
 
                 </div>
@@ -40,16 +57,18 @@ function Messages() {
             </div>
 
             {/*Show a Button at the bottom of the screen */}
-            <div className="flex items-center justify-between sticky bottom-0 p-2 container mx-auto">
+            <form className="flex items-center justify-between sticky bottom-0 p-2 container mx-auto">
                 <input
                     type="text"
                     className="flex-grow mr-2 border rounded px-2 py-1 focus:outline-none hover:scale-y-110 transition duration-75"
                     placeholder="Type Here..."
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                 />
-                <button className="bg-black text-white hover:scale-105 transition duration-75 px-4 py-2 rounded-lg">
+                <button className="bg-black text-white hover:scale-105 transition duration-75 px-4 py-2 rounded-lg" type='submit' onClick={()=>handleSend()}>
                     Send
                 </button>
-            </div>
+            </form>
         </div>
     </>
   )

@@ -1,26 +1,9 @@
 import React from 'react'
 
-function Amenities() {
+function Amenities(props) {
     const [showAmenities, setShowAmenities] = React.useState(false)
-    const amenities = [
-        'Bed Linen',
-        'Ovens',
-        'Iron',
-        'Hot Water',
-        'Toaster',
-        'Hair Dryer',
-        'Washer',
-        'Kitchen',
-        'Bed Linen',
-        'Ovens',
-        'Iron',
-        'Hot Water',
-        'Toaster',
-        'Hair Dryer',
-        'Washer',
-        'Kitchen',
-        
-    ]
+    const amenities = props.amenities
+    console.log(amenities)
   return (
     <>  
         <div className='text-2xl text-center pt-5 font-bold pb-2'>Amenities</div>

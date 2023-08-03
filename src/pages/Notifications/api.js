@@ -1,16 +1,14 @@
 import axios from 'axios';
 import config from '../../config/config';
 
-
-export const getResidences = async () => {
+export const getNotifications = async () => {
     try {
         //get request with auth header
-        const response = await axios.get(`${config.API_URL}/getResidences`, {
+        const response = await axios.post(`${config.API_URL}/notifications/get`,{
+            userId: localStorage.getItem('userId')
+        }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            params: {
-                filterData: null
             }
         });
         return response.data;

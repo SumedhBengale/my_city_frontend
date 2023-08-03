@@ -12,18 +12,23 @@ import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
 import SortDropdown from './sortDropdown'
 import Filter from '../../components/filter'
+import { useLocation } from 'react-router-dom'
+import { getResidences } from './api'
 
 function PropertiesPage() {
-    const [sortValue, setsortValue] = useState('r-hl')
+
     const [blackNavbar, setBlackNavbar] = useState(false);
     const [filterVisible, setFilterVisible] = useState(false);
+    const [residences, setResidences] = useState(null);
     const nearbyPropertiesRef = useRef(null);
-    const handleSelectChange = (value) => {
-      setsortValue(value);
-      console.log(value)
-    };
+    const location = useLocation();
 
     useEffect(() => {
+      console.log(location.state)
+    getResidences(location.state ?  {filterData: location.state.filterData, startDate:location.state.startDate, endDate:location.state.endDate}: {}).then((res) => {
+      console.log(res)
+      setResidences(res.residences)
+    }).catch((err) => {});
       const handleScroll = () => {
         const screenHeight = window.innerHeight;
         const scrollPosition = window.scrollY;
@@ -49,9 +54,10 @@ function PropertiesPage() {
       };
       
 
-    }, []);
+    }, [location.state]);
   return (
     <>
+      <>
       {filterVisible &&
       <div className='h-screen w-screen absolute'>
       <Filter apply={(data)=>{
@@ -99,14 +105,21 @@ function PropertiesPage() {
     <div className='px-5 md:container md:mx-auto'
     ref={nearbyPropertiesRef}>
     <FadeInSection>
-      <PropertiesSection sortValue={sortValue} handleSelectChange={handleSelectChange} setFilterVisible={setFilterVisible}></PropertiesSection>
-    </FadeInSection>
+      { residences ? 
+      <PropertiesSection setFilterVisible={setFilterVisible} residences={residences}></PropertiesSection>
+        :
+        <div className='flex justify-center items-center h-screen'>
+          <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900'></div>
+        </div>
+    }
+      </FadeInSection>
 
     </div>
     {/* <FadeInSection> */}
     <Footer></Footer>
     {/* </FadeInSection> */}
 
+    </>
     </>
   )
 }
@@ -116,7 +129,28 @@ export default PropertiesPage
 
 
 
-function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
+function PropertiesSection({setFilterVisible, residences}) {
+  const [sortValue, setSortValue] = useState('p-lh')
+  const [sortedResidences, setSortedResidences] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if(residences){
+      console.log('sorting')
+      if(sortValue === 'p-lh'){
+        //Sort by price low to high
+        setSortedResidences(residences.sort((a, b) => a.pricePerNight - b.pricePerNight))
+      }else if(sortValue === 'p-hl'){
+        //Sort by price high to low
+        setSortedResidences(residences.sort((a, b) => b.pricePerNight - a.pricePerNight))
+      }else if(sortValue === 'r-hl'){
+        //Sort by rating high to low
+        setSortedResidences(residences.sort((a, b) => b.starRating - a.starRating))
+      }
+      setLoading(false)
+    }
+  }, [sortValue, residences])
+  
   return (
     <>
        <div className="text-black font-custom font-bold text-2xl pt-10 capitalize">Nearby Properties</div>
@@ -125,7 +159,11 @@ function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
     
     <div className="flex z-10 items-center">
         <div className="flex self-center">Sort by:</div>
-        <SortDropdown/>
+        <SortDropdown setSortValue={(value)=>{
+          setLoading(true)
+          setSortValue(value);
+          console.log(value)
+          }}/>
     </div>
     <div className='h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
         <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
@@ -133,14 +171,14 @@ function PropertiesSection({sortValue, handleSelectChange, setFilterVisible}) {
 </div>
 
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center'>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
-  <PropertyCard></PropertyCard>
+  {sortedResidences && loading !== true ? sortedResidences.map((residence, index) => {
+    return (
+      <PropertyCard key={index} residence={residence}></PropertyCard>
+    )
+  }): <div className='flex justify-center items-center h-screen'>
+    <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900'></div>
+  </div>
+    }
 </div>
 <div className='flex justify-center mt-10'>
     <div className="w-[178px] h-14 bg-black text-white hover:scale-105 transition duration-75 cursor-pointer  rounded-xl backdrop-blur-md" >

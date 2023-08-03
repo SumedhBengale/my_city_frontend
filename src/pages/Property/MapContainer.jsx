@@ -10,7 +10,7 @@ const mapStyles = {
 class MapContainer extends Component {
   render() {
     const { google } = this.props;
-    const { latitude, longitude } = this.props.coordinate; // Replace with your desired coordinate
+    const { lat, lng } = this.props.coordinate; // Replace with your desired coordinate
 
     return (
           <div id='mapBox'>
@@ -18,9 +18,9 @@ class MapContainer extends Component {
                 google={google}
                 zoom={14}
                 style={mapStyles}
-                initialCenter={{ lat: latitude, lng: longitude }}
+                initialCenter={{ lat: lat, lng: lng }}
             >
-                <Marker position={{ lat: latitude, lng: longitude }} />
+                <Marker position={{ lat: lat, lng: lng }} />
             </Map>
           </div>
     );

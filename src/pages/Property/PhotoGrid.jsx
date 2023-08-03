@@ -1,40 +1,11 @@
 import React, { useState } from 'react';
-import Placeholder1 from '../../assets/images/property/placeholder1.png';
-import Placeholder2 from '../../assets/images/property/placeholder2.png';
-import Placeholder3 from '../../assets/images/property/placeholder3.png';
-import Placeholder4 from '../../assets/images/property/placeholder4.png';
-import Placeholder5 from '../../assets/images/property/placeholder5.png';
 
-function PhotoGrid({carouselOpen}) {
-  const allImages = [
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-    
-  ];
-
-  const [displayedImages, setDisplayedImages] = useState(allImages.slice(0, 3));
+function PhotoGrid({carouselOpen, images}) {
+  const [displayedImages, setDisplayedImages] = useState(images.slice(0, 3));
   const [showAll, setShowAll] = useState(false);
 
   const handleShowAll = () => {
-    setDisplayedImages(allImages);
+    setDisplayedImages(images);
     setShowAll(true);
   };
 

@@ -1,10 +1,24 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
 import PastTripCard from './PastTripCard'
 import UpcomingTripCard from './UpcomingTripCard'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
+import { getPastTrips, getUpcomingTrips } from './api'
 
 function Trips() {
+    const [upcomingTrips, setUpcomingTrips] = useState([])
+    const [pastTrips, setPastTrips] = useState([])
+    useEffect(() => {
+        getUpcomingTrips().then((upcomingData) => {
+            setUpcomingTrips(upcomingData.upcomingTrips)
+            console.log(upcomingData.upcomingTrips)
+            getPastTrips().then((pastData) => {
+                setPastTrips(pastData.pastTrips)
+            })
+        },
+
+        )
+    }, [])
         const [selected, setSelected] = useState('upcoming')
     return (
         <>
@@ -59,29 +73,28 @@ function Trips() {
             <div className='container mx-auto'>
                 {selected === 'upcoming' ?
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
-                    <UpcomingTripCard></UpcomingTripCard>
-                    <UpcomingTripCard></UpcomingTripCard>
-                    <UpcomingTripCard></UpcomingTripCard>
+                    {
+                    upcomingTrips.length > 0
+                    ? upcomingTrips.map((trip) => (
+                        <UpcomingTripCard trip={trip}></UpcomingTripCard>
+                    )) :
+                    <div className='flex justify-center items-center h-96 col-span-full'>
+                        <div className='text-2xl text-center font-bold'>No Upcoming Trips</div>
+                    </div>
+                    }
 
 
                 </div>
                 :
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5'>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
-                    <PastTripCard></PastTripCard>
+                    {pastTrips.length > 0
+                     ? pastTrips.map((trip) => (
+                        <PastTripCard trip={trip}></PastTripCard>
+                    )) :
+                    <div className='flex justify-center items-center h-96 col-span-full'>
+                        <div className='text-2xl text-center font-bold'>No Past Trips</div>
+                    </div>
+                    }
                 </div>
                 }
             </div>

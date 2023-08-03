@@ -8,12 +8,12 @@ function Filter({ apply, close }) {
   const [selectedBedrooms, setSelectedBedrooms] = useState('any');
   const [selectedGuests, setSelectedGuests] = useState('any');
   const [selectedBeds, setSelectedBeds] = useState('any');
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 20000]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
   const essentialAmenities = [
-    'Wifi',
+    'Wi-Fi',
     'Kitchen',
     'Iron',
     'Hair Dryer',
@@ -68,7 +68,7 @@ function Filter({ apply, close }) {
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ${
                 selectedBedrooms === 'any' ? 'bg-black font-bold text-white' : ''
               }`}
-              id='any_bed'
+              id='any_bedroom'
               onClick={() => handleBedroomClick('any')}
             >
               Any
@@ -76,9 +76,10 @@ function Filter({ apply, close }) {
             {[0, 1, 2, 3, 4].map((bedroom) => (
               <button
                 key={bedroom}
-                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3${
+                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                   selectedBedrooms === bedroom ? 'bg-black font-bold text-white' : ''
                 }`}
+                id='number_bedroom'
                 onClick={() => handleBedroomClick(bedroom)}
               >
                 {bedroom}
@@ -88,7 +89,7 @@ function Filter({ apply, close }) {
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                 selectedBedrooms === '5+' ? 'bg-black font-bold text-white' : ''
               }`}
-              id='5+'
+              id='5+_bedroom'
               onClick={() => handleBedroomClick('5+')}
             >
               5+
@@ -111,23 +112,28 @@ function Filter({ apply, close }) {
             {[0, 1, 2, 3, 4].map((guest) => (
               <button
                 key={guest}
-                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3${
+                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                   selectedGuests === guest ? 'bg-black font-bold text-white' : ''
                 }`}
+                id='number_guest'
                 onClick={() => handleGuestClick(guest)}
               >
                 {guest}
               </button>
             ))}
+
+
+
             <button
-              className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3${
+              className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                 selectedGuests === '5+' ? 'bg-black font-bold text-white' : ''
               }`}
-              id='5+'
+              id='5+_guest'
               onClick={() => handleGuestClick('5+')}
             >
               5+
             </button>
+
           </div>
         </div>
 
@@ -146,19 +152,20 @@ function Filter({ apply, close }) {
             {[0, 1, 2, 3, 4].map((bed) => (
               <button
                 key={bed}
-                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3${
+                className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                   selectedBeds === bed ? 'bg-black font-bold text-white' : ''
                 }`}
+                id='number_bed'
                 onClick={() => handleBedClick(bed)}
               >
                 {bed}
               </button>
             ))}
             <button
-              className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3${
+              className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
                 selectedBeds === '5+' ? 'bg-black font-bold text-white' : ''
               }`}
-              id='5+'
+              id='5+_bed'
               onClick={() => handleBedClick('5+')}
             >
               5+
@@ -271,7 +278,7 @@ function Filter({ apply, close }) {
       <div className='w-full font-bold text-xl pb-5'>Price</div>
       <ReactSlider
         min={0}
-        max={1000}
+        max={20000}
         value={priceRange}
         step={10}
         onChange={handlePriceChange}
@@ -303,7 +310,7 @@ function Filter({ apply, close }) {
       />
       <div className='flex justify-between'>
         <div>$0</div>
-        <div>$1000</div>
+        <div>$20000</div>
       </div>
       <div className='mt-3 flex justify-start gap-5'>
         <div className='h-full border rounded-lg px-5 py-2 flex flex-col'>

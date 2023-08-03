@@ -15,16 +15,49 @@ import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
 import Filter from '../../components/filter'
+import { getResidences } from './api'
+import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
+  const  navigate = useNavigate();
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
+  const [residences, setResidences] = useState(null);
+  const [filterData, setFilterData] = useState({});
+
+  
+  const search = (params) => {
+    console.log(filterData)
+    console.log(params)
+    //if params.startDate is greater than params.endDate, show toast
+    if(params.startDate > params.endDate){
+      toast.error("Cannot Check-in after Check-out")
+      return
+    }
+    navigate('/properties', {state: {filterData, startDate: params.startDate, endDate: params.endDate}})
+  }
 
   useEffect(() => {
+    getResidences().then((res) => {
+      if(res.status === 200){
+        console.log(res.residences)
+        setResidences(res.residences)
+      }else if(res.status === 401){
+        console.log('unauthorized')
+        localStorage.removeItem('token')
+        navigate('/login')
+      }else{
+        console.log("error")
+      }
+    }).catch((err) => {
+      console.log(err)
+    });
     const handleScroll = () => {
       const screenHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
-      console.log(scrollPosition, screenHeight * 70 / 100)
+      // console.log(scrollPosition, screenHeight * 70 / 100)
       if (scrollPosition >= screenHeight * 70 / 100) {
         setBlackNavbar(true);
       } else {
@@ -36,7 +69,7 @@ function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [navigate]);
   return (
     <>
      {filterVisible &&
@@ -45,6 +78,7 @@ function Home() {
         setFilterVisible(false)
         console.log('filter applied')
         console.log(data)
+        setFilterData(data)
       }} close={()=>setFilterVisible(false)}></Filter>
       </div>}
       <div
@@ -78,7 +112,7 @@ function Home() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
-          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
+          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)} search={(params)=>search(params)}></SearchCard>
         </div>
       </div>
       <div className='md:container md:mx-auto'>
@@ -93,13 +127,18 @@ function Home() {
       <div className=" text-center text-black font-custom font-bold text-4xl capitalize">Our Properties</div>
       <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
-      {/* Fill these with fetched data */}
-      <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:px-10 mt-10'>
-        <PropertyCard></PropertyCard>
-        <PropertyCard></PropertyCard>
-        <PropertyCard></PropertyCard>
-        <PropertyCard></PropertyCard>
-      </div>
+      {residences === null ? (
+          //Circular Progress
+          <div className='flex justify-center items-center mt-10'>
+            <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
+          </div>
+        ) : (
+          <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:px-10 mt-10'>
+          {residences.map((residence) => (
+            <PropertyCard residence={residence} key={residence._id}></PropertyCard>
+          ))}
+          </div>
+        )}
 
       <div className='flex justify-center mt-10'>
         <div className="w-[178px] h-14 bg-black text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
@@ -137,6 +176,18 @@ function Home() {
       {/* <FadeInSection> */}
       <Footer></Footer>
       {/* </FadeInSection> */}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+    />
     </>
   )
 }

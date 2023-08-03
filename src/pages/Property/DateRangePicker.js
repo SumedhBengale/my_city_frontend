@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   format,
@@ -18,10 +18,11 @@ import RightArrow from '../../assets/images/property/right.svg';
 
 
 
-const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
+const DateRangePicker = ({ returnData }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [totalNights, setTotalNights] = useState(0);
   const datePickerRef = useRef(null);
 
   const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -36,6 +37,8 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
       // Set the end date if the start date has been selected
       if (day >= startDate) {
         setEndDate(day);
+        setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+        returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
       } else {
         setStartDate(day);
         setEndDate(null);
@@ -78,27 +81,12 @@ const DateRangePicker = ({ setSelectedDate, onClickOutside }) => {
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
-
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
-        onClickOutside();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onClickOutside]);
-
   return (
     <div className='m-3 sm:mt-10 lg:mt-0'>
     <div className='text-lg font-custom font-bold pl-5'>{
       //End date - Start date
       startDate === null || endDate === null ? 'Select the Date Range' :
-      (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + ' Nights in Apetite De Bone'
+      totalNights + ' Nights in Apetite De Bone'
     }</div>
     <div className='text-sms pl-5'>{`${
       startDate === null ? '' : format(startDate, 'dd MMMM')

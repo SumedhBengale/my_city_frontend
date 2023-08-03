@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-const SortDropdown = () => {
+const SortDropdown = ({setSortValue}) => {
     const [option, setOption] = useState('p-lh');
   const [isOpen, setIsOpen] = useState(false);
 
     const selectOption = (option) => {
         setOption(option);
+        setSortValue(option);
         setIsOpen(false);
     }
 
@@ -35,7 +36,7 @@ const SortDropdown = () => {
           <ul>
             <li className='px-4 py-2 hover:bg-zinc-600 hover:text-white cursor-pointer' onClick={()=>selectOption('p-lh')}>{'Price(Low to High)'}</li>
             <li className='px-4 py-2 hover:bg-zinc-600 hover:text-white cursor-pointer' onClick={()=>selectOption('p-hl')}>{'Price(High to Low)'}</li>
-            <li className='px-4 py-2 hover:bg-zinc-600 hover:text-white cursor-pointer' onClick={()=>selectOption('r-hl')}>{'Price(High to Low)'}</li>
+            <li className='px-4 py-2 hover:bg-zinc-600 hover:text-white cursor-pointer' onClick={()=>selectOption('r-hl')}>{'Rating(High to Low)'}</li>
           </ul>
         </div>
       )}

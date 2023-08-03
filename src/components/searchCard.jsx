@@ -8,12 +8,13 @@ import CustomDatePicker from './CustomDatePicker'
 import { useNavigate } from 'react-router-dom'
 
 
-function SearchCard({setFilterVisible}) {
+function SearchCard({setFilterVisible, search}) {
   const [startDatePickerVisible, setStartDatePickerVisible] = useState(false)
   const [endDatePickerVisible, setEndDatePickerVisible] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const navigate = useNavigate()
+
   return (
     <>
 
@@ -86,7 +87,7 @@ function SearchCard({setFilterVisible}) {
           </div>
 
 
-          <div className="w-full col-span-2 h-10 md:mb-3 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>navigate('/properties')}>
+          <div className="w-full col-span-2 h-10 md:mb-3 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>search({startDate:startDate, endDate:endDate})}>
           <div className="w-full relative h-full z-0 flex">
               <div className='w-full text-center self-center font-black flex justify-center items-center'>Search</div>
           </div>
@@ -150,7 +151,7 @@ function SearchCard({setFilterVisible}) {
             <div className='h-20 w-[2px] bg-white'></div>
 
             <div className='flex gap-3'>
-            <div className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>navigate('/properties')}>
+            <div className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>search({startDate:startDate, endDate:endDate})}>
               <div className="relative h-full z-0 flex">
                   <div className='w-full text-center font-bold self-center flex justify-center items-center'>Search</div>
               </div>
