@@ -4,12 +4,12 @@ import { install } from 'resize-observer';
 
 if (!window.ResizeObserver) install();
 
-function Filter({ apply, close }) {
-  const [selectedBedrooms, setSelectedBedrooms] = useState('any');
-  const [selectedGuests, setSelectedGuests] = useState('any');
-  const [selectedBeds, setSelectedBeds] = useState('any');
-  const [priceRange, setPriceRange] = useState([0, 20000]);
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
+function Filter({ initialData, apply, close }) {
+  const [selectedBedrooms, setSelectedBedrooms] = useState(initialData ? initialData.selectedBedrooms : 'any');
+  const [selectedGuests, setSelectedGuests] = useState(initialData ? initialData.selectedGuests : 'any');
+  const [selectedBeds, setSelectedBeds] = useState(initialData ? initialData.selectedBeds : 'any');
+  const [priceRange, setPriceRange] = useState(initialData ? initialData.priceRange : [0, 20000]);
+  const [selectedAmenities, setSelectedAmenities] = useState(initialData ? initialData.selectedAmenities : []);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
   const essentialAmenities = [
@@ -49,16 +49,15 @@ function Filter({ apply, close }) {
       
       <div className='fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md'>
       <div className='h-5/6 2xl:h-min w-full md:w-max z-30 bg-white overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl p-2 flex flex-col '>
-          <div className='flex justify-between mb-10'>
-              <div className='font-bold' onClick={()=>{close()}}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-black rounded-md text-black" fill="none"
-                          viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-
-              </div>
+          <div className='flex justify-between mb-2'>
         <div className='w-full text-center font-bold font-custom text-xl mb-1'>Filter</div>
+          <div className='font-bold' onClick={()=>{close()}}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-black rounded-md text-black" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12" />
+              </svg>
+          </div>
         </div>
         <div className='grid grid-cols-1 mx-5'>
         <div className='mt-1'>
@@ -294,7 +293,7 @@ function Filter({ apply, close }) {
         renderThumb={(props, state) => (
           <div
             {...props}
-            className={`h-6 w-6 bg-white border-2 border-grey-400 rounded-full -translate-y-3 -translate-x-4 flex justify-center items-center ${
+            className={`h-6 w-6 bg-white border-2 border-grey-400 rounded-full -translate-y-3 flex justify-center items-center ${
               state.index === 0 ? 'left-0' : 'right-0'
             }`}
           >
@@ -325,7 +324,7 @@ function Filter({ apply, close }) {
     </div>
         <div className='flex justify-center'>
           <button className='bg-black text-white w-full max-w-md rounded-md px-5 py-2 mt-5'
-          onClick={()=>apply({bedrooms:selectedBedrooms, guests:selectedGuests, beds:selectedBeds,amenities: selectedAmenities, price:priceRange})}
+          onClick={()=>apply({bedrooms:selectedBedrooms, guests:selectedGuests, beds:selectedBeds,amenities: selectedAmenities, priceRange:priceRange})}
           >Apply Filter</button>
         </div>
       </div>

@@ -74,12 +74,12 @@ function DesktopNavbar() {
                   Contact Us
                 </NavLink>
               </div>
-              <div className='flex gap-1'>
+              <div className='flex gap-1 h-full items-center'>
               <img
                     src={notificationWhite}
                     alt='notification menu'
                     onClick={handleNotificationMenuClick}
-                    className='px-2 color-white h-8'
+                    className='px-2 color-white h-7'
                 />
           
                 <img
@@ -106,11 +106,11 @@ function DesktopNavbar() {
             <div className='w-full bg-transparent flex justify-end p-3 font-bold relative'>
           <div className='absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl'>
   
-        <div className='flex flex-col gap-3 pr-3 pt-3'>
+        <div className='flex flex-col gap-3 pl-3 pt-3'>
           <NavLink
             to='/messages'
             exact
-            className={`flex justify-end w-full  ${
+            className={`flex justify-start w-full  ${
               location.pathname === '/messages' ? 'underline font-bold' : ''
             }`}
           >
@@ -122,11 +122,11 @@ function DesktopNavbar() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
   
-        <div className='flex flex-col gap-3 pr-3'>
+        <div className='flex flex-col gap-3 pl-3'>
         <NavLink
             to='/account'
             exact
-            className={`flex justify-end w-full  ${
+            className={`flex justify-start w-full  ${
               location.pathname === '/account' ? 'underline font-bold' : ''
             }`}
           >
@@ -135,7 +135,7 @@ function DesktopNavbar() {
           <NavLink
             to='/wishlist'
             exact
-            className={`flex justify-end w-full  ${
+            className={`flex justify-start w-full  ${
               location.pathname === '/wishlist' ? 'underline font-bold' : ''
             }`}
           >
@@ -144,7 +144,7 @@ function DesktopNavbar() {
           <NavLink
             to='/trips'
             exact
-            className={`flex justify-end w-full  ${
+            className={`flex justify-start w-full  ${
               location.pathname === '/trips' ? 'underline font-bold' : ''
             }`}
           >
@@ -156,18 +156,18 @@ function DesktopNavbar() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
   
-        <div className='flex flex-col gap-3 pr-3 pb-3'>
+        <div className='flex flex-col gap-3 pl-3 pb-3'>
         <NavLink
             to='/help'
             exact
-            className={`flex justify-end w-full  ${
+            className={`flex justify-start w-full  ${
               location.pathname === '/help' ? 'underline font-bold' : ''
             }`}
           >
             Help
           </NavLink>
           <div
-            className={`flex justify-end w-full`} onClick={() =>{
+            className={`flex justify-start w-full`} onClick={() =>{
               localStorage.removeItem('token');
               navigate('/login')
             }}

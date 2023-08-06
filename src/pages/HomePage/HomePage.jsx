@@ -23,20 +23,17 @@ import 'react-toastify/dist/ReactToastify.css';
 function Home() {
   const  navigate = useNavigate();
   const [blackNavbar, setBlackNavbar] = useState(false);
-  const [filterVisible, setFilterVisible] = useState(false);
   const [residences, setResidences] = useState(null);
-  const [filterData, setFilterData] = useState({});
 
   
   const search = (params) => {
-    console.log(filterData)
     console.log(params)
     //if params.startDate is greater than params.endDate, show toast
     if(params.startDate > params.endDate){
       toast.error("Cannot Check-in after Check-out")
       return
     }
-    navigate('/properties', {state: {filterData, startDate: params.startDate, endDate: params.endDate}})
+    navigate('/properties', {state: {filterData:params}})
   }
 
   useEffect(() => {
@@ -72,15 +69,7 @@ function Home() {
   }, [navigate]);
   return (
     <>
-     {filterVisible &&
-      <div className='h-screen w-screen absolute overflow-scroll'>
-      <Filter apply={(data)=>{
-        setFilterVisible(false)
-        console.log('filter applied')
-        console.log(data)
-        setFilterData(data)
-      }} close={()=>setFilterVisible(false)}></Filter>
-      </div>}
+
       <div
         style={{
           backgroundImage: `url(${homeBackground})`,
@@ -112,7 +101,7 @@ function Home() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
-          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)} search={(params)=>search(params)}></SearchCard>
+          <SearchCard search={(params)=>search(params)}></SearchCard>
         </div>
       </div>
       <div className='md:container md:mx-auto'>

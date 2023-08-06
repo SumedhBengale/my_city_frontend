@@ -4,12 +4,16 @@ import PhotoGrid from './PhotoGrid'
 import Amenities from './Amenities'
 import Reviews from './Reviews'
 import Footer from '../HomePage/Footer'
-import DateRangePicker from './DateRangePicker'
+import DateRangePicker from '../../components/DateRangePicker'
 import MapContainer from './MapContainer'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 import { useNavigate, useParams } from 'react-router-dom'
 import Carousel from './Carousel'
 import { getResidence, getChat, initiateChat, addToWishlist } from './api'
+import bed from '../../assets/images/home/bed.svg'
+import shower from '../../assets/images/home/shower.svg'
+import guest from '../../assets/images/home/person.svg'
+import room from '../../assets/images/home/residence.svg'
 
 function Property() {
   const id = useParams()
@@ -120,7 +124,25 @@ function Property() {
         </div>
 
         <div className="w-full text-black font-custom font-bold text-xl p-5">{residence.tag}</div>
-        <div className=" text-black text-xs px-5">{` ${residence.guests} guests. ${residence.bedrooms} bedrooms. ${residence.beds} beds. ${residence.bathrooms} bathrooms`}</div>
+        <div className=" text-black text-xs px-5 flex gap-4">
+          
+          <div className='flex gap-1'>
+            <div className='flex items-center'>{residence.guests}</div><img src={guest} alt='guest' className=''></img>
+          </div>
+
+          <div className='flex gap-1'>
+            <div className='flex items-center'>{residence.bedrooms}</div><img src={room} alt='bedroom' className=' w-6'></img>
+          </div>
+
+          <div className='flex gap-1'>
+            <div className='flex items-center'>{residence.beds}</div><img src={bed} alt='bed' className=''></img>
+          </div>
+
+          <div className='flex gap-1'>
+            <div className='flex items-center'>{residence.bathrooms}</div><img src={shower} alt='shower' className=''></img>
+          </div>
+
+        </div>
 
         <div className='h-full mx-2 my-5'>
             <hr className='w-full h-[2px] bg-black'></hr>
@@ -314,8 +336,25 @@ function Property() {
         </div>
 
         <div className="w-full text-black font-custom font-bold text-xl p-5">{residence.tag}</div>
-        <div className=" text-black text-xs px-5">{` ${residence.guests} guests. ${residence.bedrooms} bedrooms. ${residence.beds} beds. ${residence.bathrooms} bathrooms`}</div>
+        <div className=" text-black text-xs px-5 flex gap-4">
+          
+          <div className='flex gap-2'>
+            <div className='flex items-center'>{residence.guests}</div><img src={guest} alt='guest' className=''></img>
+          </div>
 
+          <div className='flex gap-2'>
+            <div className='flex items-center'>{residence.bedrooms}</div><img src={room} alt='bedroom' className=' w-6'></img>
+          </div>
+
+          <div className='flex gap-2'>
+            <div className='flex items-center'>{residence.beds}</div><img src={bed} alt='bed' className=''></img>
+          </div>
+
+          <div className='flex gap-2'>
+            <div className='flex items-center'>{residence.bathrooms}</div><img src={shower} alt='shower' className=''></img>
+          </div>
+
+        </div>
         <div className=' mx-2 my-5'>
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>

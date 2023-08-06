@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../../config/config';
 
 
-export const getResidences = async ({startDate, endDate, filterData}) => {
+export const getResidences = async ({filterData}) => {
     try {
       // Assuming startDate and endDate are not used in this specific request
   

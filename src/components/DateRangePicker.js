@@ -13,15 +13,17 @@ import {
   isSameMonth,
   addDays,
 } from 'date-fns';
-import LeftArrow from '../../assets/images/property/left.svg';
-import RightArrow from '../../assets/images/property/right.svg';
+import LeftArrow from '../assets/images/property/left.svg';
+import RightArrow from '../assets/images/property/right.svg';
 
 
 
-const DateRangePicker = ({ returnData }) => {
+const DateRangePicker = ({ initialStartDate, initialEndDate, returnData }) => {
+  console.log("INITIAL START DATE", initialStartDate)
+  console.log("INITIAL END DATE", initialEndDate)
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(initialStartDate);
+  const [endDate, setEndDate] = useState(initialEndDate);
   const [totalNights, setTotalNights] = useState(0);
   const datePickerRef = useRef(null);
 
@@ -82,7 +84,7 @@ const DateRangePicker = ({ returnData }) => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
   return (
-    <div className='m-3 sm:mt-10 lg:mt-0'>
+    <div className='m-3 sm:mt-10 lg:mt-0 bg-white border border-gray-300'>
     <div className='text-lg font-custom font-bold pl-5'>{
       //End date - Start date
       startDate === null || endDate === null ? 'Select the Date Range' :
@@ -93,9 +95,8 @@ const DateRangePicker = ({ returnData }) => {
     } - ${
       endDate === null ? '' : format(endDate, 'dd MMMM')
     }`}</div>
-    <div className=" p-5 h-min lg:h-full bg-white border border-gray-300 rounded-md shadow-lg" ref={datePickerRef}>
+    <div className=" p-5 h-min lg:h-full  rounded-md shadow-lg" ref={datePickerRef}>
       <div>
-        <div className="font-bold"> Please select the Date Range</div>
         <div className="flex items-center justify-between py-2">
           <span className="font-custom font-normal text-md">
             {format(currentMonth, 'MMMM yyyy')}

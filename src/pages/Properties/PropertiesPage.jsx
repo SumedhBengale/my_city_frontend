@@ -25,7 +25,7 @@ function PropertiesPage() {
 
     useEffect(() => {
       console.log(location.state)
-    getResidences(location.state ?  {filterData: location.state.filterData, startDate:location.state.startDate, endDate:location.state.endDate}: {}).then((res) => {
+    getResidences(location.state ?  {filterData: location.state.filterData}: {}).then((res) => {
       console.log(res)
       setResidences(res.residences)
     }).catch((err) => {});

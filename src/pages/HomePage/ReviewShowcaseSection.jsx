@@ -46,7 +46,11 @@ const HorizontalScrollView = () => {
           return (
             <div
               key={index}
-              className={`flex items-center justify-center transition-all duration-300`}
+              onClick={()=>{
+                //scroll till the item is at the center of the screen
+                scrollContainerRef.current.scrollLeft = index * itemWidth;
+              }}
+              className='flex items-center justify-center transition-all duration-300 hover:scale-105 ease-in cursor-pointer'
               style={{
                 width: `${itemWidth}px`,
                 transform: `scale(${scale})`,
