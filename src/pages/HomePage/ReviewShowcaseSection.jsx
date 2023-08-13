@@ -15,7 +15,7 @@ const HorizontalScrollView = () => {
       setCenterIndex(initialCenterIndex);
       scrollContainer.scrollLeft = initialCenterIndex * itemWidth;
     }
-  }, []);
+  }, [itemWidth]);
 
   const handleScroll = () => {
     const scrollContainer = scrollContainerRef.current;

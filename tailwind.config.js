@@ -5,6 +5,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor:{
+        'primary': '#262150',
+        'secondary': '#a88f5e',
+      },
+      borderColor:{
+        'primary': '#262150',
+        'secondary': '#a88f5e',
+      },
       screens:{
         'xs': '320px',
       },

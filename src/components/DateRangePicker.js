@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   format,
@@ -15,21 +15,53 @@ import {
 } from 'date-fns';
 import LeftArrow from '../assets/images/property/left.svg';
 import RightArrow from '../assets/images/property/right.svg';
+import { fetchBookedDatesFromBackend } from './api';
 
 
 
-const DateRangePicker = ({ initialStartDate, initialEndDate, returnData }) => {
-  console.log("INITIAL START DATE", initialStartDate)
-  console.log("INITIAL END DATE", initialEndDate)
+const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnData }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [startDate, setStartDate] = useState(initialStartDate);
-  const [endDate, setEndDate] = useState(initialEndDate);
+  const [startDate, setStartDate] = useState(initialStartDate ? initialStartDate : new Date());
+  const [endDate, setEndDate] = useState(initialEndDate ? initialEndDate : new Date());
   const [totalNights, setTotalNights] = useState(0);
+  const [bookedDates, setBookedDates] = useState([]); // To store booked dates from the backend
   const datePickerRef = useRef(null);
+  const [fetchComplete, setFetchComplete] = useState(false);
 
   const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  useEffect(() => {
+    console.log("StartDate",startDate)
+    console.log("EndDate", endDate)
+    // Fetch booked dates from the backend
+    fetchBookedDatesFromBackend(residenceId).then((data) => {
+      console.log("Dates",data)
+      setBookedDates(data); // Assuming the data contains booked dates in an array
+      setFetchComplete(true);
+    });
+  }, [startDate, endDate, residenceId]);
+
+  const isBetweenBookedDates = (startDate, endDate) => {
+    // Check if any of the bookedDates lie between the startDate and endDate
+    return bookedDates.some((bookedDate) => {
+      const date = new Date(bookedDate);
+  
+      // Check if the booked date falls within the range (inclusive)
+      return date >= startDate && date <= endDate;
+    });
+  };
+
+  const isBooked = (day) => {
+    // Check if the clicked day is in the bookedDates array
+    console.log("Booked Dates", bookedDates)
+    return bookedDates.some((bookedDate) => isSameDay(day, new Date(bookedDate)));
+  };
+  
 
   const handleDateClick = (day) => {
+    if (isBetweenBookedDates(day) || day < new Date()) {
+      console.log('Booked or past date')
+      return; // Do nothing for booked or past dates
+    }
     if (startDate === null) {
       // Set the start date if it hasn't been selected yet
       console.log(format(day, 'e'));
@@ -38,6 +70,10 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, returnData }) => {
     } else if (endDate === null) {
       // Set the end date if the start date has been selected
       if (day >= startDate) {
+        if (isBetweenBookedDates(startDate, day) || day < new Date()) {
+          console.log('Booked or past date')
+          return; // Do nothing for booked or past dates
+        }
         setEndDate(day);
         setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
         returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
@@ -84,6 +120,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, returnData }) => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
   return (
+    <div>{ fetchComplete ?
     <div className='m-3 sm:mt-10 lg:mt-0 bg-white border border-gray-300'>
     <div className='text-lg font-custom font-bold pl-5'>{
       //End date - Start date
@@ -125,46 +162,70 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, returnData }) => {
         ))}
       </div>
       <div className="grid grid-cols-7">
+{days.map((day) => (
+  <div className="py-2 flex justify-center items-center">
+    <div
+      key={day}
+      className={`flex w-full items-center justify-center cursor-pointer ${
+        !isSameMonth(day, monthStart) ? 'text-gray-500' : ''
+      } ${
+        isBooked(day) ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : ''
+      } ${
+        isSameDay(day, startDate)
+          ? 'bg-black text-white rounded-l-2xl'
+          : isSameDay(day, endDate)
+          ? 'bg-black text-white rounded-r-2xl'
+          : (startDate === null || endDate === null)
+          ? ''
+          : isWithinRange(day) &&
+            getWeekOfMonth(day) !== getWeekOfMonth(endDate)
+          ? format(day, 'e') === '1'
+            ? 'bg-gradient-to-r from-black/70 to-black/60 rounded-l-2xl'
+            : format(day, 'e') === '2'
+            ? 'bg-gradient-to-r from-black/60 to-black/50'
+            : format(day, 'e') === '3'
+            ? 'bg-gradient-to-r from-black/50 to-black/40'
+            : format(day, 'e') === '4'
+            ? 'bg-gradient-to-r from-black/40 to-black/30'
+            : format(day, 'e') === '5'
+            ? 'bg-gradient-to-r from-black/30 to-black/20'
+            : format(day, 'e') === '6'
+            ? 'bg-gradient-to-r from-black/20 to-black/10'
+            : format(day, 'e') === '7'
+            ? 'bg-gradient-to-r from-black/10 to-black/0 rounded-r-2xl'
+            : ''
+          : isWithinRange(day) && getWeekOfMonth(day) === getWeekOfMonth(endDate)
+          ? format(day, 'e') === '7'
+            ? 'bg-gradient-to-l from-black/70 to-black/60 rounded-r-2xl'
+            : format(day, 'e') === '6'
+            ? 'bg-gradient-to-l from-black/60 to-black/50'
+            : format(day, 'e') === '5'
+            ? 'bg-gradient-to-l from-black/50 to-black/40'
+            : format(day, 'e') === '4'
+            ? 'bg-gradient-to-l from-black/40 to-black/30'
+            : format(day, 'e') === '3'
+            ? 'bg-gradient-to-l from-black/30 to-black/20'
+            : format(day, 'e') === '2'
+            ? 'bg-gradient-to-l from-black/20 to-black/10'
+            : format(day, 'e') === '1'
+            ? 'bg-gradient-to-l from-black/10 to-black/0 rounded-l-2xl'
+            : ''
+          : ''
+      }`}
+      onClick={() => handleDateClick(day)}
+    >
+      {format(day, 'd')}
+    </div>
+  </div>
+))}
 
-
-        {days.map((day) => (
-          <div className=' py-2 flex justify-center items-center'>
-          <div
-            key={day}
-            className={`flex w-full items-center justify-center cursor-pointer ${
-              !isSameMonth(day, monthStart)
-                ? 'text-gray-500'
-                : isSameDay(day, startDate)
-                ? `bg-black text-white rounded-l-2xl`
-                : isSameDay(day, endDate)
-                ? 'bg-black text-white rounded-r-2xl'
-                : (startDate === null || endDate === null) ? "" 
-                : isWithinRange(day) && (getWeekOfMonth(day) !== getWeekOfMonth(endDate)) ? 
-                format(day, 'e') === '1' ? 'bg-gradient-to-r from-black/70 to-black/60 rounded-l-2xl' : 
-                format(day, 'e') === '2' ? 'bg-gradient-to-r from-black/60 to-black/50' : 
-                format(day, 'e') === '3' ? 'bg-gradient-to-r from-black/50 to-black/40' : 
-                format(day, 'e') === '4' ? 'bg-gradient-to-r from-black/40 to-black/30' : 
-                format(day, 'e') === '5' ? 'bg-gradient-to-r from-black/30 to-black/20' : 
-                format(day, 'e') === '6' ? 'bg-gradient-to-r from-black/20 to-black/10' : 
-                format(day, 'e') === '7' ? 'bg-gradient-to-r from-black/10 to-black/0 rounded-r-2xl' : ''
-                : isWithinRange(day) && (getWeekOfMonth(day) === getWeekOfMonth(endDate)) ? 
-                format(day, 'e') === '7' ? 'bg-gradient-to-l from-black/70 to-black/60 rounded-r-2xl' : 
-                format(day, 'e') === '6' ? 'bg-gradient-to-l from-black/60 to-black/50' : 
-                format(day, 'e') === '5' ? 'bg-gradient-to-l from-black/50 to-black/40' : 
-                format(day, 'e') === '4' ? 'bg-gradient-to-l from-black/40 to-black/30' : 
-                format(day, 'e') === '3' ? 'bg-gradient-to-l from-black/30 to-black/20' : 
-                format(day, 'e') === '2' ? 'bg-gradient-to-l from-black/20 to-black/10' : 
-                format(day, 'e') === '1' ? 'bg-gradient-to-l from-black/10 to-black/0 rounded-l-2xl' : ''
-                : ''
-            }`}
-            onClick={() => handleDateClick(day)}
-          >
-            {format(day, 'd')}
-          </div>
-          </div>
-        ))}
       </div>
     </div>
+    </div>
+    : <div className="flex justify-center items-center h-96">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>  
+    }
     </div>
   );
 };

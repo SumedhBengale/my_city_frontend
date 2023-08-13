@@ -32,6 +32,17 @@ function DesktopNavbar() {
             <img src={logoWhite} alt='My City Logo' className='h-12 self-start'></img>
           </div>
               <div className='flex h-12 justify-start items-center'>
+                {localStorage.getItem('userType')=== 'admin' ?
+                <NavLink
+                to='/admin'
+                exact
+                className={`flex justify-between p-2 ${
+                  location.pathname === '/admin' ? 'underline font-bold' : ''
+                }`}
+              >
+                Admin
+              </NavLink>:null
+              }
                 <NavLink
                   to='/'
                   exact
@@ -168,7 +179,7 @@ function DesktopNavbar() {
           </NavLink>
           <div
             className={`flex justify-start w-full`} onClick={() =>{
-              localStorage.removeItem('token');
+              localStorage.removeItem('token');localStorage.removeItem('userId');localStorage.removeItem('userType');
               navigate('/login')
             }}
           >

@@ -169,7 +169,7 @@ function Navbar() {
         </NavLink>
         <div
           className={`flex justify-end w-full pb-1`} onClick={() =>{
-            localStorage.removeItem('token');
+            localStorage.removeItem('token');localStorage.removeItem('userId');localStorage.removeItem('userType');
             navigate('/login')
           }}
         >
@@ -184,6 +184,17 @@ function Navbar() {
         <div className=''>
           {menuOpen && (
             <div className=' w-full bg-white flex flex-col'>
+              {localStorage.getItem('userType')=== 'admin' ?
+                <NavLink
+                to='/admin'
+                exact
+                className={`flex justify-between p-2 ${
+                  location.pathname === '/admin' ? 'underline font-bold' : ''
+                }`}
+              >
+                Admin
+              </NavLink>:null
+              }
               <NavLink
                 to='/'
                 exact

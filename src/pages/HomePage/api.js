@@ -20,3 +20,16 @@ export const getResidences = async () => {
         }
     }
 }
+
+export const getDynamicText = async () => {
+    try{
+        const response = await axios.get(`${config.STRAPI_URL}/api/home-pages`, {
+        })
+        return response.data;
+    }
+    catch(error){
+        if(error.response){
+            return error.response;
+        }
+    }
+}

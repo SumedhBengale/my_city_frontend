@@ -29,7 +29,8 @@ function SignUp() {
         } else if (response.status === 200) {
           console.log(response)
             localStorage.setItem('token', response.token);
-            localStorage.setItem('userId', response.userId)
+            localStorage.setItem('userId', response.userId);
+            localStorage.setItem('userType', response.userType);
           toast.success('User created successfully');
           //Wait for 1 second before redirecting
             setTimeout(() => {

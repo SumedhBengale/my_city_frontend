@@ -7,7 +7,7 @@ const API_URL = config.API_URL; // Assuming your config file is located in the s
 export const login = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { "email":email, "password":password });
-    return {token: response.data.token, status:response.status, userId: response.data.userId}; // Assuming your API returns a JSON response with data
+    return {token: response.data.token, status:response.status, userId: response.data.userId, userType: response.data.userType}; // Assuming your API returns a JSON response with data
   } catch (error) {
     const { response } = error;
     if (response) {

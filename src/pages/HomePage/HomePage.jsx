@@ -14,8 +14,7 @@ import SearchCard from '../../components/searchCard'
 import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
-import Filter from '../../components/filter'
-import { getResidences } from './api'
+import { getDynamicText, getResidences } from './api'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +23,7 @@ function Home() {
   const  navigate = useNavigate();
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [residences, setResidences] = useState(null);
+  const [dynamicText, setDynamicText] = useState(null);
 
   
   const search = (params) => {
@@ -37,6 +37,10 @@ function Home() {
   }
 
   useEffect(() => {
+    getDynamicText().then((res) => {
+      console.log(res.data)
+      setDynamicText(res.data)
+    }).catch((err) => {});
     getResidences().then((res) => {
       if(res.status === 200){
         console.log(res.residences)
@@ -94,8 +98,12 @@ function Home() {
 
         <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
           <div className='lg:hidden'>
-            <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>My City Residence</div>
-            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>Discover your next home away from home</div>
+            <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>{
+              dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'Website_Name').attributes.text
+            }</div>
+            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>{
+              dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'Website_Tagline').attributes.text
+            }</div>
           </div>
 
           <div className='hidden lg:block justify-center items-center'>
@@ -106,7 +114,7 @@ function Home() {
       </div>
       <div className='md:container md:mx-auto'>
       <FadeInSection>
-        <IntroductionSection></IntroductionSection>
+        { dynamicText !== null && <IntroductionSection dynamicText={dynamicText}></IntroductionSection>}
       </FadeInSection>
       </div> 
       {/* Seperated into different file because it's static content */}

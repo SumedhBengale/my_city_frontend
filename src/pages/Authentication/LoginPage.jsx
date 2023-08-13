@@ -26,7 +26,8 @@ const LoginPage = () => {
           if (response.status === 200) {
             console.log(response);
             localStorage.setItem('token', response.token);
-            localStorage.setItem('userId', response.userId)
+            localStorage.setItem('userId', response.userId);
+            localStorage.setItem('userType', response.userType);
             navigate('/');
           } else if (response.status === 404) {
             toast.error('User not Found');
