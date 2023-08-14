@@ -1,0 +1,24 @@
+/* Custom Font: Adam-Bold */
+@font-face {
+    font-family: 'Adam-Bold';
+    src: url('./Adam-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  /* Custom Font: Adam-Light */
+  @font-face {
+    font-family: 'Adam-Light';
+    src: url('./Adam-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Custom Font: Adam-Medium */
+  @font-face {
+    font-family: 'Adam-Medium';
+    src: url('./Adam-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

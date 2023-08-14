@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      textColor: {
+        'primary': '#262150',
+        'secondary': '#a88f5e',
+      },
       backgroundColor:{
         'primary': '#262150',
         'secondary': '#a88f5e',
@@ -22,7 +26,10 @@ module.exports = {
         '20/100': '20vw',
       },
       fontFamily: {
-        custom: ['Montserrat Alternates', 'Arial', 'sans-serif'],
+        'custom-bold': ['Adam-Bold', 'sans'],
+        'custom-light': ['Adam-Light', 'sans'],
+        'custom': ['Adam-Medium', 'sans'],
+        // Add more custom fonts as needed
       },
       fontWeight: {
         normal: 400,

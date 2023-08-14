@@ -67,7 +67,7 @@ const HorizontalScrollView = () => {
                   <div className='flex flex-col'>
                   <div className='text-center text-md'>Asheem</div>
                   <div className='text-slate-400 text-[12px] text-center'>May 4</div>
-                  <div className='text-[14px] text-ellipsis overflow-hidden h-36 text-center w-full text-slate-700'>Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.</div>
+                  <div className='text-[14px] text-ellipsis overflow-hidden h-36 text-center w-full text-primary'>Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.</div>
                   </div>
                   {/*Repeat a star 5 times */}
                   <div className='flex justify-center pt-3'>
@@ -106,7 +106,7 @@ const HorizontalScrollView = () => {
 function ReviewShowcaseSection() {
   return (
     <div className='w-full bg-zinc-100'>
-      <div className="font-custom font-bold text-3xl text-center text-black pt-10 container mx-auto">Hear From Our Happy Guests</div>
+      <div className="font-custom-bold text-3xl text-center text-secondary pt-10 container mx-auto">Hear From Our Happy Guests</div>
       <div className="text-zinc-900 text-opacity-40 text-center text-lg pt-3">Read Our Recent Reviews</div>
       <HorizontalScrollView />
     </div>

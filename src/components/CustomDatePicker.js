@@ -27,9 +27,9 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate, onClickOutside }) => 
   const renderHeader = () => {
     return (
       <div>
-        <div className='font-bold'> Please select a Date</div>
+        <div className='font-custom-bold'> Please select a Date</div>
         <div className="flex items-center justify-between py-2">
-          <span className="font-custom font-bold text-lg font-semibold">{format(currentMonth, 'MMMM yyyy')}</span>
+          <span className="font-custom-bold text-lg">{format(currentMonth, 'MMMM yyyy')}</span>
           <div className='flex justify-end gap-2'>
             <button
               className="text-gray-500 hover:text-gray-700 transition-colors focus:outline-none"

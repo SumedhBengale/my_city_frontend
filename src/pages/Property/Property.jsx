@@ -100,7 +100,7 @@ function Property() {
       {residence !== null ? <div className='absolute top-0 w-full z-0'>
         <Carousel images={residence.images}/>
         <div className='flex justify-between w-full p-5 items-center'>
-          <div className='text-xl text-black font-custom font-bold'>{residence.title}</div>
+          <div className='text-xl text-black font-custom-bold'>{residence.title}</div>
 
 
         </div>
@@ -123,7 +123,7 @@ function Property() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className="w-full text-black font-custom font-bold text-xl p-5">{residence.tag}</div>
+        <div className="w-full text-black font-custom-bold text-xl p-5">{residence.tag}</div>
         <div className=" text-black text-xs px-5 flex gap-4">
           
           <div className='flex gap-1'>
@@ -213,7 +213,7 @@ function Property() {
         <div className='flex m-5'>
           <div className='w-full rounded-lg bg-gray-200'>
             
-            <div className='pl-5 text-lg font-custom font-bold py-3'>Rules</div>
+            <div className='pl-5 text-lg font-custom-bold py-3'>Rules</div>
 
             {residence.rules['smokingAllowed'] === false ? <div className='flex gap-2 pl-5 pb-3'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -314,7 +314,7 @@ function Property() {
       </div>
       <div>
       <div className='flex justify-between w-full p-5 items-center'>
-          <div className='text-xl text-black font-custom font-bold'>{residence.title}</div>
+          <div className='text-xl text-black font-custom-bold'>{residence.title}</div>
         </div>
         <div className='flex flex-row justify-between w-full p-5 items-center'>
           <div className='flex items-center'>
@@ -335,7 +335,7 @@ function Property() {
             <hr className='w-full h-[2px] bg-black'></hr>
         </div>
 
-        <div className="w-full text-black font-custom font-bold text-xl p-5">{residence.tag}</div>
+        <div className="w-full text-black font-custom-bold text-xl p-5">{residence.tag}</div>
         <div className=" text-black text-xs px-5 flex gap-4">
           
           <div className='flex gap-2'>
@@ -427,7 +427,7 @@ function Property() {
           <div className='flex justify-center md:col-span-2'>
           <div className='w-96 md:w-40 rounded-lg bg-gray-200 h-full pr-3 grow-0'>
             
-            <div className='pl-5 text-lg font-custom font-bold py-3'>Rules</div>
+            <div className='pl-5 text-lg font-custom-bold py-3'>Rules</div>
 
             {residence.rules['smokingAllowed'] === false ? <div className='flex gap-2 pl-5 pb-3'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

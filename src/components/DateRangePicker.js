@@ -122,7 +122,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
   return (
     <div>{ fetchComplete ?
     <div className='m-3 sm:mt-10 lg:mt-0 bg-white border border-gray-300'>
-    <div className='text-lg font-custom font-bold pl-5'>{
+    <div className='text-lg font-custom-bold pl-5'>{
       //End date - Start date
       startDate === null || endDate === null ? 'Select the Date Range' :
       totalNights + ' Nights in Apetite De Bone'

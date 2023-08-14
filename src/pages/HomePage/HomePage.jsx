@@ -98,7 +98,7 @@ function Home() {
 
         <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
           <div className='lg:hidden'>
-            <div className='font-custom font-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>{
+            <div className='font-custom-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>{
               dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'Website_Name').attributes.text
             }</div>
             <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>{
@@ -121,7 +121,7 @@ function Home() {
       <FadeInSection>
 
       <div className='p-4 container mx-auto'>
-      <div className=" text-center text-black font-custom font-bold text-4xl capitalize">Our Properties</div>
+      <div className=" text-center text-secondary font-custom-bold text-4xl capitalize">Our Properties</div>
       <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
       {residences === null ? (
@@ -138,7 +138,7 @@ function Home() {
         )}
 
       <div className='flex justify-center mt-10'>
-        <div className="w-[178px] h-14 bg-black text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
+        <div className="w-[178px] h-14 bg-white hover:bg-primary hover:text-white text-primary hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md" >
           <div className=' font-bold text-2xl h-full flex justify-center items-center'>View All</div>
         </div>
       </div>

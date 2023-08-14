@@ -66,7 +66,7 @@ function ManagementPage() {
         <div className='grid grid-cols-2 gap-5'>
           <div className='flex justify-center items-center ml-20'>
             <div className='flex flex-col justify-center items-start'>
-              <div className="font-custom font-bold text-2xl pb-5 capitalize ">Are you a property owner?</div>
+              <div className="font-custom-bold text-2xl pb-5 capitalize ">Are you a property owner?</div>
               <button className='w-32 h-12 rounded-md bg-black text-white hover:scale-105 transition duration-75 cursor-pointer'>Contact Now</button>
             </div>
           </div>
@@ -79,7 +79,7 @@ function ManagementPage() {
           </FadeInSection>
           <div className='md:hidden'>
           <FadeInSection>
-          <div className="font-custom font-bold text-2xl md:pl-8 sm:pt-8 pt-5 capitalize pl-5">Are you a property owner?</div>
+          <div className="font-custom-bold text-2xl md:pl-8 sm:pt-8 pt-5 capitalize pl-5">Are you a property owner?</div>
 
           <div className="w-full pl-8 pt-5 h-[300px] rounded-l-[70px]">
             <img src={Image2} alt="About Us" className="w-full h-full object-cover rounded-l-[70px]" />
@@ -93,7 +93,7 @@ function ManagementPage() {
 
       <div className="Rectangle w-full bg-gray-200 px-10 pt-10 mt-20">
           <div className='container mx-auto'>
-            <div className='text-zinc-700 font-custom font-bold text-2xl text-center'>About Us</div>
+            <div className='text-zinc-700 font-custom-bold text-2xl text-center'>About Us</div>
 
             <div className='text-black text-md pt-5 text-justify'>Our team has over three decades of experience in the vacation home sector, and our unrivaled knowledge of the city, as well as our attention on customer satisfaction, ensure that your stay in London is easy and unforgettable. We provide quality serviced apartments for both leisure and business. We assure that the property is kept in hotel-standard condition during our agreement, reducing your worries.</div>
             <div className='justify-center flex'>
@@ -122,7 +122,7 @@ function ManagementPage() {
           <img src={Image4} alt="About Us" className="w-full pr-5 h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] " />
             <div className='absolute top-0 h-full w-full flex items-center justify-center pr-5'>
               <div className=" w-3/4 h-full m-2 px-1 flex flex-col justify-center md:gap-2">
-                <div className=" w-full text-center text-white font-custom font-bold text-xl px-2 pb-2">Do You Struggle With...</div>
+                <div className=" w-full text-center text-white font-custom-bold text-xl px-2 pb-2">Do You Struggle With...</div>
                 <div className=" w-full text-center text-white text-md font-normal pb-1 ">Selling/ Renting Your Property?</div>
                 <div className=" w-full text-center text-white text-md font-normal pb-1">Troublesome Tenants?</div>
                 <div className=" w-full text-center text-white text-md font-normal pb-1">Bills Not Getting Paid?</div>
@@ -144,7 +144,7 @@ function ManagementPage() {
 
       <FadeInSection>
 
-      <div className='text-2xl font-custom font-bold text-black text-center mt-10 mx-2'>Let Us Handle It All</div>
+      <div className='text-2xl font-custom-bold text-black text-center mt-10 mx-2'>Let Us Handle It All</div>
 
       <div className="w-full pr-8 pt-16 relative lg:pr-20">
       <div className='w-full h-64 md:h-[400px] rounded-r-[50px] md:rounded-r-[150px] relative'>
@@ -153,7 +153,7 @@ function ManagementPage() {
         </div>
           <div className='absolute top-8 h-full w-full flex items-center justify-center pr-5'>
             <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col gap-3">
-              <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Management that is simple</div>
+              <div className=" w-full text-center text-white font-custom-bold text-lg md:text-xl px-2 pb-1">Management that is simple</div>
               <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">Our experienced staff will examine the condition, location, accessibility, and zoning rules of the property. We’ll discuss contracts and locate one that meets your demands once we’ve determined the financial sustainability of your property.</div>
             </div>
           </div>
@@ -166,7 +166,7 @@ function ManagementPage() {
         </div>
         <div className='absolute top-8 h-full flex items-center justify-center pl-5'>
             <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col gap-3">
-              <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Verified Tenants</div>
+              <div className=" w-full text-center text-white font-custom-bold text-lg md:text-xl px-2 pb-1">Verified Tenants</div>
               <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">We have been landlords and agents for a long period of time and understand how important it is to pick the finest quality renters for the property. Our renters are all professionals who have been carefully verified before moving in.</div>
             </div>
           </div>
@@ -179,7 +179,7 @@ function ManagementPage() {
         </div>
         <div className='absolute top-8 h-full w-full flex items-center justify-center pr-5'>
             <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col gap-3">
-              <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">We Handle all the Tenants</div>
+              <div className=" w-full text-center text-white font-custom-bold text-lg md:text-xl px-2 pb-1">We Handle all the Tenants</div>
               <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">No more worrying about another late-night call from your renter. Our customer support representatives are in charge of all setup, daily operations, and guest communications.</div>
             </div>
           </div>

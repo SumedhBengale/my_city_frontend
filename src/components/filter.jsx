@@ -173,7 +173,7 @@ function Filter({ initialData, apply, close }) {
         </div>
         </div>
         <div>
-          <div className='font-custom font-bold text-lg mx-5 my-2'>Amenities</div>
+          <div className='font-custom-bold text-lg mx-5 my-2'>Amenities</div>
           <div className='font-bold text-sm mx-5 my-2'>Essential Amenities</div>
           <div className='grid grid-cols-2 gap-3 mx-5'>
           {essentialAmenities.map((amenity) => (

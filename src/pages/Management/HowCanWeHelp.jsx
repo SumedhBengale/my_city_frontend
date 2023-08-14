@@ -48,7 +48,7 @@ function HowCanWeHelp() {
 
   return (
     <>
-      <div className='text-center font-custom font-bold text-2xl mt-10'>How Can We Help?</div>
+      <div className='text-center font-custom-bold text-2xl mt-10'>How Can We Help?</div>
       <div className='mx-5 overflow-x-hidden' ref={ref}>
         {/* Updated the 'overflow-x-hidden' class above to hide any horizontal overflow */}
         <div className='flex flex-col md:flex-row justify-center items-center m-5 container mx-auto'>

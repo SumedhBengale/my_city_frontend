@@ -78,7 +78,7 @@ function Footer() {
 
         <div className='flex flex-col md:flex-row justify-between md:mx-5'>
             {/* <div className='pt-10 pl-5'>
-                <div className='font-custom font-bold text-xl' onClick={()=> setCurrencySwitcherVisible(!currencySwitcherVisible)}>Currency Switcher</div>
+                <div className='font-custom-bold text-xl' onClick={()=> setCurrencySwitcherVisible(!currencySwitcherVisible)}>Currency Switcher</div>
             </div> */}
                 <div className='pt-10 pl-5 md:w-1/2 h-full md:flex md:justify-center flex-col'>
                     <div className='flex justify-center mb-5'>        
@@ -107,7 +107,7 @@ function Footer() {
                 <div className='flex flex-col w-full'>
                 <div className='flex justify-between w-full'>
                     <div className='pt-10 pl-5'>
-                        <div className='font-custom font-bold text-xl pl-3'>Explore</div>
+                        <div className='font-custom-bold text-xl pl-3'>Explore</div>
                         <div className="text-black text-md pt-3 pl-3">Home</div>
                         <div className="text-black text-md pt-3 pl-3">Properties</div>
                         <div className="text-black text-md pt-3 pl-3">Rental Estimate</div>
@@ -115,14 +115,14 @@ function Footer() {
                     </div>
 
                     <div className='pt-10 pl-5'>
-                        <div className='font-custom font-bold text-xl pl-3'>Company</div>
+                        <div className='font-custom-bold text-xl pl-3'>Company</div>
                         <div className="text-black text-md pt-3 pl-3">About Us</div>
                         <div className="text-black text-md pt-3 pl-3">Blogs</div>
                         <div className="text-black text-md pt-3 pl-3">Management</div>
                     </div>
 
                     <div className='pt-10 pl-5'>
-                        <div className='font-custom font-bold text-xl w-full'>Contact Us</div>
+                        <div className='font-custom-bold text-xl w-full'>Contact Us</div>
                             <div className=' flex items-center mt-5'>
                                 <img src={location_black} alt='location' className='w-10 pr-3'></img>
                                 <div className=" w-full text-black text-md flex items-center">Po Box 1046, Stockton On Tees, TS19 1XL</div>

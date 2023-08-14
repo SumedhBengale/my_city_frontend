@@ -147,7 +147,7 @@ function SearchCard({search}) {
           </div>
 
 
-          <div className="w-full col-span-2 h-10 md:mb-3 bg-white text-black rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>search({
+          <div className="w-full col-span-2 h-10 md:mb-3 bg-transparent border-secondary text-white rounded-lg border active:scale-105 transition duration-75 active:bg-gray-200 active:text-white" onClick={()=>search({
                 startDate:startDate,
                 endDate:endDate,
                 bedrooms: selectedBedrooms,
@@ -249,7 +249,7 @@ function SearchCard({search}) {
             <div className='h-20 w-[2px] bg-white'></div>
 
             <div className='flex gap-3'>
-            <div className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>search({
+            <div className="w-32 h-6 md:h-10 self-center bg-transparent border-secondary text-white hover:text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200  rounded-lg border" onClick={()=>search({
                 startDate:startDate,
                 endDate:endDate,
                 bedrooms: selectedBedrooms,
