@@ -40,6 +40,27 @@ export const  getPastTrips = async () => {
     }
 }
 
+export const saveReview = async (id, rating, review) => {
+    try {
+        //get request with auth header
+        const response = await axios.post(`${config.API_URL}/pastTrips/addReview`, {
+            id: id,
+            rating: rating,
+            review: review
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
 export const getResidenceInfo = async (residenceId) => {
     try {
         //get request with auth header
@@ -51,6 +72,24 @@ export const getResidenceInfo = async (residenceId) => {
         });
         return response.data;
     } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+export const upcomingTripsToPastTrips = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.post(`${config.API_URL}/admin/upcomingTripsToPastTrips`, {
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
         if(error.response) {
             return error.response;
         }

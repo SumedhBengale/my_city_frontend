@@ -80,9 +80,9 @@ function Footer() {
             {/* <div className='pt-10 pl-5'>
                 <div className='font-custom-bold text-xl' onClick={()=> setCurrencySwitcherVisible(!currencySwitcherVisible)}>Currency Switcher</div>
             </div> */}
-                <div className='pt-10 pl-5 md:w-1/2 h-full md:flex md:justify-center flex-col'>
+                <div className='pt-10 sm:pl-5 md:w-1/2 h-full md:flex md:justify-center flex-col'>
                     <div className='flex justify-center mb-5'>        
-                        <img src={black_logo} alt='logo' className='h-28 max-w-[300px] pt-5 pl-5'></img>
+                        <img src={black_logo} alt='logo' className='h-28 max-w-[300px] pt-5 sm:pl-5'></img>
                     </div>
 
                     <div className='flex justify-center mt-5 gap-5'>
@@ -105,7 +105,7 @@ function Footer() {
                     
                 </div>
                 <div className='flex flex-col w-full'>
-                <div className='flex justify-between w-full'>
+                <div className='flex flex-col sm:flex-row justify-between w-full'>
                     <div className='pt-10 pl-5'>
                         <div className='font-custom-bold text-xl pl-3'>Explore</div>
                         <div className="text-black text-md pt-3 pl-3">Home</div>

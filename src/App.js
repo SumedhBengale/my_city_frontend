@@ -27,6 +27,8 @@ import UpcomingTripEditor from './pages/Admin/pages/UpcomingTripEditor';
 import PastTripsPage from './pages/Admin/pages/PastTripsPage';
 import PastTripEditor from './pages/Admin/pages/PastTripEditor';
 import WishlistEditor from './pages/Admin/pages/WishlistEditor';
+import BlogPost from './pages/Management/BlogPost';
+import ReviewViewer from './pages/Admin/pages/ReviewViewer';
 
 
 const App = () => {
@@ -76,10 +78,12 @@ const App = () => {
           <Route exact path="/admin/pastTrips/:id" element={<PastTripsPage></PastTripsPage>} />
           <Route exact path="/admin/pastTrip/:id" element={<PastTripEditor></PastTripEditor>} />
           <Route exact path="/admin/wishlist/:id" element={<WishlistEditor></WishlistEditor>} />
+          <Route exact path="/admin/review/:id" element={<ReviewViewer/>} />
           <Route exact path="/login" element={<LoginPage></LoginPage>} />
           <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/properties" element={<PropertiesPage></PropertiesPage>} />
           <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
+          <Route exact path="/management/blog/:id" element={<BlogPost></BlogPost>} />
           <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
           <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
           <Route exact path="/property/:id" element={<Property></Property>} />

@@ -7,12 +7,15 @@ const SearchComponent = ({ searchType }) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [rating, setRating] = useState('');
 
   let userResourceURL = '';
   if (searchType === 'user') {
     userResourceURL = 'users';
   } else if (searchType === 'chat') {
     userResourceURL = 'chats';
+  } else if (searchType === 'review') {
+    userResourceURL = 'reviews';
   }
     
 
@@ -21,7 +24,8 @@ const SearchComponent = ({ searchType }) => {
 
     try {
       const response = await axios.post(`${config.API_URL}/admin/${userResourceURL}`, {
-        query: query
+        query: query,
+        rating: rating
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -42,7 +46,9 @@ const SearchComponent = ({ searchType }) => {
 
       try {
         const response = await axios.post(`${config.API_URL}/admin/${userResourceURL}`, {
-          query: query
+          query: query,
+          //if searchType is review, send the rating as well
+          rating: rating
         }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +64,7 @@ const SearchComponent = ({ searchType }) => {
     };
 
     initialSearch();
-  }, [searchType, userResourceURL]);
+  }, [searchType, userResourceURL, rating]);
 
 
 
@@ -73,14 +79,33 @@ const SearchComponent = ({ searchType }) => {
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder={`Search ${searchType}...`} />
+          {searchType === 'review' ?
+          <select
+            className='w-32 rounded-lg py-3 bg-primary hover:bg-secondary transition-all duration-100 text-white px-4 ml-4 border border-white '
+            onChange={(e) => {
+              const rating = e.target.value;
+              setRating(rating);
+            }
+            }>
+            <option value=''>All</option>
+            <option value='1'>1 Star</option>
+            <option value='2'>2 Stars</option>
+            <option value='3'>3 Stars</option>
+            <option value='4'>4 Stars</option>
+            <option value='5'>5 Stars</option>
+          </select>
+          : null  
+        }
       </div>
-      <div className='text-2xl font-bold p-4 w-40 h-min bg-primary rounded-lg'>
-        <div className='flex flex-col justify-center items-center h-full'>
-          <div className='text-4xl font-bold text-center text-white'>{searchResults.length}</div>
-          <div className='text-xl font-bold capitalize text-center text-white'>{
-            searchResults.length === 1 ? searchType + ' Found' : `${userResourceURL} Found`
-          }</div>
-          </div>
+      <div className='flex  justify-center sm:justify-start'>
+        <div className='text-2xl font-bold p-4 w-full sm:w-40 h-min bg-primary rounded-lg'>
+          <div className='flex flex-col justify-center items-center h-full'>
+            <div className='text-4xl font-bold text-center text-white'>{searchResults.length}</div>
+            <div className='text-xl font-bold capitalize text-center text-white'>{
+              searchResults.length === 1 ? searchType + ' Found' : `${userResourceURL} Found`
+            }</div>
+            </div>
+        </div>
       </div>
       {searchResults.length > 0 ? 
       
@@ -100,11 +125,13 @@ const SearchComponent = ({ searchType }) => {
                   });
                 }}
               >
-                {searchType === 'user' ?<div>
+                {searchType === 'user' ?
+                <div>
                   <div className='text-xl font-bold'>{result.userName}</div>
                   <div className='text-lg'>{result.email}</div>
                 </div>
-                : searchType === 'chat' ? <div>
+                : searchType === 'chat' ? 
+                <div>
                   <div className='text-xl font-bold'>{result.userId}</div>
                   <div className='text-lg'>
                     {result.messages?.length > 0 && typeof result.messages[result.messages.length - 1] === 'object' ? (
@@ -114,6 +141,11 @@ const SearchComponent = ({ searchType }) => {
                     )}
                   </div>
                 </div>
+                : searchType === 'review' ?
+                <div>
+                <div className='text-xl font-bold'>Rating- {result.rating}</div>
+                <div className='text-lg'>Review- {result.review}</div>
+              </div>
                 : null  
               }
               </div>

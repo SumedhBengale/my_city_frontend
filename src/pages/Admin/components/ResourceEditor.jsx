@@ -28,18 +28,27 @@ function ResourceEditor({ typeOfResource, resource }) {
             {key === 'checkInDate' || key === 'checkOutDate' ? ( // Handle DateRangePicker for checkInDate and checkOutDate
               //format the date to be in the correct format
               <div className='border-2 border-secondary hover:border-primary rounded-md p-2'
-                onClick={() => setShowDatePicker(true)}
+                onClick={() => { if(typeOfResource !== 'review') setShowDatePicker(true);}}
               >
                 <div>{value.split('T')[0]}</div>
               </div>
-            ) : inputType === 'text' || inputType === 'textarea' ? (
+            ) : inputType === 'text' ? (
               <input
                 className='border-2 border-primary hover:border-secondary rounded-md p-2'
                 type={inputType === 'textarea' ? 'textarea' : 'text'}
                 value={value}
+                disabled = {key === 'rating' || key === 'review' ? true : false}
                 onChange={(e) => handleInputChange(key, e.target.value)}
               />
-            ) : inputType === 'dropdown' ? (
+            )  : inputType === 'textarea' ? (
+              <textarea
+                className='border-2 border-primary hover:border-secondary rounded-md p-2'
+                type= {inputType === 'textarea' ? 'textarea' : 'text'}
+                disabled = {key === 'rating' || key === 'review' ? true : false}
+                value={value}
+                onChange={(e) => handleInputChange(key, e.target.value)}
+              />
+            ): inputType === 'dropdown' ? (
               <select
                 className='border-2 border-primary hover:border-secondary rounded-md p-2'
                 value={value}
@@ -89,8 +98,11 @@ function ResourceEditor({ typeOfResource, resource }) {
       return 'non-editable'; // Make the _id and userId fields non-editable
     } else if (key === '__v') {
       return 'non-editable'; // Hide the __v field
-    }
-    else if (key === 'residenceId' && typeof value === 'object') {
+    }else if (key === 'rating') {
+      return 'text';
+    } else if (key === 'review') {
+      return 'textarea';
+    } else if (key === 'residenceId' && typeof value === 'object') {
       return 'residence';
     } else if (key === 'type') {
       return 'dropdown'; // Render the type field as a dropdown
@@ -125,14 +137,15 @@ function ResourceEditor({ typeOfResource, resource }) {
       </div>
     )}
     <div className='flex flex-col justify-center gap-5 relative'>
+      {typeOfResource ==='review' && <h1 className='text-3xl font-bold text-center'>View {typeOfResource}</h1>}
       <div className='flex flex-col justify-center gap-5'>{renderEditFields()}</div>
       <div className='flex flex-row justify-center gap-5'>
-        <button
+        {typeOfResource !== 'review' && <button
           className='bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded'
           onClick={handleSave}
         >
           Save
-        </button>
+        </button>}
         <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
           onClick={() => {
             window.history.back();

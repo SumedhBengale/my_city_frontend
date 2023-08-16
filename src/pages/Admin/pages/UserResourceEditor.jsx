@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getResource, saveResource } from '../api'; // Make sure to import the saveResource function from the appropriate location
 import ResourceEditor from '../components/ResourceEditor';
 import DesktopNavbarBlack from '../../../components/desktopNavbarBlack';
+import NavbarBlack from '../../../components/navbar_black';
 
 const UserResourceEditor = () => {
   const navigate = useNavigate();
@@ -39,8 +40,19 @@ const UserResourceEditor = () => {
 
   return (
     <div className='mx-5 flex justify-center relative'>
+      
       <div className='hidden md:block z-20 fixed w-full'>
-        {/* DesktopNavbarBlack */}
+      <div className="hidden md:block z-20 fixed w-full">
+        {
+          <DesktopNavbarBlack />
+        }
+        </div>
+
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            <NavbarBlack />
+          }
+        </div>
       </div>
       <div className='w-full sm:w-1/2 md:w-1/3 max-w-5xl absolute top-16'>
         {dataLoaded && location.state.typeOfResource === 'user' ? (

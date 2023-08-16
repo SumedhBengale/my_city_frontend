@@ -1,10 +1,27 @@
 import {React, useState, useEffect} from 'react'
 import Image2 from '../../assets/images/property/placeholder2.png'
-import { getResidenceInfo } from './api'
+import { getResidenceInfo, saveReview } from './api'
 import { format } from 'date-fns'
 
 function PastTripCard({trip}) {
     const [residence, setResidence] = useState(null)
+    const [reviewCardVisible, setReviewCardVisible] = useState(false)
+    const [rating, setRating] = useState(0)
+    const [review, setReview] = useState(null)
+    const submitReview = () => {
+        //if the rating or review is null, then don't submit
+        if(rating === 0 || review === null) {
+            return
+        }
+        saveReview(trip._id, rating, review).then((data) => {
+            console.log(data)
+            setReviewCardVisible(false)
+        })
+    }
+
+    const getReview = () => {
+        return true
+    }
 
     useEffect(() => {
         getResidenceInfo(trip.residenceId).then((data) => {
@@ -15,6 +32,48 @@ function PastTripCard({trip}) {
 
   return (
     <>
+    {
+        reviewCardVisible && getReview() && 
+        //Pop up review card
+        <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'>
+            <div className='flex flex-col bg-white mx-3 w-full sm:w-1/2 rounded-lg p-4 gap-2'>
+                <div className='text-md font-bold'>Write a review</div>
+                <div className='flex flex-col'>
+                    <div className='text-sm'>Overall rating</div>
+                    <div className='flex gap-2'>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='1' defaultChecked={ trip.rating === 1}onChange={(e)=>setRating(e.target.value)}/>
+                            <label>1</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='2' defaultChecked={ trip.rating === 2 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>2</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='3' defaultChecked={ trip.rating === 3 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>3</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='4' defaultChecked={ trip.rating === 4 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>4</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='5' defaultChecked={ trip.rating === 5 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>5</label>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex flex-col'>
+                    <div className='text-sm'>Review</div>
+                    <textarea className='border border-gray-300 rounded-lg p-2' value={review === null ? trip.review : review} onChange={(e)=>setReview(e.target.value)}></textarea>
+                </div>
+                <div className='flex justify-end gap-5'>
+                    <button className='bg-zinc-300 rounded-lg p-2' onClick={()=>setReviewCardVisible(false)}>Cancel</button>
+                    <button className='bg-zinc-300 rounded-lg p-2' onClick={()=>submitReview()}>Submit</button>
+                </div>
+            </div>
+        </div>
+    }
     {residence !== null &&
         <div className='flex flex-col bg-zinc-300 rounded-lg p-4 gap-2'>
             <div className='w-full h-full flex'>
@@ -28,7 +87,9 @@ function PastTripCard({trip}) {
                     <div className='text-sm'>{` ${format(new Date(trip.checkInDate), 'dd MMMM')} - ${format(new Date(trip.checkOutDate), 'dd MMMM')} `}</div>
                 </div>
                 <div className='flex flex-col justify-end'>
-                    <div className='text-md text-end font-bold underline'>Write a review</div>
+                    <div className='text-md text-end font-bold underline'
+                        onClick={()=>setReviewCardVisible(true)}
+                    >Write a review</div>
                 </div>
             </div>
         </div>

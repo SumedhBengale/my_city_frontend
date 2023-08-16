@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { adminGetWishlist, deleteItem } from '../api'
 import { useLocation } from 'react-router-dom'
+import NavbarBlack from '../../../components/navbar_black'
+import DesktopNavbarBlack from '../../../components/desktopNavbarBlack'
 
 function WishlistEditor() {
     const location = useLocation()
@@ -20,8 +22,19 @@ function WishlistEditor() {
 
   return (
     <div>
+        <div className="hidden md:block z-20 fixed w-full">
+        {
+          <DesktopNavbarBlack />
+        }
+        </div>
+
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            <NavbarBlack />
+          }
+        </div>
         {wishlist !== null && wishlist.length > 0 ? (
-            <div>
+            <div className='pt-16'>
                 <div className='text-2xl font-bold text-center'>Wishlist</div>
                 { wishlist.map((residence) => (
                     <div>
@@ -59,6 +72,7 @@ function WishlistEditor() {
                     </div>
                 )
                 )}
+                
             </div>
         ) : (
             <div className='text-2xl font-bold text-center'>No wishlist Items</div>

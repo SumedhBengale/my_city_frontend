@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { saveResource } from '../api'; // Make sure to import the saveResource function from the appropriate location
 import ResourceEditor from '../components/ResourceEditor';
+import NavbarBlack from '../../../components/navbar_black';
+import DesktopNavbarBlack from '../../../components/desktopNavbarBlack';
 
 const PastTripEditor = () => {
   const navigate = useNavigate();
@@ -33,7 +35,17 @@ const PastTripEditor = () => {
   return (
     <div className='mx-5 flex justify-center relative'>
       <div className='hidden md:block z-20 fixed w-full'>
-        {/* DesktopNavbarBlack */}
+      <div className="hidden md:block z-20 fixed w-full">
+        {
+          <DesktopNavbarBlack />
+        }
+        </div>
+
+        <div className="md:hidden z-20 fixed w-full">
+          {
+            <NavbarBlack />
+          }
+        </div>
       </div>
       <div className='w-full sm:w-1/2 md:w-1/3 max-w-5xl absolute top-16'>
         {dataLoaded && location.state.typeOfResource === 'pastTrip' ? (
