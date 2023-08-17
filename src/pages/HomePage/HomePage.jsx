@@ -14,6 +14,7 @@ import SearchCard from '../../components/searchCard'
 import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
+import OurPartnersSection from '../AboutUs/OurPartnersSection'
 import { getDynamicText, getResidences } from './api'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
@@ -121,7 +122,7 @@ function Home() {
       <FadeInSection>
 
       <div className='p-4 container mx-auto'>
-      <div className=" text-center text-secondary font-custom-bold text-4xl capitalize">Our Properties</div>
+      <div className=" text-center text-primary font-custom-bold text-4xl capitalize">Our Properties</div>
       <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
       
       {residences === null ? (
@@ -138,7 +139,7 @@ function Home() {
         )}
 
       <div className='flex justify-center mt-10'>
-        <div className="w-[178px] h-14 bg-white hover:bg-primary hover:text-white text-primary hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md" >
+        <div className="w-[178px] h-14 bg-secondary hover:bg-primary hover:text-white text-white hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md" >
           <div className=' font-bold text-2xl h-full flex justify-center items-center'>View All</div>
         </div>
       </div>
@@ -169,10 +170,12 @@ function Home() {
         <FrequentQuestionsSection></FrequentQuestionsSection>
       </div>
       </FadeInSection>
+
+      <FadeInSection>
+        <OurPartnersSection></OurPartnersSection>
+      </FadeInSection>
     
-      {/* <FadeInSection> */}
       <Footer></Footer>
-      {/* </FadeInSection> */}
       <ToastContainer
         position="bottom-center"
         autoClose={2000}

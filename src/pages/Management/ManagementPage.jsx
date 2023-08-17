@@ -24,9 +24,10 @@ function ManagementPage() {
     <>
       <div
         style={{
+          //Blurry Background Image
           backgroundImage: `url(${managementBackground})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'top',
+          backgroundPosition: 'center',
           width: '100%',
           height: '80vh',
         }}
@@ -44,9 +45,11 @@ function ManagementPage() {
         </div>
 
 
-        <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
-            <div className='font-custom-bold text-4xl md:text-5xl text-white text-center pt-40 pb-4 capitalize'>Who are we?</div>
-            <div className=' text-2xl md:text-4xl w-full text-center font-custom text-white sm-3 lg:mb-10 capitalize'>Discover your next home away from home</div>
+        <div className='h-full flex flex-col justify-center items-start z-0 bg-black/40 backdrop-filter backdrop-blur-sm'>
+          <div className='max-w-2xl'>
+            <div className='font-custom-bold text-4xl md:text-5xl text-white pt-40 pb-4 capitalize'>Unlock your properties true potential</div>
+            <div className=' text-lg w-full font-custom text-white sm-3 lg:mb-10 capitalize'>Boost yield, maximise income and easily manage your property by partnering with MyCityResidences the London property experts.</div>
+          </div>
         </div>
       </div>
           <FadeInSection>

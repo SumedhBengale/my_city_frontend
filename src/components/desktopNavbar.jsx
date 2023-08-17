@@ -85,6 +85,7 @@ function DesktopNavbar() {
                   Contact Us
                 </NavLink>
               </div>
+              { localStorage.getItem('token') ?
               <div className='flex gap-1 h-full items-center'>
               <img
                     src={notificationWhite}
@@ -100,6 +101,21 @@ function DesktopNavbar() {
                     onClick={handleAccountMenuClick}
                 />
               </div>
+              :
+              <div className='flex gap-1 h-full items-center'>
+               <button className='bg-white text-black font-bold px-4 py-2 rounded-lg'>
+                  <NavLink
+                    to='/login'
+                    exact
+                    className={`flex justify-between  ${
+                      location.pathname === '/login' ? 'underline font-bold' : ''
+                    }`}
+                  >
+                    Login
+                  </NavLink>
+                </button>
+                </div>
+              }
         </div>
 
               {notificationMenuOpen && (

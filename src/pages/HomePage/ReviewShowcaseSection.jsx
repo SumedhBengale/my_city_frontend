@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import placeholder_user_image from '../../assets/images/home/placeholder_user_image.jpg';
+import { getShowcaseReviews } from './api';
+import config from '../../config/config.js';
 
 const HorizontalScrollView = () => {
   const scrollContainerRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
+  const [reviews, setReviews] = useState(null);
   const itemWidth = 
   window.innerWidth > 1200 ? 600 : 300; 
 
   useEffect(() => {
+    getShowcaseReviews().then((res) => {
+      console.log(res.data);
+      setReviews(res.data);
+    });
+
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
       const containerWidth = scrollContainer.offsetWidth;
@@ -40,7 +48,7 @@ const HorizontalScrollView = () => {
         window.innerWidth > 1200 ? 'h-[500px]' : 'h-96'
     } `}>
       <div className='flex w-20/100 sm:w-40/100'><div className='w-full bg-transparent'></div></div>
-        {Array.from(Array(10).keys()).map((index) => {
+        {reviews !== null ? reviews.map((review,index) => {
           const distanceFromCenter = Math.abs(index - centerIndex);
           const scale = distanceFromCenter === 0 ? 1.25 : 1 - distanceFromCenter * 0.1;
           return (
@@ -58,20 +66,20 @@ const HorizontalScrollView = () => {
               }}
             >
               <div className={` ${
-        window.innerWidth > 1200 ? 'h-86' : 'h-72'
-    } w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]`} >
-                <div className='flex justify-center flex-col'>
-                  <div className='w-full flex justify-center '>
-                    <img src={placeholder_user_image} alt="demo user" className="rounded-full w-1/4" />
+                 window.innerWidth > 1200 ? 'h-3/4' : 'h-72'
+                  } w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]`} >
+                <div className='flex justify-center flex-col items-center'>
+                  <div className='w-20 h-20 flex justify-center '>
+                  <img src={`${config.STRAPI_URL}`+review.attributes.profile_photo.data.attributes.url} alt='Profile' className="rounded-full w-full" />
                   </div>
                   <div className='flex flex-col'>
-                  <div className='text-center text-md'>Asheem</div>
-                  <div className='text-slate-400 text-[12px] text-center'>May 4</div>
-                  <div className='text-[14px] text-ellipsis overflow-hidden h-36 text-center w-full text-primary'>Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.Great stay, didnt have any time for leisure as we were working in the area but a great place to stay exactly as described on the website. Would stay again if working in the area.</div>
+                  <div className='text-center text-md'>{review.attributes.name}</div>
+                  <div className='text-slate-400 text-[12px] text-center'>{new Date(review.attributes.date).toLocaleDateString('en-GB')}</div>
+                  <div className='text-[14px] text-ellipsis overflow-hidden h-24 lg:h-48 text-center w-full text-primary overflow-y-auto'>{review.attributes.review}</div>
                   </div>
                   {/*Repeat a star 5 times */}
                   <div className='flex justify-center pt-3'>
-                  {Array.from(Array(5).keys()).map((index) => {
+                  {Array.from(Array(review.attributes.rating).keys()).map((index) => {
                     return (
                       <svg
                         key={index}
@@ -93,7 +101,12 @@ const HorizontalScrollView = () => {
               </div>
             </div>
           );
-        })}
+        })
+        : 
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      }
               <div className='flex w-20/100 sm:w-40/100'><div className='w-full bg-transparent'></div></div>
 
       </div>
@@ -106,7 +119,7 @@ const HorizontalScrollView = () => {
 function ReviewShowcaseSection() {
   return (
     <div className='w-full bg-zinc-100'>
-      <div className="font-custom-bold text-3xl text-center text-secondary pt-10 container mx-auto">Hear From Our Happy Guests</div>
+      <div className="font-custom-bold text-3xl text-center text-primary pt-10 container mx-auto">Hear From Our Happy Guests</div>
       <div className="text-zinc-900 text-opacity-40 text-center text-lg pt-3">Read Our Recent Reviews</div>
       <HorizontalScrollView />
     </div>

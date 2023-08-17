@@ -62,37 +62,34 @@ const App = () => {
     <Router>
       <ScrollToTop>
         <Routes>
-          <Route exact path="/" element={
-              //check whether the user is logged in or not
-              getToken ? <HomePage></HomePage> : <Navigate to="/login"></Navigate>
-            } />
+          <Route exact path="/" element={<HomePage></HomePage>} />
           <Route exact path="/admin" element={
               //check whether the user is logged in or not
               getToken ? <Admin></Admin> : <Navigate to="/admin/login"></Navigate>
             } />
-          <Route exact path="/admin/login" element={<Login></Login>} />
-          <Route exact path="/admin/user/:id" element={<UserResourceEditor></UserResourceEditor>} />
-          <Route exact path="/admin/chat/:id" element={<ChatResourceEditor></ChatResourceEditor>} />
-          <Route exact path="/admin/upcomingTrips/:id" element={<UpcomingTripsPage></UpcomingTripsPage>} />
-          <Route exact path="/admin/upcomingTrip/:id" element={<UpcomingTripEditor></UpcomingTripEditor>} />
-          <Route exact path="/admin/pastTrips/:id" element={<PastTripsPage></PastTripsPage>} />
-          <Route exact path="/admin/pastTrip/:id" element={<PastTripEditor></PastTripEditor>} />
-          <Route exact path="/admin/wishlist/:id" element={<WishlistEditor></WishlistEditor>} />
-          <Route exact path="/admin/review/:id" element={<ReviewViewer/>} />
-          <Route exact path="/login" element={<LoginPage></LoginPage>} />
-          <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
-          <Route exact path="/properties" element={<PropertiesPage></PropertiesPage>} />
-          <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
-          <Route exact path="/management/blog/:id" element={<BlogPost></BlogPost>} />
-          <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
-          <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
-          <Route exact path="/property/:id" element={<Property></Property>} />
-          <Route exact path='/wishlist' element={<Wishlist></Wishlist>} />
-          <Route exact path='/book' element={<Book></Book>} />
-          <Route exact path="/trips" element={<Trips></Trips>} />
-          <Route exact path="/notifications" element={<Notifications></Notifications>} />
-          <Route exact path="/help" element={<Help></Help>} />
-          <Route exact path="/messages" element={<Messages></Messages>} />
+          <Route exact path="/admin/login" element={getToken ? <Login></Login>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/user/:id" element={getToken ? <UserResourceEditor></UserResourceEditor> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/chat/:id" element={getToken ? <ChatResourceEditor></ChatResourceEditor>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/upcomingTrips/:id" element={getToken ? <UpcomingTripsPage></UpcomingTripsPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/upcomingTrip/:id" element={getToken ? <UpcomingTripEditor></UpcomingTripEditor>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/pastTrips/:id" element={getToken ? <PastTripsPage></PastTripsPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/pastTrip/:id" element={getToken ? <PastTripEditor></PastTripEditor>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/wishlist/:id" element={getToken ? <WishlistEditor></WishlistEditor>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer/>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/login" element={getToken ? <LoginPage></LoginPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path= "/signup" element={getToken ? <SignUpPage></SignUpPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/properties" element={getToken ? <PropertiesPage></PropertiesPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/management" element={getToken ? <ManagementPage></ManagementPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/management/blog/:id" element={getToken ? <BlogPost></BlogPost>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/about" element={getToken ? <AboutUsPage></AboutUsPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/contact" element={getToken ? <ContactUsPage></ContactUsPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/property/:id" element={getToken ? <Property></Property>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path='/wishlist' element={getToken ? <Wishlist></Wishlist>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path='/book' element={getToken ? <Book></Book>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/trips" element={getToken ? <Trips></Trips>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/notifications" element={getToken ? <Notifications></Notifications>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/help" element={getToken ? <Help></Help>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/messages" element={getToken ? <Messages></Messages>: <Navigate to="/admin/login"></Navigate>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </ScrollToTop>

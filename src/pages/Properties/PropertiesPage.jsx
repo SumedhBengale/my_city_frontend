@@ -180,8 +180,8 @@ function PropertiesSection({setFilterVisible, residences}) {
   </div>
     }
 </div>
-<div className='flex justify-center mt-10'>
-    <div className="w-[178px] h-14 border border-secondary text-primary hover:bg-primary hover:text-white hover:scale-105 transition duration-75 cursor-pointer  rounded-xl backdrop-blur-md" >
+<div className='flex justify-center my-10'>
+    <div className="w-[178px] h-14 border bg-secondary border-secondary text-white hover:bg-primary hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
     <div className='font-bold text-2xl h-full flex justify-center items-center'>View All</div>
     </div>
 </div>

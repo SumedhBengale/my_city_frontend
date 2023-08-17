@@ -87,6 +87,18 @@ function Navbar() {
         />
       </div>
       
+      {!localStorage.getItem('token') ?
+            <NavLink
+              to='/login'
+              exact
+              className={`flex justify-end w-full pb-1 px-3  ${
+                location.pathname === '/notifications' ? 'underline font-bold' : ''
+              }`}
+            >
+              Login
+            </NavLink>
+      : null  
+    }
       <div className='h-full mx-2 mb-3'>
           <hr className='w-full h-[2px] bg-black'></hr>
       </div>
@@ -160,14 +172,14 @@ function Navbar() {
         >
           Help
         </NavLink>
-        <div
+        {localStorage.getItem('token') && <div
           className={`flex justify-end w-full pb-1`} onClick={() =>{
             localStorage.removeItem('token');localStorage.removeItem('userId');localStorage.removeItem('userType');
             navigate('/login')
           }}
         >
           Log Out
-        </div>
+        </div>}
       </div>
         </div>
       )}
