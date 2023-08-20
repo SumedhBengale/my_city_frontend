@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 
-const Carousel = ({images}) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Carousel = ({images, currIndex}) => {
+  console.log(images)
+  const [currentIndex, setCurrentIndex] = useState(currIndex);
   const [touchStartX, setTouchStartX] = useState(null);
 
   const handleNext = () => {
@@ -30,14 +31,14 @@ const Carousel = ({images}) => {
 
   return (
     <div
-      className="w-full h-[500px] relative overflow-hidden rounded-2xl"
+      className="w-full h-[500px] relative overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {images.map((image, index) => (
         <img
           key={index}
-          src={image}
+          src={image.original ? image.original : image.thumbnail}
           alt={`placeholder-${index}`}
           className={`w-full h-[500px] object-cover transition-transform duration-500 transform ${currentIndex === index ? 'translate-x-0' : currentIndex > index ? '-translate-x-full' : 'translate-x-full'} absolute top-0 left-0`}
         />

@@ -10,8 +10,11 @@ const mapStyles = {
 class MapContainer extends Component {
   render() {
     const { google } = this.props;
-    const { lat, lng } = this.props.coordinate; // Replace with your desired coordinate
+    const props = this.props.coordinate; // Replace with your desired coordinate
+    const lat = parseFloat(props.lat);
+    const lng = parseFloat(props.lng);
 
+    console.log(lat, lng)
     return (
           <div id='mapBox'>
             <Map center={true}

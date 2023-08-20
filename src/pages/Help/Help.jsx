@@ -1,6 +1,6 @@
 import React from 'react'
 import LeftArrow from '../../assets/images/property/left.svg'
-import FrequentQuestionsSection from './FrequentQuestionsSection'
+import FrequentQuestionsSection from '../HomePage/FrequentQuestionsSection'
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 
 function Help() {

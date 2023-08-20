@@ -7,25 +7,40 @@ if (!window.ResizeObserver) install();
 function Filter({ initialData, apply, close }) {
   const [selectedBedrooms, setSelectedBedrooms] = useState(initialData ? initialData.selectedBedrooms : 'any');
   const [selectedGuests, setSelectedGuests] = useState(initialData ? initialData.selectedGuests : 'any');
-  const [selectedBeds, setSelectedBeds] = useState(initialData ? initialData.selectedBeds : 'any');
+  const [selectedbathrooms, setSelectedbathrooms] = useState(initialData ? initialData.selectedbathrooms : 'any');
   const [priceRange, setPriceRange] = useState(initialData ? initialData.priceRange : [0, 20000]);
   const [selectedAmenities, setSelectedAmenities] = useState(initialData ? initialData.selectedAmenities : []);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
   const essentialAmenities = [
-    'Wi-Fi',
-    'Kitchen',
-    'Iron',
-    'Hair Dryer',
+    "Carbon monoxide detector",
+    "Kitchen",
+    "Wireless Internet",
+    "TV",
+    "Refrigerator",
   ];
 
   const amenities = [
-    'Carbon Monoxide Detector',
-    'Cable TV',
-    'Air Conditioning',
-    'Bath Tub',
-    `Children's Dinnerware`
-    
+    "Smoke detector",
+    "Washer",
+    "Hair dryer",
+    "Suitable for children (2-12 years)",
+    "Suitable for infants (under 2 years)",
+    "Iron",
+    "Toaster",
+    "Hot water",
+    "Elevator",
+    "Dryer",
+    "Dishwasher",
+    "Bed linens",
+    "Dishes and silverware",
+    "Kettle",
+    "Shampoo",
+    "Microwave",
+    "Oven",
+    "Stove",
+    "Heating",
+    "Towels provided"
   ];
 
   const handlePriceChange = (newValue) => {
@@ -39,8 +54,8 @@ function Filter({ initialData, apply, close }) {
     setSelectedGuests(guests);
   };
 
-  const handleBedClick = (beds) => {
-    setSelectedBeds(beds);
+  const handleBathroomsClick = (bathrooms) => {
+    setSelectedbathrooms(bathrooms);
   };
 
   return (
@@ -52,7 +67,7 @@ function Filter({ initialData, apply, close }) {
           <div className='flex justify-between mb-2'>
         <div className='w-full text-center font-bold font-custom text-xl mb-1'>Filter</div>
           <div className='font-bold' onClick={()=>{close()}}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-black rounded-md text-black" fill="none"
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 border border-secondary rounded-md text-secondary" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M6 18L18 6M6 6l12 12" />
@@ -65,7 +80,7 @@ function Filter({ initialData, apply, close }) {
           <div className='flex justify-around md:justify-start'>
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ${
-                selectedBedrooms === 'any' ? 'bg-black font-bold text-white' : ''
+                selectedBedrooms === 'any' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='any_bedroom'
               onClick={() => handleBedroomClick('any')}
@@ -76,7 +91,7 @@ function Filter({ initialData, apply, close }) {
               <button
                 key={bedroom}
                 className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                  selectedBedrooms === bedroom ? 'bg-black font-bold text-white' : ''
+                  selectedBedrooms === bedroom ? 'bg-secondary font-bold text-white' : ''
                 }`}
                 id='number_bedroom'
                 onClick={() => handleBedroomClick(bedroom)}
@@ -86,7 +101,7 @@ function Filter({ initialData, apply, close }) {
             ))}
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                selectedBedrooms === '5+' ? 'bg-black font-bold text-white' : ''
+                selectedBedrooms === '5+' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='5+_bedroom'
               onClick={() => handleBedroomClick('5+')}
@@ -101,7 +116,7 @@ function Filter({ initialData, apply, close }) {
           <div className='flex justify-around md:justify-start'>
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ${
-                selectedGuests === 'any' ? 'bg-black font-bold text-white' : ''
+                selectedGuests === 'any' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='any_guest'
               onClick={() => handleGuestClick('any')}
@@ -112,7 +127,7 @@ function Filter({ initialData, apply, close }) {
               <button
                 key={guest}
                 className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                  selectedGuests === guest ? 'bg-black font-bold text-white' : ''
+                  selectedGuests === guest ? 'bg-secondary font-bold text-white' : ''
                 }`}
                 id='number_guest'
                 onClick={() => handleGuestClick(guest)}
@@ -125,7 +140,7 @@ function Filter({ initialData, apply, close }) {
 
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                selectedGuests === '5+' ? 'bg-black font-bold text-white' : ''
+                selectedGuests === '5+' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='5+_guest'
               onClick={() => handleGuestClick('5+')}
@@ -137,14 +152,14 @@ function Filter({ initialData, apply, close }) {
         </div>
 
         <div className='mt-1'>
-        <div className='mb-3 font-bold'>Beds</div>
+        <div className='mb-3 font-bold'>Bathrooms</div>
           <div className='flex justify-around md:justify-start'>
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ${
-                selectedBeds === 'any' ? 'bg-black font-bold text-white' : ''
+                selectedbathrooms === 'any' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='any_bed'
-              onClick={() => handleBedClick('any')}
+              onClick={() => handleBathroomsClick('any')}
             >
               Any
             </button>
@@ -152,20 +167,20 @@ function Filter({ initialData, apply, close }) {
               <button
                 key={bed}
                 className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                  selectedBeds === bed ? 'bg-black font-bold text-white' : ''
+                  selectedbathrooms === bed ? 'bg-secondary font-bold text-white' : ''
                 }`}
                 id='number_bed'
-                onClick={() => handleBedClick(bed)}
+                onClick={() => handleBathroomsClick(bed)}
               >
                 {bed}
               </button>
             ))}
             <button
               className={`h-8 md:h-10 w-14 rounded-full border  text-center text-sm ml-3 ${
-                selectedBeds === '5+' ? 'bg-black font-bold text-white' : ''
+                selectedbathrooms === '5+' ? 'bg-secondary font-bold text-white' : ''
               }`}
               id='5+_bed'
-              onClick={() => handleBedClick('5+')}
+              onClick={() => handleBathroomsClick('5+')}
             >
               5+
             </button>
@@ -195,7 +210,7 @@ function Filter({ initialData, apply, close }) {
               />
               <label
                 htmlFor={amenity}
-                className={`flex items-center justify-center h-5 w-5 border border-black rounded-md cursor-pointer transition-colors ${selectedAmenities.includes(amenity)? 'bg-black' : 'bg-white'}`}
+                className={`flex items-center justify-center h-5 w-5 border border-secondary rounded-md cursor-pointer transition-colors ${selectedAmenities.includes(amenity)? 'bg-secondary' : 'bg-white'}`}
               >
                 {selectedAmenities.includes(amenity) && (
                   <svg
@@ -242,7 +257,7 @@ function Filter({ initialData, apply, close }) {
                 />
                 <label
                   htmlFor={amenity}
-                  className={` h-5 w-5 border border-black rounded-md cursor-pointer transition-colors ${selectedAmenities.includes(amenity)? 'bg-black' : 'bg-white'}`}
+                  className={` h-5 w-5 border border-secondary rounded-md cursor-pointer transition-colors ${selectedAmenities.includes(amenity)? 'bg-secondary' : 'bg-white'}`}
                 >
                   {
                   (selectedAmenities.includes(amenity) && (
@@ -299,17 +314,17 @@ function Filter({ initialData, apply, close }) {
           >
             {/*3 Vertical Lines */}
             <div className='flex gap-[2px]'>
-            <div className='w-[1px] h-2 bg-black'></div>
-            <div className='w-[1px] h-2 bg-black'></div>
-            <div className='w-[1px] h-2 bg-black'></div>
+            <div className='w-[1px] h-2 bg-secondary'></div>
+            <div className='w-[1px] h-2 bg-secondary'></div>
+            <div className='w-[1px] h-2 bg-secondary'></div>
             </div>
           </div>
         )}
         pearling
       />
       <div className='flex justify-between'>
-        <div>$0</div>
-        <div>$20000</div>
+        <div>£0</div>
+        <div>£20000</div>
       </div>
       <div className='mt-3 flex justify-start gap-5'>
         <div className='h-full border rounded-lg px-5 py-2 flex flex-col'>
@@ -323,8 +338,8 @@ function Filter({ initialData, apply, close }) {
       </div>
     </div>
         <div className='flex justify-center'>
-          <button className='bg-black text-white w-full max-w-md rounded-md px-5 py-2 mt-5'
-          onClick={()=>apply({bedrooms:selectedBedrooms, guests:selectedGuests, beds:selectedBeds,amenities: selectedAmenities, priceRange:priceRange})}
+          <button className='bg-secondary text-white w-full max-w-md rounded-md px-5 py-2 mt-5'
+          onClick={()=>apply({bedrooms:selectedBedrooms, guests:selectedGuests, bathrooms:selectedbathrooms,amenities: selectedAmenities, priceRange:priceRange})}
           >Apply Filter</button>
         </div>
       </div>

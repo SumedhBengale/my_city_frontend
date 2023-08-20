@@ -3,9 +3,7 @@ import config from '../../config/config';
 
 
 export const getResidences = async ({filterData}) => {
-    try {
-      // Assuming startDate and endDate are not used in this specific request
-  
+    try {  
       // Stringify the filterData object to send it as a JSON string in the query parameters
       const filterDataString = JSON.stringify(filterData);
       console.log(filterData)

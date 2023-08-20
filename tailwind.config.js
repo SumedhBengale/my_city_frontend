@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'primary': '#262150',
+        'secondary': '#a88f5e',
+      },
       textColor: {
         'primary': '#262150',
         'secondary': '#a88f5e',
@@ -23,6 +27,7 @@ module.exports = {
       width:{
         '50/100': '50vw',
         '40/100': '40vw',
+        '30/100': '30vw',
         '20/100': '20vw',
       },
       fontFamily: {

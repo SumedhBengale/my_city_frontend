@@ -34,18 +34,24 @@ function Home() {
       toast.error("Cannot Check-in after Check-out")
       return
     }
+    localStorage.setItem('checkInDate', params.startDate)
+    localStorage.setItem('checkOutDate', params.endDate)
+    localStorage.setItem('guestCount', params.guests)
     navigate('/properties', {state: {filterData:params}})
   }
 
   useEffect(() => {
+    localStorage.removeItem('checkInDate')
+    localStorage.removeItem('checkOutDate')
+    localStorage.removeItem('guestCount')
+    //on first load clear the localstorage
     getDynamicText().then((res) => {
       console.log(res.data)
       setDynamicText(res.data)
     }).catch((err) => {});
     getResidences().then((res) => {
       if(res.status === 200){
-        console.log(res.residences)
-        setResidences(res.residences)
+        setResidences(res.residences.results)
       }else if(res.status === 401){
         console.log('unauthorized')
         localStorage.removeItem('token')

@@ -13,7 +13,7 @@ import Property from './pages/Property/Property';
 import Wishlist from './pages/Wishlist/Wishlist';
 import Trips from './pages/Trips/Trips';
 import Book from './pages/Book/Book';
-import React from 'react'
+import React, { useState } from 'react'
 import Notifications from './pages/Notifications/Notifications';
 import Help from './pages/Help/Help';
 import Messages from './pages/Messages/Messages';

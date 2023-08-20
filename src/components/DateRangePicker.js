@@ -16,93 +16,90 @@ import {
 import LeftArrow from '../assets/images/property/left.svg';
 import RightArrow from '../assets/images/property/right.svg';
 import { fetchBookedDatesFromBackend } from './api';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
-const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnData }) => {
+const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnData, blockBooking }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(initialStartDate ? initialStartDate : new Date());
   const [endDate, setEndDate] = useState(initialEndDate ? initialEndDate : new Date());
-  const [totalNights, setTotalNights] = useState(0);
-  const [bookedDates, setBookedDates] = useState([]); // To store booked dates from the backend
+  const [totalNights, setTotalNights] = useState(
+    initialStartDate && initialEndDate ? (initialEndDate.getTime() - initialStartDate.getTime()) / (1000 * 3600 * 24) : 0
+  );
+  const [bookedDates, setBookedDates] = useState(null); // To store booked dates from the backend
   const datePickerRef = useRef(null);
   const [fetchComplete, setFetchComplete] = useState(false);
 
   const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+
   useEffect(() => {
-    console.log("StartDate",startDate)
-    console.log("EndDate", endDate)
+    const checkBookingForDatesBetween = (startDate, endDate, data) => {
+      const allSelected = [];
+      let currentDate = startDate;
+      while (currentDate <= endDate) {
+        allSelected.push(new Date(currentDate, 'yyyy-MM-dd'));
+        currentDate = addDays(currentDate, 1);
+      }
+  
+      if (data.some((r) => allSelected.includes(r))) {
+        console.log('Booked dates between start date and end date')
+        toast.error('Booked dates between start date and end date')
+        blockBooking(true);
+      } else {
+        blockBooking(false);
+      }
+    }
+    //print initial start date and end date
+    console.log("Initial Start Date", initialStartDate)
+    console.log("Initial End Date", initialEndDate)
     // Fetch booked dates from the backend
-    fetchBookedDatesFromBackend(residenceId).then((data) => {
-      console.log("Dates",data)
-      setBookedDates(data); // Assuming the data contains booked dates in an array
+    try{
+    fetchBookedDatesFromBackend(residenceId, format(startDate, 'yyyy-MM-dd'), format(
+      //1 year from start date
+      new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1)
+      , 'yyyy-MM-dd')).then((data) => {
+      console.log("Dates Data", data)
+
+      checkBookingForDatesBetween(startDate, endDate, data);
+      setBookedDates(data);
       setFetchComplete(true);
     });
-  }, [startDate, endDate, residenceId]);
-
-  const isBetweenBookedDates = (startDate, endDate) => {
-    // Check if any of the bookedDates lie between the startDate and endDate
-    return bookedDates.some((bookedDate) => {
-      const date = new Date(bookedDate);
-  
-      // Check if the booked date falls within the range (inclusive)
-      return date >= startDate && date <= endDate;
-    });
-  };
-
-  const isBooked = (day) => {
-    // Check if the clicked day is in the bookedDates array
-    console.log("Booked Dates", bookedDates)
-    return bookedDates.some((bookedDate) => isSameDay(day, new Date(bookedDate)));
-  };
-  
-
-  const handleDateClick = (day) => {
-    if (isBetweenBookedDates(day) || day < new Date()) {
-      console.log('Booked or past date')
-      return; // Do nothing for booked or past dates
-    }
-    if (startDate === null) {
-      // Set the start date if it hasn't been selected yet
-      console.log(format(day, 'e'));
-      setStartDate(day);
-      setEndDate(null); // Clear the end date
-    } else if (endDate === null) {
-      // Set the end date if the start date has been selected
-      if (day >= startDate) {
-        if (isBetweenBookedDates(startDate, day) || day < new Date()) {
-          console.log('Booked or past date')
-          return; // Do nothing for booked or past dates
-        }
-        setEndDate(day);
-        setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-        returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
-      } else {
-        setStartDate(day);
-        setEndDate(null);
-      }
-    } else {
-      // Clear both start and end dates if both have been selected
-      setStartDate(null);
-      setEndDate(null);
-      setStartDate(day);
-    }
-    console.log(startDate)
-    console.log(endDate)
-  };
+  } catch (error) {
+    console.error('Error fetching booked dates:', error);
+    setFetchComplete(true);
+  }
+  }, [endDate, initialEndDate, initialStartDate, residenceId, startDate]);
 
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
   const monthStartDate = startOfWeek(monthStart);
   const monthEndDate = endOfWeek(monthEnd);
 
-  const days = [];
+  const isBooked = (day) => {
+    if (bookedDates === null) {return false} 
+    // Check if the day is present in the bookedDates array
+    if (bookedDates.find((bookedDate) => format(day, 'yyyy-MM-dd') === bookedDate)) {
+      return true;
+    }
+  }
+
+
+  const days = []
   let day = monthStartDate;
 
+  // Loop from month start date to month end date, adding 1 day each time, add the data for each day from the bookedDates array to the days array and return the days array
   while (day <= monthEndDate) {
-    days.push(day);
+    let dayData = {
+      date: day,
+      booked: isBooked(day),
+    };
+    days.push(dayData);
     day = addDays(day, 1);
   }
+
+
 
 
   const isWithinRange = (day) => {
@@ -119,23 +116,81 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
+
+  const bookedDatesBetween = (startDate, endDate) => {
+    // If there are booked dates between start date and end date, return true
+    if (bookedDates === null) {return false}
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (startDate.getTime() <= new Date(bookedDates[i]).getTime() && new Date(bookedDates[i]).getTime() <= endDate.getTime()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  const handleDateClick = (day) => {
+    if (isBooked(day)) {
+      console.log('Date is booked')
+      toast.error('Date is already booked')
+      return; // Do nothing for booked or past dates
+    }
+    if(day < new Date()){
+      console.log('Date is in the past')
+      toast.error('Date is in the past')
+      return;
+    }
+    //If date is equal to start date, clear start date
+    if (isSameDay(day, startDate)) {
+      setStartDate(null);
+      setEndDate(null);
+      return;
+    }
+    if (startDate === null) {
+      setStartDate(day);
+      setEndDate(null); // Clear the end date
+    } else if (endDate === null) {
+      if (bookedDatesBetween(startDate, day)) {
+        console.log('Booked dates between start date and end date')
+        toast.error('Booked dates between start date and end date')
+        return; // Do nothing if there are booked dates between start date and end date
+      }
+      if (day >= startDate) {
+        setEndDate(day);
+        setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+        returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
+      } else {
+        setStartDate(day);
+        setEndDate(null);
+      }
+    } else {
+      // Clear both start and end dates if both have been selected
+      //Check if any date is booked in between
+      setStartDate(null);
+      setEndDate(null);
+      setStartDate(day);
+    }
+    console.log(startDate)
+    console.log(endDate)
+  };
+
   return (
     <div>{ fetchComplete ?
-    <div className='m-3 sm:mt-10 lg:mt-0 bg-white border border-gray-300'>
-    <div className='text-lg font-custom-bold pl-5'>{
+    <div className='my-5 sm:mt-10 lg:mt-0 bg-white shadow-none'>
+    <div className='text-lg font-custom-bold text-primary pl-5'>{
       //End date - Start date
       startDate === null || endDate === null ? 'Select the Date Range' :
       totalNights + ' Nights in Apetite De Bone'
     }</div>
-    <div className='text-sms pl-5'>{`${
+    <div className='text-sms pl-5 text-primary'>{`${
       startDate === null ? '' : format(startDate, 'dd MMMM')
     } - ${
       endDate === null ? '' : format(endDate, 'dd MMMM')
     }`}</div>
-    <div className=" p-5 h-min lg:h-full  rounded-md shadow-lg" ref={datePickerRef}>
+    <div className=" p-5 h-min lg:h-full  rounded-md shadow-none" ref={datePickerRef}>
       <div>
         <div className="flex items-center justify-between py-2">
-          <span className="font-custom font-normal text-md">
+          <span className="font-custom font-normal text-primary text-md">
             {format(currentMonth, 'MMMM yyyy')}
           </span>
           <div className="flex justify-end gap-2">
@@ -165,56 +220,57 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
 {days.map((day) => (
   <div className="py-2 flex justify-center items-center">
     <div
-      key={day}
+      key={day.date}
       className={`flex w-full items-center justify-center cursor-pointer ${
-        !isSameMonth(day, monthStart) ? 'text-gray-500' : ''
+        !isSameMonth(day.date, monthStart) ? 'text-gray-500 cursor-not-allowed' : ''
       } ${
-        isBooked(day) ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : ''
+        isBooked(day.date) ? 'bg-red-200 text-gray-700 opacity-80 cursor-not-allowed' : ''
       } ${
-        isSameDay(day, startDate)
-          ? 'bg-black text-white rounded-l-2xl'
-          : isSameDay(day, endDate)
-          ? 'bg-black text-white rounded-r-2xl'
+        isSameDay(day.date, startDate) && !isBooked(day.date)
+          ? 'bg-secondary text-white rounded-l-2xl'
+          : isSameDay(day.date, endDate) && !isBooked(day.date)
+          ? 'bg-secondary text-white rounded-r-2xl'
           : (startDate === null || endDate === null)
           ? ''
-          : isWithinRange(day) &&
-            getWeekOfMonth(day) !== getWeekOfMonth(endDate)
-          ? format(day, 'e') === '1'
-            ? 'bg-gradient-to-r from-black/70 to-black/60 rounded-l-2xl'
-            : format(day, 'e') === '2'
-            ? 'bg-gradient-to-r from-black/60 to-black/50'
-            : format(day, 'e') === '3'
-            ? 'bg-gradient-to-r from-black/50 to-black/40'
-            : format(day, 'e') === '4'
-            ? 'bg-gradient-to-r from-black/40 to-black/30'
-            : format(day, 'e') === '5'
-            ? 'bg-gradient-to-r from-black/30 to-black/20'
-            : format(day, 'e') === '6'
-            ? 'bg-gradient-to-r from-black/20 to-black/10'
-            : format(day, 'e') === '7'
-            ? 'bg-gradient-to-r from-black/10 to-black/0 rounded-r-2xl'
+          : isWithinRange(day.date) &&
+            getWeekOfMonth(day.date) !== getWeekOfMonth(endDate)
+            && !isBooked(day.date)
+          ? format(day.date, 'e') === '1'
+            ? 'bg-gradient-to-r from-secondary/70 to-secondary/60 rounded-l-2xl'
+            : format(day.date, 'e') === '2'
+            ? 'bg-gradient-to-r from-secondary/60 to-secondary/50'
+            : format(day.date, 'e') === '3'
+            ? 'bg-gradient-to-r from-secondary/50 to-secondary/40'
+            : format(day.date, 'e') === '4'
+            ? 'bg-gradient-to-r from-secondary/40 to-secondary/30'
+            : format(day.date, 'e') === '5'
+            ? 'bg-gradient-to-r from-secondary/30 to-secondary/20'
+            : format(day.date, 'e') === '6'
+            ? 'bg-gradient-to-r from-secondary/20 to-secondary/10'
+            : format(day.date, 'e') === '7'
+            ? 'bg-gradient-to-r from-secondary/10 to-secondary/0 rounded-r-2xl'
             : ''
-          : isWithinRange(day) && getWeekOfMonth(day) === getWeekOfMonth(endDate)
-          ? format(day, 'e') === '7'
-            ? 'bg-gradient-to-l from-black/70 to-black/60 rounded-r-2xl'
-            : format(day, 'e') === '6'
-            ? 'bg-gradient-to-l from-black/60 to-black/50'
-            : format(day, 'e') === '5'
-            ? 'bg-gradient-to-l from-black/50 to-black/40'
-            : format(day, 'e') === '4'
-            ? 'bg-gradient-to-l from-black/40 to-black/30'
-            : format(day, 'e') === '3'
-            ? 'bg-gradient-to-l from-black/30 to-black/20'
-            : format(day, 'e') === '2'
-            ? 'bg-gradient-to-l from-black/20 to-black/10'
-            : format(day, 'e') === '1'
-            ? 'bg-gradient-to-l from-black/10 to-black/0 rounded-l-2xl'
+          : isWithinRange(day.date) && getWeekOfMonth(day.date) === getWeekOfMonth(endDate)
+          ? format(day.date, 'e') === '7'
+            ? 'bg-gradient-to-l from-secondary/70 to-secondary/60 rounded-r-2xl'
+            : format(day.date, 'e') === '6'
+            ? 'bg-gradient-to-l from-secondary/60 to-secondary/50'
+            : format(day.date, 'e') === '5'
+            ? 'bg-gradient-to-l from-secondary/50 to-secondary/40'
+            : format(day.date, 'e') === '4'
+            ? 'bg-gradient-to-l from-secondary/40 to-secondary/30'
+            : format(day.date, 'e') === '3'
+            ? 'bg-gradient-to-l from-secondary/30 to-secondary/20'
+            : format(day.date, 'e') === '2'
+            ? 'bg-gradient-to-l from-secondary/20 to-secondary/10'
+            : format(day.date, 'e') === '1'
+            ? 'bg-gradient-to-l from-secondary/10 to-secondary/0 rounded-l-2xl'
             : ''
           : ''
       }`}
-      onClick={() => handleDateClick(day)}
+      onClick={() => handleDateClick(day.date)}
     >
-      {format(day, 'd')}
+      {format(day.date, 'd')}
     </div>
   </div>
 ))}
@@ -226,6 +282,18 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       </div>  
     }
+    <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+    />
     </div>
   );
 };

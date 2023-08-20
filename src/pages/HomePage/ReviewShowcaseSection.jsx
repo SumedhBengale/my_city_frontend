@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import placeholder_user_image from '../../assets/images/home/placeholder_user_image.jpg';
 import { getShowcaseReviews } from './api';
 import config from '../../config/config.js';
 
@@ -7,6 +6,7 @@ const HorizontalScrollView = () => {
   const scrollContainerRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
   const [reviews, setReviews] = useState(null);
+  const [initialLoad, setInitialLoad] = useState(true);
   const itemWidth = 
   window.innerWidth > 1200 ? 600 : 300; 
 
@@ -14,6 +14,9 @@ const HorizontalScrollView = () => {
     getShowcaseReviews().then((res) => {
       console.log(res.data);
       setReviews(res.data);
+      //scroll by 1 pixel to trigger scroll event
+      scrollContainerRef.current.scrollLeft = 1;
+
     });
 
     const scrollContainer = scrollContainerRef.current;
@@ -26,6 +29,7 @@ const HorizontalScrollView = () => {
   }, [itemWidth]);
 
   const handleScroll = () => {
+    setInitialLoad(false);
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
       const scrollX = scrollContainer.scrollLeft;
@@ -47,7 +51,8 @@ const HorizontalScrollView = () => {
     <div className={`flex ${
         window.innerWidth > 1200 ? 'h-[500px]' : 'h-96'
     } `}>
-      <div className='flex w-20/100 sm:w-40/100'><div className='w-full bg-transparent'></div></div>
+      <div className='flex w-20/100 sm:w-30/100'><div className='w-full bg-transparent'></div></div>
+      
         {reviews !== null ? reviews.map((review,index) => {
           const distanceFromCenter = Math.abs(index - centerIndex);
           const scale = distanceFromCenter === 0 ? 1.25 : 1 - distanceFromCenter * 0.1;
@@ -61,13 +66,20 @@ const HorizontalScrollView = () => {
               className='flex items-center justify-center transition-all duration-300 hover:scale-105 ease-in cursor-pointer'
               style={{
                 width: `${itemWidth}px`,
-                transform: `scale(${scale})`,
+                transform: `${
+                  initialLoad ? 'scale(1)' : `scale(${scale})`
+                }`,
                 transformOrigin: 'center center',
               }}
             >
-              <div className={` ${
-                 window.innerWidth > 1200 ? 'h-3/4' : 'h-72'
-                  } w-2/3 p-4 bg-white rounded-2xl border backdrop-blur-[185px]`} >
+
+            <div className={` ${
+              window.innerWidth > 1200 ? 'h-80' : 'h-72'
+                } 
+                w-2/3 p-4 bg-white rounded-2xl border relative`}
+                >
+                {
+                  distanceFromCenter !== 0 && <div className='absolute h-full w-full top-0 left-0 backdrop-filter backdrop-blur-[2px] scale-105'></div>}
                 <div className='flex justify-center flex-col items-center'>
                   <div className='w-20 h-20 flex justify-center '>
                   <img src={`${config.STRAPI_URL}`+review.attributes.profile_photo.data.attributes.url} alt='Profile' className="rounded-full w-full" />
@@ -75,10 +87,10 @@ const HorizontalScrollView = () => {
                   <div className='flex flex-col'>
                   <div className='text-center text-md'>{review.attributes.name}</div>
                   <div className='text-slate-400 text-[12px] text-center'>{new Date(review.attributes.date).toLocaleDateString('en-GB')}</div>
-                  <div className='text-[14px] text-ellipsis overflow-hidden h-24 lg:h-48 text-center w-full text-primary overflow-y-auto'>{review.attributes.review}</div>
+                  <div className='text-[14px] text-ellipsis overflow-hidden h-24 lg:h-36 text-center w-full text-primary overflow-y-auto'>{review.attributes.review}</div>
                   </div>
                   {/*Repeat a star 5 times */}
-                  <div className='flex justify-center pt-3'>
+                  <div className='flex justify-center pt-1'>
                   {Array.from(Array(review.attributes.rating).keys()).map((index) => {
                     return (
                       <svg
@@ -107,7 +119,7 @@ const HorizontalScrollView = () => {
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
         </div>
       }
-              <div className='flex w-20/100 sm:w-40/100'><div className='w-full bg-transparent'></div></div>
+              <div className='flex w-20/100 sm:w-30/100 '><div className='w-full bg-transparent'></div></div>
 
       </div>
     </div>

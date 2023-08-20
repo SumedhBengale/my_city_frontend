@@ -4,7 +4,8 @@ import Image1 from '../../assets/images/property/placeholder1.png'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import { confirmBooking } from './api'
+import { confirmBooking, getQuote } from './api'
+import { ToastContainer, toast } from 'react-toastify'
 
 function Book() {
     const location = useLocation();
@@ -13,9 +14,8 @@ function Book() {
     const [confirmTitle, setConfirmTitle] = useState(null);
     const [confirmMessage, setConfirmMessage] = useState(null);
     const [residence, setResidence] = useState(null);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
     const [totalNights, setTotalNights] = useState(null);
+    const [quote, setQuote] = useState(null);
 
 
 
@@ -23,18 +23,33 @@ function Book() {
         const setBookingData = () => {
             console.log(location.state)
             setResidence(location.state.residence)
-            setStartDate(location.state.startDate)
-            setEndDate(location.state.endDate)
-            setTotalNights(location.state.totalNights)
         }
 
+        getQuote(location.state.residence, location.state.startDate, location.state.endDate).then((data) => {
+            if(data.status === 200) {
+                console.log(data.quote)
+                setQuote(data.quote)
+                setTotalNights(
+                    Math.round(
+                        (new Date(data.quote.checkOutDateLocalized) - new Date(data.quote.checkInDateLocalized)) / (1000 * 60 * 60 * 24)
+                    )
+                )
+            }else{
+                toast.error('Something went wrong')
+            }
+
+        })
         location.state ? setBookingData() : navigate('*');
     }, [location.state, navigate]);
 
     const handleBooking = () => {
 
         // API call to book the residence
-        confirmBooking(residence._id, startDate, endDate, totalNights).then((data) => {
+        confirmBooking(residence, quote, quote.checkInDateLocalized, quote.checkOutDateLocalized,{
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'johndoe@gmail.com'
+        }).then((data) => {
             if(data.status === 201) {
                 setConfirmVisible(true);
                 setConfirmTitle('Booking Confirmed');
@@ -70,7 +85,7 @@ function Book() {
                 </div>
             </div>
         }
-        {residence && startDate && endDate && totalNights ? <div>
+        {residence && quote !== null && totalNights ? <div>
          <div className='flex w-full h-full bg-white shadow-lg justify-between  md:mt-16 '>
             <div className='w-10 h-full' onClick={()=>{
                 window.history.back();
@@ -85,10 +100,10 @@ function Book() {
         <div className='w-full md:w-2/3 lg:1/2 '>
         <div className='flex sm:flex justify-start gap-5 p-5  w-full'>
             <div className='h-40 '>
-                <img src={residence.images[0]} alt='left arrow' className='sm:w-80 h-full rounded-lg'/>
+                <img src={residence.pictures[0].original ? residence.pictures[0].original : residence.pictures[0].thumbnail} alt='left arrow' className='sm:w-80 h-full rounded-lg'/>
             </div>
             <div className=' p-2 w-1/2'>
-                <div className='text-sm'>{residence.type}</div>
+                <div className='text-sm'>{residence.roomType}</div>
                 <div className='text-lg font-bold'>{residence.title}</div>
                 <div className='text-[10px] text-ellipsis text-overflow:hidden line-clamp-3'>{residence.description}</div>
             </div>
@@ -104,7 +119,7 @@ function Book() {
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
                     <div className='text-md font-bold'>Date</div>
-                    <div className='text-sm'>{format(startDate, 'dd MMMM') + ' - ' + format(endDate, 'dd MMMM')}</div>
+                    <div className='text-sm'>{format(new Date(quote.checkInDateLocalized), 'dd MMMM') + ' - ' + format(new Date(quote.checkOutDateLocalized), 'dd MMMM')}</div>
                 </div>
                 <div className='text-md font-bold underline'>Edit</div>
             </div>
@@ -112,7 +127,7 @@ function Book() {
             <div className='flex justify-between items-center pt-5'>
                 <div className='flex flex-col'>
                     <div className='text-md font-bold'>Guests</div>
-                    <div className='text-sm'>{`1 Guests`}</div>
+                    <div className='text-sm'>{quote.guestsCount}</div>
                 </div>
                 <div className='text-md font-bold underline'>Edit</div>
             </div>
@@ -126,44 +141,44 @@ function Book() {
             <div className='text-lg font-bold pb-4'>Price Details</div>
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
-                    <div className='text-sm'>{`$ ${residence.pricePerNight} x ${totalNights} Nights`}</div>
+                    <div className='text-sm'>{`£ ${quote.rates.ratePlans[0].days[0].price} x ${totalNights} Nights`}</div>
                 </div>
-                <div className='text-sm'>{`$ ${residence.pricePerNight*totalNights}`}</div>
+                <div className='text-sm'>{`£ ${quote.rates.ratePlans[0].ratePlan.money.fareAccommodationAdjusted}`}</div>
             </div>
 
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
                     <div className='text-sm'>{`Special Offer`}</div>
                 </div>
-                <div className='text-sm'>{`-$ 475`}</div>
+                <div className='text-sm'>{`-£ 0`}</div>
             </div>
 
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
                     <div className='text-sm'>{`Cleaning Fees`}</div>
                 </div>
-                <div className='text-sm'>{`$ 200`}</div>
+                <div className='text-sm'>{`£ ${quote.rates.ratePlans[0].ratePlan.money.fareCleaning}`}</div>
             </div>
 
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
                     <div className='text-sm'>{`Hospitality Fees`}</div>
                 </div>
-                <div className='text-sm'>{`$ 200`}</div>
+                <div className='text-sm'>{`£ ${quote.rates.ratePlans[0].ratePlan.money.fareHospitality? quote.rates.ratePlans[0].ratePlan.money.fareAccommodationAdjusted : 0}`}</div>
             </div>
 
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
                     <div className='text-sm'>{`Taxes`}</div>
                 </div>
-                <div className='text-sm'>{`$ 375`}</div>
+                <div className='text-sm'>{`$ ${quote.rates.ratePlans[0].ratePlan.money.totalTaxes}`}</div>
             </div>
 
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col'>
-                    <div className='text-sm font-bold'>{`Total(USD)`}</div>
+                    <div className='text-sm font-bold'>{`Total(GBP)`}</div>
                 </div>
-                <div className='text-sm font-bold'>{`$ ${residence.pricePerNight*totalNights}`}</div>
+                <div className='text-sm font-bold'>{`£ ${quote.rates.ratePlans[0].ratePlan.money.hostPayout}`}</div>
             </div>
         </div>
 
@@ -177,6 +192,18 @@ function Book() {
                 <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-black'></div>
             </div>
         }
+        <ToastContainer
+            position="bottom-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+        />
     </div>
   )
 }

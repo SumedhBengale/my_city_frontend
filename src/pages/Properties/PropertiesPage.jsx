@@ -27,8 +27,10 @@ function PropertiesPage() {
       console.log(location.state)
     getResidences(location.state ?  {filterData: location.state.filterData}: {}).then((res) => {
       console.log(res)
-      setResidences(res.residences)
-    }).catch((err) => {});
+      setResidences(res.residences.results)
+    }).catch((err) => {
+      console.log(err)
+    });
       const handleScroll = () => {
         const screenHeight = window.innerHeight;
         const scrollPosition = window.scrollY;

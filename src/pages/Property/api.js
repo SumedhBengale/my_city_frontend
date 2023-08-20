@@ -68,11 +68,11 @@ export const initiateChat = async (residenceId, chatId) => {
 }
 
 
-export const  addToWishlist = async (residenceId) => {
+export const  addToWishlist = async (residence) => {
     try {
         //get request with auth header
         const response = await axios.post(`${config.API_URL}/wishlist/add`, {
-            residenceId: residenceId,
+            residence: residence,
             userId: localStorage.getItem('userId')
         }, {
             headers: {
@@ -83,6 +83,20 @@ export const  addToWishlist = async (residenceId) => {
     }
     catch (error) {
         if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+
+export const getShowcaseReviews = async () => {
+    try{
+        const response = await axios.get(`${config.STRAPI_URL}/api/reviews?populate=*`, {
+        })
+        return response.data;
+    }
+    catch(error){
+        if(error.response){
             return error.response;
         }
     }
