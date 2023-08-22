@@ -7,7 +7,6 @@ import config from '../../config/config'
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 import NavbarBlack from '../../components/navbar_black'
 import SearchComponent from './pages/SearchComponent';
-import Utilities from './pages/Utilities';
 
 function Admin() {
   const [checkComplete, setCheckComplete] = React.useState(false)
@@ -54,7 +53,6 @@ function Admin() {
     { id: 1, label: 'Users' },
     { id: 2, label: 'Chats' },
     { id: 3, label: 'Reviews'},
-    { id: 4, label: 'Utilities'}
     // Add more elements as needed
   ];
 
@@ -139,7 +137,6 @@ function Admin() {
           {selectedElement.label === 'Users' ? <SearchComponent searchType={'user'} />
           : selectedElement.label === 'Chats' ? <SearchComponent searchType={'chat'} />
           : selectedElement.label === 'Reviews' ? <SearchComponent searchType={'review'} />
-          : selectedElement.label === 'Utilities' ? <Utilities />
           :null}
         </div>
       </div>

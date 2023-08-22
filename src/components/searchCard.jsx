@@ -66,6 +66,7 @@ function SearchCard({search}) {
             setStartDate(data.startDate)
             setEndDate(data.endDate)
           }}
+          blockBooking={()=>null}
         ></DateRangePicker>
       </div>
       }

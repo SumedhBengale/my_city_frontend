@@ -16,10 +16,10 @@ export const login = async (email, password) => {
     }
 }
 
-//A route to search all the upcoming trips of a user, the userId is passed in the body
-export const getUpcomingTrips = async (userId) => {
+//A route to search all the trips of a user, the userId is passed in the body
+export const getTrips = async (userId) => {
     try {
-        const response = await axios.post(`${config.API_URL}/admin/upcomingTrips`, {
+        const response = await axios.post(`${config.API_URL}/admin/trips`, {
             userId
         }, {
             headers: {
@@ -126,30 +126,11 @@ export const deleteItem = async (id) => {
 
 
 
-//adminGetUpcomingTrips
-export const adminGetUpcomingTrips = async (userId) => {
+//adminGetTrips
+export const adminGetTrips = async (userId) => {
     try {
         //get request with auth header
-        const response = await axios.post(`${config.API_URL}/admin/upcomingTrips`,{
-            userId: userId
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        if(error.response) {
-            return error.response;
-        }
-    }
-}
-
-//adminGetPastTrips
-export const adminGetPastTrips = async (userId) => {
-    try {
-        //get request with auth header
-        const response = await axios.post(`${config.API_URL}/admin/pastTrips`,{
+        const response = await axios.post(`${config.API_URL}/admin/trips`,{
             userId: userId
         }, {
             headers: {

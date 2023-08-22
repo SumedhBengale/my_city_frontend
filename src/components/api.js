@@ -13,7 +13,6 @@ export const fetchBookedDatesFromBackend = async (residenceId, startDate, endDat
             }
             }
         );
-        console.log('Response from backend:', response.data)
         let bookedDates = [];
         response.data.availability.forEach((booking) => {
             if(booking.status === 'booked' || booking.status === 'unavailable') {

@@ -218,7 +218,7 @@ function Property() {
                 setTotalNights(props.totalNights)
               }
             }}
-            blockBooking={()=>setBookingDisabled(true)}
+            blockBooking={(value)=>setBookingDisabled(value)}
               initialStartDate={startDate}
               initialEndDate={endDate}
               residenceId={id.id}
@@ -489,7 +489,7 @@ function Property() {
                   setTotalNights(props.totalNights)
                 }
               }}
-              blockBooking={()=>setBookingDisabled(true)}
+              blockBooking={(value)=>setBookingDisabled(value)}
               initialStartDate={startDate}
               initialEndDate={endDate}
               residenceId={id.id}

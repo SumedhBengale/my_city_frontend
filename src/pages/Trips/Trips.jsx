@@ -3,21 +3,32 @@ import LeftArrow from '../../assets/images/home/left.svg'
 import PastTripCard from './PastTripCard'
 import UpcomingTripCard from './UpcomingTripCard'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
-import { getPastTrips, getUpcomingTrips } from './api'
+import { getTrips } from './api'
 
 function Trips() {
+    const [trips, setTrips] = useState([])
     const [upcomingTrips, setUpcomingTrips] = useState([])
     const [pastTrips, setPastTrips] = useState([])
     useEffect(() => {
-        getUpcomingTrips().then((upcomingData) => {
-            setUpcomingTrips(upcomingData.upcomingTrips)
-            console.log(upcomingData.upcomingTrips)
-            getPastTrips().then((pastData) => {
-                setPastTrips(pastData.pastTrips)
+        getTrips().then((data) => {
+            console.log(data)
+            setTrips(data.trips)
+            //For each trip, check if the checkInDate is after today's date
+            //If it is, add it to the upcomingTrips array
+            //If it isn't, add it to the pastTrips array
+            let upcomingTrips = []
+            let pastTrips = []
+            data.trips.forEach((trip) => {
+                if(new Date(trip.checkInDate) > new Date()) {
+                    upcomingTrips.push(trip)
+                } else {
+                    pastTrips.push(trip)
+                }
             })
-        },
-
-        )
+            setUpcomingTrips(upcomingTrips)
+            setPastTrips(pastTrips)
+            
+        })
     }, [])
         const [selected, setSelected] = useState('upcoming')
     return (

@@ -1,56 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  format,
-  addMonths,
-  subMonths,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  isSameDay,
-  getWeekOfMonth,
-  isSameMonth,
-  addDays,
-} from 'date-fns';
+import {format,addMonths,subMonths,startOfMonth,endOfMonth,startOfWeek,endOfWeek,isSameDay,getWeekOfMonth,isSameMonth,addDays,} from 'date-fns';
 import LeftArrow from '../assets/images/property/left.svg';
 import RightArrow from '../assets/images/property/right.svg';
 import { fetchBookedDatesFromBackend } from './api';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnData, blockBooking }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(initialStartDate ? initialStartDate : new Date());
   const [endDate, setEndDate] = useState(initialEndDate ? initialEndDate : new Date());
-  const [totalNights, setTotalNights] = useState(
-    initialStartDate && initialEndDate ? (initialEndDate.getTime() - initialStartDate.getTime()) / (1000 * 3600 * 24) : 0
-  );
+  const [totalNights, setTotalNights] = useState(initialStartDate && initialEndDate ? (initialEndDate.getTime() - initialStartDate.getTime()) / (1000 * 3600 * 24) : 0);
   const [bookedDates, setBookedDates] = useState(null); // To store booked dates from the backend
   const datePickerRef = useRef(null);
   const [fetchComplete, setFetchComplete] = useState(false);
-
   const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-
   useEffect(() => {
-    const checkBookingForDatesBetween = (startDate, endDate, data) => {
-      const allSelected = [];
-      let currentDate = startDate;
-      while (currentDate <= endDate) {
-        allSelected.push(new Date(currentDate, 'yyyy-MM-dd'));
-        currentDate = addDays(currentDate, 1);
-      }
-  
-      if (data.some((r) => allSelected.includes(r))) {
-        console.log('Booked dates between start date and end date')
-        toast.error('Booked dates between start date and end date')
-        blockBooking(true);
-      } else {
-        blockBooking(false);
-      }
-    }
     //print initial start date and end date
     console.log("Initial Start Date", initialStartDate)
     console.log("Initial End Date", initialEndDate)
@@ -60,17 +25,28 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
       //1 year from start date
       new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1)
       , 'yyyy-MM-dd')).then((data) => {
+      // for data.availiability array, if data.availabiliy[i] is not present in bookedDates, add it to bookedDates
       console.log("Dates Data", data)
-
-      checkBookingForDatesBetween(startDate, endDate, data);
       setBookedDates(data);
-      setFetchComplete(true);
+      if(bookedDatesBetween(startDate, endDate, data)){
+        console.log("Booked Dates Between")
+        //Check if any toast is already being displayed, if not display toast
+        if(!toast.isActive('bookedDatesBetween')){
+          toast.error('Booked dates between start date and end date', {toastId: 'bookedDatesBetween'})
+        }
+        blockBooking(true)
+        setFetchComplete(true);
+        return;
+      }else{
+        setFetchComplete(true);
+      }
     });
+
   } catch (error) {
     console.error('Error fetching booked dates:', error);
     setFetchComplete(true);
   }
-  }, [endDate, initialEndDate, initialStartDate, residenceId, startDate]);
+  }, []);
 
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
@@ -117,11 +93,11 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
-  const bookedDatesBetween = (startDate, endDate) => {
-    // If there are booked dates between start date and end date, return true
-    if (bookedDates === null) {return false}
-    for (let i = 0; i < bookedDates.length; i++) {
-      if (startDate.getTime() <= new Date(bookedDates[i]).getTime() && new Date(bookedDates[i]).getTime() <= endDate.getTime()) {
+  const bookedDatesBetween = (startDate, endDate, data) => {
+        // If there are booked dates between start date and end date, return true
+    if (data === null) {return false}
+    for (let i = 0; i < data.length; i++) {
+      if (startDate.getTime() <= new Date(data[i]).getTime() && new Date(data[i]).getTime() <= endDate.getTime()) {
         return true;
       }
     }
@@ -150,15 +126,17 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
       setStartDate(day);
       setEndDate(null); // Clear the end date
     } else if (endDate === null) {
-      if (bookedDatesBetween(startDate, day)) {
+      if (bookedDatesBetween(startDate, day, bookedDates)) {
         console.log('Booked dates between start date and end date')
         toast.error('Booked dates between start date and end date')
+        blockBooking(true)
         return; // Do nothing if there are booked dates between start date and end date
       }
       if (day >= startDate) {
         setEndDate(day);
         setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
         returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
+        blockBooking(false)
       } else {
         setStartDate(day);
         setEndDate(null);

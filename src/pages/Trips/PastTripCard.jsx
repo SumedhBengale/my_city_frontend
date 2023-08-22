@@ -24,10 +24,7 @@ function PastTripCard({trip}) {
     }
 
     useEffect(() => {
-        getResidenceInfo(trip.residenceId).then((data) => {
-            console.log(data.residence)
-            setResidence(data.residence)
-        })
+        setResidence(trip.residence)
     }, [trip])
 
   return (
@@ -61,6 +58,26 @@ function PastTripCard({trip}) {
                             <input type='radio' name='rating' value='5' defaultChecked={ trip.rating === 5 } onChange={(e)=>setRating(e.target.value)}/>
                             <label>5</label>
                         </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='6' defaultChecked={ trip.rating === 6 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>6</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='7' defaultChecked={ trip.rating === 7 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>7</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='8' defaultChecked={ trip.rating === 8 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>8</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='9' defaultChecked={ trip.rating === 9 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>9</label>
+                        </div>
+                        <div className='flex gap-1'>
+                            <input type='radio' name='rating' value='10' defaultChecked={ trip.rating === 10 } onChange={(e)=>setRating(e.target.value)}/>
+                            <label>10</label>
+                        </div>
                     </div>
                 </div>
                 <div className='flex flex-col'>
@@ -77,7 +94,7 @@ function PastTripCard({trip}) {
     {residence !== null &&
         <div className='flex flex-col bg-zinc-300 rounded-lg p-4 gap-2'>
             <div className='w-full h-full flex'>
-                <img src={residence.images[0]} alt='placeholder' onClick={()=>window.history.back()} className=' w-full rounded-xl h-40 md:h-48 lg:h-56'/>
+                <img src={residence.pictures[0].original ? residence.pictures[0].original : residence.pictures[0].thumbnail} alt='placeholder' onClick={()=>window.history.back()} className=' w-full rounded-xl h-40 md:h-48 lg:h-56'/>
             </div>
             <div className='text-sm'>{residence.type}</div>
             <div className='text-md font-bold'>{residence.title}</div>

@@ -14,13 +14,29 @@ import SortDropdown from './sortDropdown'
 import Filter from '../../components/filter'
 import { useLocation } from 'react-router-dom'
 import { getResidences } from './api'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function PropertiesPage() {
+  const  navigate = useNavigate();
+  const search = (params) => {
+    console.log(params)
+    //if params.startDate is greater than params.endDate, show toast
+    if(params.startDate > params.endDate){
+      toast.error("Cannot Check-in after Check-out")
+      return
+    }
+    localStorage.setItem('checkInDate', params.startDate)
+    localStorage.setItem('checkOutDate', params.endDate)
+    localStorage.setItem('guestCount', params.guests)
+    navigate('/properties', {state: {filterData:params}})
+  }
 
     const [blackNavbar, setBlackNavbar] = useState(false);
     const [filterVisible, setFilterVisible] = useState(false);
     const [residences, setResidences] = useState(null);
     const nearbyPropertiesRef = useRef(null);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
@@ -28,6 +44,7 @@ function PropertiesPage() {
     getResidences(location.state ?  {filterData: location.state.filterData}: {}).then((res) => {
       console.log(res)
       setResidences(res.residences.results)
+      setLoading(false)
     }).catch((err) => {
       console.log(err)
     });
@@ -100,7 +117,7 @@ function PropertiesPage() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
-          <SearchCard setFilterVisible={(value)=>setFilterVisible(value)}></SearchCard>
+          <SearchCard search={(params)=>search(params)}></SearchCard>
         </div>
       </div>
 
@@ -141,13 +158,13 @@ function PropertiesSection({setFilterVisible, residences}) {
       console.log('sorting')
       if(sortValue === 'p-lh'){
         //Sort by price low to high
-        setSortedResidences(residences.sort((a, b) => a.pricePerNight - b.pricePerNight))
+        setSortedResidences(residences.sort((a, b) => a.prices.basePrice - b.prices.basePrice))
       }else if(sortValue === 'p-hl'){
         //Sort by price high to low
-        setSortedResidences(residences.sort((a, b) => b.pricePerNight - a.pricePerNight))
+        setSortedResidences(residences.sort((a, b) => b.prices.basePrice - a.prices.basePrice))
       }else if(sortValue === 'r-hl'){
         //Sort by rating high to low
-        setSortedResidences(residences.sort((a, b) => b.starRating - a.starRating))
+        setSortedResidences(residences.sort((a, b) => b.reviews.avg - a.reviews.avg))
       }
       setLoading(false)
     }

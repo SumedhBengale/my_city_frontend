@@ -5,7 +5,7 @@ import ResourceEditor from '../components/ResourceEditor';
 import DesktopNavbarBlack from '../../../components/desktopNavbarBlack';
 import NavbarBlack from '../../../components/navbar_black';
 
-const UpcomingTripEditor = () => {
+const TripEditor = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -20,7 +20,7 @@ const UpcomingTripEditor = () => {
 
   const handleSave = () => {
     // Save the resource if it's not null and it's a 'UpcomingTrip' resource
-    if (resource !== null && location.state.typeOfResource === 'upcomingTrip') {
+    if (resource !== null && location.state.typeOfResource === 'trip') {
       saveResource(location.state.typeOfResource, resource._id, resource)
         .then((data) => {
           console.log('Resource saved:', data);
@@ -49,7 +49,7 @@ const UpcomingTripEditor = () => {
           {/* DesktopNavbarBlack */}
         </div>
         <div className='w-full sm:w-1/2 md:w-1/3 max-w-5xl absolute top-16'>
-          {dataLoaded && location.state.typeOfResource === 'upcomingTrip' ? (
+          {dataLoaded && location.state.typeOfResource === 'trip' ? (
             <div className='flex flex-col justify-center gap-5 relative'>
               {resource !== null && (
                 <ResourceEditor
@@ -73,4 +73,4 @@ const UpcomingTripEditor = () => {
   );
 };
 
-export default UpcomingTripEditor;
+export default TripEditor;

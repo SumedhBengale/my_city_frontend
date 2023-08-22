@@ -1,30 +1,10 @@
 import axios from 'axios';
 import config from '../../config/config';
 
-export const  getUpcomingTrips = async () => {
+export const  getTrips = async () => {
     try {
         //get request with auth header
-        const response = await axios.post(`${config.API_URL}/upcomingTrips/getUpcomingTrips`, {
-            userId: localStorage.getItem('userId')
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
-    }
-    catch (error) {
-        if(error.response) {
-            return error.response;
-        }
-    }
-}
-
-
-export const  getPastTrips = async () => {
-    try {
-        //get request with auth header
-        const response = await axios.post(`${config.API_URL}/pastTrips/getPastTrips`, {
+        const response = await axios.post(`${config.API_URL}/trips/getTrips`, {
             userId: localStorage.getItem('userId')
         }, {
             headers: {
@@ -43,7 +23,7 @@ export const  getPastTrips = async () => {
 export const saveReview = async (id, rating, review) => {
     try {
         //get request with auth header
-        const response = await axios.post(`${config.API_URL}/pastTrips/addReview`, {
+        const response = await axios.post(`${config.API_URL}/trips/addReview`, {
             id: id,
             rating: rating,
             review: review
@@ -72,24 +52,6 @@ export const getResidenceInfo = async (residenceId) => {
         });
         return response.data;
     } catch (error) {
-        if(error.response) {
-            return error.response;
-        }
-    }
-}
-
-export const upcomingTripsToPastTrips = async () => {
-    try {
-        //get request with auth header
-        const response = await axios.post(`${config.API_URL}/admin/upcomingTripsToPastTrips`, {
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response;
-    }
-    catch (error) {
         if(error.response) {
             return error.response;
         }

@@ -22,10 +22,8 @@ import axios from 'axios';
 import config from './config/config';
 import UserResourceEditor from './pages/Admin/pages/UserResourceEditor';
 import ChatResourceEditor from './pages/Admin/pages/ChatResourceEditor';
-import UpcomingTripsPage from './pages/Admin/pages/UpcomingTripsPage';
-import UpcomingTripEditor from './pages/Admin/pages/UpcomingTripEditor';
-import PastTripsPage from './pages/Admin/pages/PastTripsPage';
-import PastTripEditor from './pages/Admin/pages/PastTripEditor';
+import TripsPage from './pages/Admin/pages/TripsPage';
+import TripEditor from './pages/Admin/pages/TripEditor';
 import WishlistEditor from './pages/Admin/pages/WishlistEditor';
 import BlogPost from './pages/Management/BlogPost';
 import ReviewViewer from './pages/Admin/pages/ReviewViewer';
@@ -70,10 +68,8 @@ const App = () => {
           <Route exact path="/admin/login" element={getToken ? <Login></Login>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/user/:id" element={getToken ? <UserResourceEditor></UserResourceEditor> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/chat/:id" element={getToken ? <ChatResourceEditor></ChatResourceEditor>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/upcomingTrips/:id" element={getToken ? <UpcomingTripsPage></UpcomingTripsPage>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/upcomingTrip/:id" element={getToken ? <UpcomingTripEditor></UpcomingTripEditor>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/pastTrips/:id" element={getToken ? <PastTripsPage></PastTripsPage>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/pastTrip/:id" element={getToken ? <PastTripEditor></PastTripEditor>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/trips/:id" element={getToken ? <TripsPage></TripsPage>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/trip/:id" element={getToken ? <TripEditor></TripEditor>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/wishlist/:id" element={getToken ? <WishlistEditor></WishlistEditor>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer/>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/login" element={getToken ? <LoginPage></LoginPage>: <Navigate to="/admin/login"></Navigate>} />

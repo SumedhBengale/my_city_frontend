@@ -7,7 +7,6 @@ import DesktopNavbarBlack from '../../../components/desktopNavbarBlack'
 function WishlistEditor() {
     const location = useLocation()
     const [wishlist, setWishlist] = useState(null)
-    const [dataLoaded, setDataLoaded] = useState(false)
     useEffect(() => {
         const userId = location.state.id
         adminGetWishlist(userId)
@@ -41,7 +40,7 @@ function WishlistEditor() {
                         <div className='flex flex-col sm:flex-row justify-center gap-5 my-5'>
                             <div className='bg-primary hover:bg-secondary transition-all duration-100 text-white rounded-lg flex px-5 py-3 gap-5 w-full sm:w-1/2 max-w-4xl'>
                                 <div className='flex justify-center'>
-                                    <img src={residence.residenceId.images[0]} alt='residence' className='w-40 h-40 rounded-lg'/>
+                                    <img src={residence.residence.pictures[0].original ? residence.residence.pictures[0].original : residence.residence.pictures[0].thumbnail} alt='residence' className='w-40 h-40 rounded-lg'/>
                                 </div>
                                 <div className='flex flex-col gap-5 w-full'>
                                     <div className='flex justify-end'>
@@ -63,8 +62,8 @@ function WishlistEditor() {
                                         </button>
                                     </div>
                                     <div className='flex flex-col justify-center gap-2'>
-                                        <div className='text-xl font-bold'>{`Title - ${residence.residenceId.title}`}</div>
-                                        <div className='text-lg font-bold'>{`Price Per Night - ${residence.residenceId.pricePerNight}`}</div>
+                                        <div className='text-xl font-bold'>{`Title - ${residence.residence.title}`}</div>
+                                        <div className='text-lg font-bold'>{`Price Per Night - ${residence.residence.prices.basePrice}`}</div>
                                     </div>
                                 </div>
                             </div>

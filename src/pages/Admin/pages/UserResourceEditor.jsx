@@ -62,28 +62,15 @@ const UserResourceEditor = () => {
               <button
                 className='bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg'
                 onClick={() => {
-                  navigate(`/admin/upcomingTrips/${location.state.id}`, {
+                  navigate(`/admin/trips/${location.state.id}`, {
                     state: {
-                      typeOfResource: 'upcomingTrip',
+                      typeOfResource: 'trip',
                       id: location.state.id,
                     },
                   });
                 }}
               >
-                Upcoming Trips
-              </button>
-              <button
-                className='bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg'
-                onClick={() => {
-                  navigate(`/admin/pastTrips/${location.state.id}`, {
-                    state: {
-                      typeOfResource: 'pastTrip',
-                      id: location.state.id,
-                    },
-                  });
-                }}
-              >
-                Past Trips
+                Trips
               </button>
               <button className='bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg'
                 onClick={() => {

@@ -73,7 +73,6 @@ function ResourceEditor({ typeOfResource, resource }) {
         );
       }
     }
-
     return editFields;
   };
 
@@ -129,7 +128,7 @@ function ResourceEditor({ typeOfResource, resource }) {
         <DateRangePicker
           initialStartDate={new Date(newResource.checkInDate)}
           initialEndDate={new Date(newResource.checkOutDate)}
-          residenceId={newResource.residenceId._id}
+          residenceId={newResource.residence._id}
           returnData = {(data) =>
             handleDateRangeChange(data)}
         />
