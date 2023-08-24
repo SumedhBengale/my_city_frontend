@@ -1,6 +1,6 @@
 //Api for login 
 
-import axios from 'axios';
+import axios from '../../components/axios';
 import config from '../../config/config';
 
 export const login = async (email, password) => {

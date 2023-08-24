@@ -28,7 +28,7 @@ function ResourceEditor({ typeOfResource, resource }) {
             {key === 'checkInDate' || key === 'checkOutDate' ? ( // Handle DateRangePicker for checkInDate and checkOutDate
               //format the date to be in the correct format
               <div className='border-2 border-secondary hover:border-primary rounded-md p-2'
-                onClick={() => { if(typeOfResource !== 'review') setShowDatePicker(true);}}
+                // onClick={() => { if(typeOfResource !== 'review') setShowDatePicker(true);}}
               >
                 <div>{value.split('T')[0]}</div>
               </div>
@@ -58,12 +58,12 @@ function ResourceEditor({ typeOfResource, resource }) {
                 <option value='user'>User</option>
               </select>
             ) :
-            inputType === 'residence' ? 
-              <div className='border-2 border-secondary hover:border-primary rounded-md p-2 opacity-20'>
+            inputType === 'residence' ? (
+              <div className='border-2 border-secondary hover:border-primary rounded-md p-2'>
                 <p>Title: {value.title}</p>
-                <p>Address: {value.address}</p>
+                <p>Address: {value.address.full}</p>
                 {/* Add more properties as needed */}
-              </div>
+              </div> )
             :inputType === 'non-editable' ? (
               <div className='border-2 border-secondary hover:border-primary rounded-md p-2 opacity-20'>{value}</div>
             ) : (
@@ -101,7 +101,7 @@ function ResourceEditor({ typeOfResource, resource }) {
       return 'text';
     } else if (key === 'review') {
       return 'textarea';
-    } else if (key === 'residenceId' && typeof value === 'object') {
+    } else if (key === 'residence' && typeof value === 'object') {
       return 'residence';
     } else if (key === 'type') {
       return 'dropdown'; // Render the type field as a dropdown
@@ -110,7 +110,7 @@ function ResourceEditor({ typeOfResource, resource }) {
     } else if (typeof newResource[key] === 'string' && newResource[key].length > 100) {
       return 'textarea';
     } else if (typeof newResource[key] === 'string') {
-      return 'text';
+      return 'textarea';
     }
     // Add more conditions to handle different input types
 

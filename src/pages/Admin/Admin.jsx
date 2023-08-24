@@ -1,6 +1,6 @@
 //A Simple Admin Panel
 
-import axios from 'axios';
+import axios from '../../components/axios';
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import config from '../../config/config'

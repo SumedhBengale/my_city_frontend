@@ -15,7 +15,9 @@ const HorizontalScrollView = () => {
       console.log(res.data);
       setReviews(res.data);
       //scroll by 1 pixel to trigger scroll event
-      scrollContainerRef.current.scrollLeft = 1;
+      if(scrollContainerRef !== null && scrollContainerRef.current !== null){
+        scrollContainerRef.current.scrollLeft = 1;
+      }
 
     });
 

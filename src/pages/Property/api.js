@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../components/axios';
 import config from '../../config/config';
 
 //Get the property details from the backend

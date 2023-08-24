@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 import config from '../config/config';
 export const fetchBookedDatesFromBackend = async (residenceId, startDate, endDate) => {
     try {
@@ -30,6 +30,7 @@ export const fetchBookedDatesFromBackend = async (residenceId, startDate, endDat
 
 //Api to get list of cities
 export const getCities = async () => {
+    console.log(config.API_URL)
     try{
         console.log('Getting cities')
         const response = await axios.get(`${config.API_URL}/getCities`,{

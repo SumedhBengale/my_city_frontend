@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../components/axios';
 import config from '../../config/config';
 
 const API_URL = config.API_URL; // Assuming your config file is located in the src/config folder
