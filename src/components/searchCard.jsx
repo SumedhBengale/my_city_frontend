@@ -16,7 +16,7 @@ function SearchCard({search}) {
   const [selectedGuests, setSelectedGuests] = useState('any');
   const [selectedbathrooms, setSelectedbathrooms] = useState('any');
   const [location, setLocation] = useState('any');
-  const [priceRange, setPriceRange] = useState([0, 20000]);
+  const [priceRange, setPriceRange] = useState([0, 2500]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [cities, setCities] = useState(null)
   const [datePickerVisible, setDatePickerVisible] = useState(false)
@@ -59,7 +59,15 @@ function SearchCard({search}) {
       }} close={()=>setFilterVisible(false)}></Filter>
       </div>}
     {datePickerVisible && 
-      <div className='fixed top-0 w-full flex flex-col justify-center items-center h-full z-10 backdrop-filter backdrop-blur-sm'>
+      <div className='fixed top-0 w-full flex flex-col justify-center items-center h-full z-10 backdrop-filter backdrop-blur-sm'
+        //when clicked outside the date picker, close the date picker
+        onClick={(e)=>{
+          if(e.target.className === 'fixed top-0 w-full flex flex-col justify-center items-center h-full z-10 backdrop-filter backdrop-blur-sm'){
+            setDatePickerVisible(false)
+          }
+        }
+      }
+      >
         <DateRangePicker initialStartDate={startDate} initialEndDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}
           returnData={(data)=>{
             setDatePickerVisible(false)
@@ -81,7 +89,8 @@ function SearchCard({search}) {
                   <div className='text-xs sm:text-sm'>Select Location</div>
                   <div className=' text-md sm:text-md font-bold'>{location ? (location === 'any' ? 'Select': location.city) : 'Select'}</div>
                 </div>
-                {locationPickerVisible && <div className='absolute top-0 h-min w-40 translate-y-10 bg-white rounded-lg z-20'>
+                {locationPickerVisible && <div className='absolute top-0 h-min w-40 translate-y-10 bg-white rounded-lg z-20'
+                >
                   <ul className='flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold'>
                     {cities!== null ? cities.map((city)=>{
                       return <li className='px-2 hover:bg-gray-200' onClick={()=>{

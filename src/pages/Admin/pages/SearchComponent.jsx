@@ -137,7 +137,7 @@ const SearchComponent = ({ searchType }) => {
                 </div>
                 : searchType === 'chat' ? 
                 <div>
-                  <div className='text-xl font-bold'>{result.userId}</div>
+                  <div className='text-xl font-bold'>{result.userId.userName}</div>
                   <div className='text-lg'>
                     {result.messages?.length > 0 && typeof result.messages[result.messages.length - 1] === 'object' ? (
                       result.messages[result.messages.length - 1].message

@@ -44,7 +44,7 @@ const HorizontalScrollView = () => {
 
   return (
     <div
-      className="flex h-full overflow-x-scroll scroll-smooth overflow-y-hidden"
+      className="flex h-full overflow-x-scroll scroll-smooth overflow-y-hidden no-scrollbar"
       style={{ scrollSnapType: 'x mandatory' }}
       onScroll={handleScroll}
       ref={scrollContainerRef}

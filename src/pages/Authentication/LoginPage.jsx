@@ -28,7 +28,8 @@ const LoginPage = () => {
             localStorage.setItem('token', response.token);
             localStorage.setItem('userId', response.userId);
             localStorage.setItem('userType', response.userType);
-            navigate('/');
+            //Navigate to the previous page
+            navigate(-1);
           } else if (response.status === 404) {
             toast.error('User not Found');
           } else if (response.status === 401) {

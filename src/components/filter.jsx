@@ -8,7 +8,7 @@ function Filter({ initialData, apply, close }) {
   const [selectedBedrooms, setSelectedBedrooms] = useState(initialData ? initialData.selectedBedrooms : 'any');
   const [selectedGuests, setSelectedGuests] = useState(initialData ? initialData.selectedGuests : 'any');
   const [selectedbathrooms, setSelectedbathrooms] = useState(initialData ? initialData.selectedbathrooms : 'any');
-  const [priceRange, setPriceRange] = useState(initialData ? initialData.priceRange : [0, 20000]);
+  const [priceRange, setPriceRange] = useState(initialData ? initialData.priceRange : [0, 2500]);
   const [selectedAmenities, setSelectedAmenities] = useState(initialData ? initialData.selectedAmenities : []);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
@@ -63,7 +63,7 @@ function Filter({ initialData, apply, close }) {
     {/*Currently Breaks on Galaxy Fold */}
       
       <div className='fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md'>
-      <div className='h-5/6 2xl:h-min w-full md:w-max z-30 bg-white overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl p-2 flex flex-col '>
+      <div className='h-5/6 lg:h-min w-full md:w-max z-30 bg-white overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl p-2 flex flex-col no-scrollbar'>
           <div className='flex justify-between mb-2'>
         <div className='w-full text-center font-bold font-custom text-xl mb-1'>Filter</div>
           <div className='font-bold' onClick={()=>{close()}}>
@@ -292,7 +292,7 @@ function Filter({ initialData, apply, close }) {
       <div className='w-full font-bold text-xl pb-5'>Price</div>
       <ReactSlider
         min={0}
-        max={20000}
+        max={2500}
         value={priceRange}
         step={10}
         onChange={handlePriceChange}
@@ -324,16 +324,22 @@ function Filter({ initialData, apply, close }) {
       />
       <div className='flex justify-between'>
         <div>£0</div>
-        <div>£20000</div>
+        <div>2500</div>
       </div>
       <div className='mt-3 flex justify-start gap-5'>
         <div className='h-full border rounded-lg px-5 py-2 flex flex-col'>
           <div className='text-sm text-gray-400'>Min Price-</div>
-          <div>{`£ ${priceRange[0]}`}</div>
+          <div className='flex'>
+            <div className='pr-1'>{`£`}</div>
+            <input type='number' className='w-16 border-b border-gray-400 focus:outline-none focus:border-secondary' value={priceRange[0]} onChange={(e)=>handlePriceChange([e.target.value, priceRange[1]])}/>
+          </div>
         </div>
         <div className='h-full border rounded-lg px-5 py-2 flex flex-col'>
           <div className='text-sm text-gray-400'>Max Price-</div>
-          <div>{`£ ${priceRange[1]}`}</div>
+          <div className='flex'>
+            <div className='pr-1'>{`£`}</div>
+            <input type='number' className='w-16 border-b border-gray-400 focus:outline-none focus:border-secondary' value={priceRange[1]} onChange={(e)=>handlePriceChange([priceRange[0], e.target.value])}/>
+          </div>
         </div>
       </div>
     </div>

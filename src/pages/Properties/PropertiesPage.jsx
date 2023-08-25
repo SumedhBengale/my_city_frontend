@@ -189,7 +189,9 @@ function PropertiesSection({setFilterVisible, residences}) {
     </div>
 </div>
 
-<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center'>
+
+{sortedResidences && sortedResidences.length > 0 ?
+  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center'>
   {sortedResidences && loading !== true ? sortedResidences.map((residence, index) => {
     return (
       <PropertyCard key={index} residence={residence}></PropertyCard>
@@ -199,6 +201,10 @@ function PropertiesSection({setFilterVisible, residences}) {
   </div>
     }
 </div>
+: <div className='text-center text-2xl font-bold'>
+  No Residences found
+</div>
+}
 <div className='flex justify-center my-10'>
     <div className="w-[178px] h-14 border bg-secondary border-secondary text-white hover:bg-primary hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
     <div className='font-bold text-2xl h-full flex justify-center items-center'>View All</div>
