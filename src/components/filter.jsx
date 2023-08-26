@@ -63,7 +63,7 @@ function Filter({ initialData, apply, close }) {
     {/*Currently Breaks on Galaxy Fold */}
       
       <div className='fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md'>
-      <div className='h-5/6 lg:h-min w-full md:w-max z-30 bg-white overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl p-2 flex flex-col no-scrollbar'>
+      <div className='h-5/6 lg:h-5/6 w-full md:w-max z-30 bg-white overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl p-2 flex flex-col no-scrollbar'>
           <div className='flex justify-between mb-2'>
         <div className='w-full text-center font-bold font-custom text-xl mb-1'>Filter</div>
           <div className='font-bold' onClick={()=>{close()}}>

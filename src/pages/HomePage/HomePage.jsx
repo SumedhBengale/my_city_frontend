@@ -90,13 +90,13 @@ function Home() {
           height: '80vh',
         }}
       > {/* Background Image */}
-        <div className="hidden md:block z-20 fixed w-full">
+        <div className="hidden md:block z-30 fixed w-full">
         {
           blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />
         }
         </div>
 
-        <div className="md:hidden z-20 fixed w-full">
+        <div className="md:hidden z-30 fixed w-full">
           {
             blackNavbar ? <NavbarBlack /> : <Navbar />
           }
@@ -116,7 +116,9 @@ function Home() {
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
-          <SearchCard search={(params)=>search(params)}></SearchCard>
+          <div className='z-20'>
+            <SearchCard search={(params)=>search(params)}></SearchCard>
+          </div>
         </div>
       </div>
       <div className='md:container md:mx-auto'>

@@ -70,13 +70,13 @@ function Admin() {
   return (
     checkComplete ?
     <div className="flex relative flex-col h-screen">
-      <div className="hidden md:block z-20 sticky w-full">
+      <div className="hidden md:block z-30 sticky w-full">
         {
           <DesktopNavbarBlack />
         }
         </div>
 
-        <div className="md:hidden z-20 sticky w-full">
+        <div className="md:hidden z-30 sticky w-full">
           {
             <NavbarBlack />
           }

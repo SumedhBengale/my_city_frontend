@@ -27,7 +27,7 @@ function DesktopNavbar() {
     return (
       <>
         
-        <div className=' w-full bg-transparent flex justify-between text-white gap-3 px-5  py-2'>
+        <div className=' w-full bg-transparent flex justify-between text-white gap-3 px-5 py-2'>
         <div className='flex h-12'>
             <img src={logoWhite} alt='My City Logo' className='h-12 self-start'></img>
           </div>

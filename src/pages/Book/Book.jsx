@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import LeftArrow from '../../assets/images/home/left.svg'
-import Image1 from '../../assets/images/property/placeholder1.png'
 import DesktopNavbar from '../../components/desktopNavbarBlack'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'

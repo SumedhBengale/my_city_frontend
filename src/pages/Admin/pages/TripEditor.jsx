@@ -33,13 +33,13 @@ const TripEditor = () => {
 
   return (
     <div>
-        <div className="hidden md:block z-20 fixed w-full">
+        <div className="hidden md:block z-30 fixed w-full">
         {
           <DesktopNavbarBlack />
         }
         </div>
 
-        <div className="md:hidden z-20 fixed w-full">
+        <div className="md:hidden z-30 fixed w-full">
           {
             <NavbarBlack />
           }

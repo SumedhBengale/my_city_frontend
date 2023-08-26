@@ -116,7 +116,7 @@ const SearchComponent = ({ searchType }) => {
       
         <ul>
           <div className='text-2xl font-bold p-4'>{searchType}-</div>
-          {searchResults.map((result, index) => (
+          {searchResults && searchResults.map((result, index) => (
             <li key={result._id}>
               <div
                 className='flex flex-col justify-center gap-2 my-2 bg-primary hover:bg-secondary text-white transition duration-75 rounded p-5'
@@ -137,7 +137,7 @@ const SearchComponent = ({ searchType }) => {
                 </div>
                 : searchType === 'chat' ? 
                 <div>
-                  <div className='text-xl font-bold'>{result.userId.userName}</div>
+                  <div className='text-xl font-bold'>{result.userName}</div>
                   <div className='text-lg'>
                     {result.messages?.length > 0 && typeof result.messages[result.messages.length - 1] === 'object' ? (
                       result.messages[result.messages.length - 1].message

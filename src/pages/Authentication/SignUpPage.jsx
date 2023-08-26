@@ -25,7 +25,7 @@ function SignUp() {
         const response = await signup(values.username, values.email, values.password);
         if (response.status === 409) {
             console.log(response);
-          toast.error('User already exists');
+          toast.error('Email or Username already exists');
         } else if (response.status === 200) {
           console.log(response)
             localStorage.setItem('token', response.token);
