@@ -1,0 +1,25 @@
+.text-carousel-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  .text-carousel-scroll {
+    display: inline-block;
+    animation: scroll 20s linear infinite; /* Adjust animation duration as needed */
+  }
+  
+  .text-carousel-item {
+    padding-right: 1rem; /* Adjust spacing between text items as needed */
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  

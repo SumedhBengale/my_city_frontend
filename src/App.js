@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Admin from './pages/Admin/Admin';
 import Login from './pages/Admin/Login';
 import HomePage from './pages/HomePage/HomePage';
+import LuxeHomePage from './pages/Luxe/HomePage/HomePage'
+import LuxePropertiesPage from './pages/Luxe/Properties/PropertiesPage'
 import LoginPage from './pages/Authentication/LoginPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
 import PropertiesPage from './pages/Properties/PropertiesPage';
@@ -27,40 +29,17 @@ import TripEditor from './pages/Admin/pages/TripEditor';
 import WishlistEditor from './pages/Admin/pages/WishlistEditor';
 import BlogPost from './pages/Management/BlogPost';
 import ReviewViewer from './pages/Admin/pages/ReviewViewer';
+import EmailVerification from './pages/Authentication/EmailVerification';
 
 
 const App = () => {
   const getToken = () => { localStorage.getItem('token') };
 
-  const checkAdmin = async () => {
-    if(localStorage.getItem('token') === null){
-      return false
-    }
-    try{
-    await axios.post(`${config.API_URL}/admin/checkAdmin`,{
-      id: localStorage.getItem('token')
-    },{
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then((response) => {
-      if(response.status === 200){
-        console.log("true")
-        return true
-      }
-    });
-  }catch(err){
-    console.log(err)
-    return false
-
-  }
-  }
-
   return (
     <Router>
       <ScrollToTop>
         <Routes>
-          <Route exact path="/" element={<HomePage></HomePage>} />
+          <Route exact path="/" element={<HomePage/>} />
           <Route exact path="/admin" element={
               //check whether the user is logged in or not
               getToken ? <Admin></Admin> : <Navigate to="/admin/login"></Navigate>
@@ -74,7 +53,10 @@ const App = () => {
           <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer/>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/login" element={getToken ? <LoginPage></LoginPage>: <Navigate to="/admin/login"></Navigate>} />
           <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
-          <Route exact path="/properties" element={<PropertiesPage></PropertiesPage>} />
+          <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
+          <Route exact path="/properties" element={<PropertiesPage/>} />
+          <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
+          <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
           <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
           <Route exact path="/management/blog/:id" element={<BlogPost></BlogPost>} />
           <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />

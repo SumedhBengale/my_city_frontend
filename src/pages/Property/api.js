@@ -68,7 +68,7 @@ export const initiateChat = async (residenceId, chatId) => {
 }
 
 
-export const  addToWishlist = async (residence) => {
+export const  setWishlist = async (residence) => {
     try {
         //get request with auth header
         const response = await axios.post(`${config.API_URL}/wishlist/add`, {

@@ -31,7 +31,7 @@ const Carousel = ({images, currIndex}) => {
 
   return (
     <div
-      className="w-full h-[500px] relative overflow-hidden"
+      className="w-full h-[300px] md:h-[500px] relative overflow-hidden rounded-lg"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -40,7 +40,7 @@ const Carousel = ({images, currIndex}) => {
           key={index}
           src={image.original ? image.original : image.thumbnail}
           alt={`placeholder-${index}`}
-          className={`w-full h-[500px] object-cover transition-transform duration-500 transform ${currentIndex === index ? 'translate-x-0' : currentIndex > index ? '-translate-x-full' : 'translate-x-full'} absolute top-0 left-0`}
+          className={`w-full h-[300px] md:h-[500px] object-cover transition-transform duration-500 transform ${currentIndex === index ? 'translate-x-0' : currentIndex > index ? '-translate-x-full' : 'translate-x-full'} absolute top-0 left-0`}
         />
       ))}
       <button

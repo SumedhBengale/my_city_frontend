@@ -33,10 +33,7 @@ export const getCities = async () => {
     console.log(config.API_URL)
     try{
         console.log('Getting cities')
-        const response = await axios.get(`${config.API_URL}/getCities`,{
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
+        const response = await axios.get(`${config.STRAPI_URL}/api/location`,{
         });
         return response.data;
     }catch(error){

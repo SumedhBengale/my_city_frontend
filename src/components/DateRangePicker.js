@@ -6,12 +6,12 @@ import RightArrow from '../assets/images/property/right.svg';
 import { fetchBookedDatesFromBackend } from './api';
 import { ToastContainer, toast } from 'react-toastify';
 
-const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnData, blockBooking }) => {
+const DateRangePicker = ({ initialStartDate, initialEndDate, bookedDatesData, residenceId,returnData, blockBooking }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(initialStartDate ? initialStartDate : new Date());
   const [endDate, setEndDate] = useState(initialEndDate ? initialEndDate : new Date());
   const [totalNights, setTotalNights] = useState(initialStartDate && initialEndDate ? (initialEndDate.getTime() - initialStartDate.getTime()) / (1000 * 3600 * 24) : 0);
-  const [bookedDates, setBookedDates] = useState(null); // To store booked dates from the backend
+  const [bookedDates, setBookedDates] = useState(bookedDatesData ? bookedDatesData : null); // To store booked dates from the backend
   const datePickerRef = useRef(null);
   const [fetchComplete, setFetchComplete] = useState(false);
   const weekdaysShort = ['Sun' ,'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -21,6 +21,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
     console.log("Initial End Date", initialEndDate)
     // Fetch booked dates from the backend
     try{
+      bookedDates === null &&
     fetchBookedDatesFromBackend(residenceId, format(startDate, 'yyyy-MM-dd'), format(
       //1 year from start date
       new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1)
@@ -32,7 +33,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
         console.log("Booked Dates Between")
         //Check if any toast is already being displayed, if not display toast
         if(!toast.isActive('bookedDatesBetween')){
-          toast.error('Booked dates between start date and end date', {toastId: 'bookedDatesBetween'})
+          toast.error('The dates you selected are not available', {toastId: 'bookedDatesBetween'})
         }
         blockBooking(true)
         setFetchComplete(true);
@@ -40,7 +41,21 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
       }else{
         setFetchComplete(true);
       }
+      return;
     });
+
+    if(bookedDatesBetween(startDate, endDate, bookedDates)){
+      console.log("Booked Dates Between")
+      //Check if any toast is already being displayed, if not display toast
+      if(!toast.isActive('bookedDatesBetween')){
+        toast.error('The dates you selected are not available', {toastId: 'bookedDatesBetween'})
+      }
+      blockBooking(true)
+      setFetchComplete(true);
+      return;
+    }else{
+      setFetchComplete(true);
+    }
 
   } catch (error) {
     console.error('Error fetching booked dates:', error);
@@ -108,12 +123,23 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
   const handleDateClick = (day) => {
     if (isBooked(day)) {
       console.log('Date is booked')
-      toast.error('Date is already booked')
+      //show toast only if no other toast is being displayed
+      if(!toast.isActive('bookedDate')){
+        toast.error('Date is booked', {toastId: 'bookedDate'})
+      }
       return; // Do nothing for booked or past dates
     }
-    if(day < new Date()){
+    if(
+      //compare only the date part
+      format(day, 'yyyy-MM-dd') < format(new Date(), 'yyyy-MM-dd')
+    ){
+      console.log(format(day, 'dddd-MM-yyyy'))
+      console.log(format(new Date(), 'dddd-MM-yyyy'))
       console.log('Date is in the past')
-      toast.error('Date is in the past')
+      //show toast only if no other toast is being displayed
+      if(!toast.isActive('pastDate')){
+        toast.error('Date is in the past', {toastId: 'pastDate'})
+      }
       return;
     }
     //If date is equal to start date, clear start date
@@ -128,15 +154,18 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
     } else if (endDate === null) {
       if (bookedDatesBetween(startDate, day, bookedDates)) {
         console.log('Booked dates between start date and end date')
-        toast.error('Booked dates between start date and end date')
+        //show toast only if no other toast is being displayed
+        if(!toast.isActive('bookedDatesBetween')){
+          toast.error('The dates you selected are not available', {toastId: 'bookedDatesBetween'})
+        }
         blockBooking(true)
         return; // Do nothing if there are booked dates between start date and end date
       }
       if (day >= startDate) {
         setEndDate(day);
         setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-        returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
         blockBooking(false)
+        returnData({startDate:startDate, endDate:day, totalNights:(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)});
       } else {
         setStartDate(day);
         setEndDate(null);
@@ -154,8 +183,8 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
 
   return (
     <div>{ fetchComplete ?
-    <div className='my-5 sm:mt-10 lg:mt-0 bg-white shadow-none'>
-    <div className='text-lg font-custom-bold text-primary pl-5'>{
+    <div className='my-5 sm:mt-10 lg:mt-0 bg-white shadow-lg rounded-lg'>
+    <div className='text-lg font-custom-bold text-primary pl-5 pt-2'>{
       //End date - Start date
       startDate === null || endDate === null ? 'Select the Date Range' :
       totalNights + ' Nights in Apetite De Bone'
@@ -165,7 +194,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceId,returnD
     } - ${
       endDate === null ? '' : format(endDate, 'dd MMMM')
     }`}</div>
-    <div className=" p-5 h-min lg:h-full  rounded-md shadow-none" ref={datePickerRef}>
+    <div className=" px-5 pb-5 h-min lg:h-full  rounded-md shadow-none" ref={datePickerRef}>
       <div>
         <div className="flex items-center justify-between py-2">
           <span className="font-custom font-normal text-primary text-md">

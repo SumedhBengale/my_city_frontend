@@ -38,7 +38,7 @@ function Messages() {
     return () => {
       clearInterval(timerId);
     };
-  }, []);
+  }, [messages]);
 
   useEffect(() => {
     // Scroll to the bottom of the messages container when messages change
@@ -55,9 +55,13 @@ function Messages() {
       message: text,
     };
 
-    // Add the new message to the UI immediately
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setText('');
+    //check if prevmessages is null
+    if (messages === null) {
+      setMessages([newMessage]);
+    } else {
+      // Add the new message to the UI
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    }
 
     // Make the API call to add the message
     addMessage(chatId, text)
@@ -127,8 +131,7 @@ function Messages() {
           />
           <button
             className='bg-black text-white hover:scale-105 transition duration-75 px-4 py-2 rounded-lg'
-            type='button'
-            onClick={handleSend}
+            type='submit'
           >
             Send
           </button>

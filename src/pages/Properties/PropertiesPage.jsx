@@ -120,19 +120,20 @@ function PropertiesPage() {
           <SearchCard search={(params)=>search(params)}></SearchCard>
         </div>
       </div>
+    <div className='bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]'>
+      <div className='px-5 md:container md:mx-auto'
+      ref={nearbyPropertiesRef}>
+      <FadeInSection>
+        { residences ? 
+        <PropertiesSection setFilterVisible={setFilterVisible} residences={residences}></PropertiesSection>
+          :
+          <div className='flex justify-center items-center h-screen'>
+            <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900'></div>
+          </div>
+      }
+        </FadeInSection>
 
-    <div className='px-5 md:container md:mx-auto'
-    ref={nearbyPropertiesRef}>
-    <FadeInSection>
-      { residences ? 
-      <PropertiesSection setFilterVisible={setFilterVisible} residences={residences}></PropertiesSection>
-        :
-        <div className='flex justify-center items-center h-screen'>
-          <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900'></div>
-        </div>
-    }
-      </FadeInSection>
-
+      </div>
     </div>
     {/* <FadeInSection> */}
     <Footer></Footer>
@@ -172,22 +173,24 @@ function PropertiesSection({setFilterVisible, residences}) {
   
   return (
     <>
-       <div className="text-black font-custom-bold text-2xl pt-10 capitalize">Nearby Properties</div>
-
-<div className='flex justify-between sm:justify-end mt-3 mb-5 gap-5'>
-    
-    <div className="flex z-10 items-center">
-        <div className="flex self-center">Sort by:</div>
-        <SortDropdown setSortValue={(value)=>{
-          setLoading(true)
-          setSortValue(value);
-          console.log(value)
-          }}/>
+    <div className='flex flex-col md:flex-row justify-between pt-10'>
+      <div className='flex justify-center items-center'>
+        <div className="text-primary font-custom text-3xl capitalize">Available Residences</div>
+      </div>
+      <div className='flex flex-col items-end justify-end mt-3 mb-5 gap-5'>
+        <div className='h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
+            <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
+        </div>
+        <div className="flex z-10 items-center">
+            <div className="flex self-center">Sort by:</div>
+            <SortDropdown setSortValue={(value)=>{
+              setLoading(true)
+              setSortValue(value);
+              console.log(value)
+              }}/>
+        </div>
+      </div>
     </div>
-    <div className='h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1' onClick={()=>setFilterVisible(true)}>
-        <img src={filterBlack} alt="filter" className='h-3/4 w-3/4'/>
-    </div>
-</div>
 
 
 {sortedResidences && sortedResidences.length > 0 ?
@@ -206,8 +209,8 @@ function PropertiesSection({setFilterVisible, residences}) {
 </div>
 }
 <div className='flex justify-center my-10'>
-    <div className="w-[178px] h-14 border bg-secondary border-secondary text-white hover:bg-primary hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
-    <div className='font-bold text-2xl h-full flex justify-center items-center'>View All</div>
+    <div className="w-[178px] h-14 border bg-primary hover:bg-secondary  text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md" >
+    <div className='text-2xl h-full flex justify-center items-center'>View All</div>
     </div>
 </div>
     </>

@@ -142,7 +142,7 @@ const SearchComponent = ({ searchType }) => {
                     {result.messages?.length > 0 && typeof result.messages[result.messages.length - 1] === 'object' ? (
                       result.messages[result.messages.length - 1].message
                     ) : (
-                      'No messages'
+                      'No message'
                     )}
                   </div>
                 </div>

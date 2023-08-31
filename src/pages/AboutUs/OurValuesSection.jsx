@@ -1,45 +1,70 @@
 import React from 'react'
-import performance from '../../assets/images/about/performance.svg'
-import service from '../../assets/images/about/service.svg'
-import opportunity from '../../assets/images/about/opportunity.svg'
+import config from '../../config/config'
 
 
-function OurValuesSection() {
+function OurValuesSection({ dynamicText, dynamicImages }) {
   return (
     <>
-    <div className="Rectangle w-full bg-gray-100 md:px-10 py-10 mt-10" >
-          <div className='container mx-auto flex flex-col items-center'>
-              <div className='text-black font-custom-bold text-center text-2xl'>Our Values</div>
-              {/* <div className='border border-black w-40 mt-3 h-[1px]'></div> */}
+    { dynamicText !== null && dynamicImages !== null &&
+          <div className='flex flex-col gap-10 mt-10'>
+                <div className='flex flex-col justify-center items-center gap-5'>
+                    <div className='text-secondary font-custom text-center text-5xl capitalize'>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Heading').attributes.text}</div>
+                    <div className='text-primary text-md pt-5 md:w-2/3 text-center'>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Subheading').attributes.text}</div>
+                </div>
+                  <div className='grid grid-cols-1 md:grid-cols-2'>
+                    <div className='flex flex-col justify-center items-center gap-5 order-2 md:order-1'>
+                        <div className='flex flex-row md:flex-col gap-3 justify-center items-center'>
+                            <div className='flex justify-center items-center'>
+                                <div className="text-secondary drop-shadow-lg text-center font-custom text-xl md:text-5xl capitalize">{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Heading1').attributes.text}</div>
+                            </div>
+                        </div>
+                        <div className='flex w-full md:w-3/4 leading-normal pb-5'>
+                          <div className=" text-primary text-center text-md font-normal"><span className='text-secondary'>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_ContentHighlight1').attributes.text}</span>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Content1').attributes.text}</div>
+                        </div>
+                      </div>
+                    <div className='flex justify-center w-full p-5 order-1 md:order-2'>
+                        <img className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover" src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurValues_Image1.jpg').attributes.url} alt='Placeholder'/>
+                    </div>
+                </div>
 
-              <div className='flex flex-col sm:flex-row w-full justify-between gap-5'>
-                <ValueItem image={performance} title='Performance' content='When it comes to your stay, we try to go above and above for our clients. Our offerings include all of the necessary conveniences and comforts.'></ValueItem>
-                <ValueItem image={service} title='Service' content='Our service is unrivalled. We’ll go above and beyond to make your stay as personalised and memorable as possible.'></ValueItem>
-                <ValueItem image={opportunity} title='Opportunities' content='We have the ideal location for you from a plethora of possibilities. We provide a wide range of property types and locations to meet all interests and needs.'></ValueItem>
+                <div className='grid grid-cols-1 md:grid-cols-2'>
+                    <div className='flex flex-col justify-center items-center gap-5 order-2'>
+                        <div className='flex flex-row md:flex-col gap-3 justify-center items-center'>
+                            <div className='flex justify-center items-center'>
+                                <div className="text-secondary drop-shadow-lg text-center font-custom text-xl md:text-5xl capitalize">{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Heading2').attributes.text}</div>
+                            </div>
+                        </div>
+                        <div className='flex w-full md:w-3/4 leading-normal pb-5'>
+                          <div className=" text-primary text-center text-md font-normal"><span className='text-secondary'>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_ContentHighlight2').attributes.text}</span>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Content2').attributes.text}</div>
+                        </div>
+                      </div>
+                    <div className='flex justify-center w-full p-5 order-1'>
+                        <img className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover" src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurValues_Image2.jpg').attributes.url} alt='Placeholder'/>
+                    </div>
+                </div>
 
-              </div>
+                <div className='grid grid-cols-1 md:grid-cols-2'>
+                    <div className='flex flex-col justify-center items-center gap-5 order-2 md:order-1'>
+                        <div className='flex flex-row md:flex-col gap-3 justify-center items-center'>
+                            <div className='flex justify-center items-center'>
+                                <div className="text-secondary drop-shadow-lg text-center font-custom text-xl md:text-5xl capitalize">{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Heading3').attributes.text}</div>
+                            </div>
+                        </div>
+                        <div className='flex w-full md:w-3/4 leading-normal pb-5'>
+                          <div className=" text-primary text-center text-md font-normal"><span className='text-secondary'>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_ContentHighlight3').attributes.text}</span>{dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'OurValues_Content3').attributes.text}</div>
+                        </div>
+                      </div>
+                    <div className='flex justify-center w-full p-5 order-1 md:order-2'>
+                        <img className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover" src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurValues_Image3.jpg').attributes.url} alt='Placeholder'/>
+                    </div>
+                </div>
             </div>
-        </div>
+}
+            <div className='flex justify-center items-center'>
+              <button className='bg-primary hover:bg-secondary text-white font-custom text-2xl py-2 px-5 rounded-lg mt-10 mb-10'>Explore Residences</button>
+            </div>
     </>
   )
 }
 
 export default OurValuesSection
-
-
-function ValueItem({image,title, content}) {
-  return (
-    <>
-      <div className='flex flex-col justify-center  gap-5 w-full sm:w-72 max-w-md'>
-        <div className='justify-center flex px-10'>
-          <img src={image} alt="mcr" className='w-full h-full object-contain mt-10 pb-10' />
-        </div>
-
-        <div className='text-2xl font-custom-bold text-center'>{title}</div>
-        <div className='text-md font-custom text-center'>{content}</div>
-
-      </div>
-    </>
-  )
-}
-

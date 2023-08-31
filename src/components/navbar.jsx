@@ -1,249 +1,290 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import hamburgerMenuBlack from '../assets/images/navbar/hamburger_menu_black.svg';
-import logoBlack from '../assets/images/black_logo.png';
-import personBlack from '../assets/images/navbar/person_black.svg';
-import person from '../assets/images/navbar/person.svg';
-import logo from '../assets/images/white_logo.png';
-import hamburgerMenu from '../assets/images/navbar/hamburger_menu.svg';
-import notification from '../assets/images/navbar/notification.svg';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import hamburgerMenuBlack from "../assets/images/navbar/hamburger_menu_black.svg";
+import logoBlack from "../assets/images/black_logo.png";
+import personBlack from "../assets/images/navbar/person_black.svg";
+import person from "../assets/images/navbar/person.svg";
+import logo from "../assets/images/white_logo.png";
+import hamburgerMenu from "../assets/images/navbar/hamburger_menu.svg";
+import notification from "../assets/images/navbar/notification.svg";
+import { useNavigate } from "react-router-dom";
+import Switch from "react-switch";
 
 function Navbar() {
   const navigate = useNavigate();
-  // const [color, setColor] = useState('bg-blue-500');
+  const luxe =
+    //If the url is /luxe or /luxe/properties, set the luxeValue to true
+    window.location.pathname === "/luxe" ||
+    window.location.pathname === "/luxe/properties"
+      ? true
+      : false;
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const location = useLocation();
 
   const handleMenuClick = () => {
-    if(accountMenuOpen === true){setAccountMenuOpen(false)}
-    console.log("Yes")
+    if (accountMenuOpen === true) {
+      setAccountMenuOpen(false);
+    }
+    console.log("Yes");
     setMenuOpen(!menuOpen);
+  };
+  const handleLuxeChange = () => {
+    localStorage.setItem("luxe", !luxe);
+
+    //If on /luxe/properties, redirect to /properties
+    if (window.location.pathname === "/luxe/properties") {
+      navigate("/properties");
+    }
+    //If on /luxe, redirect to /
+    else if (window.location.pathname === "/luxe") {
+      navigate("/");
+    }
+    //If on /properties, redirect to /luxe/properties
+    else if (window.location.pathname === "/properties") {
+      navigate("/luxe/properties");
+    }
+    //If on /, redirect to /luxe
+    else if (window.location.pathname === "/") {
+      navigate("/luxe");
+    }
   };
 
   const handleAccountMenuClick = () => {
-    if(menuOpen === true){setMenuOpen(false)}
-    console.log('clicked');
+    if (menuOpen === true) {
+      setMenuOpen(false);
+    }
+    console.log("clicked");
     setAccountMenuOpen(!accountMenuOpen);
-  }
+  };
 
   return (
     <>
       <div
         className={`flex justify-between p-3 colored-div ${
-          menuOpen === true ? 'bg-white' : 'bg-transparent'
+          menuOpen === true ? "bg-white" : "bg-transparent"
         }`}
       >
         <img
           src={menuOpen === true ? hamburgerMenuBlack : hamburgerMenu}
-          alt='hamburger menu'
+          alt="hamburger menu"
           onClick={handleMenuClick}
         />
 
-        <div className='flex justify-center w-full'>
+        <div className="flex justify-center w-full">
           <img
             src={menuOpen === true ? logoBlack : logo}
-            alt='logo'
-            className='h-12'
+            alt="logo"
+            className="h-12"
           />
         </div>
 
         <img
           src={menuOpen === true ? personBlack : person}
-          alt='hamburger menu'
+          alt="hamburger menu"
           onClick={handleAccountMenuClick}
         />
       </div>
 
       {accountMenuOpen && (
-        <div className='absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl'>
-          <div
-            className='flex w-full justify-between p-3 relative'
-          >
-        
-        <img
-          src={hamburgerMenuBlack}
-          alt='hamburger menu'
-          className='opacity-0'
-        />
+        <div className="absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl">
+          <div className="flex w-full justify-between p-3 relative">
+            <img
+              src={hamburgerMenuBlack}
+              alt="hamburger menu"
+              className="opacity-0"
+            />
 
-        <div className='flex items-center justify-center w-full'>
-          <img
-            src={logoBlack}
-            alt='logo'
-            className='h-12'
-          />
-        </div>
+            <div className="flex items-center justify-center w-full">
+              <img src={logoBlack} alt="logo" className="h-12" />
+            </div>
 
-        <img
-          src={notification}
-          alt='notification menu'
-          onClick={()=>{
-            //Navigate to notifications page
-            navigate('/notifications')
-          }}
-          className='px-2'
-        />
+            <img
+              src={notification}
+              alt="notification menu"
+              onClick={() => {
+                //Navigate to notifications page
+                navigate("/notifications");
+              }}
+              className="px-2"
+            />
 
-        <img
-          src={personBlack}
-          alt='hamburger menu'
-          onClick={handleAccountMenuClick}
-        />
-      </div>
-      
-      {!localStorage.getItem('token') ?
+            <img
+              src={personBlack}
+              alt="hamburger menu"
+              onClick={handleAccountMenuClick}
+            />
+            <div className="flex items-center">
+              <Switch onChange={handleLuxeChange} height={20} checked={luxe} />
+            </div>
+          </div>
+
+          {!localStorage.getItem("token") ? (
             <NavLink
-              to='/login'
+              to="/login"
               exact
               className={`flex justify-end w-full pb-1 px-3  ${
-                location.pathname === '/notifications' ? 'underline font-bold' : ''
+                location.pathname === "/notifications"
+                  ? "underline font-bold"
+                  : ""
               }`}
             >
               Login
             </NavLink>
-      : null  
-    }
+          ) : null}
 
-      <div className='h-full mx-2 mb-3'>
-          <hr className='w-full h-[2px] bg-black'></hr>
-      </div>
+          <div className="h-full mx-2 mb-3">
+            <hr className="w-full h-[2px] bg-black"></hr>
+          </div>
 
-      <div className=' gap-3 pr-3'>
-        <NavLink
-          to='/notifications'
-          exact
-          className={`flex justify-end w-full pb-1  ${
-            location.pathname === '/notifications' ? 'underline font-bold' : ''
-          }`}
-        >
-          Notifications
-        </NavLink>
-        <NavLink
-          to='/messages'
-          exact
-          className={`flex justify-end w-full  ${
-            location.pathname === '/messages' ? 'underline font-bold' : ''
-          }`}
-        >
-          Messages
-        </NavLink>
-      </div>
+          <div className=" gap-3 pr-3">
+            <NavLink
+              to="/notifications"
+              exact
+              className={`flex justify-end w-full pb-1  ${
+                location.pathname === "/notifications"
+                  ? "underline font-bold"
+                  : ""
+              }`}
+            >
+              Notifications
+            </NavLink>
+            <NavLink
+              to="/messages"
+              exact
+              className={`flex justify-end w-full  ${
+                location.pathname === "/messages" ? "underline font-bold" : ""
+              }`}
+            >
+              Messages
+            </NavLink>
+          </div>
 
-      <div className='h-full mx-2 my-3'>
-          <hr className='w-full h-[2px] bg-black'></hr>
-      </div>
+          <div className="h-full mx-2 my-3">
+            <hr className="w-full h-[2px] bg-black"></hr>
+          </div>
 
-      <div className=' pr-3'>
-      <NavLink
-          to='/account'
-          exact
-          className={`flex justify-end w-full pb-1  ${
-            location.pathname === '/account' ? 'underline font-bold' : ''
-          }`}
-        >
-          Account
-        </NavLink>
-        <NavLink
-          to='/wishlist'
-          exact
-          className={`flex justify-end w-full pb-1 ${
-            location.pathname === '/wishlist' ? 'underline font-bold' : ''
-          }`}
-        >
-          Wishlist
-        </NavLink>
-        <NavLink
-          to='/trips'
-          exact
-          className={`flex justify-end w-full ${
-            location.pathname === '/trips' ? 'underline font-bold' : ''
-          }`}
-        >
-          Trips
-        </NavLink>
-      </div>
+          <div className=" pr-3">
+            <NavLink
+              to="/account"
+              exact
+              className={`flex justify-end w-full pb-1  ${
+                location.pathname === "/account" ? "underline font-bold" : ""
+              }`}
+            >
+              Account
+            </NavLink>
+            <NavLink
+              to="/wishlist"
+              exact
+              className={`flex justify-end w-full pb-1 ${
+                location.pathname === "/wishlist" ? "underline font-bold" : ""
+              }`}
+            >
+              Wishlist
+            </NavLink>
+            <NavLink
+              to="/trips"
+              exact
+              className={`flex justify-end w-full ${
+                location.pathname === "/trips" ? "underline font-bold" : ""
+              }`}
+            >
+              Trips
+            </NavLink>
+          </div>
 
-      <div className='h-full mx-2 my-3'>
-          <hr className='w-full h-[2px] bg-black'></hr>
-      </div>
+          <div className="h-full mx-2 my-3">
+            <hr className="w-full h-[2px] bg-black"></hr>
+          </div>
 
-      <div className=' pr-3 pb-3'>
-      <NavLink
-          to='/help'
-          exact
-          className={`flex justify-end w-full pb-1 ${
-            location.pathname === '/help' ? 'underline font-bold' : ''
-          }`}
-        >
-          Help
-        </NavLink>
-        {localStorage.getItem('token') && <div
-          className={`flex justify-end w-full pb-1`} onClick={() =>{
-            localStorage.removeItem('token');localStorage.removeItem('userId');localStorage.removeItem('userType');
-            navigate('/login')
-          }}
-        >
-          Log Out
-        </div>}
-      </div>
+          <div className=" pr-3 pb-3">
+            <NavLink
+              to="/help"
+              exact
+              className={`flex justify-end w-full pb-1 ${
+                location.pathname === "/help" ? "underline font-bold" : ""
+              }`}
+            >
+              Help
+            </NavLink>
+            {localStorage.getItem("token") && (
+              <div
+                className={`flex justify-end w-full pb-1`}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("userId");
+                  localStorage.removeItem("userType");
+                  navigate("/login");
+                }}
+              >
+                Log Out
+              </div>
+            )}
+          </div>
         </div>
       )}
 
-      
       {menuOpen && (
-        <div className=''>
+        <div className="">
           {menuOpen && (
-            <div className=' w-full bg-white flex flex-col'>
-              {localStorage.getItem('userType')=== 'admin' ?
+            <div className=" w-full bg-white flex flex-col">
+              {localStorage.getItem("userType") === "admin" ? (
                 <NavLink
-                to='/admin'
-                exact
-                className={`flex justify-between p-2 ${
-                  location.pathname === '/admin' ? 'underline font-bold' : ''
-                }`}
-              >
-                Admin
-              </NavLink>:null
-              }
+                  to="/admin"
+                  exact
+                  className={`flex justify-between p-2 ${
+                    location.pathname === "/admin" ? "underline font-bold" : ""
+                  }`}
+                >
+                  Admin
+                </NavLink>
+              ) : null}
               <NavLink
-                to='/'
+                to={`${localStorage.getItem("luxe") === true ? "/luxe" : "/"}`}
                 exact
                 className={`flex justify-between p-2 ${
-                  location.pathname === '/' ? 'underline font-bold' : ''
+                  location.pathname === "/" ? "underline font-bold" : ""
                 }`}
               >
                 Home
               </NavLink>
               <NavLink
-                to='/properties'
+                to={`${
+                  localStorage.getItem("luxe") === true
+                    ? "/luxe/properties"
+                    : "/properties"
+                }`}
                 className={`flex justify-between p-2 ${
-                  location.pathname === '/properties' ? 'underline font-bold' : ''
+                  location.pathname === "/properties"
+                    ? "underline font-bold"
+                    : ""
                 }`}
               >
                 Properties
               </NavLink>
               <NavLink
-                to='/management'
+                to="/management"
                 className={`flex justify-between p-2 ${
-                  location.pathname === '/management' ? 'underline font-bold' : ''
+                  location.pathname === "/management"
+                    ? "underline font-bold"
+                    : ""
                 }`}
               >
                 Management
               </NavLink>
               <NavLink
-                to='/about'
+                to="/about"
                 className={`flex justify-between p-2 ${
-                  location.pathname === '/about' ? 'underline font-bold' : ''
+                  location.pathname === "/about" ? "underline font-bold" : ""
                 }`}
               >
                 About Us
               </NavLink>
               <NavLink
-                to='/contact'
+                to="/contact"
                 className={`flex justify-between p-2 ${
-                  location.pathname === '/contact' ? 'underline font-bold' : ''
+                  location.pathname === "/contact" ? "underline font-bold" : ""
                 }`}
               >
                 Contact Us

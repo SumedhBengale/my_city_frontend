@@ -1,26 +1,39 @@
 import {React, useState} from 'react'
 import plus from '../../assets/images/home/plus.svg'
 
-function FrequentQuestionsSection() {
+function FrequentQuestionsSection({questions}) {
   return (
     <>
         <div className='font-custom-bold text-2xl md:text-3xl text-center mt-10 px-5'>Frequently Asked Questions</div>
         <div className='grid grid-cols-1  md:hidden'>
-          <FrequentQuestion question={`How do I change the date of my booking?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
-          <FrequentQuestion question={`My flight has been cancelled and I can’t go on my holiday. What should I do?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
-          <FrequentQuestion question={`What should I do if an emergency situation might affect my booking?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
-          <FrequentQuestion question={`How do I know if my booking is confirmed?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
+          {
+            questions!== null && questions.map((question, index) => {
+              return(
+                <FrequentQuestion question={question.attributes.question} answer={question.attributes.answer} key={index}></FrequentQuestion>
+              )
+            })
+          }
         </div>
 
         <div className='hidden md:block md:px-20'>
           <div className='grid grid-cols-2 '>
             <div>
-            <FrequentQuestion question={`How do I change the date of my booking?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
-          <FrequentQuestion question={`My flight has been cancelled and I can’t go on my holiday. What should I do?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
+            {
+              questions!== null && questions.slice(0, Math.ceil(questions.length/2)).map((question, index) => {
+                return(
+                  <FrequentQuestion question={question.attributes.question} answer={question.attributes.answer} key={index}></FrequentQuestion>
+                )
+              })
+            }
             </div>
             <div>
-            <FrequentQuestion question={`What should I do if an emergency situation might affect my booking?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
-          <FrequentQuestion question={`How do I know if my booking is confirmed?`} answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}></FrequentQuestion>
+            {
+              questions!== null && questions.slice(Math.ceil(questions.length/2), questions.length).map((question, index) => {
+                return(
+                  <FrequentQuestion question={question.attributes.question} answer={question.attributes.answer} key={index}></FrequentQuestion>
+                )
+              })
+            }
             </div>
           </div>
         </div>

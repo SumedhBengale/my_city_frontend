@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import loginBackground from '../../assets/images/login/login_background.png';
 import Logo from '../../assets/images/white_logo.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,7 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { signup } from './api';
 
 function SignUp() {
-
+    useEffect(() => {
+      if (localStorage.getItem('token')) {
+        navigate('/');
+      }
+    }, []);
+    const navigate = useNavigate();
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email').required('Email is required'),
         username: Yup.string().min(3, 'Username must be at least 3 characters').max(20, 'Username must be at most 20 characters').required('Username is required'),
@@ -28,14 +33,11 @@ function SignUp() {
           toast.error('Email or Username already exists');
         } else if (response.status === 200) {
           console.log(response)
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('userId', response.userId);
-            localStorage.setItem('userType', response.userType);
-          toast.success('User created successfully');
-          //Wait for 1 second before redirecting
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1000);
+          toast.success('Please Verify Your Email');
+          //wait for 2 seconds before redirecting
+          setTimeout(() => {
+            navigate('/login');
+          }, 2000);
         } else {
           console.log(response);
           toast.error(response);

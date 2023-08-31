@@ -4,22 +4,29 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    // define all fontSizes breakponts
+
     extend: {
+      //Make all font sizes 20% smaller
+
+      scale: {
+        80: '.8',
+      },
       colors: {
         'primary': '#262150',
-        'secondary': '#a88f5e',
+        'secondary': '#c79744',
       },
       textColor: {
         'primary': '#262150',
-        'secondary': '#a88f5e',
+        'secondary': '#c79744',
       },
       backgroundColor:{
         'primary': '#262150',
-        'secondary': '#a88f5e',
+        'secondary': '#c79744',
       },
       borderColor:{
         'primary': '#262150',
-        'secondary': '#a88f5e',
+        'secondary': '#c79744',
       },
       screens:{
         'xs': '320px',
@@ -34,6 +41,8 @@ module.exports = {
         'custom-bold': ['Adam-Bold', 'sans'],
         'custom-light': ['Adam-Light', 'sans'],
         'custom': ['Adam-Medium', 'sans'],
+        'custom-lora': ['Lora', 'serif'],
+        'custom-lora-bold': ['Lora-Bold', 'serif'],
         // Add more custom fonts as needed
       },
       fontWeight: {

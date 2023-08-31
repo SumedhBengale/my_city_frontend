@@ -1,31 +1,39 @@
 import React from 'react'
-import mcr from '../../assets/images/black_logo.png'
-import TeamImage1 from '../../assets/images/about/team1.jpeg'
-import TeamImage2 from '../../assets/images/about/team2.jpeg'
-import TeamImage3 from '../../assets/images/about/team3.jpeg'
-import TeamImage4 from '../../assets/images/about/team4.jpeg'
+import config from '../../config/config'
 
-function OurTeamSection() {
+function OurTeamSection({ dynamicText, dynamicImages }) {
   return (
     <>
-        <div className="Rectangle w-full bg-white md:px-10 pt-10 mt-10" >
+      {
+        dynamicText !== null && dynamicImages !== null ?
+        <div className="Rectangle w-full bg-neutral-100 md:px-10 pt-10 mt-10" >
           <div className='container mx-auto flex flex-col items-center'>
-              <div className='text-black font-custom-bold text-center text-2xl'>Our Team</div>
-              {/* <div className='border border-black w-40 mt-3 h-[1px]'></div> */}
+              <div className='text-secondary font-custom text-center text-5xl'>{
+                dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'OurTeam_Heading').attributes.text
+              }</div>
 
-              <div className='text-black text-md pt-5 text-justify'>With a specialised team that has unrivalled knowledge in this field and is available to you at any time and day to answer all of your questions.</div>
+              <div className='text-black text-md pt-5 md:w-2/3 text-center'>{
+                dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'OurTeam_Subheading').attributes.text
+              }</div>
               <div className='grid grid-cols-1 md:grid-cols-2 w-full justify-items-center mt-10 gap-20'>
                 <div className='w-full flex flex-col items-center md:items-end'>                
-                  <img src={TeamImage1} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[500px] object-cover mt-10 mb-10' />
-                  <img src={TeamImage2} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[300px] object-cover mt-10 mb-10' />
+                  <img  src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurTeam_Image1.jpg').attributes.url} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[500px] object-cover mt-10 mb-10' />
+                  <img  src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurTeam_Image2.jpg').attributes.url} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[300px] object-cover mt-10 mb-10' />
                 </div>
                 <div className='w-full flex flex-col items-center md:items-start'>
-                  <img src={TeamImage3} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[300px] object-cover mt-10 mb-10' />
-                  <img src={TeamImage4} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[500px] object-cover mt-10 mb-10' />
+                  <img  src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurTeam_Image3.jpg').attributes.url} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[300px] object-cover mt-10 mb-10' />
+                  <img  src={`${config.STRAPI_URL}`+dynamicImages.find((image) => image.attributes.name === 'OurTeam_Image4.jpg').attributes.url} alt="mcr" className='w-full sm:w-1/2 md:w-[400px] h-[500px] object-cover mt-10 mb-10' />
                 </div>
+              </div>
             </div>
+            <div className='flex justify-center items-center'>
+              <button className='bg-primary hover:bg-secondary text-white font-custom text-2xl py-2 px-5 rounded-lg mt-10 mb-10'>Chat with us</button>
             </div>
-        </div>
+          </div>
+          : <div className='flex justify-center items-center h-screen'>
+              <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900'></div>
+            </div>  
+        }
     </>
   )
 }

@@ -15,7 +15,7 @@ import Footer from './Footer'
 import logoWhite from '../../assets/images/white_logo.png'
 import FadeInSection from '../../components/fadeIn/fadeInSection'
 import OurPartnersSection from '../AboutUs/OurPartnersSection'
-import { getDynamicText, getResidences } from './api'
+import { getDynamicText, getHomepageImages, getFeaturedResidences, getFrequentlyAskedQuestions } from './api'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -25,6 +25,8 @@ function Home() {
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [residences, setResidences] = useState(null);
   const [dynamicText, setDynamicText] = useState(null);
+  const [dynamicImages, setDynamicImages] = useState(null);
+  const [frequentQuestions, setFrequentQuestions] = useState(null);
 
   
   const search = (params) => {
@@ -49,9 +51,14 @@ function Home() {
       console.log(res.data)
       setDynamicText(res.data)
     }).catch((err) => {});
-    getResidences().then((res) => {
+    getHomepageImages().then((res) => {
+      console.log(res.data[0].attributes.images.data)
+      setDynamicImages(res.data[0].attributes.images.data)
+    }).catch((err) => {});
+    getFeaturedResidences().then((res) => {
       if(res.status === 200){
-        setResidences(res.residences.results)
+        console.log(res)
+        setResidences(res.residences)
       }else if(res.status === 401){
         console.log('unauthorized')
         localStorage.removeItem('token')
@@ -62,6 +69,11 @@ function Home() {
     }).catch((err) => {
       console.log(err)
     });
+    getFrequentlyAskedQuestions().then((res) => {
+      console.log(res.data)
+      setFrequentQuestions(res.data)
+    }).catch((err) => {});
+    
     const handleScroll = () => {
       const screenHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
@@ -105,77 +117,90 @@ function Home() {
 
         <div className='h-full flex flex-col justify-center items-center z-0 bg-black/40'>
           <div className='lg:hidden'>
-            <div className='font-custom-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4'>{
+            <div className='font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4'>{
               dynamicText !==null  && dynamicText.find((text) => text.attributes.name === 'Website_Name').attributes.text
             }</div>
-            <div className=' text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10'>{
-              dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'Website_Tagline').attributes.text
-            }</div>
+
           </div>
 
           <div className='hidden lg:block justify-center items-center'>
             <img src={logoWhite} alt='My City Logo' className='md:w-48 lg:w-72 self-start mb-10'></img>
           </div>
+          <div className=' text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10'>{
+            //split each word in to a seperate div and fade them each one by one
+              dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'Website_Tagline').attributes.text
+          }</div>
+
           <div className='z-20'>
             <SearchCard search={(params)=>search(params)}></SearchCard>
           </div>
         </div>
       </div>
-      <div className='md:container md:mx-auto'>
-      <FadeInSection>
-        { dynamicText !== null && <IntroductionSection dynamicText={dynamicText}></IntroductionSection>}
-      </FadeInSection>
-      </div> 
+      <div className='bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]'>
+        <div className='md:container md:mx-auto'>
+        <FadeInSection>
+          { dynamicText !== null && dynamicImages !== null && <IntroductionSection dynamicText={dynamicText} dynamicImages={dynamicImages}></IntroductionSection>}
+        </FadeInSection>
+        </div> 
+      </div>
       {/* Seperated into different file because it's static content */}
       <FadeInSection>
 
-      <div className='p-4 container mx-auto'>
-      <div className=" text-center text-primary font-custom-bold text-4xl capitalize">Our Properties</div>
-      <div className=" text-center text-zinc-800 opacity-40 text-md pt-4 capitalize">Hand-picked selection of quality places</div>
-      
+      <div className='p-4 lg:container lg:mx-auto'>
+      <div className=" text-center text-primary font-custom text-3xl capitalize">Featured Properties</div>
+      <div className=" text-center text-secondary opacity-40 text-sm pt-4 capitalize">Hand-picked selection of quality places</div>
+      <div className='md:py-10'>
       {residences === null ? (
           //Circular Progress
           <div className='flex justify-center items-center mt-10'>
             <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
           </div>
         ) : (
-          <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:px-10 mt-10'>
-          {residences.map((residence) => (
-            <PropertyCard residence={residence} key={residence._id}></PropertyCard>
-          ))}
+          <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 md:gap-20 gap-5 mt-10'>
+            <div className='order-1 md:order-2'>
+              <PropertyCard residence={residences[0].residence} key={residences[0].residence._id}
+                //If screen width > md, pass highlighted true
+                highlighted={
+                  window.innerWidth > 768 ? true : false
+                }
+              ></PropertyCard>
+            </div>
+            <div className='order-2 md:order-1'>
+              <PropertyCard residence={residences[1].residence} key={residences[1].residence._id}></PropertyCard>
+            </div>
+            <div className='order-3 md:order-3'>
+              <PropertyCard residence={residences[2].residence} key={residences[2].residence._id}></PropertyCard>
+            </div>
           </div>
         )}
+        </div>
 
       <div className='flex justify-center mt-10'>
-        <div className="w-[178px] h-14 bg-secondary hover:bg-primary hover:text-white text-white hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md" >
-          <div className=' font-bold text-2xl h-full flex justify-center items-center'>View All</div>
+        <div className="w-[178px] h-12 bg-primary hover:bg-secondary hover:text-white text-white hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md" >
+          <div className=' font-bold text-xl h-full flex justify-center items-center'>View All</div>
         </div>
       </div>
 
       </div>
       </FadeInSection>
 
-      {/* Seperated into different file because it's static content */}
       <FadeInSection>
-      <WhatWeOfferSection></WhatWeOfferSection>
+      <WhatWeOfferSection dynamicText={dynamicText}></WhatWeOfferSection>
       </FadeInSection>
 
-      {/* Seperated into different file because it's static content */}
       <FadeInSection>
-      <KnowMoreSection></KnowMoreSection>
+      <KnowMoreSection dynamicText={dynamicText}></KnowMoreSection>
       </FadeInSection>
 
-      {/* Seperated into different file because it's static content(for now) */}
       <FadeInSection>
       <div className='mt-10'>
         <ReviewShowcaseSection></ReviewShowcaseSection>
       </div>
       </FadeInSection>
 
-      {/* Seperated into different file because it's static content */}
       <FadeInSection>
       <div className='container mx-auto'>
-        <FrequentQuestionsSection></FrequentQuestionsSection>
+        {frequentQuestions !== null && <FrequentQuestionsSection questions={frequentQuestions}></FrequentQuestionsSection>}
       </div>
       </FadeInSection>
 
