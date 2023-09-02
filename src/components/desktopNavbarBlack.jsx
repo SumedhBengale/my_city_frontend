@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import personBlack from "../assets/images/navbar/person_black.svg";
-import notification from "../assets/images/navbar/notification.svg";
+import notifcation from "../assets/images/navbar/notification.svg";
+import notificationDot from "../assets/images/navbar/notificationDot.svg";
 import Notification from "../pages/Notifications/Notifications_Desktop";
-import logoBlack from "../assets/images/black_logo.png";
+import logoBlack from "../assets/images/logo.png";
+import luxe from "../assets/images/luxe.svg";
 import { useNavigate } from "react-router-dom";
 import Switch from "react-switch";
+import { useEffect } from "react";
+import { getNotifications } from "../pages/Notifications/api";
 
 function DesktopNavbar() {
   const navigate = useNavigate();
@@ -17,7 +21,16 @@ function DesktopNavbar() {
       : false;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
+  const [notifications, setNotifications] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    getNotifications().then((data) => {
+      if (data.notifications && data.notifications.length > 0) {
+        setNotifications(data.notifications);
+      }
+    });
+  }, []);
 
   const handleLuxeChange = () => {
     localStorage.setItem("luxe", !luxeValue);
@@ -124,12 +137,24 @@ function DesktopNavbar() {
         </div>
         {localStorage.getItem("token") ? (
           <div className="flex gap-1 h-full items-center">
-            <img
-              src={notification}
-              alt="notification menu"
-              onClick={handleNotificationMenuClick}
-              className="px-2 color-white h-7"
-            />
+            {
+              //If there are notifications, show the notification icon
+              notifications !== null && notifications.length > 0 ? (
+                <img
+                  src={notificationDot}
+                  alt="notification"
+                  className="h-8"
+                  onClick={handleNotificationMenuClick}
+                />
+              ) : (
+                <img
+                  src={notifcation}
+                  alt="notification"
+                  className="h-8"
+                  onClick={handleNotificationMenuClick}
+                />
+              )
+            }
 
             <img
               src={personBlack}
@@ -137,14 +162,42 @@ function DesktopNavbar() {
               className="h-8"
               onClick={handleAccountMenuClick}
             />
-            <div className="pl-4 flex items-center">
-              <Switch
-                checked={luxeValue === true ? true : false}
-                onChange={() => {
-                  handleLuxeChange();
-                }}
-              ></Switch>
-            </div>
+            {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/" ||
+              window.location.pathname === "/luxe" ||
+              window.location.pathname === "/properties" ||
+              window.location.pathname === "/luxe/properties" ? (
+                <div className="pl-4 flex items-center w-20">
+                  <Switch
+                    //COlor on checked
+                    width={80}
+                    onColor="#fff"
+                    offColor="#fff"
+                    offHandleColor="#F9A826"
+                    onHandleColor="#F9A826"
+                    className="border"
+                    uncheckedIcon={
+                      <div className="w-full h-full flex items-center pr-1">
+                        <img src={luxe} alt="My City Logo"></img>
+                      </div>
+                    }
+                    checkedIcon={
+                      <div className="w-full h-full flex items-center pl-2">
+                        <div className="font-custom text-xs text-black">
+                          Regular
+                        </div>
+                      </div>
+                    }
+                    checked={luxeValue === true ? true : false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    onChange={() => {
+                      handleLuxeChange();
+                    }}
+                  ></Switch>
+                </div>
+              ) : null
+            }
           </div>
         ) : (
           <div className="flex gap-1 h-full items-center">
@@ -160,12 +213,42 @@ function DesktopNavbar() {
               </NavLink>
             </button>
             <div className="pl-4 flex items-center">
-              <Switch
-                checked={luxeValue === true ? true : false}
-                onChange={() => {
-                  handleLuxeChange();
-                }}
-              ></Switch>
+              {
+                //If url contains /, or /luxe or /properties then show this
+                window.location.pathname === "/" ||
+                window.location.pathname === "/luxe" ||
+                window.location.pathname === "/properties" ||
+                window.location.pathname === "/luxe/properties" ? (
+                  <div className="pl-4 flex items-center w-20">
+                    <Switch
+                      //COlor on checked
+                      width={80}
+                      onColor="#fff"
+                      offColor="#fff"
+                      offHandleColor="#F9A826"
+                      onHandleColor="#F9A826"
+                      className="border"
+                      uncheckedIcon={
+                        <div className="w-full h-full flex items-center pr-1">
+                          <img src={luxe} alt="My City Logo"></img>
+                        </div>
+                      }
+                      checkedIcon={
+                        <div className="w-full h-full flex items-center pl-2">
+                          <div className="font-custom text-xs text-black">
+                            Regular
+                          </div>
+                        </div>
+                      }
+                      checked={luxeValue === true ? true : false}
+                      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                      onChange={() => {
+                        handleLuxeChange();
+                      }}
+                    ></Switch>
+                  </div>
+                ) : null
+              }
             </div>
           </div>
         )}
@@ -173,8 +256,8 @@ function DesktopNavbar() {
 
       {notificationMenuOpen && (
         <div className="w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl">
-          <div className="relative top-0 right-0 w-96 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl">
-            <Notification></Notification>
+          <div className="relative top-0 right-0 w-72 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl no-scrollbar">
+            <Notification notifications={notifications}></Notification>
           </div>
         </div>
       )}

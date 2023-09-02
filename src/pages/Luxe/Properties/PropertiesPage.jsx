@@ -29,13 +29,15 @@ function PropertiesPage() {
     localStorage.setItem("checkInDate", params.startDate);
     localStorage.setItem("checkOutDate", params.endDate);
     localStorage.setItem("guestCount", params.guests);
-    navigate("/luxe/properties", { state: { filterData: params } });
+    navigate("/properties", { state: { filterData: params } });
   };
 
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const [residences, setResidences] = useState(null);
   const nearbyPropertiesRef = useRef(null);
+  const [fetchedPropertiesFilter, setFetchedPropertiesFilter] = useState(false);
+  const [fetchedFilterData, setFetchedFilterData] = useState(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
@@ -95,7 +97,20 @@ function PropertiesPage() {
             ></Filter>
           </div>
         )}
-
+        {fetchedPropertiesFilter && (
+          <Filter
+            apply={(data) => {
+              setLoading(true);
+              setFetchedPropertiesFilter(false);
+              console.log("filter applied");
+              setFetchedFilterData(data);
+              setTimeout(() => {
+                setLoading(false);
+              }, 1000);
+            }}
+            close={() => setFetchedPropertiesFilter(false)}
+          ></Filter>
+        )}
         <div
           style={{
             backgroundImage: `url(${PropertiesBackground})`,
@@ -139,9 +154,10 @@ function PropertiesPage() {
             ref={nearbyPropertiesRef}
           >
             <FadeInSection>
-              {residences ? (
+              {residences && !loading ? (
                 <PropertiesSection
-                  setFilterVisible={setFilterVisible}
+                  setFilterVisible={setFetchedPropertiesFilter}
+                  filterData={fetchedFilterData}
                   residences={residences}
                 ></PropertiesSection>
               ) : (
@@ -162,33 +178,97 @@ function PropertiesPage() {
 
 export default PropertiesPage;
 
-function PropertiesSection({ setFilterVisible, residences }) {
+function PropertiesSection({ setFilterVisible, residences, filterData }) {
   const [sortValue, setSortValue] = useState("p-lh");
   const [sortedResidences, setSortedResidences] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (residences) {
+      let tempResidences = residences;
+      if (filterData) {
+        //Filter the residences
+        console.log("filtering");
+        tempResidences = residences.filter((residence) => {
+          //Filter by price
+          if (
+            filterData.priceRange &&
+            filterData.priceRange[0] <= residence.prices.basePrice &&
+            filterData.priceRange[1] >= residence.prices.basePrice
+          ) {
+            return true;
+          }
+        });
+        //Residence must contain all selected amenities
+        if (filterData.amenities) {
+          tempResidences = tempResidences.filter((residence) => {
+            let containsAll = true;
+            filterData.amenities.forEach((amenity) => {
+              if (!residence.amenities.includes(amenity)) {
+                containsAll = false;
+                console.log(residence.title, "Does not include", amenity);
+              }
+            });
+            return containsAll;
+          });
+        }
+        //Filter out the guests, if any is selected then don't filter anything, else filter out the residences that don't have the capacity
+        if (filterData.guests) {
+          tempResidences = tempResidences.filter((residence) => {
+            if (filterData.guests === "any") {
+              return true;
+            }
+            if (filterData.guests === "5+") {
+              return residence.accommodates >= 5;
+            }
+            return residence.accommodates >= filterData.guests;
+          });
+        }
+        //Filter out the bedrooms, if any is selected then don't filter anything, else filter out the residences that don't have the capacity
+        if (filterData.bedrooms) {
+          tempResidences = tempResidences.filter((residence) => {
+            if (filterData.bedrooms === "any") {
+              return true;
+            }
+            if (filterData.bedrooms === "5+") {
+              return residence.bedrooms >= 5;
+            }
+            return residence.bedrooms >= filterData.bedrooms;
+          });
+        }
+        //Filter out the bathrooms, if any is selected then don't filter anything, else filter out the residences that don't have the capacity
+        if (filterData.bathrooms) {
+          tempResidences = tempResidences.filter((residence) => {
+            if (filterData.bathrooms === "any") {
+              return true;
+            }
+            if (filterData.bathrooms === "5+") {
+              return residence.bathrooms >= 5;
+            }
+            return residence.bathrooms >= filterData.bathrooms;
+          });
+        }
+      }
       console.log("sorting");
       if (sortValue === "p-lh") {
         //Sort by price low to high
         setSortedResidences(
-          residences.sort((a, b) => a.prices.basePrice - b.prices.basePrice)
+          tempResidences.sort((a, b) => a.prices.basePrice - b.prices.basePrice)
         );
       } else if (sortValue === "p-hl") {
         //Sort by price high to low
         setSortedResidences(
-          residences.sort((a, b) => b.prices.basePrice - a.prices.basePrice)
+          tempResidences.sort((a, b) => b.prices.basePrice - a.prices.basePrice)
         );
       } else if (sortValue === "r-hl") {
         //Sort by rating high to low
         setSortedResidences(
-          residences.sort((a, b) => b.reviews.avg - a.reviews.avg)
+          tempResidences.sort((a, b) => b.reviews.avg - a.reviews.avg)
         );
       }
       setLoading(false);
     }
-  }, [sortValue, residences]);
+  }, [sortValue, residences, filterData]);
 
   return (
     <>

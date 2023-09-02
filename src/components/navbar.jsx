@@ -8,11 +8,12 @@ import logo from "../assets/images/white_logo.png";
 import hamburgerMenu from "../assets/images/navbar/hamburger_menu.svg";
 import notification from "../assets/images/navbar/notification.svg";
 import { useNavigate } from "react-router-dom";
+import luxe from "../assets/images/luxe.svg";
 import Switch from "react-switch";
 
 function Navbar() {
   const navigate = useNavigate();
-  const luxe =
+  const luxeValue =
     //If the url is /luxe or /luxe/properties, set the luxeValue to true
     window.location.pathname === "/luxe" ||
     window.location.pathname === "/luxe/properties"
@@ -30,7 +31,7 @@ function Navbar() {
     setMenuOpen(!menuOpen);
   };
   const handleLuxeChange = () => {
-    localStorage.setItem("luxe", !luxe);
+    localStorage.setItem("luxe", !luxeValue);
 
     //If on /luxe/properties, redirect to /properties
     if (window.location.pathname === "/luxe/properties") {
@@ -115,7 +116,32 @@ function Navbar() {
               onClick={handleAccountMenuClick}
             />
             <div className="flex items-center">
-              <Switch onChange={handleLuxeChange} height={20} checked={luxe} />
+              <Switch
+                //COlor on checked
+                width={80}
+                onColor="#fff"
+                offColor="#fff"
+                offHandleColor="#F9A826"
+                onHandleColor="#F9A826"
+                className="border"
+                uncheckedIcon={
+                  <div className="w-full h-full flex items-center pr-1">
+                    <img src={luxe} alt="My City Logo"></img>
+                  </div>
+                }
+                checkedIcon={
+                  <div className="w-full h-full flex items-center pl-2">
+                    <div className="font-custom text-xs text-black">
+                      Regular
+                    </div>
+                  </div>
+                }
+                checked={luxeValue === true ? true : false}
+                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                onChange={() => {
+                  handleLuxeChange();
+                }}
+              ></Switch>{" "}
             </div>
           </div>
 

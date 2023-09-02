@@ -336,7 +336,7 @@ function Property() {
                   <div className="flex gap-1">
                     <img src={bed} alt="bed" className="w-5"></img>
                     <div className="flex items-center">
-                      {residence.beds + " bedrooms,"}
+                      {residence.beds + " beds,"}
                     </div>
                   </div>
 
@@ -493,23 +493,54 @@ function Property() {
                 </div>
                 <div className=" flex justify-center pt-2">
                   <button
-                    className={`text-white border bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg font-bold ${
-                      bookingDisabled ? "cursor-not-allowed" : ""
-                    } `}
-                    disabled={bookingDisabled}
+                    className={`text-white border bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg font-bold cursor-pointer`}
                     onClick={() =>
-                      navigate("/book", {
-                        state: {
-                          residence: residence,
-                          startDate: startDate,
-                          guests: guests,
-                          endDate: endDate,
-                          totalNights: totalNights,
-                        },
-                      })
+                      bookingDisabled === false
+                        ? navigate("/book", {
+                            state: {
+                              residence: residence,
+                              startDate: startDate,
+                              guests: guests,
+                              endDate: endDate,
+                              totalNights: totalNights,
+                            },
+                          })
+                        : (localStorage.setItem("startDate", startDate),
+                          localStorage.setItem("endDate", endDate),
+                          localStorage.getItem("luxe") === "true"
+                            ? navigate("/luxe/properties", {
+                                state: {
+                                  filterData: {
+                                    location: "any",
+                                    startDate: startDate,
+                                    endDate: endDate,
+                                    bedrooms: "any",
+                                    guests: guests,
+                                    bathrooms: "any",
+                                    priceRange: [0, 2500],
+                                    amenities: [],
+                                  },
+                                },
+                              })
+                            : navigate("/properties", {
+                                state: {
+                                  filterData: {
+                                    location: "any",
+                                    startDate: startDate,
+                                    endDate: endDate,
+                                    bedrooms: "any",
+                                    guests: guests,
+                                    bathrooms: "any",
+                                    priceRange: [0, 2500],
+                                    amenities: [],
+                                  },
+                                },
+                              }))
                     }
                   >
-                    {bookingDisabled ? "Not Available" : "Book Now"}
+                    {bookingDisabled
+                      ? "Check Available Properties"
+                      : "Book Now"}
                   </button>
                 </div>
               </div>

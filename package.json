@@ -2,8 +2,11 @@
   "name": "my_city_frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4242",
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
+    "@stripe/react-stripe-js": "^2.1.2",
+    "@stripe/stripe-js": "^2.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

@@ -24,6 +24,8 @@ function SearchCard({ search }) {
   const [roomNumberPickerVisible, setRoomNumberPickerVisible] = useState(false);
   const [locationPickerVisible, setLocationPickerVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
+  const cardBackdropRef = React.useRef(null);
+  const guestPickerDesktopRef = React.useRef(null);
 
   useEffect(() => {
     getCities().then((data) => {
@@ -41,7 +43,21 @@ function SearchCard({ search }) {
   }, []);
 
   return (
-    <div className="md:px-5 z-20">
+    <div
+      className="md:px-5 z-20"
+      ref={cardBackdropRef}
+      onClick={(e) => {
+        //if not cardBackdropRef
+        if (e.target === cardBackdropRef.current) {
+          console.log("clicked outside");
+          setGuestNumberPickerVisible(false);
+          setRoomNumberPickerVisible(false);
+          setLocationPickerVisible(false);
+          setDatePickerVisible(false);
+          setFilterVisible(false);
+        }
+      }}
+    >
       {filterVisible && (
         <div className="h-screen w-screen absolute top-0 left-0 overflow-scroll">
           <Filter
@@ -119,21 +135,21 @@ function SearchCard({ search }) {
                   </div>
                 </div>
                 {locationPickerVisible && (
-                  <div className="absolute top-0 h-min w-40 translate-y-10 bg-white rounded-lg z-20 shadow-lg">
-                    <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
+                  <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                    <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                       {cities !== null ? (
                         cities.map((city) => {
                           return (
                             <li
-                              className="px-2 hover:bg-gray-200"
+                              className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
                               onClick={() => {
-                                setLocationPickerVisible(false);
-                                console.log(locationPickerVisible);
                                 setLocation(city);
-                                console.log(city.city);
+                                setLocationPickerVisible(false);
                               }}
                             >
-                              {city.city}
+                              <div className="text-md font-custom-bold text-primary">
+                                {city.city}
+                              </div>
                             </li>
                           );
                         })
@@ -196,49 +212,64 @@ function SearchCard({ search }) {
                       </div>
                     </div>
                     {guestNumberPickerVisible && (
-                      <div className="absolute top-0 h-min w-full translate-y-10 bg-white rounded-lg z-20 shadow-lg">
-                        <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
+                      <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                        <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                           <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests("any")}
+                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            onClick={() => {
+                              setSelectedGuests("any");
+                              setGuestNumberPickerVisible(false);
+                              localStorage.setItem("guestCount", "any");
+                            }}
                           >
-                            Any
+                            <div className="text-md font-custom-bold text-primary">
+                              Any
+                            </div>
                           </li>
+                          {Array.from({ length: 4 }, (_, i) => i + 1).map(
+                            (item) => (
+                              <li
+                                className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                                onClick={() => {
+                                  setSelectedGuests(item);
+                                  setGuestNumberPickerVisible(false);
+                                  localStorage.setItem("guestCount", item);
+                                }}
+                              >
+                                <div className="text-md font-custom-bold text-primary">
+                                  {item === 1
+                                    ? item + " guest"
+                                    : item + " guests"}
+                                </div>
+                                <div className="w-5 h-5">
+                                  {guests === item && (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                                        fill="black"
+                                      />
+                                    </svg>
+                                  )}
+                                </div>
+                              </li>
+                            )
+                          )}
                           <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests(0)}
+                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            onClick={() => {
+                              setSelectedGuests(5);
+                              setGuestNumberPickerVisible(false);
+                              localStorage.setItem("guestCount", 5);
+                            }}
                           >
-                            0
-                          </li>
-                          <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests(1)}
-                          >
-                            1
-                          </li>
-                          <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests(2)}
-                          >
-                            2
-                          </li>
-                          <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests(3)}
-                          >
-                            3
-                          </li>
-                          <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests(4)}
-                          >
-                            4
-                          </li>
-                          <li
-                            className="px-2 hover:bg-gray-200"
-                            onClick={() => setSelectedGuests("5+")}
-                          >
-                            5+
+                            <div className="text-md font-custom-bold text-primary">
+                              5+ guests
+                            </div>
                           </li>
                         </ul>
                       </div>
@@ -284,49 +315,61 @@ function SearchCard({ search }) {
                     </div>
                   </div>
                   {roomNumberPickerVisible && (
-                    <div className="absolute top-0 h-min w-full translate-y-10 bg-white rounded-lg z-20 shadow-lg">
-                      <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
+                    <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                      <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                         <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms("any")}
+                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                          onClick={() => {
+                            setSelectedBedrooms("any");
+                            setRoomNumberPickerVisible(false);
+                          }}
                         >
-                          Any
+                          <div className="text-md font-custom-bold text-primary">
+                            Any
+                          </div>
                         </li>
+                        {Array.from(
+                          //0 to 4
+                          { length: 5 },
+                          (_, i) => i
+                        ).map((item) => (
+                          <li
+                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            onClick={() => {
+                              setSelectedBedrooms(item);
+                              setRoomNumberPickerVisible(false);
+                            }}
+                          >
+                            <div className="text-md font-custom-bold text-primary">
+                              {item === 1 ? item + " room" : item + " rooms"}
+                            </div>
+                            <div className="w-5 h-5">
+                              {rooms === item && (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                                    fill="black"
+                                  />
+                                </svg>
+                              )}
+                            </div>
+                          </li>
+                        ))}
                         <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms(0)}
+                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                          onClick={() => {
+                            setSelectedBedrooms(5);
+                            setRoomNumberPickerVisible(false);
+                          }}
                         >
-                          0
-                        </li>
-                        <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms(1)}
-                        >
-                          1
-                        </li>
-                        <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms(2)}
-                        >
-                          2
-                        </li>
-                        <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms(3)}
-                        >
-                          3
-                        </li>
-                        <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms(4)}
-                        >
-                          4
-                        </li>
-                        <li
-                          className="px-2 hover:bg-gray-200"
-                          onClick={() => setSelectedBedrooms("5+")}
-                        >
-                          5+
+                          <div className="text-md font-custom-bold text-primary">
+                            5+ rooms
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -382,21 +425,21 @@ function SearchCard({ search }) {
               </div>
             </div>
             {locationPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg z-20 shadow-lg">
-                <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
-                  {cities ? (
+              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+                <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
+                  {cities !== null ? (
                     cities.map((city) => {
                       return (
                         <li
-                          className="px-2 hover:bg-gray-200"
+                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
                           onClick={() => {
-                            setLocationPickerVisible(false);
-                            console.log(locationPickerVisible);
                             setLocation(city);
-                            console.log(city.city);
+                            setLocationPickerVisible(false);
                           }}
                         >
-                          {city.city}
+                          <div className="text-md font-custom-bold text-primary">
+                            {city.city}
+                          </div>
                         </li>
                       );
                     })
@@ -451,6 +494,7 @@ function SearchCard({ search }) {
 
           <div
             className="flex items-center"
+            ref={guestPickerDesktopRef}
             onClick={() => {
               setRoomNumberPickerVisible(false);
               setLocationPickerVisible(false);
@@ -465,49 +509,60 @@ function SearchCard({ search }) {
               </div>
             </div>
             {guestNumberPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg z-20 shadow-lg">
-                <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
+              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+                <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests("any")}
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setSelectedGuests("any");
+                      setGuestNumberPickerVisible(false);
+                      localStorage.setItem("guestCount", "any");
+                    }}
                   >
-                    Any
+                    <div className="text-md font-custom-bold text-primary">
+                      Any
+                    </div>
                   </li>
+                  {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
+                    <li
+                      className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                      onClick={() => {
+                        setSelectedGuests(item);
+                        setGuestNumberPickerVisible(false);
+                        localStorage.setItem("guestCount", item);
+                      }}
+                    >
+                      <div className="text-md font-custom-bold text-primary">
+                        {item === 1 ? item + " guest" : item + " guests"}
+                      </div>
+                      <div className="w-5 h-5">
+                        {guests === item && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                              fill="black"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    </li>
+                  ))}
                   <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests(0)}
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setSelectedGuests(5);
+                      setGuestNumberPickerVisible(false);
+                      localStorage.setItem("guestCount", 5);
+                    }}
                   >
-                    0
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests(1)}
-                  >
-                    1
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests(2)}
-                  >
-                    2
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests(3)}
-                  >
-                    3
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests(4)}
-                  >
-                    4
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedGuests("5+")}
-                  >
-                    5+
+                    <div className="text-md font-custom-bold text-primary">
+                      5+ guests
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -532,49 +587,61 @@ function SearchCard({ search }) {
               </div>
             </div>
             {roomNumberPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg">
-                <ul className="flex flex-col gap-1 text-black divide-y divide-black p-2 font-bold">
+              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+                <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms("any")}
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setSelectedBedrooms("any");
+                      setRoomNumberPickerVisible(false);
+                    }}
                   >
-                    Any
+                    <div className="text-md font-custom-bold text-primary">
+                      Any
+                    </div>
                   </li>
+                  {Array.from(
+                    //0 to 4
+                    { length: 5 },
+                    (_, i) => i
+                  ).map((item) => (
+                    <li
+                      className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                      onClick={() => {
+                        setSelectedBedrooms(item);
+                        setRoomNumberPickerVisible(false);
+                      }}
+                    >
+                      <div className="text-md font-custom-bold text-primary">
+                        {item === 1 ? item + " room" : item + " rooms"}
+                      </div>
+                      <div className="w-5 h-5">
+                        {rooms === item && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                              fill="black"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    </li>
+                  ))}
                   <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms(0)}
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setSelectedBedrooms(5);
+                      setRoomNumberPickerVisible(false);
+                    }}
                   >
-                    0
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms(1)}
-                  >
-                    1
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms(2)}
-                  >
-                    2
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms(3)}
-                  >
-                    3
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms(4)}
-                  >
-                    4
-                  </li>
-                  <li
-                    className="px-2 hover:bg-gray-200"
-                    onClick={() => setSelectedBedrooms("5+")}
-                  >
-                    5+
+                    <div className="text-md font-custom-bold text-primary">
+                      5+ rooms
+                    </div>
                   </li>
                 </ul>
               </div>

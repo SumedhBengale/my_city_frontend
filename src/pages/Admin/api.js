@@ -163,3 +163,76 @@ export const adminAddMessage = async (chatId, message) => {
         }
     }
 }
+
+
+//Get contact requests
+export const getContactRequests = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.API_URL}/admin/getRequests`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+//Delete contact request
+export const deleteContactRequest = async (id) => {
+    try {
+        //get request with auth header
+        const response = await axios.post(`${config.API_URL}/admin/deleteContactRequest`, {
+            id
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+//Get Enquiries
+export const getEnquiries = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.API_URL}/admin/getEnquiries`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+//Delete Enquiry
+export const deleteEnquiry = async (id) => {
+    try {
+        //get request with auth header
+        const response = await axios.post(`${config.API_URL}/admin/deleteEnquiry`, {
+            id
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}

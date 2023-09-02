@@ -55,3 +55,20 @@ export const getHomeOwnersPageImages = async () => {
         }
     }
 }
+
+//newEnquiry 
+export const newEnquiry = async (data) => {
+    try{
+        const response = await axios.post(`${config.API_URL}/enquiry/newEnquiry`, data, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        return response.data;
+    }
+    catch(error){
+        if(error.response){
+            return error.response;
+        }
+    }
+}

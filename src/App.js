@@ -30,6 +30,7 @@ import WishlistEditor from './pages/Admin/pages/WishlistEditor';
 import BlogPost from './pages/Management/BlogPost';
 import ReviewViewer from './pages/Admin/pages/ReviewViewer';
 import EmailVerification from './pages/Authentication/EmailVerification';
+import Payment from './pages/Payment/Payment';
 
 
 const App = () => {
@@ -55,6 +56,7 @@ const App = () => {
           <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
           <Route exact path="/properties" element={<PropertiesPage/>} />
+          <Route exact path="/payment" element={<Payment></Payment>} />
           <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
           <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
           <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
