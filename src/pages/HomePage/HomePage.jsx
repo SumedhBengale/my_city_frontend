@@ -62,7 +62,7 @@ function Home() {
       }else if(res.status === 401){
         console.log('unauthorized')
         localStorage.removeItem('token')
-        navigate('/login')
+        // navigate('/login')
       }else{
         console.log("error")
       }

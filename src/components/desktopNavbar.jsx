@@ -25,11 +25,16 @@ function DesktopNavbar() {
   const location = useLocation();
 
   useEffect(() => {
+    if(localStorage.getItem('token') !== null){
+      console.log('token', localStorage.getItem('token'))
     getNotifications().then((data) => {
       if (data.notifications && data.notifications.length > 0) {
         setNotifications(data.notifications);
       }
     });
+  }else{
+    setNotifications([])
+  }
   }, []);
 
   const handleLuxeChange = () => {

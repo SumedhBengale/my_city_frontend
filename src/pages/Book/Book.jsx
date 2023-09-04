@@ -22,7 +22,6 @@ function Book() {
       console.log(location.state);
       setResidence(location.state.residence);
     };
-
     getQuote(
       location.state.residence,
       location.state.startDate,
@@ -47,38 +46,38 @@ function Book() {
 
   const handleBooking = () => {
     // API call to book the residence
-    navigate("/payment", {
-      state: {
-        quote: quote,
-      },
-    });
-    // confirmBooking(
-    //   residence,
-    //   quote,
-    //   quote.checkInDateLocalized,
-    //   quote.checkOutDateLocalized,
-    //   {
-    //     firstName: "John",
-    //     lastName: "Doe",
-    //     email: "johndoe@gmail.com",
-    //   }
-    // ).then((data) => {
-    //   if (data.status === 201) {
-    //     setConfirmVisible(true);
-    //     setConfirmTitle("Booking Confirmed");
-    //     setConfirmMessage("Thank you for booking with us");
-    //     setTimeout(() => {
-    //       setConfirmVisible(false);
-    //     }, 2000);
-    //   } else {
-    //     setConfirmVisible(true);
-    //     setConfirmTitle("Booking Failed");
-    //     setConfirmMessage("Please try again later");
-    //     setTimeout(() => {
-    //       setConfirmVisible(false);
-    //     }, 2000);
-    //   }
+    // navigate("/payment", {
+    //   state: {
+    //     quote: quote,
+    //   },
     // });
+    confirmBooking(
+      residence,
+      quote,
+      quote.checkInDateLocalized,
+      quote.checkOutDateLocalized,
+      {
+        firstName: "John",
+        lastName: "Doe",
+        email: "johndoe@gmail.com",
+      }
+    ).then((data) => {
+      if (data.status === 201) {
+        setConfirmVisible(true);
+        setConfirmTitle("Booking Confirmed");
+        setConfirmMessage("Thank you for booking with us");
+        setTimeout(() => {
+          setConfirmVisible(false);
+        }, 2000);
+      } else {
+        setConfirmVisible(true);
+        setConfirmTitle("Booking Failed");
+        setConfirmMessage("Please try again later");
+        setTimeout(() => {
+          setConfirmVisible(false);
+        }, 2000);
+      }
+    });
   };
 
   return (
@@ -143,11 +142,13 @@ function Book() {
                   <div className="flex flex-col">
                     <div className="text-md font-bold">Date</div>
                     <div className="text-sm">
-                      {format(new Date(quote.checkInDateLocalized), "dd MMMM") +
+                      {format(new Date(quote.checkInDateLocalized), "dd MMMM",
+                        ) +
                         " - " +
                         format(
                           new Date(quote.checkOutDateLocalized),
-                          "dd MMMM"
+                          "dd MMMM",
+                        
                         )}
                     </div>
                   </div>

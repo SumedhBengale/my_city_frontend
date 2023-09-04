@@ -13,24 +13,27 @@ import { createIntent } from "./api";
 const stripePromise = loadStripe(config.STRIPE_PUBLISHABLE_KEY);
 
 export default function Payment() {
-    const location = useLocation();
+  const location = useLocation();
   const [clientSecret, setClientSecret] = useState("");
 
   const createPaymentIntent = async (quote) => {
     const response = await createIntent(quote);
+    console.log("INTENT", response)
     setClientSecret(response.clientSecret);
-}
+  }
 
   useEffect(() => {
     //Get the quoteId from url
     const quote = location.state.quote ? location.state.quote : null;
-    if(!quote){
-        window.history.back();
-        return
+    if (!quote) {
+      window.history.back();
+      return
     }
     console.log(quote)
-    createPaymentIntent(quote);
-      
+    createPaymentIntent(
+      quote
+    );
+
   }, []);
 
   const appearance = {
@@ -43,12 +46,12 @@ export default function Payment() {
 
   return (
     <div className="flex h-screen w-full justify-center items-center">
-        <div className="w-[400px]">
-      {clientSecret && stripePromise && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}</div>
+      <div className="w-[400px]">
+        {clientSecret && stripePromise && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
+        )}</div>
     </div>
   );
 }

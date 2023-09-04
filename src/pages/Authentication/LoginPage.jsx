@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   useEffect(() => {
+    console.log("HERE")
+    console.log(localStorage.getItem("token"));
     //get previous url from referrer
   }, []);
   const navigate = useNavigate();

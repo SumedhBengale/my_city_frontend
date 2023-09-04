@@ -1,7 +1,7 @@
 import axios from '../../components/axios';
 import config from '../../config/config';
 
-export const  confirmBooking = async (residence, quote, checkInDate, checkOutDate) => {
+export const confirmBooking = async (residence, quote, checkInDate, checkOutDate) => {
     try {
         //get request with auth header
         const response = await axios.post(`${config.API_URL}/bookResidence`, {
@@ -18,7 +18,7 @@ export const  confirmBooking = async (residence, quote, checkInDate, checkOutDat
         return response.data;
     }
     catch (error) {
-        if(error.response) {
+        if (error.response) {
             return error.response;
         }
     }
@@ -26,9 +26,7 @@ export const  confirmBooking = async (residence, quote, checkInDate, checkOutDat
 
 //API to get a Quote for a residence
 export const getQuote = async (residenceId, checkInDate, checkOutDate) => {
-    //convert date to UTC
-    checkInDate = new Date(checkInDate).toISOString();
-    checkOutDate = new Date(checkOutDate).toISOString();
+    //Get date from checkInDate, don't consider timezones
     console.log(checkInDate);
     console.log(checkOutDate);
     try {
@@ -37,7 +35,7 @@ export const getQuote = async (residenceId, checkInDate, checkOutDate) => {
             residenceId: residenceId,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
-            guestCount: localStorage.getItem('guestCount')? localStorage.getItem('guestCount') : 1,
+            guestCount: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
             userId: localStorage.getItem('userId')
         }, {
             headers: {
@@ -48,7 +46,7 @@ export const getQuote = async (residenceId, checkInDate, checkOutDate) => {
         return response.data;
     }
     catch (error) {
-        if(error.response) {
+        if (error.response) {
             return error.response;
         }
     }

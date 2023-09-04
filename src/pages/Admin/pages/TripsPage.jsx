@@ -66,7 +66,9 @@ const TripsPage = () => {
                           <div className='text-lg font-bold'>{`Check Out - ${trip.checkOutDate.split('T')[0]}`}</div>
                         </div>
                       <div className='text-lg font-bold'>{`Total Cost - ${
-                        trip.residence.prices.basePrice * diff(new Date(trip.checkOutDate), new Date(trip.checkInDate))
+                        trip.residence.prices.basePrice * diff(new Date(trip.checkOutDate,
+                        ), new Date(trip.checkInDate,
+                          ))
                       }`}</div>
                     </div>
                 </div>

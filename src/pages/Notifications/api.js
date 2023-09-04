@@ -3,8 +3,17 @@ import config from '../../config/config';
 
 export const getNotifications = async () => {
     try {
+        console.log("getNotifications")
+        console.log(window.location.href)
+        if (localStorage.getItem('token') === null) {
+            return {
+                data: {
+                    notifications: [],
+                }
+            };
+        }
         //get request with auth header
-        const response = await axios.post(`${config.API_URL}/notifications/get`,{
+        const response = await axios.post(`${config.API_URL}/notifications/get`, {
             userId: localStorage.getItem('userId')
         }, {
             headers: {
@@ -13,7 +22,7 @@ export const getNotifications = async () => {
         });
         return response.data;
     } catch (error) {
-        if(error.response) {
+        if (error.response) {
             return error.response;
         }
     }

@@ -25,11 +25,16 @@ function DesktopNavbar() {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("Yes")
+    if(localStorage.getItem('token') !== null){
     getNotifications().then((data) => {
       if (data.notifications && data.notifications.length > 0) {
         setNotifications(data.notifications);
       }
     });
+  }else{
+    setNotifications([])
+  }
   }, []);
 
   const handleLuxeChange = () => {
@@ -92,7 +97,7 @@ function DesktopNavbar() {
             </NavLink>
           ) : null}
           <NavLink
-            to={`${localStorage.getItem("luxe") ? "/luxe" : "/login"}`}
+            to={`${localStorage.getItem("luxe") ? "/luxe" : "/"}`}
             exact
             className={`flex justify-between p-2 ${
               location.pathname === "/" ? "underline font-bold" : ""

@@ -6,10 +6,15 @@ import { getNotifications } from './api'
 function Notifications() {
     const [notifications, setNotifications] = useState(null)
   useEffect(() => {
+    if(localStorage.getItem('token') !== null){
+      console.log('token', localStorage.getItem('token'))
     getNotifications().then((data) => {
       console.log(data)
       setNotifications(data.notifications)
     })
+  }else{
+    setNotifications([])
+  }
   }, [])
   return (
     <>

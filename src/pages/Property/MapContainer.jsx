@@ -6,6 +6,9 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 const containerStyle = {
   width: "100%",
   height: "100%",
+  //Rounded edges
+  borderRadius: "10px",
+  
 };
 
 function MapContainer({ coordinate }) {

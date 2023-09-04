@@ -115,7 +115,7 @@ function ContactUs() {
             </div>
             <hr className="w-36 border-sm my-4 ml-3 mx-3 md:mx-0 border-[1px] border-black" />
 
-            <div className="w-full grid grid-cols-1 lg:grid-cols-2 place-items-start">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-2 place-items-start gap-4">
               <div className="w-full flex flex-col justify-center items-start order-2 lg:order-1">
                 <div className="font-custom text-lg mx-3 md:mx-0 mt-3 text-black">
                   Name
@@ -229,7 +229,7 @@ function ContactUs() {
                 </div>
               </div>
 
-              <div className="px-10 w-full drop-shadow-md rounded-md order-1 lg:order-2">
+              <div className="w-full h-[450px] pt-10 order-1 lg:order-2">
                 <MapContainer coordinate={{ lat: 40.7128, lng: -74.006 }} />
               </div>
             </div>

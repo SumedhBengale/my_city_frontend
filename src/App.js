@@ -34,28 +34,28 @@ import Payment from './pages/Payment/Payment';
 
 
 const App = () => {
-  const getToken = () => { localStorage.getItem('token') };
+  const getToken = () => { localStorage.getItem('token') ? true : false };
 
   return (
     <Router>
       <ScrollToTop>
         <Routes>
-          <Route exact path="/" element={<HomePage/>} />
+          <Route exact path="/" element={<HomePage />} />
           <Route exact path="/admin" element={
-              //check whether the user is logged in or not
-              getToken ? <Admin></Admin> : <Navigate to="/admin/login"></Navigate>
-            } />
-          <Route exact path="/admin/login" element={getToken ? <Login></Login>: <Navigate to="/admin/login"></Navigate>} />
+            //check whether the user is logged in or not
+            getToken ? <Admin></Admin> : <Navigate to="/admin/login"></Navigate>
+          } />
+          <Route exact path="/admin/login" element={getToken ? <Login></Login> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/user/:id" element={getToken ? <UserResourceEditor></UserResourceEditor> : <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/chat/:id" element={getToken ? <ChatResourceEditor></ChatResourceEditor>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/trips/:id" element={getToken ? <TripsPage></TripsPage>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/trip/:id" element={getToken ? <TripEditor></TripEditor>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/wishlist/:id" element={getToken ? <WishlistEditor></WishlistEditor>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer/>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/login" element={getToken ? <LoginPage></LoginPage>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path= "/signup" element={<SignUpPage></SignUpPage>} />
+          <Route exact path="/admin/chat/:id" element={getToken ? <ChatResourceEditor></ChatResourceEditor> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/trips/:id" element={getToken ? <TripsPage></TripsPage> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/trip/:id" element={getToken ? <TripEditor></TripEditor> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/wishlist/:id" element={getToken ? <WishlistEditor></WishlistEditor> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer /> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/login" element={getToken ? <LoginPage></LoginPage> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
-          <Route exact path="/properties" element={<PropertiesPage/>} />
+          <Route exact path="/properties" element={<PropertiesPage />} />
           <Route exact path="/payment" element={<Payment></Payment>} />
           <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
           <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
@@ -64,12 +64,12 @@ const App = () => {
           <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
           <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
           <Route exact path="/property/:id" element={<Property></Property>} />
-          <Route exact path='/wishlist' element={getToken ? <Wishlist></Wishlist>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path='/book' element={getToken ? <Book></Book>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/trips" element={getToken ? <Trips></Trips>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/notifications" element={getToken ? <Notifications></Notifications>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/help" element={getToken ? <Help></Help>: <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/messages" element={getToken ? <Messages></Messages>: <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path='/wishlist' element={getToken ? <Wishlist></Wishlist> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path='/book' element={getToken ? <Book></Book> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/trips" element={getToken ? <Trips></Trips> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/notifications" element={getToken ? <Notifications></Notifications> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/help" element={getToken ? <Help></Help> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/messages" element={getToken ? <Messages></Messages> : <Navigate to="/admin/login"></Navigate>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </ScrollToTop>

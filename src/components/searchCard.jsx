@@ -10,7 +10,9 @@ import { getCities } from "./api";
 
 function SearchCard({ search }) {
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() + 1))
+  );
   const [selectedBedrooms, setSelectedBedrooms] = useState("any");
   const [selectedGuests, setSelectedGuests] = useState("any");
   const [selectedbathrooms, setSelectedbathrooms] = useState("any");

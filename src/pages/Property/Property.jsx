@@ -104,7 +104,7 @@ function Property() {
       console.log(res);
       setBookedDatesData(res);
       //If booked dates are between the start date and end date, disable booking
-      if (bookedDatesBetween(startDate, endDate, res)) {
+      if (bookedDatesBetween(startDate, endDate, res) || totalNights < residence?.terms.minNights) {
         setBookingDisabled(true);
         //Show toast only if no other toast is visible
         if (toast.isActive("bookingDisabled") === false) {
@@ -164,6 +164,9 @@ function Property() {
                 toast.error(
                   `Minimum stay is ${residence.terms.minNights} nights`
                 );
+                setStartDate(props.startDate);
+                setEndDate(props.endDate);
+                setTotalNights(props.totalNights);
               } else {
                 setBookingDisabled(false);
                 console.log(props);
