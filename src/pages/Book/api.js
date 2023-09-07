@@ -1,31 +1,7 @@
 import axios from '../../components/axios';
 import config from '../../config/config';
-
-export const confirmBooking = async (residence, quote, checkInDate, checkOutDate) => {
-    try {
-        //get request with auth header
-        const response = await axios.post(`${config.API_URL}/bookResidence`, {
-            residence: residence,
-            quote: quote,
-            checkInDate: checkInDate,
-            checkOutDate: checkOutDate,
-            userId: localStorage.getItem('userId')
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
-    }
-    catch (error) {
-        if (error.response) {
-            return error.response;
-        }
-    }
-}
-
 //API to get a Quote for a residence
-export const getQuote = async (residenceId, checkInDate, checkOutDate) => {
+export const getQuote = async (residenceId, checkInDate, checkOutDate, guestCount, coupon) => {
     //Get date from checkInDate, don't consider timezones
     console.log(checkInDate);
     console.log(checkOutDate);
@@ -35,7 +11,8 @@ export const getQuote = async (residenceId, checkInDate, checkOutDate) => {
             residenceId: residenceId,
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
-            guestCount: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
+            guestCount: guestCount ? guestCount : localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
+            coupon: coupon ? coupon : null,
             userId: localStorage.getItem('userId')
         }, {
             headers: {

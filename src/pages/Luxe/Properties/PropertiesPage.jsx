@@ -6,16 +6,22 @@ import DesktopNavbarBlack from "../../../components/desktopNavbarBlack";
 import PropertiesBackground from "../../../assets/images/properties/properties_top_image.jpg";
 import SearchCard from "../../../components/searchCard";
 import filterBlack from "../../../assets/images/properties/filter_black.svg";
-import PropertyCard from "../../HomePage/PropertyCard";
+import PropertyCard from "../../Luxe/HomePage/PropertyCard";
 import Footer from "../../HomePage/Footer";
 import luxeLogo from "../../../assets/images/luxeLogo.png";
 import FadeInSection from "../../../components/fadeIn/fadeInSection";
 import SortDropdown from "./sortDropdown";
 import Filter from "../../../components/filter";
 import { useLocation } from "react-router-dom";
-import { getLuxeResidences, getResidences } from "./api";
+import {
+  getDynamicText,
+  getLuxeResidences,
+  getResidences,
+  getVideos,
+} from "./api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import config from "../../../config/config";
 
 function PropertiesPage() {
   const navigate = useNavigate();
@@ -29,7 +35,7 @@ function PropertiesPage() {
     localStorage.setItem("checkInDate", params.startDate);
     localStorage.setItem("checkOutDate", params.endDate);
     localStorage.setItem("guestCount", params.guests);
-    navigate("/properties", { state: { filterData: params } });
+    navigate("/luxe/properties", { state: { filterData: params } });
   };
 
   const [blackNavbar, setBlackNavbar] = useState(false);
@@ -39,12 +45,27 @@ function PropertiesPage() {
   const [fetchedPropertiesFilter, setFetchedPropertiesFilter] = useState(false);
   const [fetchedFilterData, setFetchedFilterData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dynamicText, setDynamicText] = useState(null);
+  const [videos, setVideos] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     console.log(location.state);
+    getVideos().then((res) => {
+      console.log(res);
+      setVideos(res.data);
+    });
+    getDynamicText().then((res) => {
+      console.log(res);
+      setDynamicText(res.data);
+    });
     getLuxeResidences(
-      location.state ? { filterData: location.state.filterData } : {}
+      location.state
+        ? {
+            filterData: location.state.filterData,
+            limit: location.state.limit ? location.state.limit : 20,
+          }
+        : {}
     )
       .then((res) => {
         console.log(res);
@@ -113,55 +134,103 @@ function PropertiesPage() {
         )}
         <div
           style={{
-            backgroundImage: `url(${PropertiesBackground})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
             width: "100%",
             height: "80vh",
           }}
+          className="z-0"
         >
-          {" "}
+          <div className="z-0">
+            {videos !== null && (
+              <video
+                autoPlay
+                loop
+                muted
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                }}
+              >
+                <source
+                  src={
+                    videos !== null &&
+                    `${config.STRAPI_URL}` +
+                      videos.find(
+                        (video) =>
+                          video.attributes.name === "Luxe_PropertiesPage_Video"
+                      ).attributes.video.data.attributes.url
+                  }
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
           {/* Background Image */}
-          <div className="hidden md:block z-30 fixed w-full">
-            {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
-          </div>
-          <div className="md:hidden z-30 fixed w-full">
-            {blackNavbar ? <NavbarBlack /> : <Navbar />}
-          </div>
-          <div className="h-full flex flex-col justify-center items-center z-0 bg-black/40">
-            <div className="lg:hidden">
-              <div className="font-custom-bold text-2xl lg:text-4xl text-white text-center pt-10 pb-4">
-                My City Residence
-              </div>
-              <div className=" text-lg w-full text-center font-semibold text-white capitalize sm-3 lg:mb-10">
-                Discover your next home away from home
-              </div>
+          <div className="h-full relative">
+            <div className="absolute h-full w-full bg-black/40"></div>
+            <div className="hidden md:block z-30 fixed w-full">
+              {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
             </div>
+            <div className="md:hidden z-30 fixed w-full">
+              {blackNavbar ? <NavbarBlack /> : <Navbar />}
+            </div>
+            <div className="h-full flex flex-col justify-center items-center">
+              <div className="lg:hidden z-10">
+                <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "Website_Name"
+                    ).attributes.text}
+                </div>
+              </div>
 
-            <div className="hidden lg:block justify-center items-center">
-              <img
-                src={luxeLogo}
-                alt="My City Logo"
-                className="md:w-48 lg:w-72 self-start mb-10"
-              ></img>
+              <div className="hidden lg:block justify-center items-center z-10">
+                <img
+                  src={luxeLogo}
+                  alt="My City Logo"
+                  className="md:w-48 lg:w-72 self-start mb-10"
+                ></img>
+              </div>
+              <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
+                {
+                  //split each word in to a seperate div and fade them each one by one
+                  dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "Website_Tagline"
+                    ).attributes.text
+                }
+              </div>
+
+              <div className="z-20">
+                <SearchCard search={(params) => search(params)}></SearchCard>
+              </div>
             </div>
-            <SearchCard search={(params) => search(params)}></SearchCard>
           </div>
         </div>
-        <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
-          <div
-            className="px-5 md:container md:mx-auto"
-            ref={nearbyPropertiesRef}
-          >
+        <div
+          className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]"
+          ref={nearbyPropertiesRef}
+        >
+          <div className="px-5 md:container md:mx-auto">
             <FadeInSection>
               {residences && !loading ? (
                 <PropertiesSection
+                  setResidences={setResidences}
                   setFilterVisible={setFetchedPropertiesFilter}
                   filterData={fetchedFilterData}
                   residences={residences}
+                  limit={
+                    location.state && location.state.limit
+                      ? location.state.limit
+                      : 20
+                  }
                 ></PropertiesSection>
               ) : (
-                <div className="flex justify-center items-center h-screen">
+                <div className="flex justify-center items-center h-screen w-full">
                   <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
                 </div>
               )}
@@ -178,8 +247,14 @@ function PropertiesPage() {
 
 export default PropertiesPage;
 
-function PropertiesSection({ setFilterVisible, residences, filterData }) {
-  const [sortValue, setSortValue] = useState("p-lh");
+function PropertiesSection({
+  setResidences,
+  setFilterVisible,
+  residences,
+  filterData,
+  limit,
+}) {
+  const [sortValue, setSortValue] = useState("p-hl");
   const [sortedResidences, setSortedResidences] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -307,22 +382,41 @@ function PropertiesSection({ setFilterVisible, residences, filterData }) {
               );
             })
           ) : (
-            <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-center items-center h-screen w-full">
               <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
             </div>
           )}
         </div>
       ) : (
-        <div className="text-center text-2xl font-bold">
+        <div className="text-center text-2xl h-96 font-bold">
           No Residences found
         </div>
       )}
       <div className="flex justify-center my-10">
-        <div className="w-[178px] h-14 border bg-primary hover:bg-secondary  text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md">
-          <div className="text-2xl h-full flex justify-center items-center">
-            View All
+        {limit !== 100 && (
+          <div
+            className="w-[178px] h-14 border bg-primary hover:bg-secondary  text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md"
+            onClick={() => {
+              setLoading(true);
+              getLuxeResidences({
+                filterData: filterData,
+                limit: 100,
+              })
+                .then((res) => {
+                  console.log(res);
+                  setResidences(res.residences.results);
+                  setLoading(false);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+          >
+            <div className="text-2xl h-full flex justify-center items-center">
+              View All
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

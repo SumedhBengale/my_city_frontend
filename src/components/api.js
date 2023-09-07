@@ -13,13 +13,7 @@ export const fetchBookedDatesFromBackend = async (residenceId, startDate, endDat
             }
             }
         );
-        let bookedDates = [];
-        response.data.availability.forEach((booking) => {
-            if(booking.status === 'booked' || booking.status === 'unavailable') {
-                bookedDates.push(booking.date);
-            }
-        })
-        return bookedDates;
+        return response.data.availability;
         // Assuming the backend returns an object with a 'bookedDates' array
 
     } catch (error) {

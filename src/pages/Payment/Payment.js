@@ -23,6 +23,13 @@ export default function Payment() {
   }
 
   useEffect(() => {
+    const paymentActive = localStorage.getItem('paymentActive');
+    if (paymentActive === 'false') {
+      //redirect to homepage and remove the history
+      localStorage.getItem('luxe') ? window.history.replaceState(null, null, "/luxe") : window.history.replaceState(null, null, "/")
+
+      return
+    }
     //Get the quoteId from url
     const quote = location.state.quote ? location.state.quote : null;
     if (!quote) {
@@ -34,7 +41,7 @@ export default function Payment() {
       quote
     );
 
-  }, []);
+  }, [location.state.quote]);
 
   const appearance = {
     theme: 'stripe',
@@ -49,7 +56,7 @@ export default function Payment() {
       <div className="w-[400px]">
         {clientSecret && stripePromise && (
           <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm />
+            <CheckoutForm quoteId={location.state.quote._id}/>
           </Elements>
         )}</div>
     </div>

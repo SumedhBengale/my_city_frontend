@@ -21,6 +21,21 @@ export const getResidences = async () => {
     }
 }
 
+export const getVideos = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.STRAPI_URL}/api/videos?populate=*`, {
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+
+
 //get featured residences
 export const getFeaturedResidences = async () => {
     try {
@@ -30,7 +45,11 @@ export const getFeaturedResidences = async () => {
         const listing1 = listingsData.data.data.attributes.listing1;
         const listing2 = listingsData.data.data.attributes.listing2;
         const listing3 = listingsData.data.data.attributes.listing3;
-        const listings = [listing1, listing2, listing3];
+        const listing4 = listingsData.data.data.attributes.listing4;
+        const listing5 = listingsData.data.data.attributes.listing5;
+        const listing6 = listingsData.data.data.attributes.listing6;
+        const listing7 = listingsData.data.data.attributes.listing7;
+        const listings = [listing1, listing2, listing3, listing4, listing5, listing6, listing7];
 
         console.log(listings)
         //For each listing, get the residence data from the backend

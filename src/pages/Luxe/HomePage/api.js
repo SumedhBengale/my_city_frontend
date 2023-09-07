@@ -21,6 +21,21 @@ export const getResidences = async () => {
     }
 }
 
+export const getVideos = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.STRAPI_URL}/api/videos?populate=*`, {
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+
+
 //get featured residences
 export const getFeaturedResidences = async () => {
     try {

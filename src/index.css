@@ -18,6 +18,12 @@ code {
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Kiona";
+  src: url("./fonts/Kiona-Regular.ttf");
+
+}
+
 @layer utilities {
     @variants responsive {
       /* Hide scrollbar for Chrome, Safari and Opera */

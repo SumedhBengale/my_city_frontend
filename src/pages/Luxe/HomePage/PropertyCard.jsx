@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import luxe from "../../../assets/images/luxe.svg";
 
 function PropertyCard({ residence, highlighted }) {
   const navigate = useNavigate();
@@ -22,8 +23,10 @@ function PropertyCard({ residence, highlighted }) {
       <div className="relative w-full">
         <div className="absolute bottom-7 left-3 rounded-full pl-4 text-sm font-semibold ">
           <div className="flex text-white">
-            <div className=" text-lg -translate-y-2 font-normal">£</div>
-            <div className=" text-lg font-bold">
+            <div className=" text-lg -translate-y-2 font-custom-lora font-normal">
+              £
+            </div>
+            <div className=" text-lg font-custom-lora font-bold">
               {residence.prices.basePrice}
             </div>
             <div className=" text-sm font-normal self-end">/night</div>
@@ -51,7 +54,7 @@ function PropertyCard({ residence, highlighted }) {
       </div>
 
       {/*Also fetch these values from the API */}
-      <div className="flex mx-5 flex-col lg:flex-row">
+      <div className="flex mx-5">
         <div className="flex justify-start gap-2 w-full text-sm">
           <div className="flex">
             <svg
@@ -135,7 +138,7 @@ function PropertyCard({ residence, highlighted }) {
           </div>
         </div>
         <div className="text-sm  text-start overflow-ellipsis">
-          {residence.propertyType}
+          <img src={luxe} alt="host" className="w-14 md:w-20 h-full" />
         </div>
       </div>
     </div>

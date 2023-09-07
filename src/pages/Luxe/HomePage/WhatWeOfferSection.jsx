@@ -64,9 +64,6 @@ function WhatWeOfferSection({ dynamicText, dynamicImages }) {
                 className="w-16"
               ></img>
               <div className="flex justify-around relative mt-5">
-                <div className="flex justify-center items-center">
-                  <img src={luxe} alt="arrow" className="w-12 h-6" />
-                </div>
                 <div className="font-custom-bold  font-normal text-2xl text-primary">
                   {dynamicText !== null &&
                     dynamicText.find(

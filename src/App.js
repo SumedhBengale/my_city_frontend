@@ -31,10 +31,11 @@ import BlogPost from './pages/Management/BlogPost';
 import ReviewViewer from './pages/Admin/pages/ReviewViewer';
 import EmailVerification from './pages/Authentication/EmailVerification';
 import Payment from './pages/Payment/Payment';
+import Success from './pages/Payment/Success';
 
 
 const App = () => {
-  const getToken = () => { localStorage.getItem('token') ? true : false };
+  const getToken = () => { localStorage.getItem('token') };
 
   return (
     <Router>
@@ -56,7 +57,8 @@ const App = () => {
           <Route exact path="/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
           <Route exact path="/properties" element={<PropertiesPage />} />
-          <Route exact path="/payment" element={<Payment></Payment>} />
+          <Route exact path="/payment" element={getToken ? <Payment></Payment> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/payment/success" element={getToken ? <Success></Success> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
           <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
           <Route exact path="/management" element={<ManagementPage></ManagementPage>} />

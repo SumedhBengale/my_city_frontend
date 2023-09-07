@@ -2,7 +2,7 @@ import axios from '../../../components/axios';
 import config from '../../../config/config';
 
 
-export const getLuxeResidences = async ({filterData}) => {
+export const getLuxeResidences = async ({filterData, limit}) => {
     try {  
       
       const filterDataString = JSON.stringify(filterData);
@@ -14,6 +14,7 @@ export const getLuxeResidences = async ({filterData}) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         params: {
+            limit: limit,
             luxe: true,
             filterData: filterDataString,
         },
@@ -27,3 +28,28 @@ export const getLuxeResidences = async ({filterData}) => {
     }
   };
   
+  export const getVideos = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.STRAPI_URL}/api/videos?populate=*`, {
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}
+
+export const getDynamicText = async (id) => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.STRAPI_URL}/api/luxe-home-pages`, {
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response) {
+            return error.response;
+        }
+    }
+}

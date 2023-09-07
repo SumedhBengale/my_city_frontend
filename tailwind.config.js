@@ -43,6 +43,7 @@ module.exports = {
         'custom': ['Adam-Medium', 'sans'],
         'custom-lora': ['Lora', 'serif'],
         'custom-lora-bold': ['Lora-Bold', 'serif'],
+        'custom-kiona': ['Kiona', 'serif'],
         // Add more custom fonts as needed
       },
       fontWeight: {

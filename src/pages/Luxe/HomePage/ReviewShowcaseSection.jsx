@@ -99,7 +99,7 @@ const ReviewCarousel = () => {
                       }
                     )}
                   </div>
-                  <div className="w-full flex flex-col items-center">
+                  <div className="w-full flex flex-col items-center gap-2">
                     <div className=" w-5/6 text-center text-lg text-primary font-custom">
                       {review.attributes.review}
                     </div>
@@ -113,7 +113,7 @@ const ReviewCarousel = () => {
                         className="rounded-full w-20"
                       />
                     </div>
-                    <p className="text-md">{review.attributes.name}</p>
+                    <p className="text-2xl">{review.attributes.name}</p>
                   </div>
                 </div>
               ))

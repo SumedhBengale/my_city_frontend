@@ -128,7 +128,7 @@ function SearchCard({ search }) {
                 <img src={locationPin} alt="location pin" className=""></img>
                 <div className="pl-2">
                   <div className="text-xs sm:text-sm">Select Location</div>
-                  <div className=" text-md sm:text-md font-bold">
+                  <div className=" text-md sm:text-md font-bold capitalize">
                     {location
                       ? location === "any"
                         ? "Select"
@@ -149,7 +149,7 @@ function SearchCard({ search }) {
                                 setLocationPickerVisible(false);
                               }}
                             >
-                              <div className="text-md font-custom-bold text-primary">
+                              <div className="text-md font-custom-bold text-primary capitalize">
                                 {city.city}
                               </div>
                             </li>
@@ -439,7 +439,7 @@ function SearchCard({ search }) {
                             setLocationPickerVisible(false);
                           }}
                         >
-                          <div className="text-md font-custom-bold text-primary">
+                          <div className="text-md font-custom-bold text-primary capitalize">
                             {city.city}
                           </div>
                         </li>

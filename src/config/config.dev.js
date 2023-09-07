@@ -1,8 +1,8 @@
 const config = {
-  API_URL: 'https://zanaccoinvest.com/api',
-  STRAPI_URL: 'https://zanaccoinvest.com/strapi',
+  API_URL: 'http://localhost:5000/api',
+  STRAPI_URL: 'http://localhost:1337',
   MAPS_API_KEY: 'AIzaSyBoZFGXOCwer9dv34IPMOhFqlApLBQtprs',
-  STRIPE_PUBLISHABLE_KEY: 'pk_test_51NlsPfSFUcEttqALROYFat5znfRjqGsYTmwqHwOStqCCz23XopzyFNZPJ1IM1os7W4Y4XkGrd20WtZ3WLiSMF4Ho008z06yFkK'
+  STRIPE_PUBLISHABLE_KEY: 'pk_test_51NaN27KRJu2e9UD4Y8LuP52Mlb6VyUFTjfsLKCOsU66F80zhBNpfA1IKh0CnEBxYZsg645Kqzr2NLgj9DIjhnHzi00kJPJxInm'
 };
 
 export default config;

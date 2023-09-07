@@ -42,10 +42,7 @@ function UpcomingTripCard({ trip }) {
                 }
               </div>
             </div>
-            <div className="flex flex-col">
-              <div className="text-md text-end font-custom text-primary underline">
-                Edit
-              </div>
+            <div className="flex flex-col justify-end items-end">
               <div className="flex">
                 <img src={Chat} alt="chat" className="w-5 h-5" />
                 <div

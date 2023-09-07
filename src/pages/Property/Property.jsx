@@ -68,19 +68,18 @@ function Property() {
   const navigate = useNavigate();
 
   const bookedDatesBetween = (startDate, endDate, data) => {
-    // If there are booked dates between start date and end date, return true
+    // If there are booked dates between start date and end date, return true, startDate and endDate are exclusive
     if (data === null) {
       return false;
     }
     for (let i = 0; i < data.length; i++) {
       if (
-        startDate.getTime() <= new Date(data[i]).getTime() &&
-        new Date(data[i]).getTime() <= endDate.getTime()
+        startDate.getTime() < new Date(data[i]).getTime() &&
+        new Date(data[i]).getTime() < endDate.getTime()
       ) {
         return true;
       }
     }
-    return false;
   };
 
   useEffect(() => {
@@ -104,7 +103,10 @@ function Property() {
       console.log(res);
       setBookedDatesData(res);
       //If booked dates are between the start date and end date, disable booking
-      if (bookedDatesBetween(startDate, endDate, res) || totalNights < residence?.terms.minNights) {
+      if (
+        bookedDatesBetween(startDate, endDate, res) ||
+        totalNights < residence?.terms.minNights
+      ) {
         setBookingDisabled(true);
         //Show toast only if no other toast is visible
         if (toast.isActive("bookingDisabled") === false) {
@@ -119,7 +121,12 @@ function Property() {
 
     if (totalNights < residence?.terms.minNights) {
       setBookingDisabled(true);
-      toast.error(`Minimum stay is ${residence?.terms.minNights} nights`);
+      //Show only if no other toast is visible
+      if (toast.isActive("bookingDisabled") === false) {
+        toast.error(`Minimum stay is ${residence?.terms.minNights} nights`, {
+          toastId: "bookingDisabled",
+        });
+      }
     } else {
       setBookingDisabled(false);
     }
@@ -161,9 +168,15 @@ function Property() {
             returnData={(props) => {
               if (props.totalNights < residence.terms.minNights) {
                 setBookingDisabled(true);
-                toast.error(
-                  `Minimum stay is ${residence.terms.minNights} nights`
-                );
+                //Show toast only if no other toast is visible
+                if (toast.isActive("bookingDisabled") === false) {
+                  toast.error(
+                    `Minimum stay is ${residence.terms.minNights} nights for these dates`,
+                    {
+                      toastId: "bookingDisabled",
+                    }
+                  );
+                }
                 setStartDate(props.startDate);
                 setEndDate(props.endDate);
                 setTotalNights(props.totalNights);
@@ -489,7 +502,7 @@ function Property() {
                   </div>
                 </div>
                 <div className="flex">
-                  <span className="text-custom-lora font-bold text-lg text-secondary">{`$ ${
+                  <span className="text-custom-lora font-bold text-lg text-secondary">{`£ ${
                     residence.prices.basePrice * totalNights
                   }`}</span>
                   <span className=" pl-1 text-sm text-end text-secondary flex items-end justify-end">{`(Inclusive of all Taxes)`}</span>

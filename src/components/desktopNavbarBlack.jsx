@@ -23,18 +23,25 @@ function DesktopNavbar() {
   const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(null);
   const location = useLocation();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log("Yes")
-    if(localStorage.getItem('token') !== null){
-    getNotifications().then((data) => {
-      if (data.notifications && data.notifications.length > 0) {
-        setNotifications(data.notifications);
-      }
-    });
-  }else{
-    setNotifications([])
-  }
+    setTimeout(() => {
+      setLoaded(true);
+    }, 100);
+    console.log("Yes");
+    if (localStorage.getItem("token") !== null) {
+      getNotifications().then((data) => {
+        if (data.notifications && data.notifications.length > 0) {
+          setNotifications(data.notifications);
+        }
+      });
+    } else {
+      setNotifications([]);
+    }
+    return () => {
+      setLoaded(false);
+    };
   }, []);
 
   const handleLuxeChange = () => {
@@ -58,6 +65,8 @@ function DesktopNavbar() {
     }
   };
 
+  //when component unmounts, set the loaded state to false
+
   const handleNotificationMenuClick = () => {
     console.log("clicked");
     accountMenuOpen
@@ -76,12 +85,18 @@ function DesktopNavbar() {
 
   return (
     <>
-      <div className=" w-full bg-white flex justify-between text-black gap-3 px-5 py-2">
+      <div className=" w-full bg-white flex justify-between items-center text-black gap-3 px-5 py-2">
         <div className="flex h-12">
           <img
             src={logoBlack}
-            alt="My City Logo"
-            className="h-12 self-start"
+            alt="logo"
+            className={`h-12 
+            ${
+              loaded
+                ? "flex transition duration-100 opacity-100 linear"
+                : "opacity-0"
+            }
+            `}
           ></img>
         </div>
         <div className="flex h-12  gap-10">
@@ -89,7 +104,7 @@ function DesktopNavbar() {
             <NavLink
               to="/admin"
               exact
-              className={`flex justify-between p-2 ${
+              className={`flex justify-between p-2 uppercase ${
                 location.pathname === "/admin" ? "underline font-bold" : ""
               }`}
             >
@@ -99,8 +114,10 @@ function DesktopNavbar() {
           <NavLink
             to={`${localStorage.getItem("luxe") ? "/luxe" : "/"}`}
             exact
-            className={`flex justify-between p-2 ${
-              location.pathname === "/" ? "underline font-bold" : ""
+            className={`flex justify-between p-2 uppercase ${
+              location.pathname === "/" || location.pathname === "/luxe"
+                ? "underline font-bold"
+                : ""
             }`}
           >
             Home
@@ -109,23 +126,26 @@ function DesktopNavbar() {
             to={`${
               localStorage.getItem("luxe") ? "/luxe/properties" : "/properties"
             }`}
-            className={`flex justify-between p-2 ${
-              location.pathname === "/properties" ? "underline font-bold" : ""
+            className={`flex justify-between p-2 uppercase ${
+              location.pathname === "/properties" ||
+              location.pathname === "/luxe/properties"
+                ? "underline font-bold"
+                : ""
             }`}
           >
             Properties
           </NavLink>
           <NavLink
-            to="/management"
-            className={`flex justify-between p-2 ${
-              location.pathname === "/management" ? "underline font-bold" : ""
+            to="/homeowners"
+            className={`flex justify-between p-2 uppercase ${
+              location.pathname === "/homeowners" ? "underline font-bold" : ""
             }`}
           >
-            Management
+            Homeowners
           </NavLink>
           <NavLink
             to="/about"
-            className={`flex justify-between p-2 ${
+            className={`flex justify-between p-2 uppercase ${
               location.pathname === "/about" ? "underline font-bold" : ""
             }`}
           >
@@ -133,7 +153,7 @@ function DesktopNavbar() {
           </NavLink>
           <NavLink
             to="/contact"
-            className={`flex justify-between p-2 ${
+            className={`flex justify-between p-2 uppercase ${
               location.pathname === "/contact" ? "underline font-bold" : ""
             }`}
           >
@@ -173,7 +193,7 @@ function DesktopNavbar() {
               window.location.pathname === "/luxe" ||
               window.location.pathname === "/properties" ||
               window.location.pathname === "/luxe/properties" ? (
-                <div className="pl-4 flex items-center w-20">
+                <div className="mx-4 flex items-center w-20">
                   <Switch
                     //COlor on checked
                     width={80}
@@ -224,7 +244,7 @@ function DesktopNavbar() {
                 window.location.pathname === "/luxe" ||
                 window.location.pathname === "/properties" ||
                 window.location.pathname === "/luxe/properties" ? (
-                  <div className="pl-4 flex items-center w-20">
+                  <div className="px-4 flex items-center w-20">
                     <Switch
                       //COlor on checked
                       width={80}
@@ -268,81 +288,95 @@ function DesktopNavbar() {
       )}
 
       {accountMenuOpen && (
-        <div className="w-full bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl relative">
-          <div className="absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl">
-            <div className="flex flex-col gap-3 pl-3 pt-3">
+        <div className="w-full bg-transparent translate-y-2 flex justify-end p-3 font-bold relative">
+          <ul className="absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl shadow-lg">
+            <li className="flex flex-col ">
               <NavLink
                 to="/messages"
                 exact
-                className={`flex justify-start w-full  ${
+                className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 rounded-t-xl  ${
                   location.pathname === "/messages" ? "underline font-bold" : ""
                 }`}
               >
                 Messages
               </NavLink>
+            </li>
+
+            <div className="h-full mx-2">
+              <hr className="w-full h-[1px]"></hr>
             </div>
 
-            <div className="h-full mx-2 my-3">
-              <hr className="w-full h-[2px] bg-black"></hr>
+            <div className="flex flex-col ">
+              <li className="flex flex-col">
+                <NavLink
+                  to="/account"
+                  exact
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                    location.pathname === "/account"
+                      ? "underline font-bold"
+                      : ""
+                  }`}
+                >
+                  Account
+                </NavLink>
+              </li>
+              <li className="flex flex-col">
+                <NavLink
+                  to="/wishlist"
+                  exact
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                    location.pathname === "/wishlist"
+                      ? "underline font-bold"
+                      : ""
+                  }`}
+                >
+                  Wishlist
+                </NavLink>
+              </li>
+              <li className="flex flex-col">
+                <NavLink
+                  to="/trips"
+                  exact
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 ${
+                    location.pathname === "/trips" ? "underline font-bold" : ""
+                  }`}
+                >
+                  Trips
+                </NavLink>
+              </li>
             </div>
 
-            <div className="flex flex-col gap-3 pl-3">
-              <NavLink
-                to="/account"
-                exact
-                className={`flex justify-start w-full  ${
-                  location.pathname === "/account" ? "underline font-bold" : ""
-                }`}
-              >
-                Account
-              </NavLink>
-              <NavLink
-                to="/wishlist"
-                exact
-                className={`flex justify-start w-full  ${
-                  location.pathname === "/wishlist" ? "underline font-bold" : ""
-                }`}
-              >
-                Wishlist
-              </NavLink>
-              <NavLink
-                to="/trips"
-                exact
-                className={`flex justify-start w-full  ${
-                  location.pathname === "/trips" ? "underline font-bold" : ""
-                }`}
-              >
-                Trips
-              </NavLink>
+            <div className="h-full mx-2">
+              <hr className="w-full h-[1px]"></hr>
             </div>
 
-            <div className="h-full mx-2 my-3">
-              <hr className="w-full h-[2px] bg-black"></hr>
+            <div className="flex flex-col">
+              <li className="flex flex-col">
+                <NavLink
+                  to="/help"
+                  exact
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                    location.pathname === "/help" ? "underline font-bold" : ""
+                  }`}
+                >
+                  Help
+                </NavLink>
+              </li>
+              <li className="flex flex-col">
+                <div
+                  className="flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 rounded-b-xl"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("userId");
+                    localStorage.removeItem("userType");
+                    navigate("/login");
+                  }}
+                >
+                  Log Out
+                </div>
+              </li>
             </div>
-
-            <div className="flex flex-col gap-3 pl-3 pb-3">
-              <NavLink
-                to="/help"
-                exact
-                className={`flex justify-start w-full  ${
-                  location.pathname === "/help" ? "underline font-bold" : ""
-                }`}
-              >
-                Help
-              </NavLink>
-              <div
-                className={`flex justify-start w-full`}
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("userId");
-                  localStorage.removeItem("userType");
-                  navigate("/login");
-                }}
-              >
-                Log Out
-              </div>
-            </div>
-          </div>
+          </ul>
         </div>
       )}
     </>

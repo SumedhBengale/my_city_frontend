@@ -20,7 +20,7 @@ function OurStorySection({ dynamicText, dynamicImages }) {
               />
             </div>
             <div className="text-center lg:text-left pr-5 gap-5">
-              <div className="text-secondary font-custom text-5xl capitalize pb-3">
+              <div className="text-secondary font-custom-kiona text-5xl capitalize pb-3">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "OurStory_Heading"
