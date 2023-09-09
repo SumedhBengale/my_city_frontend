@@ -22,7 +22,7 @@ function BlogContainer() {
                     return (
                         <div key={blog.id} className='flex gap-5 h-30 w-full cursor-pointer'
                         onClick={() => {
-                            navigate(`/management/blog/${blog.id}`,{state: {blog: blog}})
+                            navigate(`/homeowners/blog/${blog.id}`,{state: {blog: blog}})
                         }}
                         >
                             <div className='w-96 justify-center rounded-lg'>

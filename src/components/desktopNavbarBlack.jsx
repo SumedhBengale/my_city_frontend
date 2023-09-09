@@ -24,6 +24,8 @@ function DesktopNavbar() {
   const [notifications, setNotifications] = useState(null);
   const location = useLocation();
   const [loaded, setLoaded] = useState(false);
+  const notificationRef = React.useRef();
+  const accountRef = React.useRef();
 
   useEffect(() => {
     setTimeout(() => {
@@ -39,9 +41,36 @@ function DesktopNavbar() {
     } else {
       setNotifications([]);
     }
+        //Watch for clicks outside of the notification menu
+        document.addEventListener("click", (e) => {
+          if (
+            notificationRef.current &&
+            !notificationRef.current.contains(e.target)
+          ) {
+            setNotificationMenuOpen(false);
+            console.log("clicked outside");
+          }
+        });
+    
+        //watch for clicks outside of the account menu
+        document.addEventListener("click", (e) => {
+          if (
+            accountRef.current &&
+            !accountRef.current.contains(e.target)
+          ) {
+            setAccountMenuOpen(false);
+            console.log("clicked outside");
+          }
+    
+        });
+    
     return () => {
       setLoaded(false);
+      document.removeEventListener("click", (e) => {});
+      document.removeEventListener("click", (e) => {});
     };
+
+    
   }, []);
 
   const handleLuxeChange = () => {
@@ -105,32 +134,31 @@ function DesktopNavbar() {
               to="/admin"
               exact
               className={`flex justify-between p-2 uppercase ${
-                location.pathname === "/admin" ? "underline font-bold" : ""
+                location.pathname === "/admin"                 ? "line line-underline-active-black font-bold" : "line line-underline-black"
+
               }`}
             >
               Admin
             </NavLink>
           ) : null}
           <NavLink
-            to={`${localStorage.getItem("luxe") ? "/luxe" : "/"}`}
+            to={`${luxeValue === true? "/luxe" : "/"}`}
             exact
             className={`flex justify-between p-2 uppercase ${
               location.pathname === "/" || location.pathname === "/luxe"
-                ? "underline font-bold"
-                : ""
+              ? "line line-underline-active-black font-bold" : "line line-underline-black"
             }`}
           >
             Home
           </NavLink>
           <NavLink
             to={`${
-              localStorage.getItem("luxe") ? "/luxe/properties" : "/properties"
+              luxeValue === true ? "/luxe/properties" : "/properties"
             }`}
             className={`flex justify-between p-2 uppercase ${
               location.pathname === "/properties" ||
               location.pathname === "/luxe/properties"
-                ? "underline font-bold"
-                : ""
+              ? "line line-underline-active-black font-bold" : "line line-underline-black"
             }`}
           >
             Properties
@@ -138,7 +166,7 @@ function DesktopNavbar() {
           <NavLink
             to="/homeowners"
             className={`flex justify-between p-2 uppercase ${
-              location.pathname === "/homeowners" ? "underline font-bold" : ""
+              location.pathname === "/homeowners" ? "line line-underline-active-black font-bold" : "line line-underline-black"
             }`}
           >
             Homeowners
@@ -146,7 +174,7 @@ function DesktopNavbar() {
           <NavLink
             to="/about"
             className={`flex justify-between p-2 uppercase ${
-              location.pathname === "/about" ? "underline font-bold" : ""
+              location.pathname === "/about" ? "line line-underline-active-black font-bold" : "line line-underline-black"
             }`}
           >
             About Us
@@ -154,7 +182,7 @@ function DesktopNavbar() {
           <NavLink
             to="/contact"
             className={`flex justify-between p-2 uppercase ${
-              location.pathname === "/contact" ? "underline font-bold" : ""
+              location.pathname === "/contact" ? "line line-underline-active-black font-bold" : "line line-underline-black"
             }`}
           >
             Contact Us
@@ -166,6 +194,7 @@ function DesktopNavbar() {
               //If there are notifications, show the notification icon
               notifications !== null && notifications.length > 0 ? (
                 <img
+                  ref={notificationRef}
                   src={notificationDot}
                   alt="notification"
                   className="h-8"
@@ -173,6 +202,7 @@ function DesktopNavbar() {
                 />
               ) : (
                 <img
+                  ref={notificationRef}
                   src={notifcation}
                   alt="notification"
                   className="h-8"
@@ -182,6 +212,7 @@ function DesktopNavbar() {
             }
 
             <img
+              ref={accountRef}
               src={personBlack}
               alt="hamburger menu"
               className="h-8"
@@ -282,13 +313,20 @@ function DesktopNavbar() {
       {notificationMenuOpen && (
         <div className="w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl">
           <div className="relative top-0 right-0 w-72 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl no-scrollbar">
-            <Notification notifications={notifications}></Notification>
+            <Notification notifications={notifications} refresh={()=>{
+              getNotifications().then((data) => {
+                if (data.notifications && data.notifications.length > 0) {
+                  setNotifications(data.notifications);
+                }
+              });
+            }}></Notification>
           </div>
         </div>
       )}
 
       {accountMenuOpen && (
-        <div className="w-full bg-transparent translate-y-2 flex justify-end p-3 font-bold relative">
+        <div className="w-full bg-transparent translate-y-2 flex justify-end p-3 font-bold relative"
+        >
           <ul className="absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl shadow-lg">
             <li className="flex flex-col ">
               <NavLink

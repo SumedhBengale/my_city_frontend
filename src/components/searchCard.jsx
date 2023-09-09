@@ -5,20 +5,30 @@ import calendar from "../assets/images/home/calendar.svg";
 import guests from "../assets/images/home/guests.svg";
 import rooms from "../assets/images/home/rooms.svg";
 import Filter from "../components/filter";
-import DateRangePicker from "./DateRangePicker";
 import { getCities } from "./api";
+import PlainDateRangePicker from "./CustomDatePicker";
 
-function SearchCard({ search }) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(
-    new Date(new Date().setDate(new Date().getDate() + 1))
+function SearchCard({ search, initialData }) {
+  const [startDate, setStartDate] = useState(initialData && initialData.startDate ? new Date(initialData.startDate) : null);
+  const [endDate, setEndDate] = useState(initialData && initialData.endDate ? new Date(initialData.endDate) : null);
+  const [selectedBedrooms, setSelectedBedrooms] = useState(
+    initialData && initialData.bedrooms ? initialData.bedrooms : "any"
   );
-  const [selectedBedrooms, setSelectedBedrooms] = useState("any");
-  const [selectedGuests, setSelectedGuests] = useState("any");
-  const [selectedbathrooms, setSelectedbathrooms] = useState("any");
-  const [location, setLocation] = useState("any");
-  const [priceRange, setPriceRange] = useState([0, 2500]);
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedGuests, setSelectedGuests] = useState(
+    initialData && initialData.guests ? initialData.guests : "any"
+  );
+  const [selectedbathrooms, setSelectedbathrooms] = useState(
+    initialData && initialData.bathrooms ? initialData.bathrooms : "any"
+  );
+  const [location, setLocation] = useState(
+    initialData && initialData.location ? initialData.location : "any"
+  );
+  const [priceRange, setPriceRange] = useState(
+    initialData && initialData.priceRange ? initialData.priceRange : [0, 2500]
+  );
+  const [selectedAmenities, setSelectedAmenities] = useState(
+    initialData && initialData.amenities ? initialData.amenities : []
+  );
   const [cities, setCities] = useState(null);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [guestNumberPickerVisible, setGuestNumberPickerVisible] =
@@ -27,9 +37,23 @@ function SearchCard({ search }) {
   const [locationPickerVisible, setLocationPickerVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const cardBackdropRef = React.useRef(null);
-  const guestPickerDesktopRef = React.useRef(null);
+  const guestPickerRef = React.useRef(null);
+  const guestPickerMobileRef = React.useRef(null);
+  const locationPickerRef = React.useRef(null);
+  const locationPickerMobileRef = React.useRef(null);
+  const roomPickerRef = React.useRef(null);
+  const roomPickerMobileRef = React.useRef(null);
 
   useEffect(() => {
+    //If startDate and endDate are not null, set the localStorage
+    if (startDate !== null && endDate !== null) {
+      console.log("Setting localStorage")
+      console.log(startDate)
+      console.log(endDate)
+      localStorage.setItem("checkInDate", startDate);
+      localStorage.setItem("checkOutDate", endDate);
+    }
+    console.log("Initial Data", initialData);
     getCities().then((data) => {
       console.log("City List", data);
       const cities = data.data.attributes.locations;
@@ -42,6 +66,32 @@ function SearchCard({ search }) {
         setCities(citiesObject);
       }
     });
+
+    //watch for clicks outside the guest picker
+    document.addEventListener("click", (e) => {
+      console.log("clicked outside guest picker")
+      //If clicked outside the guest picker ref or guest picker mobile ref, close the guest picker
+      if (
+        guestPickerRef.current && !guestPickerRef.current.contains(e.target) && guestPickerMobileRef.current && !guestPickerMobileRef.current.contains(e.target)
+      ) {
+        console.log("clicked outside guest picker")
+        setGuestNumberPickerVisible(false);
+      }
+      if(
+        locationPickerRef.current && !locationPickerRef.current.contains(e.target) && locationPickerMobileRef.current && !locationPickerMobileRef.current.contains(e.target)
+      ){
+        setLocationPickerVisible(false);
+      }
+      if(
+        roomPickerRef.current && !roomPickerRef.current.contains(e.target) && roomPickerMobileRef.current && !roomPickerMobileRef.current.contains(e.target)
+      ){
+        setRoomNumberPickerVisible(false);
+      }
+    });
+
+
+
+
   }, []);
 
   return (
@@ -98,18 +148,18 @@ function SearchCard({ search }) {
             }
           }}
         >
-          <DateRangePicker
+          <PlainDateRangePicker
             initialStartDate={startDate}
             initialEndDate={endDate}
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             returnData={(data) => {
+              console.log("Date Range Picker Data", data);
               setDatePickerVisible(false);
               setStartDate(data.startDate);
               setEndDate(data.endDate);
             }}
-            blockBooking={() => null}
-          ></DateRangePicker>
+          ></PlainDateRangePicker>
         </div>
       )}
       <div className="px-2 sm:px-10 w-full flex justify-center">
@@ -119,6 +169,7 @@ function SearchCard({ search }) {
               {/* Location and Filter */}
               <div
                 className="flex cursor-pointer"
+                ref={locationPickerMobileRef}
                 onClick={() => {
                   setGuestNumberPickerVisible(false);
                   setRoomNumberPickerVisible(false);
@@ -128,17 +179,42 @@ function SearchCard({ search }) {
                 <img src={locationPin} alt="location pin" className=""></img>
                 <div className="pl-2">
                   <div className="text-xs sm:text-sm">Select Location</div>
-                  <div className=" text-md sm:text-md font-bold capitalize">
-                    {location
-                      ? location === "any"
-                        ? "Select"
-                        : location.city
-                      : "Select"}
+                  <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                      {location
+                        ? location === "any"
+                          ? "Select" : location === 'anywhere' ? 'Anywhere'
+                          : location.city
+                        : "Select"}
+                    </div>
+                    {location === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
                   </div>
                 </div>
                 {locationPickerVisible && (
-                  <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                  <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20"
+                  >
                     <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
+                    <li
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setLocation('anywhere');
+                      setLocationPickerVisible(false);
+                    }}
+                  >
+                    <div className="text-md font-custom-bold text-primary">
+                      Anywhere
+                    </div>
+                  </li>
                       {cities !== null ? (
                         cities.map((city) => {
                           return (
@@ -187,11 +263,13 @@ function SearchCard({ search }) {
                   <div className="pl-2">
                     <div className="text-xs sm:text-sm">Check-in Date</div>
                     <div className=" text-md sm:text-md font-bold">
-                      {startDate.getDate() +
+                      {startDate ? startDate.getDate() +
                         "/" +
                         (startDate.getMonth() + 1) +
                         "/" +
-                        startDate.getFullYear()}
+                        startDate.getFullYear()
+                        : "Select"
+                      }
                     </div>
                   </div>
                 </div>
@@ -200,6 +278,7 @@ function SearchCard({ search }) {
                   {/* Number of Guests and Rooms Selector */}
                   <div
                     className="flex relative"
+                    ref={guestPickerMobileRef}
                     onClick={() => {
                       setRoomNumberPickerVisible(false);
                       setLocationPickerVisible(false);
@@ -209,9 +288,22 @@ function SearchCard({ search }) {
                     <img src={guests} alt="calendar" className=""></img>
                     <div className="pl-2">
                       <div className="text-xs sm:text-sm">Number of guests</div>
-                      <div className=" text-md sm:text-md font-bold">
-                        {selectedGuests === "any" ? "Any" : selectedGuests}
-                      </div>
+                      <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                    {selectedGuests === "any" ? "Any" : selectedGuests}
+                    </div>
+                    {selectedGuests === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
+                  </div>
                     </div>
                     {guestNumberPickerVisible && (
                       <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
@@ -292,17 +384,20 @@ function SearchCard({ search }) {
                   <div className="pl-2">
                     <div className="text-xs sm:text-sm">Check-out Date</div>
                     <div className=" text-md sm:text-md font-bold">
-                      {endDate.getDate() +
+                      {endDate ? endDate.getDate() +
                         "/" +
                         (endDate.getMonth() + 1) +
                         "/" +
-                        endDate.getFullYear()}
+                        endDate.getFullYear()
+                        : "Select"
+                      }
                     </div>
                   </div>
                 </div>
 
                 <div
                   className="flex relative"
+                  ref={roomPickerMobileRef}
                   onClick={() => {
                     setGuestNumberPickerVisible(false);
                     setLocationPickerVisible(false);
@@ -312,9 +407,22 @@ function SearchCard({ search }) {
                   <img src={rooms} alt="calendar" className=""></img>
                   <div className="pl-2">
                     <div className="text-xs sm:text-sm">Number of rooms</div>
-                    <div className=" text-md sm:text-md font-bold">
-                      {selectedBedrooms === "any" ? "Any" : selectedBedrooms}
+                    <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                    {selectedBedrooms === "any" ? "Any" : selectedBedrooms}
                     </div>
+                    {selectedBedrooms === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
+                  </div>
                   </div>
                   {roomNumberPickerVisible && (
                     <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
@@ -409,6 +517,7 @@ function SearchCard({ search }) {
         <div className="col-span-2 flex justify-around gap-5">
           <div
             className="flex items-center"
+            ref={locationPickerRef}
             onClick={() => {
               setGuestNumberPickerVisible(false);
               setRoomNumberPickerVisible(false);
@@ -418,17 +527,42 @@ function SearchCard({ search }) {
             <img src={locationPin} alt="location pin" className="w-8 h-8"></img>
             <div className="pl-2">
               <div className="text-[12px]">Select Location</div>
-              <div className="font-bold  text-xl">
-                {location
-                  ? location === "any"
-                    ? "Select"
-                    : location.city
-                  : "Select"}
-              </div>
+              <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                      {location
+                        ? location === "any"
+                          ? "Select" : location === 'anywhere' ? 'Anywhere'
+                          : location.city
+                        : "Select"}
+                    </div>
+                    {location === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
+                  </div>
             </div>
             {locationPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20"
+              >
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
+                <li
+                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      setLocation('anywhere');
+                      setLocationPickerVisible(false);
+                    }}
+                  >
+                    <div className="text-md font-custom-bold text-primary">
+                      Anywhere
+                    </div>
+                  </li>
                   {cities !== null ? (
                     cities.map((city) => {
                       return (
@@ -465,11 +599,13 @@ function SearchCard({ search }) {
             <div className="pl-2">
               <div className="text-xs sm:text-sm">Check-in Date</div>
               <div className=" text-md sm:text-md font-bold">
-                {startDate.getDate() +
+                {startDate ? startDate.getDate() +
                   "/" +
                   (startDate.getMonth() + 1) +
                   "/" +
-                  startDate.getFullYear()}
+                  startDate.getFullYear()
+                  : "Select"
+                }
               </div>
             </div>
           </div>
@@ -484,11 +620,13 @@ function SearchCard({ search }) {
             <div className="pl-2">
               <div className="text-xs sm:text-sm">Check-out Date</div>
               <div className=" text-md sm:text-md font-bold">
-                {endDate.getDate() +
+                {endDate ? endDate.getDate() +
                   "/" +
                   (endDate.getMonth() + 1) +
                   "/" +
-                  endDate.getFullYear()}
+                  endDate.getFullYear()
+                  : "Select"
+                }
               </div>
             </div>
           </div>
@@ -496,7 +634,7 @@ function SearchCard({ search }) {
 
           <div
             className="flex items-center"
-            ref={guestPickerDesktopRef}
+            ref={guestPickerRef}
             onClick={() => {
               setRoomNumberPickerVisible(false);
               setLocationPickerVisible(false);
@@ -506,9 +644,22 @@ function SearchCard({ search }) {
             <img src={guests} alt="calendar relative" className="w-8 h-8"></img>
             <div className="pl-2">
               <div className="text-xs sm:text-sm">Number of guests</div>
-              <div className=" text-md sm:text-md font-bold">
-                {selectedGuests === "any" ? "Any" : selectedGuests}
-              </div>
+              <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                    {selectedGuests === "any" ? "Any" : selectedGuests}
+                    </div>
+                    {selectedGuests === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
+                  </div>
             </div>
             {guestNumberPickerVisible && (
               <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
@@ -575,6 +726,7 @@ function SearchCard({ search }) {
 
           <div
             className="flex items-center"
+            ref={roomPickerRef}
             onClick={() => {
               setGuestNumberPickerVisible(false);
               setLocationPickerVisible(false);
@@ -584,9 +736,22 @@ function SearchCard({ search }) {
             <img src={rooms} alt="calendar" className="w-8 h-8"></img>
             <div className="pl-2 relative">
               <div className="text-xs sm:text-sm">Number of rooms</div>
-              <div className=" text-md sm:text-md font-bold">
-                {selectedBedrooms === "any" ? "Any" : selectedBedrooms}
-              </div>
+              <div className="flex">
+                    <div className=" text-md sm:text-md font-bold capitalize">
+                    {selectedBedrooms === "any" ? "Any" : selectedBedrooms}
+                    </div>
+                    {selectedBedrooms === 'any' && <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                            fill="white"
+                          />
+                        </svg>}
+                  </div>
             </div>
             {roomNumberPickerVisible && (
               <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">

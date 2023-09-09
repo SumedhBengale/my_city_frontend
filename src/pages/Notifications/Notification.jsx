@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { deleteNotification, setViewed } from "./api";
+import { useSwipeable } from "react-swipeable";
 
-function Notification({ notification }) {
+function Notification({ notification, refresh }) {
+  const [offset, setOffset] = React.useState(0);
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => deleteNotification(notification._id),    
+    onSwiping: (eventData) => {
+      setOffset('full');
+      refresh();
+    }
+  });
+  //If the notification is visible to the user, then run the setViewed function to update the notification to viewed
+  useEffect(() => {
+    if (notification.viewed === false) {
+      setViewed(notification._id);
+    }
+  }, [notification]);
+
   return (
     <>
-      <div className="flex flex-col">
+      <div className={`flex flex-col transition duration-300 translate-x-${offset}`} {...handlers}>
         <div className="flex justify-between">
           <div className="text-sm text-primary text-left px-2">
             {notification.message}

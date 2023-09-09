@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 function IntroductionSection({ dynamicText, dynamicImages }) {
   const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:px-20 lg:pt-20 lg:pl-10 gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:px-20 lg:pt-20 gap-10">
       <div className="text-center lg:text-left pr-5 flex flex-col justify-center items-center">
-        <div className="w-full text-primary font-custom-kiona text-4xl text-center uppercase pb-3 pt-10">
+        <div className="w-full text-primary font-custom-kiona text-4xl text-center uppercase pb-3 pt-10 md:pt-0">
           {dynamicText !== null &&
             dynamicText.find(
               (text) => text.attributes.name === "Introduction_Heading"
@@ -45,8 +45,8 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
           </div>
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full justify-items-center gap-6">
-        <div className="w-full flex flex-col items-center md:items-end">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full justify-items-center gap-6 h-min md:h-full">
+        <div className="w-full flex flex-col items-center md:items-end gap-6">
           <img
             src={
               `${config.STRAPI_URL}` +
@@ -56,7 +56,7 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
               ).attributes.url
             }
             alt="mcr"
-            className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
+            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-1/3 object-cover  rounded-lg"
           />
           <img
             src={
@@ -67,10 +67,10 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
               ).attributes.url
             }
             alt="mcr"
-            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-[300px] object-cover mt-3 mb-3 rounded-lg"
+            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-2/3 object-cover  rounded-lg"
           />
         </div>
-        <div className="w-full flex flex-col items-center md:items-start">
+        <div className="w-full flex flex-col items-center md:items-start gap-6">
           <img
             src={
               `${config.STRAPI_URL}` +
@@ -80,7 +80,7 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
               ).attributes.url
             }
             alt="mcr"
-            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-[300px] object-cover mt-3 mb-3 rounded-lg"
+            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-2/3 object-cover  rounded-lg"
           />
           <img
             src={
@@ -91,7 +91,7 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
               ).attributes.url
             }
             alt="mcr"
-            className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
+            className="w-full sm:w-1/2 md:w-[400px] h-[150px] md:h-1/3 object-cover  rounded-lg"
           />
         </div>
       </div>

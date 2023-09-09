@@ -61,8 +61,8 @@ const App = () => {
           <Route exact path="/payment/success" element={getToken ? <Success></Success> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
           <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
-          <Route exact path="/management" element={<ManagementPage></ManagementPage>} />
-          <Route exact path="/management/blog/:id" element={<BlogPost></BlogPost>} />
+          <Route exact path="/homeowners" element={<ManagementPage></ManagementPage>} />
+          <Route exact path="/homeowners/blog/:id" element={<BlogPost></BlogPost>} />
           <Route exact path="/about" element={<AboutUsPage></AboutUsPage>} />
           <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
           <Route exact path="/property/:id" element={<Property></Property>} />

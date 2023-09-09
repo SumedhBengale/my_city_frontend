@@ -9,6 +9,7 @@ import filterBlack from "../../../assets/images/properties/filter_black.svg";
 import PropertyCard from "../../Luxe/HomePage/PropertyCard";
 import Footer from "../../HomePage/Footer";
 import luxeLogo from "../../../assets/images/luxeLogo.png";
+import logo from "../../../assets/images/logo.png";
 import FadeInSection from "../../../components/fadeIn/fadeInSection";
 import SortDropdown from "./sortDropdown";
 import Filter from "../../../components/filter";
@@ -32,8 +33,8 @@ function PropertiesPage() {
       toast.error("Cannot Check-in after Check-out");
       return;
     }
-    localStorage.setItem("checkInDate", params.startDate);
-    localStorage.setItem("checkOutDate", params.endDate);
+    localStorage.setItem("checkInDate", params.startDate? params.startDate : null);
+    localStorage.setItem("checkOutDate", params.endDate? params.endDate : null);
     localStorage.setItem("guestCount", params.guests);
     navigate("/luxe/properties", { state: { filterData: params } });
   };
@@ -134,8 +135,12 @@ function PropertiesPage() {
         )}
         <div
           style={{
-            width: "100%",
-            height: "80vh",
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: `url(${logo})`,
+            backgroundSize: '300px',
+            backgroundPosition: 'center',
+            width: '100%',
+            height: '80vh',
           }}
           className="z-0"
         >
@@ -206,7 +211,7 @@ function PropertiesPage() {
               </div>
 
               <div className="z-20">
-                <SearchCard search={(params) => search(params)}></SearchCard>
+              <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
               </div>
             </div>
           </div>

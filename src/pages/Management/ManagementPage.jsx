@@ -8,7 +8,7 @@ import OurPartnersSection from "../AboutUs/OurPartnersSection";
 import Footer from "../HomePage/Footer";
 import BlogContainer from "./BlogContainer";
 import {
-  getCities,
+  getLocations,
   getDynamicText,
   getHomeOwnersPageImages,
   newEnquiry,
@@ -32,9 +32,11 @@ function ManagementPage() {
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [propertiesCount, setPropertiesCount] = useState(1);
-  const [cities, setCities] = useState(null);
+  const [locations, setLocations] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     getDynamicText()
       .then((res) => {
         console.log(res.data);
@@ -47,21 +49,7 @@ function ManagementPage() {
         setDynamicImages(res.data[0].attributes.images.data);
       })
       .catch((err) => {});
-    getCities().then((data) => {
-      console.log("City List", data);
-      const cities = data.data.attributes.locations;
-      //if cities is a string, separate it by comma and convert it to an array where the key is 'city and the value is the city name'
-      if (typeof cities === "string") {
-        const citiesArray = cities.split(",");
-        const citiesObject = citiesArray.map((city) => {
-          return { city: city };
-        });
-        console.log(citiesObject);
-        setCities(citiesObject);
-        //Set default location to the first city in the list
-        setLocation(citiesObject[0].city);
-      }
-    });
+      setLoading(false);
   }, []);
 
   const handleEnquirySubmit = (data) => {
@@ -94,6 +82,18 @@ function ManagementPage() {
     });
   };
 
+  const handlePostcodeValidation = (postcode) => {
+  // Remove all spaces from the input postcode and convert to uppercase
+  const formattedPostcode = postcode.replace(/\s/g, '').toUpperCase();
+
+  // Define the regular expression for UK postcodes
+  const postcodeRegex = /^[A-Z]{1,2}[0-9R][0-9A-Z]?[0-9][A-Z]{2}$/;
+
+  // Check if the postcode matches the pattern
+  return postcodeRegex.test(formattedPostcode);
+}
+
+
   const handleQuotePopUp = () => {
     console.log(postCode);
     //Check if postcode is valid for UK
@@ -102,12 +102,17 @@ function ManagementPage() {
       return;
     }
     //If valid, show enquiry pop up
-    if (postCode.length < 6) {
-      toast.error("Please enter a valid postcode");
-      return;
-    }
+    const valid = handlePostcodeValidation(postCode)
+    if(valid){
+    getLocations(postCode).then((res) => {
+      console.log(res.locations.result);
+      setLocations(res.locations.result);
+    });
     setEnquiryPopUpVisible(true);
     setEnquiryPopUpVisible(!enquiryPopUpVisible);
+    }else{
+      toast.error("Please enter a valid postcode");
+    }
   };
 
   return (
@@ -247,14 +252,30 @@ function ManagementPage() {
                                 className="bg-white rounded-lg px-4 h-12 w-full"
                                 onChange={(e) => setLocation(e.target.value)}
                               >
-                                {cities !== null &&
-                                  cities.map((city) => {
+                                {locations !== null &&
+                                  locations.map((location) => {
                                     return (
                                       <option
-                                        value={city.city}
+                                        value={
+                                          // location.line_1, location.line_2, location.line_3 if they are not empty string seperated by comma
+                                          location.line_1 +
+                                          (location.line_2 !== ""
+                                            ? ", " + location.line_2
+                                            : "") +
+                                          (location.line_3 !== ""
+                                            ? ", " + location.line_3
+                                            : "")
+                                        }
                                         className="capitalize"
                                       >
-                                        {city.city}
+                                        {location.line_1 +
+                                          (location.line_2 !== ""
+                                            ? ", " + location.line_2
+                                            : "") +
+                                          (location.line_3 !== ""
+                                            ? ", " + location.line_3
+                                            : "")
+                                        }
                                       </option>
                                     );
                                   })}
@@ -354,6 +375,7 @@ function ManagementPage() {
           </div>
         </div>
       )}
+      {loading === false ? <div>
       {dynamicImages !== null && dynamicText !== null ? (
         <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:px-20 lg:pt-20 lg:pl-10 gap-2 container mx-auto">
@@ -551,6 +573,11 @@ function ManagementPage() {
         <OurPartnersSection></OurPartnersSection>
       </FadeInSection>
       <Footer></Footer>
+      </div>
+      : <div className="flex justify-center items-center mt-10">
+      <div className="animate-spin rounded-full h-32 w-32 border-dashed border-2 border-gray-900"></div>
+    </div>  
+    }
       <ToastContainer
         position="bottom-center"
         autoClose={2000}

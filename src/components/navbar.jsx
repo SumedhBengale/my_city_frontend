@@ -267,7 +267,7 @@ function Navbar() {
                 </NavLink>
               ) : null}
               <NavLink
-                to={`${localStorage.getItem("luxe") === true ? "/luxe" : "/"}`}
+                to={`${luxeValue === true ? "/luxe" : "/"}`}
                 exact
                 className={`flex justify-between p-2 ${
                   location.pathname === "/" ? "underline font-bold" : ""
@@ -277,7 +277,7 @@ function Navbar() {
               </NavLink>
               <NavLink
                 to={`${
-                  localStorage.getItem("luxe") === true
+                  luxeValue === true
                     ? "/luxe/properties"
                     : "/properties"
                 }`}
@@ -290,9 +290,9 @@ function Navbar() {
                 Properties
               </NavLink>
               <NavLink
-                to="/management"
+                to="/homeowners"
                 className={`flex justify-between p-2 ${
-                  location.pathname === "/management"
+                  location.pathname === "/homeowners"
                     ? "underline font-bold"
                     : ""
                 }`}

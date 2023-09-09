@@ -15,34 +15,23 @@ const Carousel = () => {
         setPartners(res.data);
       })
       .catch((err) => {});
-    //Infinitely click next button and close the loop when the component unmounts
-    const interval = setInterval(() => {
-      nextButton?.current?.click();
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
   const slider = React.useRef(null);
   const settings = {
+    cssEase: "linear",
     infinite: true,
-    speed: 1000,
-    slidesToShow: window.innerWidth > 768 ? 4 : 1,
+    slidesToShow: window.innerWidth > 768 ? 5 : 1,
     slidesToScroll: 1,
-    prevArrow: false,
-    autoPlay: true,
-    nextArrow: false,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 0,
+    speed: 3000
   };
 
   return (
     <div className="w-full flex justify-center">
       <div className="w-full flex flex-col">
-        <div className="flex justify-between">
-          <button
-            className="bg-white w-full text-white z-20 flex justify-end items-center"
-            onClick={() => {
-              slider?.current.slickPrev();
-            }}
-          ></button>
-          <Slider {...settings} className="slider w-5/6" ref={slider}>
+          <Slider {...settings} className="slider w-full" ref={slider}>
             {partners ? (
               partners.map((partner) => (
                 <div key={partner.id} className="partner-card text-center">
@@ -64,14 +53,6 @@ const Carousel = () => {
               </div>
             )}
           </Slider>
-          <button
-            ref={nextButton}
-            className="bg-white w-full text-white z-20 flex justify-start items-center"
-            onClick={() => {
-              slider?.current.slickNext();
-            }}
-          ></button>
-        </div>
       </div>
     </div>
   );

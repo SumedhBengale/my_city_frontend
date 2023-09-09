@@ -26,7 +26,7 @@ export default function Payment() {
     const paymentActive = localStorage.getItem('paymentActive');
     if (paymentActive === 'false') {
       //redirect to homepage and remove the history
-      localStorage.getItem('luxe') ? window.history.replaceState(null, null, "/luxe") : window.history.replaceState(null, null, "/")
+      localStorage.getItem('luxe') === true ? window.history.replaceState(null, null, "/luxe") : window.history.replaceState(null, null, "/")
 
       return
     }
@@ -56,7 +56,7 @@ export default function Payment() {
       <div className="w-[400px]">
         {clientSecret && stripePromise && (
           <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm quoteId={location.state.quote._id}/>
+            <CheckoutForm quoteId={location.state.quote._id} />
           </Elements>
         )}</div>
     </div>

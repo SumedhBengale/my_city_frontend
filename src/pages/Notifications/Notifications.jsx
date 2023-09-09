@@ -29,7 +29,12 @@ function Notifications() {
         <div className='flex flex-col mx-2 mt-6 gap-1'>
             {
                 notifications !== null && notifications.map((notification) => (
-                    <Notification notification={notification}></Notification>
+                    <Notification notification={notification} refresh={()=>{
+                        getNotifications().then((data) => {
+                            console.log(data)
+                            setNotifications(data.notifications)
+                          })
+                    }}></Notification>
                 ))
             }
         </div>

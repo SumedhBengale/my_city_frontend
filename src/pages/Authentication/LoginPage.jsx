@@ -63,7 +63,7 @@ const LoginPage = () => {
         }}
       >
         {/* Background Image */}
-        <div className="w-full flex justify-center items-center h-full">
+        <div className="w-full flex justify-center items-start md:items-center md:h-full pt-10 md:pt-0">
           <div className="mx-4 md:w-1/2 xl:w-1/3">
             <div className="w-full flex justify-center items-center">
               <img

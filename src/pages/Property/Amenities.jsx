@@ -34,7 +34,7 @@ function Amenities(props) {
       <div className="flex flex-col justify-start my-10 uppercase">
         {!showAmenities && (
           <div className={`grid grid-cols-2 gap-5 mb-5`}>
-            <div className="flex justify-center">
+            {amenities[0] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
                 <img
                   src={amenityIcon}
@@ -43,8 +43,8 @@ function Amenities(props) {
                 />
                 <div className="text-start text-sm px-1">{amenities[0]}</div>
               </div>
-            </div>
-            <div className="flex justify-center">
+            </div>}
+            {amenities[1] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
                 <img
                   src={amenityIcon}
@@ -53,8 +53,8 @@ function Amenities(props) {
                 />
                 <div className="text-start text-sm px-1">{amenities[1]}</div>
               </div>
-            </div>
-            <div className="flex justify-center">
+            </div>}
+            {amenities[2] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
                 <img
                   src={amenityIcon}
@@ -63,8 +63,8 @@ function Amenities(props) {
                 />
                 <div className="text-start text-sm px-1">{amenities[2]}</div>
               </div>
-            </div>
-            <div className="flex justify-center">
+            </div>}
+            {amenities[3] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
                 <img
                   src={amenityIcon}
@@ -73,17 +73,68 @@ function Amenities(props) {
                 />
                 <div className="text-start text-sm px-1">{amenities[3]}</div>
               </div>
-            </div>
-            <div className="flex justify-center">
+            </div>}
+            {amenities[4] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
                 <img
                   src={amenityIcon}
                   className="h-12 w-12"
                   alt="amenityIcon"
                 />
-                <div className="text-start text-sm">{amenities[4]}</div>
+                <div className="text-start text-sm px-1">{amenities[4]}</div>
               </div>
-            </div>
+            </div>}
+            {amenities[5] && <div className="flex justify-center">
+              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
+                <img
+                  src={amenityIcon}
+                  className="h-12 w-12"
+                  alt="amenityIcon"
+                />
+                <div className="text-start text-sm px-1">{amenities[5]}</div>
+              </div>
+            </div>}
+            {amenities[6] && <div className="flex justify-center">
+              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
+                <img
+                  src={amenityIcon}
+                  className="h-12 w-12"
+                  alt="amenityIcon"
+                />
+                <div className="text-start text-sm px-1">{amenities[6]}</div>
+              </div>
+            </div>}
+            {amenities[7] && <div className="flex justify-center">
+              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
+                <img
+                  src={amenityIcon}
+                  className="h-12 w-12"
+                  alt="amenityIcon"
+                />
+                <div className="text-start text-sm px-1">{amenities[7]}</div>
+              </div>
+            </div>}
+            {amenities[8] && <div className="flex justify-center">
+              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
+                <img
+                  src={amenityIcon}
+                  className="h-12 w-12"
+                  alt="amenityIcon"
+                />
+                <div className="text-start text-sm px-1">{amenities[8]}</div>
+              </div>
+            </div>}
+            {amenities[9] && <div className="flex justify-center">
+              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
+                <img
+                  src={amenityIcon}
+                  className="h-12 w-12"
+                  alt="amenityIcon"
+                />
+                <div className="text-start text-sm px-1">{amenities[9]}</div>
+              </div>
+            </div>}
+
           </div>
         )}
         <div className="flex justify-center">

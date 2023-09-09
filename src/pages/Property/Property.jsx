@@ -44,45 +44,28 @@ function Property() {
   const [residence, setResidence] = useState(null);
   const [wishlisted, setWishlisted] = useState(false);
   const [dateRangePickerVisible, setDateRangePickerVisible] = useState(false);
-  const [bookedDatesData, setBookedDatesData] = useState(null);
   const [startDate, setStartDate] = useState(
     localStorage.getItem("checkInDate")
       ? new Date(localStorage.getItem("checkInDate"))
-      : new Date()
+      : null
   );
   const [endDate, setEndDate] = useState(
     localStorage.getItem("checkOutDate")
       ? new Date(localStorage.getItem("checkOutDate"))
-      : new Date(new Date().setDate(new Date().getDate() + 1))
-  );
+      : null)
   const [totalNights, setTotalNights] = useState(
-    localStorage.getItem("checkInDate") && localStorage.getItem("checkOutDate")
-      ? Math.floor(
-          (new Date(localStorage.getItem("checkOutDate")) -
-            new Date(localStorage.getItem("checkInDate"))) /
-            (1000 * 60 * 60 * 24)
-        )
-      : 1
+    localStorage.getItem("checkInDate") && localStorage.getItem("checkOutDate") ? Math.ceil(
+      (new Date(localStorage.getItem("checkOutDate")) -
+        new Date(localStorage.getItem("checkInDate"))) /
+        (1000 * 60 * 60 * 24)
+    ) : 1
   );
   const [bookingDisabled, setBookingDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const bookedDatesBetween = (startDate, endDate, data) => {
-    // If there are booked dates between start date and end date, return true, startDate and endDate are exclusive
-    if (data === null) {
-      return false;
-    }
-    for (let i = 0; i < data.length; i++) {
-      if (
-        startDate.getTime() < new Date(data[i]).getTime() &&
-        new Date(data[i]).getTime() < endDate.getTime()
-      ) {
-        return true;
-      }
-    }
-  };
-
   useEffect(() => {
+    console.log("START DATE", startDate);
+    console.log("END DATE", endDate);
     getShowcaseReviews(id.id).then((res) => {
       setReviews(res.reviews);
     });
@@ -90,48 +73,17 @@ function Property() {
     getResidence(id.id).then((res) => {
       setResidence(res.residence);
       console.log(res.residence);
-    });
-    fetchBookedDatesFromBackend(
-      id.id,
-      format(startDate, "yyyy-MM-dd"),
-      format(
-        //1 year from start date
-        new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1),
-        "yyyy-MM-dd"
-      )
-    ).then((res) => {
-      console.log(res);
-      setBookedDatesData(res);
-      //If booked dates are between the start date and end date, disable booking
-      if (
-        bookedDatesBetween(startDate, endDate, res) ||
-        totalNights < residence?.terms.minNights
-      ) {
-        setBookingDisabled(true);
-        //Show toast only if no other toast is visible
-        if (toast.isActive("bookingDisabled") === false) {
-          toast.error("Dates are already booked", {
-            toastId: "bookingDisabled",
-          });
+      //If start date and end date are set, check if the total nights is greater than the minimum nights required for the property
+      if (startDate && endDate) {
+        if (totalNights < res.residence.terms.minNights) {
+          setBookingDisabled(true);
+        } else {
+          setBookingDisabled(false);
         }
-      } else {
-        setBookingDisabled(false);
       }
     });
-
-    if (totalNights < residence?.terms.minNights) {
-      setBookingDisabled(true);
-      //Show only if no other toast is visible
-      if (toast.isActive("bookingDisabled") === false) {
-        toast.error(`Minimum stay is ${residence?.terms.minNights} nights`, {
-          toastId: "bookingDisabled",
-        });
-      }
-    } else {
-      setBookingDisabled(false);
-    }
     //Load the date picker if the check in and check out dates are not set
-  }, [id, totalNights, startDate, endDate]);
+  }, [id]);
 
   return (
     <>
@@ -166,32 +118,22 @@ function Property() {
         >
           <DateRangePicker
             returnData={(props) => {
-              if (props.totalNights < residence.terms.minNights) {
-                setBookingDisabled(true);
-                //Show toast only if no other toast is visible
-                if (toast.isActive("bookingDisabled") === false) {
-                  toast.error(
-                    `Minimum stay is ${residence.terms.minNights} nights for these dates`,
-                    {
-                      toastId: "bookingDisabled",
-                    }
-                  );
-                }
-                setStartDate(props.startDate);
-                setEndDate(props.endDate);
-                setTotalNights(props.totalNights);
-              } else {
                 setBookingDisabled(false);
                 console.log(props);
                 setStartDate(props.startDate);
                 setEndDate(props.endDate);
-                setTotalNights(props.totalNights);
-              }
+                setTotalNights(
+                  Math.ceil(
+                    (props.endDate - props.startDate) / (1000 * 60 * 60 * 24)
+                    )
+                );
             }}
             blockBooking={(value) => setBookingDisabled(value)}
             initialStartDate={startDate}
             initialEndDate={endDate}
+            residenceMinNights={residence.terms.minNights}
             residenceId={id.id}
+            title={residence.title}
           ></DateRangePicker>
         </div>
       )}
@@ -399,7 +341,7 @@ function Property() {
                         CHECK-IN
                       </div>
                       <div className="text-xs text-custom font-bold text-primary">
-                        {startDate
+                        {startDate !== null
                           ? startDate.toLocaleDateString("en-US", {
                               weekday: "short",
                               month: "short",
@@ -417,7 +359,7 @@ function Property() {
                         CHECK-OUT
                       </div>
                       <div className="text-xs text-custom font-bold text-primary">
-                        {endDate
+                        {endDate !== null
                           ? endDate.toLocaleDateString("en-US", {
                               weekday: "short",
                               month: "short",
@@ -505,7 +447,7 @@ function Property() {
                   <span className="text-custom-lora font-bold text-lg text-secondary">{`£ ${
                     residence.prices.basePrice * totalNights
                   }`}</span>
-                  <span className=" pl-1 text-sm text-end text-secondary flex items-end justify-end">{`(Inclusive of all Taxes)`}</span>
+                  <span className=" pl-1 text-sm text-end text-secondary flex items-center justify-end">{`(Inclusive of all Taxes)`}</span>
                 </div>
                 <div className=" flex justify-center pt-2">
                   <button
@@ -523,7 +465,7 @@ function Property() {
                           })
                         : (localStorage.setItem("startDate", startDate),
                           localStorage.setItem("endDate", endDate),
-                          localStorage.getItem("luxe") === "true"
+                          localStorage.getItem("luxe") === true
                             ? navigate("/luxe/properties", {
                                 state: {
                                   filterData: {
