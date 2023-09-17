@@ -139,14 +139,14 @@ function Amenities(props) {
         )}
         <div className="flex justify-center">
           <button
-            className="flex justify-center w-48  fill-primary border hover:text-white border-primary hover:fill-white -primary hover:scale-105 transition duration-75 hover:bg-primary  bg-white  rounded-lg px-3 py-2"
+            className="flex justify-center w-56  fill-primary border text-primary active:text-white hover:text-white border-primary hover:fill-white -primary hover:scale-105 transition duration-75 hover:bg-primary  bg-white  rounded-lg px-3 py-2"
             onClick={() => setShowAmenities(!showAmenities)}
           >
-            <div className=" active:text-black font-bold text-md">{` ${
-              showAmenities ? "Hide Amenities" : "Show Amenities"
+            <div className="font-custom-kiona text-md uppercase">{` ${
+              showAmenities ? "Hide Amenities" : "Show All Amenities"
             }`}</div>
             {/*Down arrow svg */}
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`h-5 w-5 self-center ml-2 -translate-y-[1px] ${
                 showAmenities ? "rotate-180" : ""
@@ -158,7 +158,7 @@ function Amenities(props) {
                 d="M10 16a1 1 0 01-.707-.293l-6-6a1 1 0 111.414-1.414L10 13.586l5.293-5.293a1 1 0 111.414 1.414l-6 6A1 1 0 0110 16z"
                 clipRule="evenodd"
               />
-            </svg>
+            </svg> */}
           </button>
         </div>
       </div>

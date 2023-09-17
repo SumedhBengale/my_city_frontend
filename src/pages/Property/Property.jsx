@@ -58,9 +58,10 @@ function Property() {
       (new Date(localStorage.getItem("checkOutDate")) -
         new Date(localStorage.getItem("checkInDate"))) /
         (1000 * 60 * 60 * 24)
-    ) : 1
+    ) : 0
   );
   const [bookingDisabled, setBookingDisabled] = useState(true);
+  const [hoveringWishlistButton, setHoveringWishlistButton] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -139,7 +140,7 @@ function Property() {
       )}
 
       <div className="w-full">
-        <div className="hidden md:block z-30 fixed w-full">
+        <div className="hidden md:block z-30 fixed w-full drop-shadow-2xl">
           <DesktopNavbar />
         </div>
         <div className="md:hidden z-30 fixed w-full">
@@ -149,7 +150,7 @@ function Property() {
       <div className="w-full md:container md:mx-auto px-5">
         <div className=" pt-24 mb-3">
           <div
-            className="w-10 h-10 bg-blue-200 flex justify-center items-center rounded-full"
+            className="w-10 h-10 bg-white flex justify-center items-center rounded-full"
             onClick={() => window.history.back()}
           >
             <svg
@@ -167,7 +168,7 @@ function Property() {
               </g>
               <defs>
                 <clipPath id="clip0_223_1275">
-                  <rect width="24" height="24" fill="white" />
+                  <rect width="24" height="24" fill='#262150' />
                 </clipPath>
               </defs>
             </svg>
@@ -177,7 +178,7 @@ function Property() {
         {residence !== null ? (
           <div className="">
             <div className="flex justify-between items-center">
-              <div className="text-md md:text-xl font-custom font-bold uppercase text-primary text-start md:text-center">
+              <div className="text-lg md:text-2xl font-custom-kiona uppercase text-primary text-start md:text-center">
                 {residence.title}
               </div>
               <div
@@ -204,8 +205,14 @@ function Property() {
                 }}
               >
                 <div
+                  onMouseEnter={(e) => {
+                    setHoveringWishlistButton(true);
+                  }}
+                  onMouseLeave={(e) => {
+                    setHoveringWishlistButton(false);
+                  }}
                   id="wishlistButton"
-                  className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer"
+                  className="w-8 h-8 flex justify-center items-center rounded-full cursor-pointer"
                 >
                   {wishlisted === true ? (
                     <svg
@@ -235,7 +242,11 @@ function Property() {
                     >
                       <path
                         d="M13 22.5L11.88 21.39C6.42 16.05 3 12.66 3 8.5C3 5.42 5.42 3 8.5 3C10.34 3 12.09 3.97 13 5.5C13.91 3.97 15.66 3 17.5 3C20.58 3 23 5.42 23 8.5C23 12.66 19.58 16.05 14.12 21.39L13 22.5Z"
-                        stroke="#444"
+                        stroke={`
+                        ${
+                          hoveringWishlistButton === true ? "#FF5A5F" : "#444"
+                        }
+                        `}
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -256,12 +267,15 @@ function Property() {
             <div className="grid grid-cols-1 md:grid-cols-2 place-items-end">
               <div className="flex flex-col h-full w-full items-start justify-start">
                 <div className="flex justify-start w-full h-min py-5 items-center gap-5">
-                  <div className="text-md md:text-xl text-primary font-custom-bold">
+                  <div className="text-md md:text-xl text-primary font-custom-kiona uppercase">
                     {residence.title}
                   </div>
-                  <div className="w-[2px] h-10 bg-black"></div>
+                </div>
+
+                <div className=" text-primary text-[10px] md:text-xs grid grid-cols-2 xs:flex gap-1 md:gap-3 pb-5">
+                  {residence.reviews.avg !== null ? <div className="flex flex-row">
                   <span>
-                    <div className="flex items-center">
+                    <div className="flex h-full items-center">
                       <div className="text-md self-center">
                         {residence.reviews.avg}
                       </div>
@@ -274,27 +288,27 @@ function Property() {
                       </div>
                     </div>
                   </span>
-                </div>
+                  <div className="w-[1px] h-6 bg-primary"></div>
+                  </div>: null}
 
-                <div className=" text-primary text-[10px] md:text-xs grid grid-cols-2 xs:flex gap-1 pb-5">
                   <div className="flex gap-1">
                     <img src={guest} alt="bed" className="w-5"></img>
                     <div className="flex items-center">
-                      {residence.accommodates + " guests,"}
+                      {residence.accommodates + " guests"}
                     </div>
                   </div>
 
                   <div className="flex gap-1">
                     <img src={bedroom} alt="bed" className="w-5"></img>
                     <div className="flex items-center">
-                      {residence.bedrooms + " bedrooms,"}
+                      {residence.bedrooms + " bedrooms"}
                     </div>
                   </div>
 
                   <div className="flex gap-1">
                     <img src={bed} alt="bed" className="w-5"></img>
                     <div className="flex items-center">
-                      {residence.beds + " beds,"}
+                      {residence.beds + " beds"}
                     </div>
                   </div>
 
@@ -322,25 +336,25 @@ function Property() {
                 >{`${showFullDescription ? "Collapse" : "Read More"} >`}</div>
               </div>
               <div className="flex h-full w-full md:w-2/3 flex-col py-5">
-                <div className="text-md text-custom text-primary">
+                <div className="text-md font-custom text-primary">
                   ADD DATES FOR PRICES
                 </div>
-                <div className="text-xs text-custom text-secondary">
+                <div className="text-xs font-custom text-secondary pb-3">
                   {`${
                     //how many nights
-                    totalNights
-                  } nights in ${residence.title}`}
+                    totalNights !== 0 ? (totalNights ,'nights in') : ''
+                  }  ${residence.title}`}
                 </div>
-                <div className="w-full h-min rounded-lg border border-primary border-opacity-50 max-w-lg">
+                <div className="w-full h-min rounded-lg border border-[2px] border-primary border-opacity-50 max-w-lg">
                   <div className="flex justify-between">
                     <div
                       className="p-2 flex flex-col justify-center items-center w-full"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
-                      <div className="text-sm text-custom text-primary">
+                      <div className="text-sm font-custom text-primary">
                         CHECK-IN
                       </div>
-                      <div className="text-xs text-custom font-bold text-primary">
+                      <div className="text-xs font-custom font-bold text-primary">
                         {startDate !== null
                           ? startDate.toLocaleDateString("en-US", {
                               weekday: "short",
@@ -355,10 +369,10 @@ function Property() {
                       className="p-2 flex flex-col justify-center items-center w-full"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
-                      <div className="text-sm text-custom text-primary">
+                      <div className="text-sm font-custom text-primary">
                         CHECK-OUT
                       </div>
-                      <div className="text-xs text-custom font-bold text-primary">
+                      <div className="text-xs font-custom font-bold text-primary">
                         {endDate !== null
                           ? endDate.toLocaleDateString("en-US", {
                               weekday: "short",
@@ -409,7 +423,7 @@ function Property() {
                             (_, i) => i + 1
                           ).map((item) => (
                             <li
-                              className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                              className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100"
                               onClick={() => {
                                 setGuests(item);
                                 setGuestPickerVisible(false);
@@ -444,14 +458,14 @@ function Property() {
                   </div>
                 </div>
                 <div className="flex">
-                  <span className="text-custom-lora font-bold text-lg text-secondary">{`£ ${
+                  <span className="font-custom-lora font-extrabold text-lg text-secondary">{`£${
                     residence.prices.basePrice * totalNights
                   }`}</span>
                   <span className=" pl-1 text-sm text-end text-secondary flex items-center justify-end">{`(Inclusive of all Taxes)`}</span>
                 </div>
                 <div className=" flex justify-center pt-2">
                   <button
-                    className={`text-white border bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg font-bold cursor-pointer`}
+                    className={`text-white border font-custom-kiona bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg font-bold cursor-pointer`}
                     onClick={() =>
                       bookingDisabled === false
                         ? navigate("/book", {
@@ -497,8 +511,8 @@ function Property() {
                     }
                   >
                     {bookingDisabled
-                      ? "Check Available Properties"
-                      : "Book Now"}
+                      ? "SEE AVAILABLE PROPERTIES"
+                      : "BOOK NOW"}
                   </button>
                 </div>
               </div>
@@ -506,7 +520,7 @@ function Property() {
             <div className="w-full h-[1px] bg-primary my-5"></div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="w-full flex flex-col">
-                <div className="text-md md:text-xl font-custom-bold text-primary">
+                <div className="text-md md:text-xl font-custom-kiona text-primary">
                   LOCATION
                 </div>
                 <div className="text-xs md:text-lg font-custom-bold text-secondary pb-5">
@@ -538,8 +552,8 @@ function Property() {
               </div>
             </div>
             <div className="flex justify-center mt-10">
-              <button className="w-full md:w-1/3 lg:w-1/4 h-12 bg-primary hover:bg-secondary text-white font-bold text-lg rounded-lg">
-                Chat With Us
+              <button className="w-full md:w-1/3 lg:w-1/4 h-12 bg-primary hover:bg-secondary text-white font-custom-kiona text-lg rounded-lg">
+                CHAT WITH US
               </button>
             </div>
             <div className="py-10">

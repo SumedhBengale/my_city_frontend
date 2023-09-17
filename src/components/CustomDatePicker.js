@@ -67,12 +67,20 @@ const PlainDateRangePicker = ({ initialStartDate, initialEndDate, returnData }) 
     if (day < startDate) {
       setStartDate(day);
       setEndDate(null);
+      returnData({
+        startDate: day,
+        endDate: null,
+      })
       return;
     }
     //If startDate is null, set startDate to the day
     if (startDate === null) {
       setStartDate(day);
       setEndDate(null);
+      returnData({
+        startDate: day,
+        endDate: null,
+      })
       return;
     }
 
@@ -82,6 +90,10 @@ const PlainDateRangePicker = ({ initialStartDate, initialEndDate, returnData }) 
       if (isSameDay(day, startDate)) {
         setStartDate(null);
         setEndDate(null);
+        returnData({
+          startDate: null,
+          endDate: null,
+        })
         return;
       }
       setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24))
@@ -96,12 +108,21 @@ const PlainDateRangePicker = ({ initialStartDate, initialEndDate, returnData }) 
     if (startDate !== null && endDate !== null) {
       setStartDate(day);
       setEndDate(null);
+      returnData({
+        startDate: day,
+        endDate: null,
+      })
       return;
     }
     //If clicking on the same date, set startDate and endDate to null
     if (isSameDay(day, startDate) || isSameDay(day, endDate)) {
+      console.log("Same day")
       setStartDate(null);
       setEndDate(null);
+      returnData({
+        startDate: null,
+        endDate: null,
+      })
       return;
     }
   };
@@ -111,7 +132,7 @@ const PlainDateRangePicker = ({ initialStartDate, initialEndDate, returnData }) 
       <div className='my-5 sm:mt-10 lg:mt-0 bg-white shadow-lg rounded-lg'>
         <div className='text-lg font-custom-lora font-bold text-primary pl-5 pt-2'>{
           //End date - Start date
-          startDate === null || endDate === null ? `${startDate === null ? 'Select the Check-In Date' : 'Select the Check-Out Date'
+          startDate === null || endDate === null ? `${startDate === null ? 'Select Check-In Date' : 'Select Check-Out Date'
             }` :
             totalNights + ' Nights'
         }</div>

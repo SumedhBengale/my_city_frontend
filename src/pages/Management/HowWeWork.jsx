@@ -19,7 +19,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                 className="h-32 w-32"
               />
             </div>
-            <div className="text-primary text-center font-custom text-3xl capitalize pb-3">
+            <div className="text-primary text-center font-custom-kiona text-3xl capitalize pb-3">
               {dynamicText !== null &&
                 dynamicText.find(
                   (text) => text.attributes.name === "HowWeWork_Heading"
@@ -43,7 +43,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
                 <div className="flex justify-center items-center">
-                  <div className="text-secondary drop-shadow-lg text-center md:text-start font-custom text-xl md:text-5xl capitalize">
+                  <div className="text-secondary drop-shadow-lg text-center md:text-start font-custom-kiona text-xl md:text-5xl capitalize">
                     {dynamicText !== null &&
                       dynamicText.find(
                         (text) => text.attributes.name === "HowWeWork_Heading1"
@@ -51,7 +51,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-3/4 text-primary text-center md:text-start text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content1"
@@ -83,7 +83,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
                 <div className="flex justify-center items-center">
-                  <div className="text-secondary drop-shadow-lg text-center md:text-end font-custom text-xl md:text-5xl capitalize">
+                  <div className="text-secondary drop-shadow-lg text-center md:text-end font-custom-kiona text-xl md:text-5xl capitalize">
                     {dynamicText !== null &&
                       dynamicText.find(
                         (text) => text.attributes.name === "HowWeWork_Heading2"
@@ -91,7 +91,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-3/4 text-primary text-center md:text-end text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content2"
@@ -123,7 +123,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
                 <div className="flex justify-center items-center">
-                  <div className="text-secondary drop-shadow-lg text-center md:text-start font-custom text-xl md:text-5xl capitalize">
+                  <div className="text-secondary drop-shadow-lg text-center md:text-start font-custom-kiona text-xl md:text-5xl capitalize">
                     {dynamicText !== null &&
                       dynamicText.find(
                         (text) => text.attributes.name === "HowWeWork_Heading3"
@@ -131,7 +131,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-3/4 text-primary text-center md:text-start text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content3"
@@ -156,9 +156,17 @@ function HowWeWork({ dynamicText, dynamicImages }) {
         </div>
 
         <div className="flex justify-center items-center mt-10">
-          <button className="bg-primary text-white font-custom text-2xl py-3 px-10 rounded-lg hover:bg-secondary hover:text-primary transition duration-300 ease-in-out">
-            Get a Quote
-          </button>
+        <button
+                className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                Get A Quote
+              </button>
         </div>
       </div>
     </>

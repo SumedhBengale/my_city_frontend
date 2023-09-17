@@ -7,7 +7,6 @@ import config from "../../config/config";
 
 const Carousel = () => {
   const [partners, setPartners] = useState(null);
-  const nextButton = React.useRef(null);
   useEffect(() => {
     getPartners()
       .then((res) => {
@@ -25,7 +24,8 @@ const Carousel = () => {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 0,
-    speed: 3000
+    speed: 3000,
+    pauseOnHover: false,
   };
 
   return (

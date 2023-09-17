@@ -20,18 +20,18 @@ module.exports = {
         'primary': '#262150',
         'secondary': '#c79744',
       },
-      backgroundColor:{
+      backgroundColor: {
         'primary': '#262150',
         'secondary': '#c79744',
       },
-      borderColor:{
+      borderColor: {
         'primary': '#262150',
         'secondary': '#c79744',
       },
-      screens:{
+      screens: {
         'xs': '320px',
       },
-      width:{
+      width: {
         '50/100': '50vw',
         '40/100': '40vw',
         '30/100': '30vw',
@@ -44,12 +44,20 @@ module.exports = {
         'custom-lora': ['Lora', 'serif'],
         'custom-lora-bold': ['Lora-Bold', 'serif'],
         'custom-kiona': ['Kiona', 'serif'],
+        'custom-avenir': ['Avenir', 'serif'],
+        'custom-avenir-bold': ['Avenir-Bold', 'serif'],
+        'custom-avenir-light': ['Avenir-Light', 'serif'],
+        'custom-adam': ['Adam-Regular', 'serif'],
+        'custom-adam-bold': ['Adam-Bold', 'serif'],
         // Add more custom fonts as needed
       },
       fontWeight: {
         normal: 400,
         bold: 700,
       },
+      margin: {
+        '8/10': '80vh',
+      }
     },
   },
   plugins: [

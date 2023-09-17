@@ -421,10 +421,10 @@ function ManagementPage() {
                   ).attributes.text}
               </div>
               <button
-                className="bg-primary hover-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
+                className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
                 onClick={() => navigate("/about")}
               >
-                Find Out More
+                Get A Quote
               </button>
             </div>
           </div>
@@ -471,9 +471,18 @@ function ManagementPage() {
                       (text) => text.attributes.name === "Lease_Description"
                     ).attributes.text}
                 </div>
-                <button className="bg-primary hover-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-12 w-40 my-3">
-                  Find Out More
-                </button>
+                <button
+                className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
+                onClick={() =>{
+                  //scroll to top
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                Get A Quote
+              </button>
               </div>
               <div className="flex justify-center w-full rounded-lg">
                 <img
@@ -550,9 +559,12 @@ function ManagementPage() {
                         text.attributes.name === "AreYouAHomeOwner_Content"
                     ).attributes.text}
                 </div>
-                <button className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-12 w-40 my-3">
-                  Find Out More
-                </button>
+                <button
+                className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
+                onClick={() => navigate("/about")}
+              >
+                Find Out More
+              </button>
               </div>
             </div>
           </div>
@@ -569,9 +581,7 @@ function ManagementPage() {
       <FadeInSection>
         <ReviewShowcaseSection></ReviewShowcaseSection>
       </FadeInSection>
-      <FadeInSection>
         <OurPartnersSection></OurPartnersSection>
-      </FadeInSection>
       <Footer></Footer>
       </div>
       : <div className="flex justify-center items-center mt-10">

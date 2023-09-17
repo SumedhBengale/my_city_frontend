@@ -14,7 +14,6 @@ import SearchCard from "../../../components/searchCard";
 import Footer from "./Footer";
 import luxeLogo from "../../../assets/images/luxeLogo.png";
 import luxe from "../../../assets/images/luxe.svg";
-import logo from "../../../assets/images/logo.png";
 import FadeInSection from "../../../components/fadeIn/fadeInSection";
 import OurPartnersSection from "../../AboutUs/OurPartnersSection";
 import {
@@ -24,13 +23,14 @@ import {
   getFrequentlyAskedQuestions,
   getVideos,
 } from "./api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../../config/config";
 import Slider from "react-slick";
 
 function Home() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [residences, setResidences] = useState(null);
@@ -43,6 +43,11 @@ function Home() {
   );
   const search = (params) => {
     console.log(params);
+        //Check if startDate and endDate both exist, if any is missing, show toast
+        if (!params.startDate || !params.endDate) {
+          toast.error("Please select both Check-in and Check-out dates");
+          return;
+        }
     //if params.startDate is greater than params.endDate, show toast
     if (params.startDate > params.endDate) {
       toast.error("Cannot Check-in after Check-out");
@@ -171,10 +176,6 @@ function Home() {
     <>
       <div
         style={{
-          backgroundRepeat: 'no-repeat',
-          backgroundImage: `url(${logo})`,
-          backgroundSize: '300px',
-          backgroundPosition: 'center',
           width: '100%',
           height: '80vh',
         }}
@@ -232,7 +233,7 @@ function Home() {
               <img
                 src={luxeLogo}
                 alt="My City Logo"
-                className="md:w-48 lg:w-72 self-start mb-10"
+                className="h-36 self-start mb-10"
               ></img>
             </div>
             <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
@@ -268,14 +269,14 @@ function Home() {
         <div className="bg-gradient-to-b  from-primary via-primary to-primary/60 rounded-tl-[50px] md:rounded-tl-[100px]">
           <div className="p-4 lg:container lg:mx-auto relative">
             <div className="relative flex justify-center">
-              <div className=" text-white font-custom text-3xl capitalize">
-                Featured Properties
+              <div className=" text-white font-custom-kiona text-4xl capitalize">
+              FEATURED PROPERTIES
               </div>
               <div className="absolute -bottom-5 left-4 w-full flex justify-center">
                 <img src={luxe} alt="arrow" className="w-20 h-10" />
               </div>
             </div>
-            <div className=" text-center text-white font-custom text-sm pt-5 capitalize">
+            <div className=" text-center text-white font-bold font-custom text-lg pt-2 capitalize">
               Hand-picked selection of quality places
             </div>
             <div className="md:py-10">
@@ -305,7 +306,7 @@ function Home() {
 
             <div className="flex justify-center mt-10">
               <div
-                className="w-[178px] h-12 bg-white hover:bg-secondary text-primary hover:text-white hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md"
+                className="w-[178px] h-12 bg-white hover:bg-secondary text-primary hover:text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl shadow-lg backdrop-blur-md"
                 onClick={() =>
                   navigate("/luxe/properties", {
                     state: {
@@ -363,9 +364,7 @@ function Home() {
         </div>
       </FadeInSection>
 
-      <FadeInSection>
         <OurPartnersSection></OurPartnersSection>
-      </FadeInSection>
 
       <Footer></Footer>
       <ToastContainer

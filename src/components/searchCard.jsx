@@ -96,7 +96,7 @@ function SearchCard({ search, initialData }) {
 
   return (
     <div
-      className="md:px-5 z-20"
+      className="md:px-5 z-50"
       ref={cardBackdropRef}
       onClick={(e) => {
         //if not cardBackdropRef
@@ -137,12 +137,12 @@ function SearchCard({ search, initialData }) {
       )}
       {datePickerVisible && (
         <div
-          className="fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-30 backdrop-filter backdrop-blur-sm"
+          className="fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-30 backdrop-filter backdrop-blur-sm cursor-pointer"
           //when clicked outside the date picker, close the date picker
           onClick={(e) => {
             if (
               e.target.className ===
-              "fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-30 backdrop-filter backdrop-blur-sm"
+              "fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-30 backdrop-filter backdrop-blur-sm cursor-pointer"
             ) {
               setDatePickerVisible(false);
             }
@@ -155,9 +155,12 @@ function SearchCard({ search, initialData }) {
             setEndDate={setEndDate}
             returnData={(data) => {
               console.log("Date Range Picker Data", data);
-              setDatePickerVisible(false);
               setStartDate(data.startDate);
               setEndDate(data.endDate);
+              if(data.endDate !== null){
+                setDatePickerVisible(false);
+              }
+
             }}
           ></PlainDateRangePicker>
         </div>
@@ -183,9 +186,9 @@ function SearchCard({ search, initialData }) {
                     <div className=" text-md sm:text-md font-bold capitalize">
                       {location
                         ? location === "any"
-                          ? "Select" : location === 'anywhere' ? 'Anywhere'
+                          ? "Where To?" : location === 'anywhere' ? 'Anywhere'
                           : location.city
-                        : "Select"}
+                        : "Where To?"}
                     </div>
                     {location === 'any' && <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +208,7 @@ function SearchCard({ search, initialData }) {
                   >
                     <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                     <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setLocation('anywhere');
                       setLocationPickerVisible(false);
@@ -219,7 +222,7 @@ function SearchCard({ search, initialData }) {
                         cities.map((city) => {
                           return (
                             <li
-                              className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                              className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                               onClick={() => {
                                 setLocation(city);
                                 setLocationPickerVisible(false);
@@ -252,7 +255,7 @@ function SearchCard({ search, initialData }) {
               {/* Start and End Date Selector */}
               <div className="flex flex-col gap-5">
                 <div
-                  className="flex active:scale-90 transition ease-in duration-50"
+                  className="flex active:scale-90 transition ease-in duration-50 cursor-pointer"
                   onClick={() => setDatePickerVisible(!datePickerVisible)}
                 >
                   <img
@@ -277,7 +280,7 @@ function SearchCard({ search, initialData }) {
                 <div className="col-span-2 flex justify-between">
                   {/* Number of Guests and Rooms Selector */}
                   <div
-                    className="flex relative"
+                    className="flex relative cursor-pointer"
                     ref={guestPickerMobileRef}
                     onClick={() => {
                       setRoomNumberPickerVisible(false);
@@ -309,7 +312,7 @@ function SearchCard({ search, initialData }) {
                       <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
                         <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                           <li
-                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                             onClick={() => {
                               setSelectedGuests("any");
                               setGuestNumberPickerVisible(false);
@@ -323,7 +326,7 @@ function SearchCard({ search, initialData }) {
                           {Array.from({ length: 4 }, (_, i) => i + 1).map(
                             (item) => (
                               <li
-                                className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                                className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                                 onClick={() => {
                                   setSelectedGuests(item);
                                   setGuestNumberPickerVisible(false);
@@ -354,7 +357,7 @@ function SearchCard({ search, initialData }) {
                             )
                           )}
                           <li
-                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                             onClick={() => {
                               setSelectedGuests(5);
                               setGuestNumberPickerVisible(false);
@@ -373,7 +376,7 @@ function SearchCard({ search, initialData }) {
               </div>
               <div className="flex flex-col gap-5">
                 <div
-                  className="flex active:scale-90 transition ease-in duration-50 "
+                  className="flex active:scale-90 transition ease-in duration-50  cursor-pointer"
                   onClick={() => setDatePickerVisible(!datePickerVisible)}
                 >
                   <img
@@ -396,7 +399,7 @@ function SearchCard({ search, initialData }) {
                 </div>
 
                 <div
-                  className="flex relative"
+                  className="flex relative  cursor-pointer"
                   ref={roomPickerMobileRef}
                   onClick={() => {
                     setGuestNumberPickerVisible(false);
@@ -428,7 +431,7 @@ function SearchCard({ search, initialData }) {
                     <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
                       <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                         <li
-                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                          className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                           onClick={() => {
                             setSelectedBedrooms("any");
                             setRoomNumberPickerVisible(false);
@@ -444,7 +447,7 @@ function SearchCard({ search, initialData }) {
                           (_, i) => i
                         ).map((item) => (
                           <li
-                            className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                            className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                             onClick={() => {
                               setSelectedBedrooms(item);
                               setRoomNumberPickerVisible(false);
@@ -471,7 +474,7 @@ function SearchCard({ search, initialData }) {
                           </li>
                         ))}
                         <li
-                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                          className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                           onClick={() => {
                             setSelectedBedrooms(5);
                             setRoomNumberPickerVisible(false);
@@ -489,7 +492,7 @@ function SearchCard({ search, initialData }) {
             </div>
 
             <div
-              className="w-full col-span-2 h-10 md:mb-3 bg-white text-black active:scale-105 transition duration-75 cursor-pointer active:bg-gray-200 rounded-lg"
+              className="w-full cursor-pointer col-span-2 h-10 md:mb-3 bg-white text-black active:scale-105 transition duration-75  active:bg-gray-200 rounded-lg"
               onClick={() =>
                 search({
                   location: location,
@@ -504,7 +507,7 @@ function SearchCard({ search, initialData }) {
               }
             >
               <div className="w-full relative h-full z-0 flex">
-                <div className="w-full text-center self-center font-black flex justify-center items-center">
+                <div className="w-full text-center self-center text-primary font-custom-kiona flex justify-center items-center">
                   Search
                 </div>
               </div>
@@ -513,10 +516,10 @@ function SearchCard({ search, initialData }) {
         </div>
       </div>
 
-      <div className="z-0 py-8 w-full max-w-7xl bg-white text-white bg-opacity-5 p-5 rounded-2xl border backdrop-blur-md hidden lg:block">
+      <div className="z-0 py-5 w-full max-w-7xl bg-white text-white bg-opacity-5 px-3 rounded-2xl border backdrop-blur-md hidden lg:block">
         <div className="col-span-2 flex justify-around gap-5">
           <div
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
             ref={locationPickerRef}
             onClick={() => {
               setGuestNumberPickerVisible(false);
@@ -526,14 +529,14 @@ function SearchCard({ search, initialData }) {
           >
             <img src={locationPin} alt="location pin" className="w-8 h-8"></img>
             <div className="pl-2">
-              <div className="text-[12px]">Select Location</div>
+              <div className="text-xs sm:text-sm">Select Location</div>
               <div className="flex">
                     <div className=" text-md sm:text-md font-bold capitalize">
                       {location
                         ? location === "any"
-                          ? "Select" : location === 'anywhere' ? 'Anywhere'
+                          ? "Where To?" : location === 'anywhere' ? 'Anywhere'
                           : location.city
-                        : "Select"}
+                        : "Where To?"}
                     </div>
                     {location === 'any' && <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -553,7 +556,7 @@ function SearchCard({ search, initialData }) {
               >
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                 <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setLocation('anywhere');
                       setLocationPickerVisible(false);
@@ -567,7 +570,7 @@ function SearchCard({ search, initialData }) {
                     cities.map((city) => {
                       return (
                         <li
-                          className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                          className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                           onClick={() => {
                             setLocation(city);
                             setLocationPickerVisible(false);
@@ -592,7 +595,7 @@ function SearchCard({ search, initialData }) {
           <div className="h-20 w-[2px] bg-white "></div>
 
           <div
-            className="flex items-center active:scale-90 transition ease-in duration-50"
+            className="flex items-center active:scale-90 transition ease-in duration-50 cursor-pointer"
             onClick={() => setDatePickerVisible(!datePickerVisible)}
           >
             <img src={calendar} alt="calendar" className="w-8 h-8"></img>
@@ -613,7 +616,7 @@ function SearchCard({ search, initialData }) {
           <div className="h-20 w-[2px] bg-white"></div>
 
           <div
-            className="flex items-center active:scale-90 transition ease-in duration-50"
+            className="flex items-center active:scale-90 transition ease-in duration-50 cursor-pointer"
             onClick={() => setDatePickerVisible(!datePickerVisible)}
           >
             <img src={calendar} alt="calendar" className="w-8 h-8"></img>
@@ -633,7 +636,7 @@ function SearchCard({ search, initialData }) {
           <div className="h-20 w-[2px] bg-white"></div>
 
           <div
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
             ref={guestPickerRef}
             onClick={() => {
               setRoomNumberPickerVisible(false);
@@ -665,7 +668,7 @@ function SearchCard({ search, initialData }) {
               <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setSelectedGuests("any");
                       setGuestNumberPickerVisible(false);
@@ -678,7 +681,7 @@ function SearchCard({ search, initialData }) {
                   </li>
                   {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
                     <li
-                      className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                      className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                       onClick={() => {
                         setSelectedGuests(item);
                         setGuestNumberPickerVisible(false);
@@ -706,7 +709,7 @@ function SearchCard({ search, initialData }) {
                     </li>
                   ))}
                   <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setSelectedGuests(5);
                       setGuestNumberPickerVisible(false);
@@ -725,7 +728,7 @@ function SearchCard({ search, initialData }) {
           <div className="h-20 w-[2px] bg-white"></div>
 
           <div
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
             ref={roomPickerRef}
             onClick={() => {
               setGuestNumberPickerVisible(false);
@@ -757,7 +760,7 @@ function SearchCard({ search, initialData }) {
               <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setSelectedBedrooms("any");
                       setRoomNumberPickerVisible(false);
@@ -773,7 +776,7 @@ function SearchCard({ search, initialData }) {
                     (_, i) => i
                   ).map((item) => (
                     <li
-                      className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                      className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                       onClick={() => {
                         setSelectedBedrooms(item);
                         setRoomNumberPickerVisible(false);
@@ -800,7 +803,7 @@ function SearchCard({ search, initialData }) {
                     </li>
                   ))}
                   <li
-                    className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                    className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
                     onClick={() => {
                       setSelectedBedrooms(5);
                       setRoomNumberPickerVisible(false);
@@ -819,7 +822,7 @@ function SearchCard({ search, initialData }) {
 
           <div className="flex mx-5 gap-8">
             <div
-              className="w-32 h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 cursor-pointer hover:bg-gray-200 rounded-lg border"
+              className="w-32 cursor-pointer h-6 md:h-10 self-center bg-white text-black hover:scale-105 transition duration-75 hover:bg-gray-200 rounded-lg border"
               onClick={() =>
                 search({
                   location: location,
@@ -834,7 +837,7 @@ function SearchCard({ search, initialData }) {
               }
             >
               <div className="relative h-full z-0 flex">
-                <div className="w-full text-center font-bold self-center flex justify-center items-center">
+                <div className="w-full text-center font-custom-kiona text-primary self-center flex justify-center items-center">
                   Search
                 </div>
               </div>

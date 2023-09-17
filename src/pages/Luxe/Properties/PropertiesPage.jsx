@@ -9,7 +9,6 @@ import filterBlack from "../../../assets/images/properties/filter_black.svg";
 import PropertyCard from "../../Luxe/HomePage/PropertyCard";
 import Footer from "../../HomePage/Footer";
 import luxeLogo from "../../../assets/images/luxeLogo.png";
-import logo from "../../../assets/images/logo.png";
 import FadeInSection from "../../../components/fadeIn/fadeInSection";
 import SortDropdown from "./sortDropdown";
 import Filter from "../../../components/filter";
@@ -94,7 +93,7 @@ function PropertiesPage() {
       setTimeout(
         () =>
           window.scrollTo({
-            top: nearbyPropertiesRef.current.offsetTop - 50,
+            top: nearbyPropertiesRef.current.offsetTop - 100,
             behavior: "smooth",
           }),
         100
@@ -135,10 +134,6 @@ function PropertiesPage() {
         )}
         <div
           style={{
-            backgroundRepeat: 'no-repeat',
-            backgroundImage: `url(${logo})`,
-            backgroundSize: '300px',
-            backgroundPosition: 'center',
             width: '100%',
             height: '80vh',
           }}
@@ -197,7 +192,7 @@ function PropertiesPage() {
                 <img
                   src={luxeLogo}
                   alt="My City Logo"
-                  className="md:w-48 lg:w-72 self-start mb-10"
+                  className="h-36 self-start mb-10"
                 ></img>
               </div>
               <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
@@ -353,7 +348,7 @@ function PropertiesSection({
   return (
     <>
       <div className="flex flex-col md:flex-row justify-between pt-10">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-start pt-2">
           <div className="text-primary font-custom text-3xl capitalize">
             Available Residences
           </div>
@@ -379,18 +374,20 @@ function PropertiesSection({
       </div>
 
       {sortedResidences && sortedResidences.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center">
-          {sortedResidences && loading !== true ? (
-            sortedResidences.map((residence, index) => {
-              return (
-                <PropertyCard key={index} residence={residence}></PropertyCard>
-              );
-            })
-          ) : (
-            <div className="flex justify-center items-center h-screen w-full">
-              <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-            </div>
-          )}
+        <div className="flex justify-center  max-w-[1600px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center">
+            {sortedResidences && loading !== true ? (
+              sortedResidences.map((residence, index) => {
+                return (
+                  <PropertyCard key={index} residence={residence}></PropertyCard>
+                );
+              })
+            ) : (
+              <div className="flex justify-center items-center h-screen w-full">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className="text-center text-2xl h-96 font-bold">
@@ -417,7 +414,7 @@ function PropertiesSection({
                 });
             }}
           >
-            <div className="text-2xl h-full flex justify-center items-center">
+            <div className="text-2xl h-full font-custom-kiona flex justify-center items-center">
               View All
             </div>
           </div>

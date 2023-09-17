@@ -16,7 +16,7 @@ function Filter({ initialData, apply, close }) {
     initialData ? initialData.selectedbathrooms : "any"
   );
   const [priceRange, setPriceRange] = useState(
-    initialData ? initialData.priceRange : [0, 2500]
+    initialData ? initialData.priceRange : [0, 10000]
   );
   const [selectedAmenities, setSelectedAmenities] = useState(
     initialData ? initialData.selectedAmenities : []
@@ -85,7 +85,7 @@ function Filter({ initialData, apply, close }) {
         <div className="h-5/6 lg:h-5/6 w-full md:w-max z-30 overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl flex flex-col no-scrollbar">
           <div className="bg-white rounded-t-2xl md:rounded-2xl p-3">
             <div className="flex justify-between mb-2 ">
-              <div className="w-full text-center font-bold text-primary font-custom text-2xl mb-1">
+              <div className="w-full text-center font-custom-kiona text-primary text-2xl mb-1">
                 FILTER
               </div>
               <div
@@ -371,7 +371,7 @@ function Filter({ initialData, apply, close }) {
                 <div className="w-full font-bold text-xl pb-5">Price</div>
                 <ReactSlider
                   min={0}
-                  max={2500}
+                  max={10000}
                   value={priceRange}
                   step={10}
                   onChange={handlePriceChange}
@@ -402,8 +402,8 @@ function Filter({ initialData, apply, close }) {
                   pearling
                 />
                 <div className="flex justify-between">
-                  <div>£0</div>
-                  <div>2500</div>
+                  <div className="font-custom-lora">£0</div>
+                  <div className="font-custom-lora">£10,000</div>
                 </div>
                 <div className="mt-3 flex justify-start gap-5">
                   <div className="h-full border rounded-lg px-5 py-2 flex flex-col">

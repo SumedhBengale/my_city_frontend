@@ -36,7 +36,7 @@ function PropertyCard({ residence, highlighted }) {
             <div className=" text-lg font-custom-lora font-bold">
               {residence.prices.basePrice}
             </div>
-            <div className=" text-sm font-normal self-end">/night</div>
+            <div className=" text-sm font-custom font-normal self-end">/night</div>
           </div>
         </div>
         <div className="w-full p-4">

@@ -115,7 +115,7 @@ function DesktopNavbar() {
   return (
     <>
       <div className=" w-full bg-white flex justify-between items-center text-black gap-3 px-5 py-2">
-        <div className="flex h-12">
+        <div className="flex h-12 w-48">
           <img
             src={logoBlack}
             alt="logo"
@@ -256,19 +256,8 @@ function DesktopNavbar() {
             }
           </div>
         ) : (
-          <div className="flex gap-1 h-full items-center">
-            <button className="bg-primary text-white font-bold px-4 py-2 rounded-lg">
-              <NavLink
-                to="/login"
-                exact
-                className={`flex justify-between  ${
-                  location.pathname === "/login" ? "underline font-bold" : ""
-                }`}
-              >
-                Login
-              </NavLink>
-            </button>
-            <div className="pl-4 flex items-center">
+          <div className="flex gap-5 h-full items-center w-48">
+                        <div className="pr-4 flex items-center">
               {
                 //If url contains /, or /luxe or /properties then show this
                 window.location.pathname === "/" ||
@@ -306,6 +295,17 @@ function DesktopNavbar() {
                 ) : null
               }
             </div>
+            <button className="bg-primary text-white font-custom-kiona px-4 py-2 rounded-lg">
+              <NavLink
+                to="/login"
+                exact
+                className={`flex justify-between  ${
+                  location.pathname === "/login" ? "underline font-bold" : ""
+                }`}
+              >
+                Login
+              </NavLink>
+            </button>
           </div>
         )}
       </div>
@@ -332,7 +332,7 @@ function DesktopNavbar() {
               <NavLink
                 to="/messages"
                 exact
-                className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 rounded-t-xl  ${
+                className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 rounded-t-xl  ${
                   location.pathname === "/messages" ? "underline font-bold" : ""
                 }`}
               >
@@ -349,7 +349,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/account"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/account"
                       ? "underline font-bold"
                       : ""
@@ -362,7 +362,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/wishlist"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/wishlist"
                       ? "underline font-bold"
                       : ""
@@ -375,7 +375,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/trips"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 ${
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 ${
                     location.pathname === "/trips" ? "underline font-bold" : ""
                   }`}
                 >
@@ -393,7 +393,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/help"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/help" ? "underline font-bold" : ""
                   }`}
                 >
@@ -402,7 +402,7 @@ function DesktopNavbar() {
               </li>
               <li className="flex flex-col">
                 <div
-                  className="flex justify-start w-full font-custom text-primary hover:bg-gray-100 px-4 py-2 rounded-b-xl"
+                  className="flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 rounded-b-xl"
                   onClick={() => {
                     localStorage.removeItem("token");
                     localStorage.removeItem("userId");

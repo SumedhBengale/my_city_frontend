@@ -225,7 +225,7 @@ function Book() {
                                   (e, i) => {
                                     return (
                                       <li
-                                        className="flex justify-between items-center px-4 py-2 hover:bg-gray-100"
+                                        className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100"
                                         onClick={() => {
                                           setLoading(true);
                                           setBookingDisabled(true);
@@ -321,7 +321,7 @@ function Book() {
                     <input
                       className="rounded-l-lg px-4 h-full w-full md:w-48 border border-black bg-neutral-100"
                       onChange={(e) => setCoupon(e.target.value)}
-                      placeholder="Enter Postcode"
+                      placeholder="Enter Promo Code"
                     ></input>
                     <button
                       className="bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-full w-32 rounded-r-lg uppercase"

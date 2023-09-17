@@ -7,14 +7,14 @@ function OurTeamSection({ dynamicText, dynamicImages }) {
       {dynamicText !== null && dynamicImages !== null ? (
         <div className="Rectangle w-full bg-neutral-100 md:px-10 pt-10 mt-10">
           <div className="container mx-auto flex flex-col items-center">
-            <div className="text-secondary font-custom text-center text-5xl">
+            <div className="text-secondary font-custom-kiona text-center text-5xl">
               {dynamicText !== null &&
                 dynamicText.find(
                   (text) => text.attributes.name === "OurTeam_Heading"
                 ).attributes.text}
             </div>
 
-            <div className="text-primary text-md pt-5 md:w-2/3 text-center">
+            <div className="text-primary text-custom text-md pt-5 md:w-2/3 text-center">
               {dynamicText !== null &&
                 dynamicText.find(
                   (text) => text.attributes.name === "OurTeam_Subheading"

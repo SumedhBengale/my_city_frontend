@@ -26,7 +26,7 @@ function MapContainer({ coordinate }) {
       lng: coordinate.lng,
     });
     map.fitBounds(bounds);
-
+    map.setZoom(14)
     setMap(map);
   }, []);
 
@@ -41,9 +41,9 @@ function MapContainer({ coordinate }) {
         lat: coordinate.lat,
         lng: coordinate.lng,
       }}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      zoom={15}
+      onLoad={()=>onLoad}
+      onUnmount={()=>onUnmount}
     >
       {/* Marker for coordinate */}
       <Marker position={{ lat: coordinate.lat, lng: coordinate.lng }} />

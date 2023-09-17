@@ -18,7 +18,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
           alt="know more"
           className="w-full max-h-[450px]  m-5 object-cover rounded-2xl"
         ></img>
-        <div className="text-center lg:text-left">
+        <div className="text-center lg:text-left pl-4">
           <div className="relative">
             <div className="font-custom-kiona uppercase text-3xl text-white">
               {dynamicText !== null &&

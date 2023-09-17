@@ -28,9 +28,9 @@ const ReviewCarousel = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="w-full md:max-w-[800px] flex flex-col">
+      <div className="w-full md:max-w-[1400px] flex flex-col">
         <div className="w-full flex justify-center mb-5">
-          <h1 className="text-2xl font-custom text-center text-primary px-2">
+          <h1 className="text-2xl font-custom-kiona font-bold text-center text-primary px-2">
             Hear From Our Happy Customers
           </h1>
         </div>

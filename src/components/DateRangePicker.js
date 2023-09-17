@@ -191,7 +191,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
           if (data[i].minNights > (day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)) {
             //Check if any toast is already being displayed, if not display toast
             if (!toast.isActive('minNights')) {
-              toast.error(`Please select a minimum of ${data[i].minNights} nights ${data[i].minNights} ${(day.getTime() - startDate.getTime()) / (1000 * 3600 * 24)}`, { toastId: 'minNights' })
+              toast.error(`Please select a minimum of ${data[i].minNights} nights`, { toastId: 'minNights' })
             }
             changeBookingBlocked(true)
             return;

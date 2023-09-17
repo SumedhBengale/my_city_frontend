@@ -99,18 +99,18 @@ function ContactUs() {
               className="w-48 lg:w-72 self-start mb-10"
             ></img>
           </div>
-          <div className="font-custom-bold text-4xl md:text-5xl text-white text-center pb-4 capitalize">
+          <div className="font-custom-kiona text-4xl md:text-5xl text-white text-center pb-4 capitalize">
             Contact Us
           </div>
-          <div className=" text-2xl md:text-4xl w-full text-center font-custom text-white sm-3 lg:mb-10 capitalize">
+          <div className=" text-2xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
             We offer unique places suitable for your comfort
           </div>
         </div>
       </div>
       <FadeInSetion>
         <div className="w-full h-full px-5 bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px] pt-20">
-          <div className="flex flex-col justify-center items-start h-full bg-gray-200 w-full md:px-5 m-5 rounded-lg container mx-auto">
-            <div className="font-custom-bold text-xl mx-3 md:mx-0 mt-10 text-black">
+          <div className="flex flex-col justify-center items-start h-full bg-neutral-100 w-full md:px-5 m-5 rounded-lg md:container mx-auto">
+            <div className="font-custom-bold text-xl mx-3 md:mx-0 mt-10 text-black uppercase">
               Get In Touch
             </div>
             <hr className="w-36 border-sm my-4 ml-3 mx-3 md:mx-0 border-[1px] border-black" />
@@ -163,11 +163,11 @@ function ContactUs() {
                   onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
 
-                <div className="font-custom-bold text-xl mx-3 md:mx-0 mt-3 text-black">
-                  Prefferred method of contact
+                <div className="font-custom-kiona text-md mx-3 md:mx-0 mt-3 text-primary uppercase">
+                  Preferred method of contact
                 </div>
                 <div className="flex flex-row justify-start items-center mx-3 md:mx-0">
-                  <div className="grid grid-cols-2 gap-2 capitalize">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 capitalize">
                     {checkboxes.map((checkbox) => (
                       <div
                         key={checkbox}
@@ -198,26 +198,28 @@ function ContactUs() {
                         />
                         <label
                           htmlFor={checkbox}
-                          className={` h-5 w-5 border border-secondary rounded-md cursor-pointer transition-colors ${
+                          className={` h-5 w-5 border rounded-md cursor-pointer transition-colors ${
                             selectedcheckboxes.includes(checkbox)
                               ? "bg-secondary"
                               : "bg-white"
                           }`}
                         >
                           {(selectedcheckboxes.includes(checkbox) && (
-                            <svg
-                              className="w-4 h-4 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={4}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
+                            <div className="translate-y-[1px] translate-x-[1px]">
+                              <svg
+                                className="w-4 h-4 text-white"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={4}
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                            </div>
                           )) || <div className="w-4 h-4"></div>}
                         </label>
                         <span className="text-sm pl-2 overflow-hidden overflow-ellipsis">
@@ -229,19 +231,19 @@ function ContactUs() {
                 </div>
               </div>
 
-              <div className="w-full h-[450px] pt-10 order-1 lg:order-2">
+              <div className="w-full h-[450px] px-3 md:px-0 pt-10 order-1 lg:order-2">
                 <MapContainer coordinate={{ lat: 40.7128, lng: -74.006 }} />
               </div>
             </div>
 
             <div className="flex flex-col justify-center items-center w-full">
               <button
-                className="w-40 h-10 bg-primary hover:bg-secondary text-white rounded-lg mt-5 mb-5"
+                className="w-40 h-10 bg-primary text-md hover:bg-secondary font-custom-kiona transition duration-75 text-white rounded-lg mt-5 mb-5"
                 onClick={() => {
                   handleSubmit();
                 }}
               >
-                Submit
+                SUBMIT
               </button>
             </div>
             <div className="flex w-full justify-center">

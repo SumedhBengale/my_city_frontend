@@ -43,11 +43,11 @@ function Footer() {
         <div className='w-full text-center font-bold font-custom text-xl mb-1'>Currency Switcher</div>
         </div>
             <div className=''>
-                <div className='font-bold px-4 py-2 bg-gray-100 mb-2'>Suggested Currencies</div>
+                <div className='font-bold px-4 py-2 bg-neutral-100 mb-2'>Suggested Currencies</div>
                 {
                     Object.keys(currencies).map((currency) => (
                         !['GBP', 'INR'].includes(currency) && (
-                            <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
+                            <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-neutral-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
                             {currency + ' - ' + currencies[currency]}
                             </div>
                         )
@@ -55,17 +55,17 @@ function Footer() {
                 }
             </div>
             <div className=''>
-                <div className='font-bold px-4 py-2 bg-gray-100 mb-2'>All Currencies</div>
+                <div className='font-bold px-4 py-2 bg-neutral-100 mb-2'>All Currencies</div>
                 {
                     Object.keys(currencies).map((currency) => (
                         ['GBP', 'INR'].includes(currency) && (
-                        <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
+                        <div key={currency} className={`px-4 py-2 cursor-pointer ${selectedCurrency === currency ? 'bg-neutral-100' : ''}`} onClick={() => handleCurrencySelect(currency)}>
                             {currency + ' - ' + currencies[currency]}
                         </div>
                         )
                     ))
                 }
-                <div className={`px-4 py-2 cursor-pointer ${selectedCurrency === 'Property Currency' ? 'bg-gray-100' : ''}`} onClick={() => handleCurrencySelect('Property Currency')}>
+                <div className={`px-4 py-2 cursor-pointer ${selectedCurrency === 'Property Currency' ? 'bg-neutral-100' : ''}`} onClick={() => handleCurrencySelect('Property Currency')}>
                     Property Currency
                 </div>
             </div>

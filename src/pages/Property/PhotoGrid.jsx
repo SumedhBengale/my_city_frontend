@@ -63,6 +63,11 @@ function PhotoGrid({ carouselOpen, images }) {
                 }
               `}
             />
+            {index === 4 && images.length > 5 ?
+              <div className="absolute top-0 left-0 w-full h-full backdrop-filter backdrop-blur-sm rounded-lg flex justify-center items-center">
+                <button className="text-lg font-bold bg-white hover:bg-neutral-100 text-primary font-custom-kiona rounded-lg px-4 py-2">+{images.length -5} PHOTOS</button>
+              </div>
+            : null}
           </div>
         ))}
         <div className="md:hidden col-span-4">

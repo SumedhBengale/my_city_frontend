@@ -12,7 +12,6 @@ import FrequentQuestionsSection from "./FrequentQuestionsSection";
 import SearchCard from "../../components/searchCard";
 import Footer from "./Footer";
 import logoWhite from "../../assets/images/white_logo.png";
-import logo from "../../assets/images/logo.png";
 import FadeInSection from "../../components/fadeIn/fadeInSection";
 import OurPartnersSection from "../AboutUs/OurPartnersSection";
 import { TypeAnimation } from 'react-type-animation';
@@ -24,13 +23,14 @@ import {
   getFrequentlyAskedQuestions,
   getVideos,
 } from "./api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config/config";
 import Slider from "react-slick";
 
 function Home() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [blackNavbar, setBlackNavbar] = useState(false);
   const [residences, setResidences] = useState(null);
@@ -43,6 +43,11 @@ function Home() {
   );
   const search = (params) => {
     console.log(params);
+    //Check if startDate and endDate both exist, if any is missing, show toast
+    if (!params.startDate || !params.endDate) {
+      toast.error("Please select both Check-in and Check-out dates");
+      return;
+    }
     //if params.startDate is greater than params.endDate, show toast
     if (params.startDate > params.endDate) {
       toast.error("Cannot Check-in after Check-out");
@@ -102,7 +107,7 @@ function Home() {
       const screenHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
       // console.log(scrollPosition, screenHeight * 70 / 100)
-      if (scrollPosition >= (screenHeight * 70) / 100) {
+      if (scrollPosition >= (screenHeight*80)/100) {
         setBlackNavbar(true);
       } else {
         setBlackNavbar(false);
@@ -170,21 +175,23 @@ function Home() {
 
 
   return (
-    <>
+    <>  
+                <div className="hidden md:block z-30 fixed top-0 w-full">
+              {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
+            </div>
+            <div className="md:hidden z-30 fixed top-0 w-full">
+              {blackNavbar ? <NavbarBlack /> : <Navbar />}
+            </div>
+      <div className="relative scroll-smooth">
         <div
           style={{
             
-            backgroundRepeat: 'no-repeat',
-            backgroundImage: `url(${logo})`,
-            backgroundSize: '300px',
-            backgroundPosition: 'center',
             width: '100%',
             height: '80vh',
 
           }}
-          className="z-0"
+          className="fixed -z-10 top-0"
         >
-          <div className="z-0">
             {videos !== null && (
               <video
                 autoPlay
@@ -213,16 +220,9 @@ function Home() {
                 Your browser does not support the video tag.
               </video>
             )}
-          </div>
           {/* Background Image */}
-          <div className="h-full relative">
+          <div className="h-full">
             <div className="absolute h-full w-full bg-black/40"></div>
-            <div className="hidden md:block z-30 fixed w-full">
-              {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
-            </div>
-            <div className="md:hidden z-30 fixed w-full">
-              {blackNavbar ? <NavbarBlack /> : <Navbar />}
-            </div>
             <div className="h-full flex flex-col justify-center items-center">
               <div className="lg:hidden z-10">
                 <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
@@ -237,7 +237,7 @@ function Home() {
                 <img
                   src={logoWhite}
                   alt="My City Logo"
-                  className="md:w-48 lg:w-72 self-start mb-10"
+                  className="h-36 self-start mb-10"
                 ></img>
               </div>
               <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
@@ -255,14 +255,16 @@ function Home() {
                   />
                 }
               </div>
-
-              <div className="z-20">
-              <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
-              </div>
             </div>
           </div>
         </div>
-      <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
+        <div className="h-full w-full -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px] bg-white relative mt-8/10">
+          
+          <div className="-translate-t-20">
+          <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
+
+          </div>
+
         <div className="md:container md:mx-auto">
           <FadeInSection>
             {dynamicText !== null && dynamicImages !== null && (
@@ -273,7 +275,6 @@ function Home() {
             )}
           </FadeInSection>
         </div>
-      </div>
       {/* Seperated into different file because it's static content */}
       <FadeInSection>
         <div className="p-4 lg:container lg:mx-auto">
@@ -341,9 +342,7 @@ function Home() {
       </FadeInSection>
 
       <FadeInSection>
-        <div className="mt-10">
           <ReviewShowcaseSection></ReviewShowcaseSection>
-        </div>
       </FadeInSection>
 
       <FadeInSection>
@@ -361,6 +360,9 @@ function Home() {
       </FadeInSection>
 
       <Footer></Footer>
+        </div>
+      </div>
+      
       <ToastContainer
         position="bottom-center"
         autoClose={2000}

@@ -98,9 +98,7 @@ function AboutUsPage() {
           dynamicImages={dynamicImages}
         ></OurValuesSection>
       </FadeInSection>
-      <FadeInSection>
         <OurPartnersSection></OurPartnersSection>
-      </FadeInSection>
       <Footer></Footer>
     </>
   );
