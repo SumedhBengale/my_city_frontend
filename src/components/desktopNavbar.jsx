@@ -240,7 +240,7 @@ function DesktopNavbar() {
                     }
                     checkedIcon={
                       <div className="w-full h-full flex items-center pl-2">
-                        <div className="font-custom text-xs text-black">
+                        <div className="font-custom-kiona text-xs text-black">
                           Regular
                         </div>
                       </div>
@@ -280,7 +280,7 @@ function DesktopNavbar() {
                       }
                       checkedIcon={
                         <div className="w-full h-full flex items-center pl-2">
-                          <div className="font-custom text-xs text-black">
+                          <div className="font-custom-kiona text-xs text-black">
                             Regular
                           </div>
                         </div>
@@ -332,7 +332,7 @@ function DesktopNavbar() {
               <NavLink
                 to="/messages"
                 exact
-                className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 rounded-t-xl  ${
+                className={`flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2 rounded-t-xl  ${
                   location.pathname === "/messages" ? "underline font-bold" : ""
                 }`}
               >
@@ -349,7 +349,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/account"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/account"
                       ? "underline font-bold"
                       : ""
@@ -362,7 +362,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/wishlist"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/wishlist"
                       ? "underline font-bold"
                       : ""
@@ -375,7 +375,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/trips"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 ${
+                  className={`flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2 ${
                     location.pathname === "/trips" ? "underline font-bold" : ""
                   }`}
                 >
@@ -393,7 +393,7 @@ function DesktopNavbar() {
                 <NavLink
                   to="/help"
                   exact
-                  className={`flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2  ${
+                  className={`flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2  ${
                     location.pathname === "/help" ? "underline font-bold" : ""
                   }`}
                 >
@@ -402,7 +402,7 @@ function DesktopNavbar() {
               </li>
               <li className="flex flex-col">
                 <div
-                  className="flex justify-start w-full font-custom text-primary hover:bg-neutral-100 px-4 py-2 rounded-b-xl"
+                  className="flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2 rounded-b-xl"
                   onClick={() => {
                     localStorage.removeItem("token");
                     localStorage.removeItem("userId");

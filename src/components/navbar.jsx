@@ -88,7 +88,7 @@ function Navbar() {
       </div>
 
       {accountMenuOpen && (
-        <div className="absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl">
+        <div className="absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl font-custom-kiona">
           <div className="flex w-full justify-between p-3 relative">
             <img
               src={hamburgerMenuBlack}
@@ -252,7 +252,7 @@ function Navbar() {
       )}
 
       {menuOpen && (
-        <div className="">
+        <div className="font-custom-kiona">
           {menuOpen && (
             <div className=" w-full bg-white flex flex-col">
               {localStorage.getItem("userType") === "admin" ? (

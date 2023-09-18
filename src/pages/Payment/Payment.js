@@ -52,7 +52,7 @@ export default function Payment() {
   };
 
   return (
-    <div className="flex h-screen w-full justify-center items-center">
+    <div className="flex h-screen w-full justify-center items-center px-5">
       <div className="w-[400px]">
         {clientSecret && stripePromise && (
           <Elements options={options} stripe={stripePromise}>

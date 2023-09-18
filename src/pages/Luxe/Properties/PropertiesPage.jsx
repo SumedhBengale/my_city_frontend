@@ -93,7 +93,7 @@ function PropertiesPage() {
       setTimeout(
         () =>
           window.scrollTo({
-            top: nearbyPropertiesRef.current.offsetTop - 100,
+            top: nearbyPropertiesRef.current.offsetTop - 150,
             behavior: "smooth",
           }),
         100

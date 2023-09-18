@@ -422,7 +422,13 @@ function ManagementPage() {
               </div>
               <button
                 className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
-                onClick={() => navigate("/about")}
+                onClick={() =>{
+                  //scroll to top
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
+                }}
               >
                 Get A Quote
               </button>

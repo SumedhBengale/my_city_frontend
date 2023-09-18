@@ -24,6 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Navbar from "../../components/navbar_black";
 import { fetchBookedDatesFromBackend } from "../../components/api";
 import { format } from "date-fns";
+import luxeLogo from "../../assets/images/luxe.svg";
 
 function Property() {
   const location = useLocation();
@@ -178,8 +179,17 @@ function Property() {
         {residence !== null ? (
           <div className="">
             <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                {
+                  //residence.tags include "luxe"
+                  residence.tags.includes("luxe")
+                  ? (
+                    <img src={luxeLogo} alt="host" className="w-16 h-16 rounded-full"></img>
+                  ) : null
+                }
               <div className="text-lg md:text-2xl font-custom-kiona uppercase text-primary text-start md:text-center">
                 {residence.title}
+              </div>
               </div>
               <div
                 className="w-10 h-10  flex justify-center items-center rounded-full"
@@ -345,7 +355,7 @@ function Property() {
                     totalNights !== 0 ? (totalNights ,'nights in') : ''
                   }  ${residence.title}`}
                 </div>
-                <div className="w-full h-min rounded-lg border border-[2px] border-primary border-opacity-50 max-w-lg">
+                <div className="w-full h-min rounded-lg border-[2px] border-primary border-opacity-50 max-w-lg">
                   <div className="flex justify-between">
                     <div
                       className="p-2 flex flex-col justify-center items-center w-full"
@@ -556,6 +566,17 @@ function Property() {
                 CHAT WITH US
               </button>
             </div>
+
+            <div className="bg-gradient-to-b from-primary via-primary to-primary/60 rounded-tl-[50px] md:rounded-tl-[100px] flex justify-center items-center my-10 py-10">
+              <div className="flex flex-col justify-center items-center w-full">
+                <div className="text-2xl text-white font-custom-kiona">MY CITY RESIDENCE</div>
+                <div className="flex justify-center items-center -translate-y-4">
+                  <img src={luxeLogo} alt="arrow" className="w-20 h-10" />
+                </div>
+                <div className="font-custom-avenir-light text-white w-full md:w-2/3 text-center">With over three decades in hospitality, My City Residences oversees an expansive collection of properties across renowned areas such as Mayfair, Belgravia, Knightsbridge, Marylebone, and Kensington.With over three decades in hospitality, My City Residences oversees an expansive collection of properties across renowned areas such as Mayfair, Belgravia, Knightsbridge, Marylebone, and Kensington.</div>
+              </div>
+            </div>
+
             <div className="py-10">
               <ReviewShowcaseSection reviews={reviews} />
             </div>

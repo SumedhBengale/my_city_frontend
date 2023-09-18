@@ -176,95 +176,85 @@ function Home() {
 
   return (
     <>  
-                <div className="hidden md:block z-30 fixed top-0 w-full">
-              {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
-            </div>
-            <div className="md:hidden z-30 fixed top-0 w-full">
-              {blackNavbar ? <NavbarBlack /> : <Navbar />}
-            </div>
-      <div className="relative scroll-smooth">
-        <div
-          style={{
-            
-            width: '100%',
-            height: '80vh',
-
-          }}
-          className="fixed -z-10 top-0"
-        >
-            {videos !== null && (
-              <video
-                autoPlay
-                loop
-                muted
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                }}
-              >
-                <source
-                  src={
-                    videos !== null &&
-                    `${config.STRAPI_URL}` +
-                      videos.find(
-                        (video) =>
-                          video.attributes.name === "HomePage_Video"
-                      ).attributes.video.data.attributes.url
-                  }
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-            )}
-          {/* Background Image */}
-          <div className="h-full">
-            <div className="absolute h-full w-full bg-black/40"></div>
-            <div className="h-full flex flex-col justify-center items-center">
-              <div className="lg:hidden z-10">
-                <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
-                  {dynamicText !== null &&
-                    dynamicText.find(
-                      (text) => text.attributes.name === "Website_Name"
-                    ).attributes.text}
-                </div>
-              </div>
-
-              <div className="hidden lg:block justify-center items-center z-10">
-                <img
-                  src={logoWhite}
-                  alt="My City Logo"
-                  className="h-36 self-start mb-10"
-                ></img>
-              </div>
-              <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
-                {
-                  //split each word in to a seperate div and fade them each one by one
-                  dynamicText !== null &&
-                  <TypeAnimation
-                  sequence={[ dynamicText.find(
-                      (text) => text.attributes.name === "Website_Tagline"
-                    ).attributes.text]}
-                    wrapper="span"
-                    speed={10}
-                    cursor={false}
-                    style={{display: 'inline-block' }} 
-                  />
+  <div
+        style={{
+          width: '100%',
+          height: '80vh',
+        }}
+        className="z-0"
+      >
+        <div className="z-0">
+          {videos !== null && (
+            <video
+              autoPlay
+              loop
+              muted
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            >
+              <source
+                src={
+                  videos !== null &&
+                  `${config.STRAPI_URL}` +
+                    videos.find(
+                      (video) => video.attributes.name === "HomePage_Video"
+                    ).attributes.video.data.attributes.url
                 }
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+        {/* Background Image */}
+        <div className="h-full relative">
+          <div className="absolute h-full w-full bg-black/40"></div>
+          <div className="hidden md:block z-30 fixed w-full">
+            {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
+          </div>
+          <div className="md:hidden z-30 fixed w-full">
+            {blackNavbar ? <NavbarBlack /> : <Navbar />}
+          </div>
+          <div className="h-full flex flex-col justify-center items-center">
+            <div className="lg:hidden z-10">
+              <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
+                {dynamicText !== null &&
+                  dynamicText.find(
+                    (text) => text.attributes.name === "Website_Name"
+                  ).attributes.text}
               </div>
+            </div>
+
+            <div className="hidden lg:block justify-center items-center z-10">
+              <img
+                src={logoWhite}
+                alt="My City Logo"
+                className="h-36 self-start mb-10"
+              ></img>
+            </div>
+            <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
+              {
+                //split each word in to a seperate div and fade them each one by one
+                dynamicText !== null &&
+                  dynamicText.find(
+                    (text) => text.attributes.name === "Website_Tagline"
+                  ).attributes.text
+              }
+            </div>
+
+            <div className="z-20">
+            <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
             </div>
           </div>
         </div>
-        <div className="h-full w-full -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px] bg-white relative mt-8/10">
-          
-          <div className="-translate-t-20">
-          <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
-
-          </div>
-
+      </div>
+      <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
         <div className="md:container md:mx-auto">
           <FadeInSection>
             {dynamicText !== null && dynamicImages !== null && (
@@ -275,16 +265,20 @@ function Home() {
             )}
           </FadeInSection>
         </div>
+      </div>
       {/* Seperated into different file because it's static content */}
       <FadeInSection>
-        <div className="p-4 lg:container lg:mx-auto">
-          <div className=" text-center text-primary font-custom text-3xl capitalize">
-            Featured Properties
-          </div>
-          <div className=" text-center text-secondary opacity-40 text-sm pt-4 capitalize">
-            Hand-picked selection of quality places
-          </div>
-          <div className="md:py-10">
+        <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px]">
+          <div className="p-4 lg:container lg:mx-auto relative">
+            <div className="relative flex justify-center">
+              <div className=" text-primary font-custom-kiona text-4xl capitalize">
+              FEATURED PROPERTIES
+              </div>
+            </div>
+            <div className=" text-center text-secondary font-bold font-custom-kiona text-lg pt-2 capitalize">
+              Hand-picked selection of quality places
+            </div>
+            <div className="md:py-10">
             {residences === null ? (
               //Circular Progress
               <div className="flex justify-center items-center mt-10">
@@ -309,19 +303,20 @@ function Home() {
             )}
           </div>
 
-          <div className="flex justify-center mt-10">
-            <div
-              className="w-[178px] h-12 bg-primary hover:bg-secondary hover:text-white text-white hover:scale-105 transition duration-75 cursor-pointer border border-secondary rounded-xl shadow-lg backdrop-blur-md"
-              onClick={() =>
-                navigate("/properties", {
-                  state: {
-                    limit: 100,
-                  },
-                })
-              }
-            >
-              <div className=" font-bold text-xl h-full flex justify-center items-center">
-                View All
+            <div className="flex justify-center mt-10">
+              <div
+                className="w-[178px] h-12 bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl shadow-lg backdrop-blur-md"
+                onClick={() =>
+                  navigate("/properties", {
+                    state: {
+                      limit: 100,
+                    },
+                  })
+                }
+              >
+                <div className=" font-bold text-xl h-full flex justify-center items-center">
+                  View All
+                </div>
               </div>
             </div>
           </div>
@@ -329,11 +324,20 @@ function Home() {
       </FadeInSection>
 
       <FadeInSection>
-        <WhatWeOfferSection dynamicText={dynamicText}></WhatWeOfferSection>
+        {dynamicImages !== null && dynamicText !== null ? (
+          <WhatWeOfferSection
+            dynamicText={dynamicText}
+            dynamicImages={dynamicImages}
+          ></WhatWeOfferSection>
+        ) : (
+          <div className="flex justify-center items-center mt-10">
+            <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
+          </div>
+        )}
       </FadeInSection>
 
       <FadeInSection>
-        {dynamicText !== null && dynamicImages !== null && (
+        {dynamicImages !== null && dynamicText !== null && (
           <KnowMoreSection
             dynamicText={dynamicText}
             dynamicImages={dynamicImages}
@@ -342,26 +346,26 @@ function Home() {
       </FadeInSection>
 
       <FadeInSection>
+        <div className="mt-10">
           <ReviewShowcaseSection></ReviewShowcaseSection>
-      </FadeInSection>
-
-      <FadeInSection>
-        <div className="container mx-auto">
-          {frequentQuestions !== null && (
-            <FrequentQuestionsSection
-              questions={frequentQuestions}
-            ></FrequentQuestionsSection>
-          )}
         </div>
       </FadeInSection>
 
       <FadeInSection>
-        <OurPartnersSection></OurPartnersSection>
+        <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px] mt-32">
+          <div className="container mx-auto">
+            {frequentQuestions !== null && (
+              <FrequentQuestionsSection
+                questions={frequentQuestions}
+              ></FrequentQuestionsSection>
+            )}
+          </div>
+        </div>
       </FadeInSection>
+
+        <OurPartnersSection></OurPartnersSection>
 
       <Footer></Footer>
-        </div>
-      </div>
       
       <ToastContainer
         position="bottom-center"

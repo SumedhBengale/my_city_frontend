@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import luxe from "../../assets/images/luxe.svg";
 
 function PropertyCard({ residence, highlighted }) {
   const [highlight, setHighlight] = React.useState(highlighted);
@@ -158,6 +159,11 @@ function PropertyCard({ residence, highlighted }) {
             </div>
           </div>
         </div>
+        {
+        residence.tags.includes("luxe") &&
+          <div className="text-sm  text-start overflow-ellipsis">
+          <img src={luxe} alt="host" className="w-14 md:w-20 h-full" />
+        </div>}
       </div>
     </div>
   );
