@@ -58,7 +58,12 @@ const ReviewCarousel = () => {
             {reviews ? (
               reviews.map((review) => (
                 <div key={review.id} className="review-card text-center">
-                  <div className="mb-5">
+
+                  <div className="w-full flex flex-col items-center gap-2">
+                    <div className=" w-5/6 text-center text-lg text-primary font-custom">
+                      {review.attributes.review}
+                    </div>
+                    <div className="mb-5">
                     {Array.from(Array(review.attributes.rating).keys()).map(
                       (index) => {
                         return (
@@ -99,10 +104,6 @@ const ReviewCarousel = () => {
                       }
                     )}
                   </div>
-                  <div className="w-full flex flex-col items-center gap-2">
-                    <div className=" w-5/6 text-center text-lg text-primary font-custom">
-                      {review.attributes.review}
-                    </div>
                     <div className="h-20 flex justify-center w-full">
                       <img
                         src={
@@ -113,7 +114,7 @@ const ReviewCarousel = () => {
                         className="rounded-full w-20"
                       />
                     </div>
-                    <p className="text-2xl">{review.attributes.name}</p>
+                    <p className="text-2xl capitalize text-primary">{review.attributes.name}</p>
                   </div>
                 </div>
               ))

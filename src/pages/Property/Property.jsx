@@ -149,7 +149,7 @@ function Property() {
         </div>
       </div>
       <div className="w-full md:container md:mx-auto px-5">
-        <div className=" pt-24 mb-3">
+        <div className=" pt-20 mb-3">
           <div
             className="w-10 h-10 bg-white flex justify-center items-center rounded-full"
             onClick={() => window.history.back()}
@@ -346,10 +346,10 @@ function Property() {
                 >{`${showFullDescription ? "Collapse" : "Read More"} >`}</div>
               </div>
               <div className="flex h-full w-full md:w-2/3 flex-col py-5">
-                <div className="text-md font-custom text-primary">
+                <div className="text-md font-custom-kiona text-primary">
                   ADD DATES FOR PRICES
                 </div>
-                <div className="text-xs font-custom text-secondary pb-3">
+                <div className="text-xs font-custom-kiona text-secondary pb-3">
                   {`${
                     //how many nights
                     totalNights !== 0 ? (totalNights ,'nights in') : ''
@@ -361,10 +361,10 @@ function Property() {
                       className="p-2 flex flex-col justify-center items-center w-full"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
-                      <div className="text-sm font-custom text-primary">
+                      <div className="text-sm font-custom-kiona text-primary">
                         CHECK-IN
                       </div>
-                      <div className="text-xs font-custom font-bold text-primary">
+                      <div className="text-xs font-custom-kiona font-bold text-primary">
                         {startDate !== null
                           ? startDate.toLocaleDateString("en-US", {
                               weekday: "short",
@@ -379,10 +379,10 @@ function Property() {
                       className="p-2 flex flex-col justify-center items-center w-full"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
-                      <div className="text-sm font-custom text-primary">
+                      <div className="text-sm font-custom-kiona text-primary">
                         CHECK-OUT
                       </div>
-                      <div className="text-xs font-custom font-bold text-primary">
+                      <div className="text-xs font-custom-kiona font-bold text-primary">
                         {endDate !== null
                           ? endDate.toLocaleDateString("en-US", {
                               weekday: "short",

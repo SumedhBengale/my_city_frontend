@@ -4,6 +4,7 @@ import PastTripCard from "./PastTripCard";
 import UpcomingTripCard from "./UpcomingTripCard";
 import DesktopNavbar from "../../components/desktopNavbarBlack";
 import { getTrips } from "./api";
+import { ToastContainer, toast } from "react-toastify";
 
 function Trips() {
   const [trips, setTrips] = useState([]);
@@ -52,7 +53,7 @@ function Trips() {
             </svg>
           </div>
           <div className="w-full flex items-center justify-start">
-            <div className="text-primary font-custom text-3xl capitalize">
+            <div className="text-primary font-custom-kiona text-3xl capitalize">
               Trips
             </div>
           </div>
@@ -96,7 +97,7 @@ function Trips() {
             }`}
           >
             <div
-              className={`text-center w-full text-md text-primary font-custom cursor-pointer
+              className={`text-center w-full text-md text-primary font-custom-kiona cursor-pointer
                         ${
                           selected === "upcoming" ? "text-white" : "text-black"
                         }`}
@@ -114,7 +115,7 @@ function Trips() {
             }`}
           >
             <div
-              className={`text-center w-full text-md font-custom text-primary 
+              className={`text-center w-full text-md font-custom-kiona text-primary 
                         ${selected === "past" ? "text-white" : "text-black"}`}
               onClick={() => setSelected("past")}
             >
@@ -141,7 +142,11 @@ function Trips() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 my-5">
             {pastTrips.length > 0 ? (
-              pastTrips.map((trip) => <PastTripCard trip={trip}></PastTripCard>)
+              pastTrips.map((trip) => <PastTripCard trip={trip} toast={(error) =>{
+                console.log("ERROR", error)
+                toast.error(error);
+              }
+              }></PastTripCard>)
             ) : (
               <div className="flex justify-center items-center h-96 col-span-full">
                 <div className="text-2xl text-center font-bold">
@@ -152,6 +157,18 @@ function Trips() {
           </div>
         )}
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

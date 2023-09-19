@@ -33,23 +33,23 @@ function Success() {
       <div className="flex flex-col justify-center h-screen items-center text-center">
         {paymentStatus === "succeeded" ? (
           <div>
-            <div className="text-3xl text-primary font-custom capitalize">
+            <div className="text-3xl text-primary font-custom-kiona capitalize">
               Payment Successful
             </div>
           </div>
         ) : (
           <div>
-            <div className="text-3xl text-primary font-custom capitalize">
+            <div className="text-3xl text-primary font-custom-kiona capitalize">
               Payment Failed
             </div>
           </div>
         )}
         {confirmed ? (
           <div>
-            <div className="text-xl text-primary font-custom capitalize">
+            <div className="text-xl text-primary font-custom-kiona capitalize">
               Reservation Confirmed
             </div>
-            <div className="text-xl text-primary font-custom capitalize">
+            <div className="text-xl text-primary font-custom-kiona capitalize">
               Redirecting in 10 seconds...
             </div>
             <div className="flex justify-center items-center">
@@ -58,7 +58,7 @@ function Success() {
           </div>
         ) : (
           <div>
-            <div className="text-xl text-primary font-custom capitalize">
+            <div className="text-xl text-primary font-custom-kiona capitalize">
               Reservation Not Confirmed
             </div>
             <div className="flex justify-center items-center">

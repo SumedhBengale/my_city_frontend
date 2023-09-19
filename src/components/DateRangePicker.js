@@ -221,9 +221,18 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
       changeBookingBlocked(false)
       return;
     }
-    //If clicking on the same date, set startDate and endDate to null
-    if (isSameDay(day, startDate) || isSameDay(day, endDate)) {
+
+    //If same date is clicked, set startDate and endDate to null
+    if (isSameDay(day, startDate)) {
       setStartDate(null);
+      setEndDate(null);
+      changeBookingBlocked(false)
+      return;
+    }
+
+    //If startDate and endDate are not null, set startDate to the day and set endDate to null
+    if (startDate !== null && endDate !== null) {
+      setStartDate(day);
       setEndDate(null);
       changeBookingBlocked(false)
       return;
@@ -332,40 +341,42 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
 
             </div>
           </div>
+          <div className='w-full p-2'>
+            {bookingBlocked && <button className="bg-primary w-full text-white font-custom-lora font-bold text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
+              onClick={() => {
+                localStorage.getItem('luxe') === true ?
+                  navigate('/luxe/properties', {
+                    state: {
+                      filterData: {
+                        location: "any",
+                        startDate: startDate,
+                        endDate: endDate,
+                        bedrooms: "any",
+                        guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
+                        bathrooms: "any",
+                        priceRange: [0, 2500],
+                        amenities: [],
+                      },
+                    }
+                  }) :
+                  navigate('/properties', {
+                    state: {
+                      filterData: {
+                        location: "any",
+                        startDate: startDate,
+                        endDate: endDate,
+                        bedrooms: "any",
+                        guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
+                        bathrooms: "any",
+                        priceRange: [0, 2500],
+                        amenities: [],
+                      },
+                    }
+                  })
+              }}
+            >See Available Properties</button>}
+          </div>
         </div>
-        {bookingBlocked && <button className="bg-primary text-white font-custom-lora font-bold text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
-          onClick={() => {
-            localStorage.getItem('luxe') === true ?
-              navigate('/luxe/properties', {
-                state: {
-                  filterData: {
-                    location: "any",
-                    startDate: startDate,
-                    endDate: endDate,
-                    bedrooms: "any",
-                    guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
-                    bathrooms: "any",
-                    priceRange: [0, 2500],
-                    amenities: [],
-                  },
-                }
-              }) :
-              navigate('/properties', {
-                state: {
-                  filterData: {
-                    location: "any",
-                    startDate: startDate,
-                    endDate: endDate,
-                    bedrooms: "any",
-                    guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
-                    bathrooms: "any",
-                    priceRange: [0, 2500],
-                    amenities: [],
-                  },
-                }
-              })
-          }}
-        >See Available Properties</button>}
 
       </div>
       : <div className="flex justify-center items-center h-96">

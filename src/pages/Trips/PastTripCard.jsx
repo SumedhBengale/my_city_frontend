@@ -1,19 +1,16 @@
 import { React, useState, useEffect } from "react";
-import Image2 from "../../assets/images/property/placeholder2.png";
-import { getResidenceInfo, saveReview } from "./api";
+import {saveReview } from "./api";
 import { format } from "date-fns";
-import { ToastContainer, toast } from "react-toastify";
 
-function PastTripCard({ trip }) {
+function PastTripCard({ trip, toast }) {
   const [residence, setResidence] = useState(null);
   const [reviewCardVisible, setReviewCardVisible] = useState(false);
   const [rating, setRating] = useState(5);
   const [review, setReview] = useState(null);
-  const [ratingPickerVisible, setRatingPickerVisible] = useState(false);
   const submitReview = () => {
     //if the rating or review is null, then don't submit
     if (rating === 0 || review === null || review === "") {
-      toast.error("Please fill in all fields");
+      toast("Please fill in all fields");
       return;
     }
     saveReview(trip._id, rating, review).then((data) => {
@@ -120,7 +117,7 @@ function PastTripCard({ trip }) {
             />
           </div>
           <div className="text-sm">{residence.roomType}</div>
-          <div className="text-md font-custom text-primary">
+          <div className="text-md font-custom-kiona text-primary">
             {residence.title}
           </div>
           <div className="flex justify-between">
@@ -133,7 +130,7 @@ function PastTripCard({ trip }) {
             </div>
             <div className="flex flex-col justify-end">
               <div
-                className="text-md text-end font-custom underline"
+                className="text-md text-end font-custom-kiona underline"
                 onClick={() => setReviewCardVisible(true)}
               >
                 Write a review
@@ -142,18 +139,6 @@ function PastTripCard({ trip }) {
           </div>
         </div>
       )}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </>
   );
 }

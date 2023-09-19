@@ -30,7 +30,7 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
             ).attributes.text}
         </div>
         <button
-          className="relative bg-primary  hover:bg-secondary border text-white shadow-lg hover:scale-105 transition duration-75 cursor-pointer font-custom text-lg py-3 px-5 rounded-lg"
+          className="relative bg-primary  hover:bg-secondary border text-white shadow-lg hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona text-lg py-3 px-5 rounded-lg"
           onClick={() =>
             navigate("/luxe/properties", {
               state: {

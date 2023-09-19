@@ -63,7 +63,7 @@ function AboutUsPage() {
             <div className="font-custom-bold text-4xl md:text-5xl text-white text-center pb-4 capitalize">
               Who are we?
             </div>
-            <div className=" text-2xl md:text-4xl w-full text-center font-custom text-white sm-3 lg:mb-10 capitalize">
+            <div className=" text-2xl md:text-4xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
               Home away from home
             </div>
           </div>

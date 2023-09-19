@@ -230,8 +230,8 @@ function DesktopNavbar() {
                     width={80}
                     onColor="#fff"
                     offColor="#fff"
-                    offHandleColor="#F9A826"
-                    onHandleColor="#F9A826"
+                    offHandleColor="#c79744"
+                    onHandleColor="#c79744"
                     className="border"
                     uncheckedIcon={
                       <div className="w-full h-full flex items-center pr-1">
@@ -240,7 +240,7 @@ function DesktopNavbar() {
                     }
                     checkedIcon={
                       <div className="w-full h-full flex items-center pl-2">
-                        <div className="font-custom-kiona text-xs text-black">
+                        <div className="font-custom-kiona text-[9px] text-black">
                           Regular
                         </div>
                       </div>
@@ -270,8 +270,8 @@ function DesktopNavbar() {
                       width={80}
                       onColor="#fff"
                       offColor="#fff"
-                      offHandleColor="#F9A826"
-                      onHandleColor="#F9A826"
+                      offHandleColor="#c79744"
+                      onHandleColor="#c79744"
                       className="border"
                       uncheckedIcon={
                         <div className="w-full h-full flex items-center pr-1">
@@ -280,7 +280,7 @@ function DesktopNavbar() {
                       }
                       checkedIcon={
                         <div className="w-full h-full flex items-center pl-2">
-                          <div className="font-custom-kiona text-xs text-black">
+                          <div className="font-custom-kiona text-[9px] text-black">
                             Regular
                           </div>
                         </div>

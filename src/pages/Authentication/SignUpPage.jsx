@@ -6,13 +6,23 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signup } from './api';
+import { signup, getVideos } from './api';
+import config from '../../config/config';
+import Navbar from '../../components/navbar';
+import NavbarBlack from '../../components/navbar_black';
+import DesktopNavbar from '../../components/desktopNavbar';
+import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 
 function SignUp() {
+    const [videos, setVideos] = React.useState(null);
     useEffect(() => {
       if (localStorage.getItem('token')) {
         navigate('/');
       }
+      getVideos().then((res) => {
+        console.log(res.data);
+        setVideos(res.data);
+      });
     }, []);
     const navigate = useNavigate();
     const validationSchema = Yup.object().shape({
@@ -50,14 +60,50 @@ function SignUp() {
   
     return (
       <div
-        style={{
-          backgroundImage: `url(${loginBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          width: '100%',
-          height: '100vh',
-        }}
-      >
+      style={{
+        width: '100%',
+        height: '100vh',
+      }}
+      className="z-0"
+    >
+      <div className="z-0">
+        {videos !== null && (
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          >
+            <source
+              src={
+                videos !== null &&
+                `${config.STRAPI_URL}` +
+                  videos.find(
+                    (video) => video.attributes.name === "SignUp_Video"
+                  ).attributes.video.data.attributes.url
+              }
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        )}
+      </div>
+      {/* Background Image */}
+      <div className="absolute h-full w-full bg-black/40"></div>
+      <div className="h-full relative">
+        <div className="hidden md:block z-30 fixed w-full">
+          {<DesktopNavbar />}
+        </div>
+        <div className="md:hidden z-30 fixed w-full">
+          {<Navbar />}
+        </div>
         <div className="w-full flex justify-center items-start md:items-center md:h-full pt-10 md:pt-0">
           <div className="mx-4 sm:w-2/3 md:w-1/2 xl:w-1/3">
             <div className='flex justify-center items-center'>
@@ -117,19 +163,8 @@ function SignUp() {
             </div>
           </div>
         </div>
-        <ToastContainer
-        position="bottom-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-    />
       </div>
+    </div>
     );
   }
   

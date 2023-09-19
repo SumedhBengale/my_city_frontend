@@ -5,7 +5,7 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
   return (
     <>
       <div className="container mx-auto">
-        <div className="font-custom text-4xl text-primary text-center sm:text-start sm:pl-5 pt-10 mb-10">
+        <div className="font-custom-kiona text-4xl text-primary text-center sm:text-start sm:pl-5 pt-10 mb-10">
           How We Do It?
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pb-20">

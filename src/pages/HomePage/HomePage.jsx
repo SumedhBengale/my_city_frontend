@@ -166,7 +166,7 @@ function Home() {
         breakpoint: 768,
         settings: {
           arrows: false,
-          centerMode: true,
+          centerMode: false,
           slidesToShow: 1,
         }
       }
@@ -270,7 +270,7 @@ function Home() {
       <FadeInSection>
         <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px]">
           <div className="p-4 lg:container lg:mx-auto relative">
-            <div className="relative flex justify-center">
+            <div className="relative flex justify-center pb-3">
               <div className=" text-primary font-custom-kiona text-4xl capitalize">
               FEATURED PROPERTIES
               </div>
@@ -278,7 +278,7 @@ function Home() {
             <div className=" text-center text-secondary font-bold font-custom-kiona text-lg pt-2 capitalize">
               Hand-picked selection of quality places
             </div>
-            <div className="md:py-10">
+            <div className="md:pt-10">
             {residences === null ? (
               //Circular Progress
               <div className="flex justify-center items-center mt-10">
@@ -303,7 +303,7 @@ function Home() {
             )}
           </div>
 
-            <div className="flex justify-center mt-10">
+            <div className="flex justify-center">
               <div
                 className="w-[178px] h-12 bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl shadow-lg backdrop-blur-md"
                 onClick={() =>
@@ -352,7 +352,7 @@ function Home() {
       </FadeInSection>
 
       <FadeInSection>
-        <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px] mt-32">
+        <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px]">
           <div className="container mx-auto">
             {frequentQuestions !== null && (
               <FrequentQuestionsSection

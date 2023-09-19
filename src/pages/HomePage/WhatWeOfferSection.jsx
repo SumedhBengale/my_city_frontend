@@ -8,7 +8,7 @@ function WhatWeOfferSection({dynamicText}) {
     <>
       <div className="w-full bg-neutral-100 flex flex-col justify-center items-center mt-5 backdrop-blur-[185px] pb-10 px-5">
         <div className='w-full container mx-auto'>
-        <div className='font-custom text-3xl text-center mt-10 text-primary'>{dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'WhatWeOffer_Heading').attributes.text}</div>
+        <div className='font-custom-kiona text-3xl text-center mt-10 text-primary'>{dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'WhatWeOffer_Heading').attributes.text}</div>
         <div className="text-center text-secondary text-md  capitalize">{dynamicText !== null && dynamicText.find((text) => text.attributes.name === 'WhatWeOffer_Subheading').attributes.text}</div>
         <div className='flex flex-col lg:flex-row text-center items-center lg:items-start justify-around gap-10'>
           <div className='flex flex-col justify-center items-center mt-10 max-w-[400px]'>

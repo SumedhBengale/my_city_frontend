@@ -276,10 +276,10 @@ function Home() {
                 <img src={luxe} alt="arrow" className="w-20 h-10" />
               </div>
             </div>
-            <div className=" text-center text-white font-bold font-custom text-lg pt-2 capitalize">
+            <div className=" text-center text-white font-bold font-custom-kiona text-lg pt-5 capitalize">
               Hand-picked selection of quality places
             </div>
-            <div className="md:py-10">
+            <div className="md:pt-10">
             {residences === null ? (
               //Circular Progress
               <div className="flex justify-center items-center mt-10">
@@ -304,7 +304,7 @@ function Home() {
             )}
           </div>
 
-            <div className="flex justify-center mt-10">
+            <div className="flex justify-center">
               <div
                 className="w-[178px] h-12 bg-white hover:bg-secondary text-primary hover:text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl shadow-lg backdrop-blur-md"
                 onClick={() =>

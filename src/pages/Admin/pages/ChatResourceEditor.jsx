@@ -101,7 +101,7 @@ function ChatResourceEditor() {
               <img src={LeftArrow} alt="left arrow" className="w-6 h-6 m-3" />
             </div>
             <div className="w-full flex items-center justify-start px-2">
-              <div className="text-primary font-custom text-3xl capitalize">
+              <div className="text-primary font-custom-kiona text-3xl capitalize">
                 Messages
               </div>
             </div>

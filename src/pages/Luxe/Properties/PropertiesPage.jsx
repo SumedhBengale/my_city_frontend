@@ -349,7 +349,7 @@ function PropertiesSection({
     <>
       <div className="flex flex-col md:flex-row justify-between pt-10">
         <div className="flex justify-center items-start pt-2">
-          <div className="text-primary font-custom text-3xl capitalize">
+          <div className="text-primary font-custom-kiona text-3xl capitalize">
             Available Residences
           </div>
         </div>

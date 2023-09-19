@@ -301,7 +301,7 @@ function ManagementPage() {
                           </div>
                         </div>
                         <button
-                          className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-12 w-40 my-3"
+                          className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona py-2 px-4 h-12 w-40 my-3"
                           onClick={(e) => {
                             e.preventDefault();
                             if (
@@ -352,7 +352,7 @@ function ManagementPage() {
                     (text) => text.attributes.name === "HomeOwners_Heading"
                   ).attributes.text}
               </div>
-              <div className=" text-lg w-full text-center font-custom text-white sm-3 lg:mb-10 capitalize">
+              <div className=" text-lg w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HomeOwners_Subheading"
@@ -365,7 +365,7 @@ function ManagementPage() {
                   placeholder="Enter Postcode"
                 ></input>
                 <button
-                  className="bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-full w-40 rounded-r-lg uppercase"
+                  className="bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona py-2 px-4 h-full w-40 rounded-r-lg uppercase"
                   onClick={() => handleQuotePopUp()}
                 >
                   Get a Quote

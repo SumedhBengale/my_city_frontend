@@ -6,7 +6,7 @@ import good_hands from '../../assets/images/management/good_hands.svg'
 function WhatWeOffer() {
   return (
     <>
-        <div className='text-center font-bold font-custom text-zinc-800 text-2xl mt-10'>What We Offer</div>
+        <div className='text-center font-bold font-custom-kiona text-zinc-800 text-2xl mt-10'>What We Offer</div>
         
         <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             <div className="flex flex-col md:flex-row justify-center items-center m-5">

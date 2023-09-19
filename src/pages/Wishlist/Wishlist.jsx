@@ -85,7 +85,7 @@ function Wishlist() {
               </svg>
             </div>
             <div className="flex justify-start">
-              <div className="text-primary font-custom text-3xl capitalize">
+              <div className="text-primary font-custom-kiona text-3xl capitalize">
                 WishList
               </div>
               <div className="flex justify-center items-start pl-3 pt-2">

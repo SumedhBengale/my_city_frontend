@@ -31,7 +31,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
             </div>
           </div>
           <div className="font-normal text-lg"></div>
-          <div className="text-md font-custom text-white pt-10">
+          <div className="text-md font-custom-avenir text-white pt-10">
             {dynamicText !== null &&
               dynamicText.find(
                 (text) => text.attributes.name === "KnowMoreSection_Content"
@@ -40,10 +40,10 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
 
           <div className="flex justify-center lg:justify-start mt-5">
             <div
-              className="w-[178px] h-12 bg-white hover:bg-secondary border text-primary shadow-lg hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md"
+              className="w-[178px] h-12 bg-white hover:bg-secondary text-primary shadow-lg hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md"
               onClick={() => navigate("/about")}
             >
-              <div className=" text-xl h-full flex justify-center font-custom items-center">
+              <div className=" text-xl h-full flex justify-center font-custom-kiona items-center">
                 Know More
               </div>
             </div>

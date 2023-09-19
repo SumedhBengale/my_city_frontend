@@ -68,7 +68,7 @@ function OurTeamSection({ dynamicText, dynamicImages }) {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <button className="bg-primary hover:bg-secondary text-white font-custom text-2xl py-2 px-5 rounded-lg mt-10 mb-10">
+            <button className="bg-primary hover:bg-secondary text-white font-custom-kiona text-2xl py-2 px-5 rounded-lg mt-10 mb-10">
               Chat with us
             </button>
           </div>

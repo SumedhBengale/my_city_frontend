@@ -5,17 +5,25 @@ import GoogleLogo from "../../assets/images/login/google_logo.svg";
 import FacebookLogo from "../../assets/images/login/facebook_logo.svg";
 import EmailLogo from "../../assets/images/login/email_logo.svg";
 import { useNavigate } from "react-router-dom";
-import { login } from "./api";
+import { getVideos, login } from "./api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from '../../config/config';
+import Navbar from '../../components/navbar';
+import NavbarBlack from '../../components/navbar_black';
+import DesktopNavbar from '../../components/desktopNavbar';
+import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 
 const LoginPage = () => {
+  const [videos, setVideos] = useState(null);
+
   useEffect(() => {
-    console.log("HERE")
-    console.log(localStorage.getItem("token"));
-    //get previous url from referrer
+    getVideos().then((res) => {
+      console.log(res.data);
+      setVideos(res.data);
+    });
   }, []);
   const navigate = useNavigate();
   // Define the validation schema using Yup
@@ -53,17 +61,53 @@ const LoginPage = () => {
 
   return (
     <>
-      <div
+        <div
         style={{
-          backgroundImage: `url(${loginBackground})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "100vh",
+          width: '100%',
+          height: '100vh',
         }}
+        className="z-0"
       >
+        <div className="z-0">
+          {videos !== null && (
+            <video
+              autoPlay
+              loop
+              muted
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            >
+              <source
+                src={
+                  videos !== null &&
+                  `${config.STRAPI_URL}` +
+                    videos.find(
+                      (video) => video.attributes.name === "Login_Video"
+                    ).attributes.video.data.attributes.url
+                }
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
         {/* Background Image */}
-        <div className="w-full flex justify-center items-start md:items-center md:h-full pt-10 md:pt-0">
+        <div className="absolute h-full w-full bg-black/40"></div>
+
+        <div className="h-full relative">
+          <div className="hidden md:block z-30 fixed w-full">
+            {<DesktopNavbar />}
+          </div>
+          <div className="md:hidden z-30 fixed w-full">
+            {<Navbar />}
+          </div>
+          <div className="w-full flex justify-center items-start md:items-center md:h-full pt-10 md:pt-0">
           <div className="mx-4 md:w-1/2 xl:w-1/3">
             <div className="w-full flex justify-center items-center">
               <img
@@ -126,7 +170,7 @@ const LoginPage = () => {
               {" "}
               {/* Divider */}
               <hr className=" w-full border-sm my-4" />
-              <span class="flex-shrink font-custom text-lg text-white px-4 italic font-light">
+              <span class="flex-shrink font-custom-kiona text-lg text-white px-4 italic font-light">
                 or
               </span>
               <hr className="w-full border-sm my-4" />
@@ -189,6 +233,7 @@ const LoginPage = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       <ToastContainer

@@ -90,7 +90,7 @@ const HorizontalScrollView = () => {
 function Reviews() {
   return (
     <>
-        <div className='pl-5 text-2xl font-custom text-center font-bold'>Site Reviews</div>
+        <div className='pl-5 text-2xl font-custom-kiona text-center font-bold'>Site Reviews</div>
       <HorizontalScrollView />
     </>
   );

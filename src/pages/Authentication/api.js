@@ -6,8 +6,8 @@ const API_URL = config.API_URL; // Assuming your config file is located in the s
 // API call to authenticate user login
 export const login = async (email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, { "email":email, "password":password });
-    return {token: response.data.token, status:response.status, userId: response.data.userId, userType: response.data.userType}; // Assuming your API returns a JSON response with data
+    const response = await axios.post(`${API_URL}/login`, { "email": email, "password": password });
+    return { token: response.data.token, status: response.status, userId: response.data.userId, userType: response.data.userType }; // Assuming your API returns a JSON response with data
   } catch (error) {
     const { response } = error;
     if (response) {
@@ -26,13 +26,13 @@ export const verifyEmail = async (token) => {
   console.log(token)
   try {
     const response = await axios.post(`${API_URL}/verify-email`,
-    //send the token in the body
-    {
-      verificationToken: token
-    }
+      //send the token in the body
+      {
+        verificationToken: token
+      }
     );
 
-    return {status:response.status, message: response.data}; // Assuming your API returns a JSON response with data
+    return { status: response.status, message: response.data }; // Assuming your API returns a JSON response with data
   } catch (error) {
     const { response } = error;
     if (response) {
@@ -50,7 +50,7 @@ export const verifyEmail = async (token) => {
 // API call to register a new user
 export const signup = async (username, email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/signup`, { "userName":username, "email":email, "password":password });
+    const response = await axios.post(`${API_URL}/signup`, { "userName": username, "email": email, "password": password });
     return response.data; // Assuming your API returns a JSON response with data
   } catch (error) {
     const { response } = error;
@@ -64,3 +64,16 @@ export const signup = async (username, email, password) => {
     }
   }
 };
+
+export const getVideos = async () => {
+  try {
+    //get request with auth header
+    const response = await axios.get(`${config.STRAPI_URL}/api/videos?populate=*`, {
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response;
+    }
+  }
+}

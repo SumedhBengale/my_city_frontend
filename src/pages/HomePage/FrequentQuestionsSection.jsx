@@ -68,7 +68,7 @@ function FrequentQuestion({ question, answer }) {
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
-        <div className="flex justify-between flex items-center">
+        <div className="flex justify-between items-center">
           <div className="text-md ml-3 w-3/4 flex font-bold items-center capitalize">
             {question}
           </div>

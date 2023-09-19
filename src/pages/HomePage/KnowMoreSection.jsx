@@ -24,13 +24,13 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
                 (text) => text.attributes.name === "KnowMoreSection_Heading"
               ).attributes.text}
           </div>
-          <div className="font-normal text-lg text-secondary">
+          <div className="font-normal font-custom-avenir text-lg text-secondary">
             {dynamicText !== null &&
               dynamicText.find(
                 (text) => text.attributes.name === "KnowMoreSection_Subheading"
               ).attributes.text}
           </div>
-          <div className="text-md text-slate-700 pt-5">
+          <div className="text-md font-custom-avenir text-slate-700 pt-5">
             {dynamicText !== null &&
               dynamicText.find(
                 (text) => text.attributes.name === "KnowMoreSection_Content"
@@ -42,7 +42,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
               className="w-[178px] h-12  bg-primary hover:bg-secondary border text-white shadow-lg hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md"
               onClick={() => navigate("/about")}
             >
-              <div className=" text-xl h-full flex justify-center font-custom items-center">
+              <div className=" text-xl h-full flex justify-center font-custom-kiona items-center">
                 Know More
               </div>
             </div>

@@ -117,7 +117,7 @@ function ContactUs() {
 
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 place-items-start gap-4">
               <div className="w-full flex flex-col justify-center items-start order-2 lg:order-1">
-                <div className="font-custom text-lg mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-lg mx-3 md:mx-0 mt-3 text-black">
                   Name
                 </div>
                 <input
@@ -127,7 +127,7 @@ function ContactUs() {
                   onChange={(e) => setName(e.target.value)}
                 ></input>
 
-                <div className="font-custom text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
                   Phone
                 </div>
                 <input
@@ -143,7 +143,7 @@ function ContactUs() {
                   }}
                 ></input>
 
-                <div className="font-custom text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
                   Email
                 </div>
                 <input
@@ -153,7 +153,7 @@ function ContactUs() {
                   onChange={(e) => setEmail(e.target.value)}
                 ></input>
 
-                <div className="font-custom text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
                   Message
                 </div>
                 <textarea

@@ -324,7 +324,7 @@ function Book() {
                       placeholder="Enter Promo Code"
                     ></input>
                     <button
-                      className="bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer font-custom py-2 px-4 h-full w-32 rounded-r-lg uppercase"
+                      className="bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona py-2 px-4 h-full w-32 rounded-r-lg uppercase"
                       onClick={() => {
                         setLoading(true);
                         setBookingDisabled(true);

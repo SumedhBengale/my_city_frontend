@@ -15,6 +15,8 @@ import { useLocation } from "react-router-dom";
 import { getDynamicText, getResidences, getVideos } from "./api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import luxe from "../../assets/images/luxe.svg";
+import Switch from "react-switch";
 import config from "../../config/config";
 
 function PropertiesPage() {
@@ -42,7 +44,6 @@ function PropertiesPage() {
   const location = useLocation();
   const [dynamicText, setDynamicText] = useState(null);
   const [videos, setVideos] = useState(null);
-
   useEffect(() => {
     console.log(location.state);
     getVideos().then((res) => {
@@ -97,6 +98,7 @@ function PropertiesPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location.state]);
+
   return (
     <>
       <>
@@ -252,7 +254,7 @@ function PropertiesSection({
   const [sortValue, setSortValue] = useState("p-lh");
   const [sortedResidences, setSortedResidences] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (residences) {
       let tempResidences = residences;
@@ -342,18 +344,20 @@ function PropertiesSection({
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between pt-10">
-        <div className="flex justify-center items-start pt-2">
-          <div className="text-primary font-custom text-3xl capitalize">
+      <div className="flex flex-col justify-between pt-10 ">
+        <div className="flex justify-between items-start pt-2">
+          <div className="text-primary font-custom-kiona text-3xl capitalize">
             Available Residences
           </div>
-        </div>
-        <div className="flex flex-col items-end justify-end mt-3 mb-5 gap-5">
           <div
             className="h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1"
             onClick={() => setFilterVisible(true)}
           >
             <img src={filterBlack} alt="filter" className="h-3/4 w-3/4" />
+          </div>
+        </div>
+        <div className="flex items-end justify-between mt-3 mb-5 gap-5">
+        <div className="mx-4 flex items-center w-20">
           </div>
           <div className="flex z-10 items-center">
             <div className="flex self-center">Sort by:</div>

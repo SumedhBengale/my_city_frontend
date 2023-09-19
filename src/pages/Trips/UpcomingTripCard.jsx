@@ -27,7 +27,7 @@ function UpcomingTripCard({ trip }) {
             />
           </div>
           <div className="text-sm font-custom">{residence.roomType}</div>
-          <div className="text-lg font-custom text-primary">
+          <div className="text-lg font-custom-kiona text-primary">
             {residence.title}
           </div>
           <div className="flex justify-between">

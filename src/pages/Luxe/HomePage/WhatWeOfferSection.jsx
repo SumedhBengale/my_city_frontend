@@ -7,7 +7,7 @@ function WhatWeOfferSection({ dynamicText, dynamicImages }) {
     <>
       <div className="w-full bg-white flex flex-col justify-center items-center mt-5 backdrop-blur-[185px] pb-10 px-5">
         <div className="w-full container mx-auto">
-          <div className="font-custom text-3xl text-center mt-10 text-primary">
+          <div className="font-custom-kiona text-3xl text-center mt-10 text-primary">
             {dynamicText !== null &&
               dynamicText.find(
                 (text) => text.attributes.name === "WhatWeOffer_Heading"

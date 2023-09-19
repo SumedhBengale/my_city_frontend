@@ -63,7 +63,7 @@ function FrequentQuestion({ question, answer }) {
 
   return (
     <div className="mx-5 mt-5">
-      <div className="Rectangle w-full bg-transparent rounded-lg border border-white flex flex-col py-3">
+      <div className="Rectangle w-full bg-transparent  transition duration:200 linear rounded-lg border border-white flex flex-col py-3">
         <div className="flex justify-between">
           <div className="text-md text-white ml-3 w-3/4 flex  items-center capitalize">
             {question}
@@ -75,7 +75,12 @@ function FrequentQuestion({ question, answer }) {
             onClick={() => setAnswerVisible(!answerVisible)}
           />
         </div>
-        {answerVisible && <div className="px-3 text-white">{answer}</div>}
+        {<div
+          className={`text-white transition-all ${answerVisible ? 'h-auto opacity-100 px-3 pt-3' : 'h-0 opacity-0 overflow-hidden'} duration-200 linear`}
+          style={{ maxHeight: answerVisible ? '1000px' : '0' }}
+        >
+          {answer}
+        </div>}
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ function PropertyCard({ residence, highlighted }) {
             <div className=" text-lg font-custom-lora font-bold">
               {residence.prices.basePrice}
             </div>
-            <div className=" text-sm font-custom font-normal self-end">/night</div>
+            <div className=" text-sm font-custom-kiona font-normal self-end">/night</div>
           </div>
         </div>
         <div className="w-full p-4">
@@ -53,7 +53,7 @@ function PropertyCard({ residence, highlighted }) {
       </div>
       <div className="px-6 pb-2">
         <div
-          className={`font-custom ${
+          className={`font-custom-kiona ${
             highlight ? "text-white" : "text-primary"
           } text-md lg:text-lg mb-1 overflow-ellipsis line-clamp-1`}
         >
