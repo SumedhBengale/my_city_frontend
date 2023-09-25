@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import Star from "../../assets/images/property/star.svg";
 import PhotoGrid from "./PhotoGrid";
 import Amenities from "./Amenities";
@@ -8,6 +8,7 @@ import DateRangePicker from "../../components/DateRangePicker";
 import MapContainer from "./MapContainer";
 import DesktopNavbar from "../../components/desktopNavbarBlack";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import amenityIcon from "../../assets/images/property/amenity_icon.png";
 import Carousel from "./Carousel";
 import {
   getResidence,
@@ -44,6 +45,7 @@ function Property() {
   const [guestPickerVisible, setGuestPickerVisible] = useState(false);
   const [residence, setResidence] = useState(null);
   const [wishlisted, setWishlisted] = useState(false);
+  const [showAmenities, setShowAmenities] = useState(false);
   const [dateRangePickerVisible, setDateRangePickerVisible] = useState(false);
   const [startDate, setStartDate] = useState(
     localStorage.getItem("checkInDate")
@@ -64,7 +66,7 @@ function Property() {
   const [bookingDisabled, setBookingDisabled] = useState(true);
   const [hoveringWishlistButton, setHoveringWishlistButton] = useState(false);
   const navigate = useNavigate();
-
+  const amenitiesDialogRef = useRef(null);
   useEffect(() => {
     console.log("START DATE", startDate);
     console.log("END DATE", endDate);
@@ -89,6 +91,46 @@ function Property() {
 
   return (
     <>
+    {
+      showAmenities === true && residence && (
+        <div
+          className="fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-40 backdrop-filter backdrop-blur-sm"
+          //when clicked outside the dialog, close
+          onClick={(e) => {
+            if (
+              amenitiesDialogRef.current && !amenitiesDialogRef.current.contains(e.target)
+            ) {
+            console.log("LASKDJLAKSJD")
+              setShowAmenities(false);
+            }
+          }}
+        >
+          <div className="absolute h-screen w-screen bg-black/40 z-30"></div>
+        <div className="uppercase z-40 h-full">
+          <div className="flex flex-col mx-5 mb-10 justify-center items-center h-full">
+            <div className=" px-4 py-5 bg-white h-1/2 overflow-scroll no-scrollbar rounded-lg"         
+            ref={amenitiesDialogRef}>
+            <div className="text-2xl font-custom-kiona text-primary px-2 pb-4">ALL AMENITIES</div>
+            <div className={`grid grid-cols-2 gap-5 pt-5 md:pt-0`}>
+              {residence.amenities.map((amenity, index) => (
+                <div className="flex justify-center">
+                  <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                    <img
+                      src={amenityIcon}
+                      className="h-12 w-12"
+                      alt="amenityIcon"
+                    />
+                    <div className="text-start text-sm px-1">{amenity}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      )
+    }
       {carouselVisible && (
         <div className="fixed top-0 h-full w-full bg-black/20 z-30 flex justify-center items-center">
           <div
@@ -130,6 +172,49 @@ function Property() {
                     )
                 );
             }}
+            bookNow={() =>
+              bookingDisabled === false
+                ? navigate("/book", {
+                    state: {
+                      residence: residence,
+                      startDate: startDate,
+                      guests: guests,
+                      endDate: endDate,
+                      totalNights: totalNights,
+                    },
+                  })
+                : (localStorage.setItem("startDate", startDate),
+                  localStorage.setItem("endDate", endDate),
+                  localStorage.getItem("luxe") === true
+                    ? navigate("/luxe/properties", {
+                        state: {
+                          filterData: {
+                            location: "any",
+                            startDate: startDate,
+                            endDate: endDate,
+                            bedrooms: "any",
+                            guests: guests,
+                            bathrooms: "any",
+                            priceRange: [0, 10000],
+                            amenities: [],
+                          },
+                        },
+                      })
+                    : navigate("/properties", {
+                        state: {
+                          filterData: {
+                            location: "any",
+                            startDate: startDate,
+                            endDate: endDate,
+                            bedrooms: "any",
+                            guests: guests,
+                            bathrooms: "any",
+                            priceRange: [0, 10000],
+                            amenities: [],
+                          },
+                        },
+                      }))
+            }
             blockBooking={(value) => setBookingDisabled(value)}
             initialStartDate={startDate}
             initialEndDate={endDate}
@@ -149,7 +234,7 @@ function Property() {
         </div>
       </div>
       <div className="w-full md:container md:mx-auto px-5">
-        <div className=" pt-20 mb-3">
+        <div className="pt-16 md:pt-20 md:mb-3">
           <div
             className="w-10 h-10 bg-white flex justify-center items-center rounded-full"
             onClick={() => window.history.back()}
@@ -184,7 +269,7 @@ function Property() {
                   //residence.tags include "luxe"
                   residence.tags.includes("luxe")
                   ? (
-                    <img src={luxeLogo} alt="host" className="w-16 h-16 rounded-full"></img>
+                    <img src={luxeLogo} alt="host" className="w-10 h-10 md:w-16 md:h-16 rounded-full"></img>
                   ) : null
                 }
               <div className="text-lg md:text-2xl font-custom-kiona uppercase text-primary text-start md:text-center">
@@ -276,10 +361,17 @@ function Property() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 place-items-end">
               <div className="flex flex-col h-full w-full items-start justify-start">
-                <div className="flex justify-start w-full h-min py-5 items-center gap-5">
-                  <div className="text-md md:text-xl text-primary font-custom-kiona uppercase">
+                <div className="flex justify-start w-full h-min py-5 items-center relative">
+                  <div className="text-md md:text-xl h-min text-primary font-custom-kiona uppercase">
                     {residence.title}
                   </div>
+                  {/* {
+                  //residence.tags include "luxe"
+                  residence.tags.includes("luxe")
+                  ? (
+                    <img src={luxeLogo} alt="host" className="w-16 h-16 rounded-full absolute right-5 top-5"></img>
+                  ) : null
+                } */}
                 </div>
 
                 <div className=" text-primary text-[10px] md:text-xs grid grid-cols-2 xs:flex gap-1 md:gap-3 pb-5">
@@ -302,7 +394,7 @@ function Property() {
                   </div>: null}
 
                   <div className="flex gap-1">
-                    <img src={guest} alt="bed" className="w-5"></img>
+                    <img src={guest} alt="bed" className="w-4"></img>
                     <div className="flex items-center">
                       {residence.accommodates + " guests"}
                     </div>
@@ -339,7 +431,7 @@ function Property() {
                     : "No description available"}
                 </div>
                 <div
-                  className=" w-full text-primary underline font-bold text-xs py-2"
+                  className=" w-full text-secondary underline font-bold text-xs py-2"
                   onClick={() => {
                     setShowFullDescription(!showFullDescription);
                   }}
@@ -358,7 +450,7 @@ function Property() {
                 <div className="w-full h-min rounded-lg border-[2px] border-primary border-opacity-50 max-w-lg">
                   <div className="flex justify-between">
                     <div
-                      className="p-2 flex flex-col justify-center items-center w-full"
+                      className="p-2 flex flex-col justify-center items-center w-full cursor-pointer"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
                       <div className="text-sm font-custom-kiona text-primary">
@@ -376,7 +468,7 @@ function Property() {
                     </div>
                     <div className="w-[2px] h-18 bg-primary"></div>
                     <div
-                      className="p-2 flex flex-col justify-center items-center w-full"
+                      className="p-2 flex flex-col justify-center items-center w-full cursor-pointer"
                       onClick={() => setDateRangePickerVisible(true)}
                     >
                       <div className="text-sm font-custom-kiona text-primary">
@@ -445,21 +537,7 @@ function Property() {
                                   ? item + " guest"
                                   : item + " guests"}
                               </div>
-                              <div className="w-5 h-5">
-                                {guests === item && (
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
-                                      fill="black"
-                                    />
-                                  </svg>
-                                )}
-                              </div>
+
                             </li>
                           ))}
                         </ul>
@@ -475,7 +553,7 @@ function Property() {
                 </div>
                 <div className=" flex justify-center pt-2">
                   <button
-                    className={`text-white border font-custom-kiona bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg font-bold cursor-pointer`}
+                    className={`text-white border font-custom-kiona bg-primary hover:bg-secondary w-full active:bg-primary p-3 rounded-lg cursor-pointer`}
                     onClick={() =>
                       bookingDisabled === false
                         ? navigate("/book", {
@@ -499,7 +577,7 @@ function Property() {
                                     bedrooms: "any",
                                     guests: guests,
                                     bathrooms: "any",
-                                    priceRange: [0, 2500],
+                                    priceRange: [0, 10000],
                                     amenities: [],
                                   },
                                 },
@@ -513,7 +591,7 @@ function Property() {
                                     bedrooms: "any",
                                     guests: guests,
                                     bathrooms: "any",
-                                    priceRange: [0, 2500],
+                                    priceRange: [0, 10000],
                                     amenities: [],
                                   },
                                 },
@@ -551,9 +629,9 @@ function Property() {
                   )}
                 </div>
               </div>
-              <div className="w-full flex justify-end ">
+              <div className="w-full flex justify-end pt-5 md:pt-0">
                 {residence ? (
-                  <Amenities amenities={residence.amenities}></Amenities>
+                  <Amenities amenities={residence.amenities} showAmenities={showAmenities} setShowAmenities={setShowAmenities}></Amenities>
                 ) : (
                   <div className="flex justify-center items-center mt-10">
                     <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
@@ -561,23 +639,31 @@ function Property() {
                 )}
               </div>
             </div>
-            <div className="flex justify-center mt-10">
-              <button className="w-full md:w-1/3 lg:w-1/4 h-12 bg-primary hover:bg-secondary text-white font-custom-kiona text-lg rounded-lg">
+            <div className="flex justify-center md:mt-10">
+            <button className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
+              onClick={()=>{
+                navigate("/messages");
+              }}
+            >
                 CHAT WITH US
               </button>
             </div>
 
-            <div className="bg-gradient-to-b from-primary via-primary to-primary/60 rounded-tl-[50px] md:rounded-tl-[100px] flex justify-center items-center my-10 py-10">
+            {residence !== null &&  residence.tags.includes("luxe")
+                  ? <div className="bg-gradient-to-b from-primary via-primary to-primary/60 rounded-tl-[50px] md:rounded-tl-[100px] flex justify-center items-center my-10 pt-10 pb-5">
               <div className="flex flex-col justify-center items-center w-full">
                 <div className="text-2xl text-white font-custom-kiona">MY CITY RESIDENCE</div>
                 <div className="flex justify-center items-center -translate-y-4">
                   <img src={luxeLogo} alt="arrow" className="w-20 h-10" />
                 </div>
                 <div className="font-custom-avenir-light text-white w-full md:w-2/3 text-center">With over three decades in hospitality, My City Residences oversees an expansive collection of properties across renowned areas such as Mayfair, Belgravia, Knightsbridge, Marylebone, and Kensington.With over three decades in hospitality, My City Residences oversees an expansive collection of properties across renowned areas such as Mayfair, Belgravia, Knightsbridge, Marylebone, and Kensington.</div>
+                <button className="bg-white hover:bg-secondary rounded-lg text-primary hover:scale-105 mt-10 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3">
+                  KNOW MORE
+                </button>
               </div>
-            </div>
+            </div> : null}
 
-            <div className="py-10">
+            <div className="py-10 container mx-0">
               <ReviewShowcaseSection reviews={reviews} />
             </div>
           </div>

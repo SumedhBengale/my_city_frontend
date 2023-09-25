@@ -19,13 +19,13 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                 className="h-32 w-32"
               />
             </div>
-            <div className="text-primary text-center font-custom-kiona text-3xl capitalize pb-3">
+            <div className="text-primary text-center font-custom-kiona text-2xl md:text-3xl capitalize pb-3">
               {dynamicText !== null &&
                 dynamicText.find(
                   (text) => text.attributes.name === "HowWeWork_Heading"
                 ).attributes.text}
             </div>
-            <div className=" w-full text-primary text-center text-md font-normal leading-normal pb-5">
+            <div className=" w-full text-primary font-custom-kiona text-center text-md font-normal leading-normal pb-5">
               {dynamicText !== null &&
                 dynamicText.find(
                   (text) => text.attributes.name === "HowWeWork_Subheading"
@@ -33,7 +33,8 @@ function HowWeWork({ dynamicText, dynamicImages }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col justify-center items-center gap-10">
+
           <div className="grid grid-cols-1 md:grid-cols-2 px-4">
             <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:order-1 md:pl-10">
               <div className="flex flex-row md:flex-col gap-3 justify-center items-center md:items-start">
@@ -51,7 +52,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center font-custom-avenir text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content1"
@@ -60,7 +61,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
             </div>
             <div className="flex justify-center w-full p-5 order-1 md:order-2">
               <img
-                className="h-96 w-full lg:w-full rounded-md object-cover"
+                className="h-96 w-full lg:w-full rounded-md object-cover drop-shadow-lg"
                 src={
                   `${config.STRAPI_URL}` +
                   dynamicImages.find(
@@ -76,7 +77,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 bg-neutral-100 px-4">
             <div className="flex flex-col justify-center items-center md:items-end gap-5 order-2 md:pr-10">
-              <div className="flex flex-row md:flex-col gap-3 justify-center items-center md:items-end">
+              <div className="flex flex-row md:flex-col md:w-5/6 gap-3 justify-center items-center md:items-start">
                 <div className="border-2 border-secondary rounded-full relative h-10 w-10 md:h-20 md:w-20 drop-shadow-md flex justify-center items-center">
                   <div className="absolute font-custom-lora-bold h-10 w-10 md:h-20 md:w-20 flex -top-[2px] -right-[1px] justify-center items-center text-xl md:text-5xl">
                     2
@@ -91,7 +92,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center  font-custom-avenir text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content2"
@@ -100,7 +101,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
             </div>
             <div className="flex justify-center w-full p-5 order-1">
               <img
-                className="h-96 w-full  lg:w-full rounded-md object-cover"
+                className="h-96 w-full  lg:w-full rounded-md object-cover drop-shadow-lg"
                 src={
                   `${config.STRAPI_URL}` +
                   dynamicImages.find(
@@ -131,7 +132,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center text-md font-normal leading-normal pb-5">
+              <div className=" w-full md:w-5/6 text-primary md:text-justify text-center font-custom-avenir text-md font-normal leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeWork_Content3"
@@ -140,7 +141,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
             </div>
             <div className="flex justify-center w-full p-5 order-1 md:order-2">
               <img
-                className="h-96 w-full lg:w-full rounded-md object-cover"
+                className="h-96 w-full lg:w-full rounded-md object-cover drop-shadow-lg"
                 src={
                   `${config.STRAPI_URL}` +
                   dynamicImages.find(
@@ -155,7 +156,7 @@ function HowWeWork({ dynamicText, dynamicImages }) {
           </div>
         </div>
 
-        <div className="flex justify-center items-center mt-10">
+        <div className="flex justify-center items-center mt-5 md:mt-10">
         <button
                 className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
                 onClick={() => {

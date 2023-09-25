@@ -43,7 +43,7 @@ function WhatWeOfferSection({ dynamicText, dynamicImages }) {
                     ).attributes.text}
                 </div>
               </div>
-              <div className="text-md text-primary text-center pt-3">
+              <div className="text-md text-primary font-custom-avenir text-center pt-3">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) =>
@@ -71,7 +71,7 @@ function WhatWeOfferSection({ dynamicText, dynamicImages }) {
                     ).attributes.text}
                 </div>
               </div>
-              <div className="text-md text-primary text-center pt-3">
+              <div className="text-md text-primary font-custom-avenir text-center pt-3">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) =>
@@ -103,7 +103,7 @@ function WhatWeOfferSection({ dynamicText, dynamicImages }) {
                     ).attributes.text}
                 </div>
               </div>
-              <div className="text-md text-primary text-center pt-3">
+              <div className="text-md text-primary font-custom-avenir text-center pt-3">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) =>

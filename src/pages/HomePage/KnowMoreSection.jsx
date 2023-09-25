@@ -24,7 +24,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
                 (text) => text.attributes.name === "KnowMoreSection_Heading"
               ).attributes.text}
           </div>
-          <div className="font-normal font-custom-avenir text-lg text-secondary">
+          <div className="font-normal font-custom text-lg text-secondary">
             {dynamicText !== null &&
               dynamicText.find(
                 (text) => text.attributes.name === "KnowMoreSection_Subheading"

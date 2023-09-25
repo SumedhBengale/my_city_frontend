@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NavbarBlack from "../../components/navbar_black";
 import DesktopNavbarBlack from "../../components/desktopNavbarBlack";
 import HowWeDoIt from "./HowWeDoIt";
 import FadeInSection from "../../components/fadeIn/fadeInSection";
-import ReviewShowcaseSection from "../HomePage/ReviewShowcaseSection";
+import ReviewShowcaseSection from "./ReviewShowcaseSection";
 import OurPartnersSection from "../AboutUs/OurPartnersSection";
 import Footer from "../HomePage/Footer";
 import BlogContainer from "./BlogContainer";
@@ -34,6 +34,8 @@ function ManagementPage() {
   const [propertiesCount, setPropertiesCount] = useState(1);
   const [locations, setLocations] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hidden, setHidden] = useState(false);
+  const quoteBackdropRef = useRef();
 
   useEffect(() => {
     setLoading(true);
@@ -50,6 +52,25 @@ function ManagementPage() {
       })
       .catch((err) => {});
       setLoading(false);
+
+      const handleScroll = () => {
+        const screenHeight = window.innerHeight;
+        const scrollPosition = window.scrollY;
+        // console.log(scrollPosition, screenHeight * 70 / 100)
+        //If scroll position is greater than 1% of screen height, hide this element
+        if(scrollPosition > 20) {
+          setHidden(true);
+        }else{
+          setHidden(false);
+  
+        }
+
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
   }, []);
 
   const handleEnquirySubmit = (data) => {
@@ -109,15 +130,24 @@ function ManagementPage() {
       setLocations(res.locations.result);
     });
     setEnquiryPopUpVisible(true);
-    setEnquiryPopUpVisible(!enquiryPopUpVisible);
+    document.body.style.overflow = "hidden";
     }else{
       toast.error("Please enter a valid postcode");
     }
   };
 
   return (
-    <>
+    <div className="relative">
+      <div className="fixed top-0 z-40">
+        <div className="hidden md:block z-40 fixed w-full">
+                {<DesktopNavbarBlack />}
+        </div>
+        <div className="md:hidden z-40 fixed w-full">
+          {<NavbarBlack />}
+        </div>
+      </div>
       {dynamicImages !== null && dynamicText !== null && (
+        <div>
         <div
           style={{
             //Blurry Background Image
@@ -130,16 +160,32 @@ function ManagementPage() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             width: "100%",
-            height: "80vh",
+            height: "90vh",
           }}
-          className="relative"
+          className="fixed top-0"
         >
-          <div className="hidden md:block z-30 fixed w-full">
-            {<DesktopNavbarBlack />}
-          </div>
-          <div className="md:hidden z-30 fixed w-full">{<NavbarBlack />}</div>
-          {enquiryPopUpVisible && (
-            <div className="fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md">
+        </div>
+        <div className="fixed top-0 h-screen w-screen bg-black/40 backdrop-filter backdrop-blur-sm"></div>
+      </div>
+      )}
+      <div className={`w-full flex fixed top-0 justify-center items-center z-30 transition-all 
+      ${
+        hidden ? setTimeout(() => {return "hidden"}, 200) : "block"
+      }
+        ${hidden ? "-translate-y-96 scale-0 duration-200 ease-out" : "translate-y-0 scale-100 duration-500 ease-in"}
+      `} style={{
+        height: '100vh'
+      }}>
+        {enquiryPopUpVisible && (
+            <div className="fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md" ref={quoteBackdropRef}
+              //If clicked on backdrop, close the pop up
+              onClick={(e) => {
+                if (e.target === quoteBackdropRef.current) {
+                  setEnquiryPopUpVisible(false);
+                  document.body.style.overflow = "unset";
+                }
+              }}
+            >
               <div className="h-5/6 lg:h-5/6 w-full md:w-max z-30 overflow overflow-auto rounded-t-2xl md:rounded-2xl drop-shadow-2xl flex flex-col no-scrollbar">
                 <div className=" bg-neutral-100 rounded-lg p-5 md:p-10 divide-solid gap-5 md:gap-0">
                   <div className="flex flex-col">
@@ -148,6 +194,7 @@ function ManagementPage() {
                         className="font-bold"
                         onClick={() => {
                           setEnquiryPopUpVisible(false);
+                          document.body.style.overflow = "unset";
                         }}
                       >
                         <svg
@@ -301,7 +348,7 @@ function ManagementPage() {
                           </div>
                         </div>
                         <button
-                          className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona py-2 px-4 h-12 w-40 my-3"
+                          className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona py-2 mb-24 md:mb-0 px-4 h-12 w-40 my-3"
                           onClick={(e) => {
                             e.preventDefault();
                             if (
@@ -333,6 +380,7 @@ function ManagementPage() {
                               "Your enquiry has been submitted successfully"
                             );
                             setEnquiryPopUpVisible(false);
+                            document.body.style.overflow = "unset";
                           }}
                         >
                           Submit
@@ -344,15 +392,15 @@ function ManagementPage() {
               </div>
             </div>
           )}
-          <div className="h-full flex flex-col justify-center items-center z-0 bg-black/40 backdrop-filter backdrop-blur-sm">
+          <div className="h-full flex flex-col items-center z-0 pt-24 2xl:pt-72">
             <div className="max-w-2xl flex flex-col justify-center items-center gap-2 px-3">
-              <div className="font-custom-bold text-center text-4xl md:text-5xl text-white md:pt-40 pb-4 uppercase">
+              <div className="font-custom-bold text-center text-4xl md:text-5xl text-white pb-4 uppercase">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HomeOwners_Heading"
                   ).attributes.text}
               </div>
-              <div className=" text-lg w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
+              <div className=" text-lg w-full text-center font-custom-avenir-light text-white sm-3 lg:mb-10 capitalize">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HomeOwners_Subheading"
@@ -373,15 +421,15 @@ function ManagementPage() {
               </div>
             </div>
           </div>
-        </div>
-      )}
-      {loading === false ? <div>
+          </div>
+      {loading === false ?       
+      <div className="bg-white translate-y-0 rounded-tl-[50px] md:rounded-tl-[100px] z-30" style={{
+        marginTop: '70vh'
+      }}>
       {dynamicImages !== null && dynamicText !== null ? (
-        <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:px-20 lg:pt-20 lg:pl-10 gap-2 container mx-auto">
-            <div className="flex justify-center w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center md:p-5 lg:px-20 pt-10 lg:pt-20 lg:pl-10 gap-2 md:gap-10 container mx-auto">
               <img
-                className=" h-[400px] lg:h-[600px] w-full sm:w-1/2 lg:w-full rounded-tl-[80px] py-5 lg:pr-10"
+                className=" h-[400px] lg:h-[500px] w-full rounded-tl-[50px] md:rounded-tl-[100px] rounded-md drop-shadow-lg"
                 src={
                   `${config.STRAPI_URL}` +
                   dynamicImages.find(
@@ -392,28 +440,27 @@ function ManagementPage() {
                 }
                 alt="Placeholder"
               />
-            </div>
-            <div className="text-center lg:text-left pr-5">
-              <div className="text-secondary text-md pb-3 pt-10">
+            <div className="text-center lg:text-left md:pr-5">
+              <div className="text-secondary font-custom-adam-bold uppercase text-md pb-3 pt-5 lg:pt-0">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "Introduction_Heading"
                   ).attributes.text}
               </div>
-              <div className="text-primary font-custom-kiona uppercase text-3xl pb-3">
+              <div className="text-primary font-custom-kiona uppercase text-2xl md:text-3xl pb-3">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "Introduction_Subheading"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-primary text-md font-normal leading-normal pb-5">
+              <div className=" w-full text-primary font-custom-avenir text-md leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) =>
                       text.attributes.name === "Introduction_Description1"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-primary text-md font-normal leading-normal pb-5">
+              <div className=" w-full text-primary text-md font-custom-avenir leading-normal pb-5">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) =>
@@ -424,17 +471,13 @@ function ManagementPage() {
                 className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
                 onClick={() =>{
                   //scroll to top
-                  window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                  });
+                  navigate("/about");
                 }}
               >
-                Get A Quote
+                Find Out More
               </button>
             </div>
           </div>
-        </div>
       ) : (
         <div className="flex justify-center items-center mt-10">
           <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
@@ -457,15 +500,15 @@ function ManagementPage() {
       <FadeInSection>
         {dynamicImages !== null && dynamicText !== null ? (
           <div className="bg-neutral-100 rounded-tl-[50px] md:rounded-tl-[100px]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:p-10 lg:pl-10 gap-10 container mx-auto">
-              <div className="text-center lg:text-left pr-5">
-                <div className="text-secondary text-md pb-3 pt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center md:p-5 pt-10 md:pt-0 lg:p-10 lg:pl-10 gap-10 container mx-auto">
+              <div className="text-center lg:text-left md:pr-5">
+                <div className="text-secondary font-custom-adam text-md pb-3 pt-10">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) => text.attributes.name === "Lease_Heading"
                     ).attributes.text}
                 </div>
-                <div className="text-primary font-custom-kiona uppercase text-3xl pb-3">
+                <div className="text-primary font-custom-kiona uppercase text-2xl md:text-3xl pb-3">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) => text.attributes.name === "Lease_Subheading"
@@ -492,7 +535,7 @@ function ManagementPage() {
               </div>
               <div className="flex justify-center w-full rounded-lg">
                 <img
-                  className=" h-[400px] lg:h-[500px] w-full sm:w-1/2 lg:w-full rounded-md py-5 lg:pr-10 object-cover"
+                  className=" h-[400px] lg:h-[500px] w-full sm:w-1/2 lg:w-full rounded-md object-cover drop-shadow-lg"
                   src={
                     `${config.STRAPI_URL}` +
                     dynamicImages.find(
@@ -527,7 +570,7 @@ function ManagementPage() {
       {/* </FadeInSection> */}
       <FadeInSection>
         {dynamicImages !== null && dynamicText !== null ? (
-          <div className="bg-neutral-100 w-full grid grid-cols-1 md:grid-cols-2 place-items-center px-10 py-20 gap-10 mt-10">
+          <div className="bg-neutral-100 w-full grid grid-cols-1 md:grid-cols-2 place-items-center px-5 md:px-10 py-5 md:py-20 gap-10 mt-10">
             <div className="w-full flex justify-center">
               <img
                 src={
@@ -539,38 +582,40 @@ function ManagementPage() {
                   ).attributes.url
                 }
                 alt="Img"
-                className="w-full h-full rounded-md object-cover"
+                className="w-full h-full rounded-md object-cover drop-shadow-lg"
               ></img>
             </div>
             <div className="flex w-full">
               <div className="flex flex-col justify-center md:justify-start">
-                <div className="text-secondary text-md pb-3 pt-10">
+                <div className="text-secondary text-md font-custom-adam text-center md:text-start pb-3 md:pt-10">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
                         text.attributes.name === "AreYouAHomeOwner_Heading"
                     ).attributes.text}
                 </div>
-                <div className="text-primary font-custom-kiona uppercase text-3xl pb-3">
+                <div className="text-primary font-custom-kiona uppercase text-center md:text-start text-2xl md:text-3xl pb-3">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
                         text.attributes.name === "AreYouAHomeOwner_Subheading"
                     ).attributes.text}
                 </div>
-                <div className=" w-full text-primary text-md font-normal leading-normal pb-5">
+                <div className=" w-full text-primary text-md font-custom-avenir font-normal leading-normal pb-5">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
                         text.attributes.name === "AreYouAHomeOwner_Content"
                     ).attributes.text}
                 </div>
-                <button
-                className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
-                onClick={() => navigate("/about")}
-              >
-                Find Out More
-              </button>
+                <div className="w-full flex justify-center md:justify-start">
+                  <button
+                  className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-40 my-3"
+                  onClick={() => navigate("/about")}
+                >
+                  Find Out More
+                </button>
+              </div>
               </div>
             </div>
           </div>
@@ -581,9 +626,9 @@ function ManagementPage() {
         )}
       </FadeInSection>
 
-      <FadeInSection>
+      {/* <FadeInSection>
         <BlogContainer></BlogContainer>
-      </FadeInSection>
+      </FadeInSection> */}
       <FadeInSection>
         <ReviewShowcaseSection></ReviewShowcaseSection>
       </FadeInSection>
@@ -606,7 +651,7 @@ function ManagementPage() {
         pauseOnHover
         theme="light"
       />
-    </>
+    </div>
   );
 }
 

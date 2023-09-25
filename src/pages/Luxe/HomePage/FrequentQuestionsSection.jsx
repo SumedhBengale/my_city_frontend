@@ -63,7 +63,7 @@ function FrequentQuestion({ question, answer }) {
 
   return (
     <div className="mx-5 mt-5">
-      <div className="Rectangle w-full bg-transparent  transition duration:200 linear rounded-lg border border-white flex flex-col py-3">
+      <div className="Rectangle w-full  transition duration:200 linear backdrop-filter backdrop-blur-sm bg-white/10 rounded-lg border border-white flex flex-col py-3">
         <div className="flex justify-between">
           <div className="text-md text-white ml-3 w-3/4 flex  items-center capitalize">
             {question}
@@ -71,7 +71,7 @@ function FrequentQuestion({ question, answer }) {
           <img
             src={plus}
             alt="plus"
-            className="w-8 mr-3"
+            className="w-8 mr-3 z-10 cursor-pointer"
             onClick={() => setAnswerVisible(!answerVisible)}
           />
         </div>

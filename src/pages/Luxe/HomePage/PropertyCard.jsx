@@ -10,7 +10,7 @@ function PropertyCard({ residence, highlighted }) {
     <div
       onMouseEnter={() => setHighlight(true)}
       onMouseLeave={() => setHighlight(highlighted)}
-      className={` w-full  md:w-400 max-w-[400px] ${
+      className={` w-full  md:w-400 max-w-[400px] cursor-pointer ${
         highlight
           ? "bg-primary text-white"
           : "bg-gray-200 hover:bg-gray-300 text-black"

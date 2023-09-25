@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Navbar from "../../components/navbar";
 import NavbarBlack from "../../components/navbar_black";
 import DesktopNavbar from "../../components/desktopNavbar";
@@ -38,6 +38,8 @@ function Home() {
   const [dynamicImages, setDynamicImages] = useState(null);
   const [frequentQuestions, setFrequentQuestions] = useState(null);
   const [videos, setVideos] = useState(null);
+  const [searchHidden, setSearchHidden] = useState(false);
+  const sliderRef = useRef();
   const [highlightedIndex, setHighlightedIndex] = useState(
     window.innerWidth > 1024 ? 1 : 0
   );
@@ -107,6 +109,13 @@ function Home() {
       const screenHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
       // console.log(scrollPosition, screenHeight * 70 / 100)
+      //If scroll position is greater than 1% of screen height, hide this element
+      if(scrollPosition > 20) {
+        setSearchHidden(true);
+      }else{
+        setSearchHidden(false);
+
+      }
       if (scrollPosition >= (screenHeight*80)/100) {
         setBlackNavbar(true);
       } else {
@@ -117,6 +126,7 @@ function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = "unset";
     };
   }, [navigate]);
 
@@ -175,13 +185,21 @@ function Home() {
 
 
   return (
-    <>  
+    <div className="relative">  
+    <div className="fixed top-0 z-40">
+    <div className="hidden md:block z-40 fixed w-full">
+            {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
+          </div>
+          <div className="md:hidden z-40 fixed w-full">
+            {blackNavbar ? <NavbarBlack /> : <Navbar />}
+          </div>
+    </div>
   <div
         style={{
           width: '100%',
-          height: '80vh',
+          height: '90vh',
         }}
-        className="z-0"
+        className="z-0 fixed top-0 left-0"
       >
         <div className="z-0">
           {videos !== null && (
@@ -211,17 +229,19 @@ function Home() {
               Your browser does not support the video tag.
             </video>
           )}
+        <div className="absolute h-full w-full bg-black/40"></div>
         </div>
-        {/* Background Image */}
-        <div className="h-full relative">
-          <div className="absolute h-full w-full bg-black/40"></div>
-          <div className="hidden md:block z-30 fixed w-full">
-            {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
-          </div>
-          <div className="md:hidden z-30 fixed w-full">
-            {blackNavbar ? <NavbarBlack /> : <Navbar />}
-          </div>
-          <div className="h-full flex flex-col justify-center items-center">
+      </div>
+      <div className={`w-full flex fixed top-0 justify-center items-center z-30 transition-all 
+      ${
+        searchHidden ? setTimeout(() => {return "hidden"}, 200) : "block"
+      }
+        ${searchHidden ? "-translate-y-96 scale-0 duration-200 ease-out" : "translate-y-0 scale-100 duration-500 ease-in"}
+      `} style={{
+        height: '100vh'
+      }}>
+                <div className={`h-full w-full relative`}>
+          <div className={`h-full flex flex-col items-center pt-40 sm:pt-20 2xl:pt-40`}>
             <div className="lg:hidden z-10">
               <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
                 {dynamicText !== null &&
@@ -235,26 +255,35 @@ function Home() {
               <img
                 src={logoWhite}
                 alt="My City Logo"
-                className="h-36 self-start mb-10"
+                className="h-24 2xl:h-36 self-start mb-5 2xl:mb-10"
               ></img>
             </div>
-            <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
-              {
-                //split each word in to a seperate div and fade them each one by one
-                dynamicText !== null &&
-                  dynamicText.find(
-                    (text) => text.attributes.name === "Website_Tagline"
-                  ).attributes.text
+            <div className=" text-md md:text-2xl w-full text-center font-bold font-custom-adam text-white capitalize sm-3 2xl:mb-10 z-10">
+              {dynamicText !== null && 
+                <div>
+                  <TypeAnimation
+                    cursor={false}
+                    sequence={[
+                      dynamicText.find(
+                        (text) => text.attributes.name === "Website_Tagline"
+                      ).attributes.text,
+                    ]}
+                    wrapper="div"
+                    className="text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 mb-5 2xl:mb-10 z-10"
+                  />
+                </div>
               }
             </div>
 
-            <div className="z-20">
+            <div className="z-50">
             <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]">
+      <div className="bg-white translate-y-0 rounded-tl-[50px] md:rounded-tl-[100px]" style={{
+        marginTop: '70vh'
+      }}>
         <div className="md:container md:mx-auto">
           <FadeInSection>
             {dynamicText !== null && dynamicImages !== null && (
@@ -265,31 +294,46 @@ function Home() {
             )}
           </FadeInSection>
         </div>
-      </div>
       {/* Seperated into different file because it's static content */}
       <FadeInSection>
         <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px]">
           <div className="p-4 lg:container lg:mx-auto relative">
-            <div className="relative flex justify-center pb-3">
-              <div className=" text-primary font-custom-kiona text-4xl capitalize">
+            <div className="relative flex justify-center md:pb-3">
+              <div className=" text-primary font-custom-kiona text-2xl md:text-4xl capitalize">
               FEATURED PROPERTIES
               </div>
             </div>
-            <div className=" text-center text-secondary font-bold font-custom-kiona text-lg pt-2 capitalize">
-              Hand-picked selection of quality places
+            <div className=" text-center text-secondary font-bold font-custom-kiona text-md md:text-lg pt-2 capitalize">
+              Hand-picked Selection Of Quality Places
             </div>
             <div className="md:pt-10">
             {residences === null ? (
               //Circular Progress
-              <div className="flex justify-center items-center mt-10">
+              <div className="flex justify-center items-center md:mt-10">
                 <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
               </div>
             ) : (
-              <Slider {...settings} className="flex justify-center items-center h-[600px]">
+              <Slider {...settings} ref={sliderRef} className="flex justify-center items-center h-[400px] md:h-[600px]">
                 {residences !== null && residences.map((residence, index) => (
                   residences !== null && <div id={residence._id} key={residence._id}
-                  className="px-10 h-[600px] flex items-center justify-center">
-                    <div className="flex h-full justify-center items-center">
+                  className="px-10 h-[400px] md:h-[600px] flex items-center justify-center" 
+                  >
+                    <div className="flex h-full justify-center items-center cursor-pointer"
+                      onMouseEnter={() => {
+                        document.body.style.overflow = "hidden";
+                      }}
+                      onMouseLeave={() => {
+                        document.body.style.overflow = "unset";
+                      }}
+                      onWheel={(e)=>{
+                        if(e.deltaY > 0){
+                          sliderRef.current.slickNext();
+                        }else{
+                          sliderRef.current.slickPrev();
+                        }
+
+                      }}
+                      >
                     <FeaturedPropertyCard
                       highlighted={
                         highlightedIndex !== null && highlightedIndex === index ? true : false
@@ -314,8 +358,8 @@ function Home() {
                   })
                 }
               >
-                <div className=" font-bold text-xl h-full flex justify-center items-center">
-                  View All
+                <div className="font-custom-kiona text-xl h-full flex justify-center items-center">
+                  VIEW ALL
                 </div>
               </div>
             </div>
@@ -366,7 +410,8 @@ function Home() {
         <OurPartnersSection></OurPartnersSection>
 
       <Footer></Footer>
-      
+    </div>
+
       <ToastContainer
         position="bottom-center"
         autoClose={2000}
@@ -379,7 +424,7 @@ function Home() {
         pauseOnHover
         theme="light"
       />
-    </>
+    </div>
   );
 }
 

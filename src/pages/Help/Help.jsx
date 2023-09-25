@@ -3,10 +3,11 @@ import FrequentQuestionsSection from "../HomePage/FrequentQuestionsSection";
 import DesktopNavbarBlack from "../../components/desktopNavbarBlack";
 import { getFrequentlyAskedQuestions } from "./api";
 import Footer from "../HomePage/Footer";
+import { useNavigate } from "react-router-dom";
 
 function Help() {
+  const navigate = useNavigate();
   const [frequentQuestions, setFrequentQuestions] = useState(null);
-
   useEffect(() => {
     getFrequentlyAskedQuestions()
       .then((res) => {
@@ -58,7 +59,9 @@ function Help() {
 
         {/*Show a Button at the bottom of the screen */}
         <div className="flex w-full h-full justify-center p-2 py-10">
-          <button className="w-full max-w-lg h-12 text-white bg-primary rounded-lg">
+          <button className="w-full max-w-lg h-12 text-white bg-primary rounded-lg"
+            onClick={()=>navigate('/messages')}
+          >
             Chat with Us
           </button>
         </div>

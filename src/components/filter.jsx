@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
 import { install } from "resize-observer";
 
 if (!window.ResizeObserver) install();
 
 function Filter({ initialData, apply, close }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
   const backdropRef = React.useRef(null);
   const [selectedBedrooms, setSelectedBedrooms] = useState(
     initialData ? initialData.selectedBedrooms : "any"
@@ -74,6 +80,7 @@ function Filter({ initialData, apply, close }) {
       {/*Currently Breaks on Galaxy Fold */}
 
       <div
+      
         ref={backdropRef}
         className="filterBackdrop fixed bottom-0 z-40 w-full h-full flex items-end justify-center md:items-center overflow-hidden backdrop-filter backdrop-blur-md"
         onClick={(event) => {
@@ -89,7 +96,7 @@ function Filter({ initialData, apply, close }) {
                 FILTER
               </div>
               <div
-                className="font-bold"
+                className="font-bold cursor-pointer"
                 onClick={() => {
                   close();
                 }}
@@ -379,7 +386,7 @@ function Filter({ initialData, apply, close }) {
                   renderTrack={(props, state) => (
                     <div
                       {...props}
-                      className={`h-[2px] absolute bg-gray-400 rounded-full ${
+                      className={`h-[2px] absolute bg-gray-400 rounded-full cursor-pointer${
                         state.index === 0 ? "left-0" : "right-0"
                       }`}
                     />
@@ -387,7 +394,7 @@ function Filter({ initialData, apply, close }) {
                   renderThumb={(props, state) => (
                     <div
                       {...props}
-                      className={`h-6 w-6 bg-white border-2 border-grey-400 rounded-full -translate-y-3 flex justify-center items-center ${
+                      className={`h-6 w-6 bg-white border-2 border-grey-400 rounded-full cursor-pointer -translate-y-3 flex justify-center items-center ${
                         state.index === 0 ? "left-0" : "right-0"
                       }`}
                     >
@@ -438,7 +445,7 @@ function Filter({ initialData, apply, close }) {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="bg-primary text-white w-full max-w-md rounded-md px-5 py-2 mt-5"
+                  className="bg-primary text-white w-full max-w-md rounded-md px-5 mb-24 md:mb-0 py-2 mt-5"
                   onClick={() =>
                     apply({
                       bedrooms: selectedBedrooms,

@@ -146,7 +146,9 @@ function Messages() {
           </button>
         </form>
       </div>
+      <div className="h-min">
       <Footer></Footer>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import React from "react";
 import config from "../../config/config";
+import { useNavigate } from "react-router-dom";
 
 function OurValuesSection({ dynamicText, dynamicImages }) {
+  const navigate = useNavigate();
   return (
     <>
       {dynamicText !== null && dynamicImages !== null && (
-        <div className="flex flex-col gap-10 mt-10">
+        <div className="flex flex-col gap-10 mt-10 mx-4 md:mx-0">
           <div className="flex flex-col justify-center items-center gap-5">
             <div className="text-secondary font-custom-kiona text-center text-5xl capitalize">
               {dynamicText !== null &&
@@ -23,7 +25,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:order-1 md:pl-10">
               <div className="flex flex-col gap-3 justify-center items-center md:items-start">
-                <span className="text-primary">
+                <span className="text-primary  font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
@@ -40,7 +42,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
                 </div>
               </div>
               <div className="flex w-full md:w-3/4 leading-normal pb-5">
-                <div className=" text-primary text-start text-md md:text-justify font-normal">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) => text.attributes.name === "OurValues_Content1"
@@ -65,7 +67,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:pl-10">
               <div className="flex flex-col gap-3 justify-center items-center md:items-start">
-                <span className="text-primary">
+                <span className="text-primary font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
@@ -82,7 +84,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
                 </div>
               </div>
               <div className="flex w-full md:w-3/4 leading-normal pb-5">
-                <div className=" text-primary text-end text-md md:text-justify font-normal">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) => text.attributes.name === "OurValues_Content2"
@@ -107,7 +109,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:order-1 md:pl-10">
               <div className="flex flex-col gap-3 justify-center items-center md:items-start">
-                <span className="text-primary">
+                <span className="text-primary font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) =>
@@ -124,7 +126,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
                 </div>
               </div>
               <div className="flex w-full md:w-3/4 leading-normal pb-5">
-                <div className=" text-primary text-start text-md md:text-justify font-normal">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
                   {dynamicText !== null &&
                     dynamicText.find(
                       (text) => text.attributes.name === "OurValues_Content3"
@@ -148,7 +150,12 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
         </div>
       )}
       <div className="flex justify-center items-center">
-        <button className="bg-primary hover:bg-secondary text-white font-custom-kiona text-2xl py-2 px-5 rounded-lg mt-10 mb-10">
+      <button className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
+        onClick={() => {
+          localStorage.getItem("luxe") === true ? 
+          navigate("/luxe/properties") : navigate("/properties")
+        }}
+      >
           Explore Residences
         </button>
       </div>

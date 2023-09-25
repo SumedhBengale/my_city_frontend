@@ -87,3 +87,17 @@ export const newEnquiry = async (data) => {
         }
     }
 }
+
+
+export const getShowcaseReviews = async () => {
+    try {
+        const response = await axios.get(`${config.STRAPI_URL}/api/reviews?populate=*`, {
+        })
+        return response.data;
+    }
+    catch (error) {
+        if (error.response) {
+            return error.response;
+        }
+    }
+}

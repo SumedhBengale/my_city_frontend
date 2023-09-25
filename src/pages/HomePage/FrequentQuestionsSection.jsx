@@ -4,7 +4,7 @@ import plus from "../../assets/images/home/plus.svg";
 function FrequentQuestionsSection({ questions }) {
   return (
     <>
-      <div className="font-custom-kiona uppercase text-2xl md:text-3xl text-center mt-10 px-5">
+      <div className="font-custom-kiona uppercase text-primary text-2xl md:text-3xl text-center mt-10 pb-5 px-5">
         Frequently Asked Questions
       </div>
       <div className="grid grid-cols-1  md:hidden">
@@ -69,11 +69,11 @@ function FrequentQuestion({ question, answer }) {
         onMouseLeave={() => setHovering(false)}
       >
         <div className="flex justify-between items-center">
-          <div className="text-md ml-3 w-3/4 flex font-bold items-center capitalize">
+          <div className="text-md ml-3 w-3/4 flex items-center capitalize">
             {question}
           </div>
           <div             
-          className="w-8 mr-3 h-full flex justify-center items-center"
+          className="w-8 mr-3 h-full flex justify-center items-center cursor-pointer"
           onClick={() => setAnswerVisible(!answerVisible)}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="plus" clipPath="url(#clip0_223_696)">

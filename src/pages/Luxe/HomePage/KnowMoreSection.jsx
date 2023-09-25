@@ -7,7 +7,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
   const navigate = useNavigate();
   return (
     <div className="bg-gradient-to-b  from-primary via-primary to-primary/60 rounded-tl-[50px] md:rounded-tl-[100px]">
-      <div className="w-full container mx-auto flex flex-col lg:flex-row justify-center items-center mt-10 lg:px-20">
+      <div className="w-full container mx-auto flex flex-col lg:flex-row justify-center items-center mt-10 lg:px-20 pb-5">
         <img
           src={
             `${config.STRAPI_URL}` +
@@ -18,7 +18,7 @@ function KnowMoreSection({ dynamicText, dynamicImages }) {
           alt="know more"
           className="w-full max-h-[450px]  m-5 object-cover rounded-2xl"
         ></img>
-        <div className="text-center lg:text-left pl-4">
+        <div className="text-center lg:text-left md:pl-4">
           <div className="relative">
             <div className="font-custom-kiona uppercase text-3xl text-white">
               {dynamicText !== null &&

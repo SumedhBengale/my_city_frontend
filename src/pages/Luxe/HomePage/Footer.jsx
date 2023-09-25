@@ -1,59 +1,95 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import twitter from '../../../assets/images/home/twitter_white.svg'
 import facebook from '../../../assets/images/home/facebook_white.svg'
 import instagram from '../../../assets/images/home/instagram_white.svg'
 import linkedin from '../../../assets/images/home/linkedin_white.svg'
 import luxeLogo from '../../../assets/images/luxeLogo.png'
+import { getFooter } from './api'
+import { useNavigate } from 'react-router-dom'
 
 function Footer() {
-  
-    const handleCurrencySelect = (currency) => {
-        setSelectedCurrency(currency);
-        setCurrencySwitcherVisible(false);
-        };
+    const navigate = useNavigate();
+    const [footer, setFooter] = useState(null);
+    useEffect(() => {
+        getFooter().then((res) => {
+            setFooter(res.data)
+            console.log(res.data)
+        })
+    },[]);
 
     return (
     <>
     <div className="Rectangle w-full rounded-tl-[50px] md:rounded-tl-[100px] bg-gradient-to-b from-primary via-primary to-primary/60 h-full]" >
-        <div className='mx-0 2xl:container 2xl:mx-auto py-10'>    
+        {footer !== null ? <div className='mx-0 2xl:container 2xl:mx-auto py-10'>    
                 <div className='flex flex-col md:flex-row justify-between w-full px-4'>
-                    <div className='pt-10 pl-5 order-2 md:order-1  py-10'>
-                        <div className='font-custom-bold text-white font-bold text-xl pl-3'>Explore</div>
-                        <div className="text-white text-md pt-3 pl-3">Home</div>
-                        <div className="text-white text-md pt-3 pl-3">Properties</div>
-                        <div className="text-white text-md pt-3 pl-3">Rental Estimate</div>
+                    <div className='flex flex-col md:flex-row w-full md:w-1/3 justify-evenly order-2 md:order-1'>
+                        <div className='pt-10 pl-5 py-10'>
+                            <div className='font-custom-bold text-white font-bold text-xl pl-3' oncli>Explore</div>
+                            <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/luxe')}>Home</div>
+                            <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/luxe/properties')}>Properties</div>
+                            <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/homeowners')}>Rental Estimate</div>
 
+                        </div>
+
+                        <div className='pt-10 pl-5 py-10'>
+                            <div className='font-custom-bold text-white font-bold text-xl pl-3'>Company</div>
+                            <div className="text-white text-md pt-3 pl-3" onClick={()=>navigate('/about')}>About Us</div>
+                            <div className="text-white text-md pt-3 pl-3">Blogs</div>
+                            <div className="text-white text-md pt-3 pl-3" onClick={()=>navigate('/homeowners')}>Management</div>
+                        </div>
                     </div>
 
-                    <div className='pt-10 pl-5 order-3 md:order-2  py-10'>
-                        <div className='font-custom-bold text-white font-bold text-xl pl-3'>Company</div>
-                        <div className="text-white text-md pt-3 pl-3">About Us</div>
-                        <div className="text-white text-md pt-3 pl-3">Blogs</div>
-                        <div className="text-white text-md pt-3 pl-3">Management</div>
-                    </div>
-
-                    <div className='pl-5 sm:pl-0 h-full flex md:items-between md:justify-between flex-col order-1 md:order-3'>
+                    <div className='pl-0 md:pl-5 sm:pl-0 h-full flex md:items-between md:justify-between flex-col order-1 md:order-2'>
                     <div className='flex flex-col h-min pt-4 px-4'>
                         <div className='flex justify-center mb-5'>        
-                            <img src={luxeLogo} alt='logo' className='h-24 max-w-[300px] pt-5 pl-5 md:pt-0'></img>
+                            <img src={luxeLogo} alt='logo' className='h-24 max-w-[300px] pt-5 md:pt-0'></img>
                         </div>
 
                         <div className='flex justify-center mt-5 gap-5'>
-                                <img src={twitter} alt='twitter' className='w-5 h-5 ml-1 mt-1'></img>
+                            
+                                <img src={twitter} alt='twitter' className='w-5 h-5 ml-1 mt-1 cursor-pointer'
+                                    onClick={()=>{
+                                        window.location.href = footer.find(
+                                            (text) => text.attributes.name === "twitterLink"
+                                          ).attributes.text
+                                    }}
+                                ></img>
 
-                                <img src={facebook} alt='facebook' className='w-5 h-5 ml-1 mt-1'></img>
+                                <img src={facebook} alt='facebook' className='w-5 h-5 ml-1 mt-1 cursor-pointer'
+                                    onClick={()=>{
+                                        window.location.href = footer.find(
+                                            (text) => text.attributes.name === "facebookLink"
+                                          ).attributes.text
+                                    }}
+                                ></img>
 
-                                <img src={instagram} alt='instagram' className='w-5 h-5 ml-1 mt-1'></img>
+                                <img src={instagram} alt='instagram' className='w-5 h-5 ml-1 mt-1 cursor-pointer'
+                                    onClick={()=>{
+                                        window.location.href = footer.find(
+                                            (text) => text.attributes.name === "instagramLink"
+                                          ).attributes.text
+                                    }}
+                                ></img>
 
-                                <img src={linkedin} alt='linkedin' className='w-5 h-5 ml-1 mt-1'></img>
+                                <img src={linkedin} alt='linkedin' className='w-5 h-5 ml-1 mt-1 cursor-pointer'
+                                    onClick={()=>{
+                                        window.location.href = footer.find(
+                                            (text) => text.attributes.name === "linkedInLink"
+                                          ).attributes.text
+                                    }}
+                                ></img>
 
                         </div>
                     </div>
                     <div className='text-center text-white mt-5 text-sm pl-5 hidden md:block'>
-                        My City Residence ©2023. All rights reserved.
+                        {
+                            footer.find(
+                                (text) => text.attributes.name === "copyrightStatement"
+                              ).attributes.text
+                        }
                     </div>
                 </div>
-                    <div className='pt-10 pl-5 order-4  py-10'>
+                    <div className='pt-10 pl-5 order-3  py-10'>
                         <div className='font-custom-bold text-white text-xl w-full'>Contact Us</div>
                             <div className=' flex items-center mt-5'>
                                 <div alt='address' className='w-10 pr-3'>
@@ -64,7 +100,11 @@ function Footer() {
                                 </svg>
 
                                 </div>
-                                <div className=" w-full text-white text-md flex items-center">Po Box 1046, Stockton On Tees, TS19 1XL</div>
+                                <div className=" w-full text-white text-md flex items-center">{
+                                    footer.find(
+                                        (text) => text.attributes.name === "address"
+                                      ).attributes.text
+                                }</div>
                             </div>
 
                             <div className='mr-5'>
@@ -80,7 +120,11 @@ function Footer() {
                                 </svg>
 
                                 </div>
-                                <div className=" w-full text-white text-md flex items-center">800 987 6543</div>
+                                <div className=" w-full text-white text-md flex items-center">{
+                                    footer.find(
+                                        (text) => text.attributes.name === "phone"
+                                      ).attributes.text
+                                }</div>
                             </div>
 
                             <div className='mr-5'>
@@ -91,13 +135,25 @@ function Footer() {
                                 <div alt='location' className='w-10 pr-3'>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <g id="mail">
-                                  <path id="Vector" d="M12 11L20 6.34052C19.6784 6.1218 19.2878 6.00244 18.8858 6H5.11424C4.7122 6.00244 4.32163 6.1218 4 6.34052L12 11Z" fill="#1C1C1C"/>
+                                  <path id="Vector" d="M12 11L20 6.34052C19.6784 6.1218 19.2878 6.00244 18.8858 6H5.11424C4.7122 6.00244 4.32163 6.1218 4 6.34052L12 11Z" fill="#fff"/>
                                   <path id="Vector_2" d="M12.3471 12.3202L12.2379 12.3698H12.1864C12.1272 12.3953 12.0644 12.412 12 12.4194C11.9466 12.4259 11.8926 12.4259 11.8393 12.4194H11.7879L11.6786 12.3698L3.06429 7C3.02313 7.14977 3.00153 7.30391 3 7.45885V16.1398C3 16.6332 3.20319 17.1063 3.56487 17.4552C3.92654 17.804 4.41708 18 4.92857 18H19.0714C19.5829 18 20.0735 17.804 20.4351 17.4552C20.7968 17.1063 21 16.6332 21 16.1398V7.45885C20.9985 7.30391 20.9769 7.14977 20.9357 7L12.3471 12.3202Z" fill="#fff"/>
                                   </g>
                                 </svg>
 
                                 </div>
-                                <div className=" w-full text-white text-md flex items-center">info@boostly.co.uk</div>
+                                <div className=" w-full text-white text-md flex items-center cursor-pointer" onClick={()=>{
+                                    window.open(`mailto:${
+                                        footer.find(
+                                            (text) => text.attributes.name === "email"
+                                          ).attributes.text
+                                    }
+                                    }`)
+
+                                }}>{
+                                    footer.find(
+                                        (text) => text.attributes.name === "email"
+                                      ).attributes.text
+                                }</div>
                             </div>
 
                             <div className='mr-5'>
@@ -105,11 +161,21 @@ function Footer() {
                             </div>
                     </div>
                     <div className='text-center text-white font-bold mt-5 text-sm pl-5 md:hidden order-5'>
-                        My City Residence ©2023. All rights reserved.
+                        {
+                            footer.find(
+                                (text) => text.attributes.name === "copyrightStatement"
+                              ).attributes.text
+                        }
                     </div>
                 </div>
         
         </div>
+        :
+        <div className='flex justify-center items-center w-full h-full'>
+            <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary'></div>
+        </div>
+        
+        }
     </div>
     </>
   )

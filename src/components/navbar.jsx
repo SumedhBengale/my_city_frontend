@@ -297,7 +297,7 @@ function Navbar() {
                     : ""
                 }`}
               >
-                Management
+                Homeowners
               </NavLink>
               <NavLink
                 to="/about"

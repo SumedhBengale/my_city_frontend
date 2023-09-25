@@ -313,12 +313,9 @@ function DesktopNavbar() {
       {notificationMenuOpen && (
         <div className="w-full translate-y-3 bg-transparent flex justify-end p-3 font-bold drop-shadow-2xl">
           <div className="relative top-0 right-0 w-72 h-96 overflow-y-scroll flex flex-col bg-white rounded-xl no-scrollbar">
-            <Notification notifications={notifications} refresh={()=>{
-              getNotifications().then((data) => {
-                if (data.notifications && data.notifications.length > 0) {
-                  setNotifications(data.notifications);
-                }
-              });
+            <Notification notifications={notifications} refresh={(id)=>{
+               const newNotifications = notifications.filter((notification) => notification._id !== id)
+               setNotifications(newNotifications)
             }}></Notification>
           </div>
         </div>
@@ -327,7 +324,7 @@ function DesktopNavbar() {
       {accountMenuOpen && (
         <div className="w-full bg-transparent translate-y-2 flex justify-end p-3 font-bold relative"
         >
-          <ul className="absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl shadow-lg">
+          <ul className="absolute top-0 right-2 w-48 flex flex-col bg-white rounded-xl drop-shadow-2xl">
             <li className="flex flex-col ">
               <NavLink
                 to="/messages"
@@ -402,7 +399,7 @@ function DesktopNavbar() {
               </li>
               <li className="flex flex-col">
                 <div
-                  className="flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2 rounded-b-xl"
+                  className="flex justify-start w-full font-custom-kiona text-primary hover:bg-neutral-100 px-4 py-2 rounded-b-xl cursor-pointer"
                   onClick={() => {
                     localStorage.removeItem("token");
                     localStorage.removeItem("userId");

@@ -116,3 +116,16 @@ export const getShowcaseReviews = async () => {
         }
     }
 }
+
+export const getFooter = async () => {
+    try {
+        //get request with auth header
+        const response = await axios.get(`${config.STRAPI_URL}/api/footers`, {
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            return error.response;
+        }
+    }
+}

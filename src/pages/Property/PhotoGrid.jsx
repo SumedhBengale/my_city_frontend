@@ -35,7 +35,7 @@ function PhotoGrid({ carouselOpen, images }) {
           <div
             key={index}
             //first image will take up 2 columns and 2 rows, else if only 3 or 4 images then the last image will take up 2 columns and 1 rows
-            className={`relative ${
+            className={`relative h-64 ${
               index === 0
                 ? displayedImages.length !== 1
                   ? "hidden md:block md:col-span-2 md:row-span-2 pointer-events-none md:pointer-events-auto"

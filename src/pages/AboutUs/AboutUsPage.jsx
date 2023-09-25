@@ -14,6 +14,7 @@ import logoWhite from "../../assets/images/white_logo.png";
 function AboutUsPage() {
   const [dynamicText, setDynamicText] = React.useState(null);
   const [dynamicImages, setDynamicImages] = React.useState(null);
+  const [hidden, setHidden] = React.useState(false);
   useEffect(() => {
     getDynamicText()
       .then((res) => {
@@ -27,10 +28,38 @@ function AboutUsPage() {
         setDynamicImages(res.data[0].attributes.images.data);
       })
       .catch((err) => {});
+
+      const handleScroll = () => {
+        const screenHeight = window.innerHeight;
+        const scrollPosition = window.scrollY;
+        // console.log(scrollPosition, screenHeight * 70 / 100)
+        //If scroll position is greater than 1% of screen height, hide this element
+        if(scrollPosition > 20) {
+          setHidden(true);
+        }else{
+          setHidden(false);
+  
+        }
+
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
   }, []);
   return (
-    <>
+    <div className="relative">
+      <div className="fixed top-0 z-40">
+        <div className="hidden md:block z-40 fixed w-full">
+                {<DesktopNavbarBlack />}
+        </div>
+        <div className="md:hidden z-40 fixed w-full">
+          {<NavbarBlack />}
+        </div>
+      </div>
       {dynamicImages !== null && dynamicText !== null && (
+        <div>
         <div
           style={{
             //Blurry Background Image
@@ -43,33 +72,39 @@ function AboutUsPage() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             width: "100%",
-            height: "80vh",
+            height: "90vh",
           }}
+          className="fixed top-0"
         >
-          {" "}
-          {/* Background Image */}
-          <div className="hidden md:block z-30 fixed w-full">
-            {<DesktopNavbarBlack />}
-          </div>
-          <div className="md:hidden z-30 fixed w-full">{<NavbarBlack />}</div>
-          <div className="h-full flex flex-col justify-center items-center z-0 bg-black/40">
+        </div>
+        <div className="fixed top-0 h-screen w-screen bg-black/40 backdrop-filter backdrop-blur-sm"></div>
+      </div>
+      )}
+      <div className={`w-full flex flex-col fixed top-0 z-30 transition-all pt-24 2xl:pt-72 
+      ${
+        hidden ? setTimeout(() => {return "hidden"}, 200) : "block"
+      }
+        ${hidden ? "-translate-y-96 scale-0 duration-200 ease-out" : "translate-y-0 scale-100 duration-500 ease-in"}
+      `} style={{
+        height: '100vh'
+      }}>
             <div className="w-full flex justify-center items-center z-10">
               <img
                 src={logoWhite}
                 alt="My City Logo"
-                className="w-1/2 sm:w-1/3 md:w-48 lg:w-72 self-start mb-10"
+                className="w-1/2 sm:w-1/3 md:w-48 lg:w-96 self-start mb-10"
               ></img>
             </div>
             <div className="font-custom-bold text-4xl md:text-5xl text-white text-center pb-4 capitalize">
-              Who are we?
+              {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "AboutUs_Heading").attributes.text}
             </div>
             <div className=" text-2xl md:text-4xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
-              Home away from home
+            {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "AboutUs_Subheading").attributes.text}
             </div>
-          </div>
-        </div>
-      )}
-
+      </div>
+      <div className="bg-white translate-y-0 rounded-tl-[50px] md:rounded-tl-[100px] z-30" style={{
+        marginTop: '70vh'
+      }}>
       {dynamicText !== null && dynamicImages !== null ? (
         <OurStorySection
           dynamicText={dynamicText}
@@ -100,7 +135,8 @@ function AboutUsPage() {
       </FadeInSection>
         <OurPartnersSection></OurPartnersSection>
       <Footer></Footer>
-    </>
+      </div>
+    </div>
   );
 }
 

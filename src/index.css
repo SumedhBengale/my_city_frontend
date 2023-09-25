@@ -61,8 +61,17 @@ code {
   background-position: 0 100%
 }
 
+.line-underline-black:hover {
+  background-size: 100% 3px;
+  background-position: 0 100%
+}
+
 .Toastify__progress-bar {
   background: #262150 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #c79744 !important;
 }
 
 @layer utilities {

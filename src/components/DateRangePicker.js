@@ -7,7 +7,7 @@ import { fetchBookedDatesFromBackend } from './api';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights, residenceId, returnData, blockBooking, title }) => {
+const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights, residenceId, returnData, blockBooking, title, bookNow }) => {
   const navigate = useNavigate();
   const [currentMonth, setCurrentMonth] = useState(
     initialStartDate ? initialStartDate : new Date()
@@ -20,7 +20,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
   const [loading, setLoading] = useState(false);
   const [fetchComplete, setFetchComplete] = useState(false);
   const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const [bookingBlocked, setBookingBlocked] = useState(false);
+  const [bookingBlocked, setBookingBlocked] = useState(true);
   const changeBookingBlocked = (value) => {
     setBookingBlocked(value)
     blockBooking(value)
@@ -126,7 +126,11 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
     // If the status of any date between start date and end date is booked, return true, startDate and endDate are excluded
     if (data === null) { return false }
     for (let i = 0; i < data.length; i++) {
-      if (new Date(data[i].date) > startDate && new Date(data[i].date) < endDate && data[i].status === 'booked') {
+      if (new Date(data[i].date) > startDate && new Date(data[i].date) < endDate && (
+        data[i].status === 'booked' ||
+        data[i].status === 'unavailable' ||
+        data[i].status === 'reserved'
+      )) {
         return true;
       }
     }
@@ -148,30 +152,23 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
     if (day < startDate) {
       setStartDate(day);
       setEndDate(null);
-      changeBookingBlocked(false)
       return;
     }
     //If startDate is null, set startDate to the day
     if (startDate === null) {
       setStartDate(day);
       setEndDate(null);
-      changeBookingBlocked(false)
       return;
     }
 
     //If endDate is null, set endDate to the day
     if (endDate === null) {
-      setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24))
       setEndDate(day);
-      returnData({
-        startDate: startDate,
-        endDate: day,
-      })
+
       //If clicking on the same date, set startDate and endDate to null
       if (isSameDay(day, startDate)) {
         setStartDate(null);
         setEndDate(null);
-        changeBookingBlocked(false)
         return;
       }
 
@@ -218,6 +215,11 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
         changeBookingBlocked(true)
         return;
       }
+      setTotalNights((day.getTime() - startDate.getTime()) / (1000 * 3600 * 24))
+      returnData({
+        startDate: startDate,
+        endDate: day,
+      })
       changeBookingBlocked(false)
       return;
     }
@@ -342,7 +344,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
             </div>
           </div>
           <div className='w-full p-2'>
-            {bookingBlocked && <button className="bg-primary w-full text-white font-custom-lora font-bold text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
+            {bookingBlocked ? <button className="bg-primary w-full text-white font-custom-lora text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
               onClick={() => {
                 localStorage.getItem('luxe') === true ?
                   navigate('/luxe/properties', {
@@ -354,7 +356,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
                         bedrooms: "any",
                         guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
                         bathrooms: "any",
-                        priceRange: [0, 2500],
+                        priceRange: [0, 10000],
                         amenities: [],
                       },
                     }
@@ -368,13 +370,19 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
                         bedrooms: "any",
                         guests: localStorage.getItem('guestCount') ? localStorage.getItem('guestCount') : 1,
                         bathrooms: "any",
-                        priceRange: [0, 2500],
+                        priceRange: [0, 10000],
                         amenities: [],
                       },
                     }
                   })
               }}
-            >See Available Properties</button>}
+            >See Available Properties</button>
+              : <button className="bg-primary w-full text-white font-custom-lora text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
+                onClick={() => {
+                  bookNow()
+                }}
+              >Book Now</button>
+            }
           </div>
         </div>
 

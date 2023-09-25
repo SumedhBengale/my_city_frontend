@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarBlack from "../../components/navbar_black";
 import DesktopNavbarBlack from "../../components/desktopNavbarBlack";
 import contactBackground from "../../assets/images/contact/contactBackground.jpeg";
@@ -10,7 +10,9 @@ import FadeInSetion from "../../components/fadeIn/fadeInSection";
 import MapContainer from "../Property/MapContainer";
 import { ToastContainer, toast } from "react-toastify";
 import whiteLogo from "../../assets/images/white_logo.png";
-import { addContactUsRequest } from "./api";
+import { addContactUsRequest, getDynamicImages, getDynamicText } from "./api";
+import config from "../../config/config";
+import logoWhite from "../../assets/images/white_logo.png";
 
 function ContactUs() {
   //List of checkboxes
@@ -20,6 +22,40 @@ function ContactUs() {
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [dynamicText, setDynamicText] = React.useState(null);
+  const [dynamicImages, setDynamicImages] = React.useState(null);
+  const [hidden, setHidden] = React.useState(false);
+
+  useEffect(() => {
+    getDynamicImages()
+      .then((res) => {
+        console.log(res.data[0].attributes.images.data);
+        setDynamicImages(res.data[0].attributes.images.data);
+      })      
+    getDynamicText().then((res) => {
+        console.log(res.data);
+        setDynamicText(res.data);
+    });
+
+    const handleScroll = () => {
+      const screenHeight = window.innerHeight;
+      const scrollPosition = window.scrollY;
+      // console.log(scrollPosition, screenHeight * 70 / 100)
+      //If scroll position is greater than 1% of screen height, hide this element
+      if(scrollPosition > 20) {
+        setHidden(true);
+      }else{
+        setHidden(false);
+
+      }
+
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleSubmit = () => {
     //check if name and (email or phone) and at least one checkbox is selected
@@ -74,64 +110,87 @@ function ContactUs() {
     }
   };
 
+
   return (
-    <>
-      <div
-        style={{
-          backgroundImage: `url(${contactBackground})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "70vh",
-        }}
-      >
-        {" "}
-        {/* Background Image */}
-        <div className="hidden md:block z-30 fixed w-full">
-          {<DesktopNavbarBlack />}
+    <div className="relative">
+      <div className="fixed top-0 z-40">
+        <div className="hidden md:block z-40 fixed w-full">
+                {<DesktopNavbarBlack />}
         </div>
-        <div className="md:hidden z-30 fixed w-full">{<NavbarBlack />}</div>
-        <div className="h-full flex flex-col justify-center items-center z-0 bg-black/40 backdrop-filter backdrop-blur-sm">
-          <div className="flex justify-center items-center mx-10">
-            <img
-              src={whiteLogo}
-              alt="My City Logo"
-              className="w-48 lg:w-72 self-start mb-10"
-            ></img>
-          </div>
-          <div className="font-custom-kiona text-4xl md:text-5xl text-white text-center pb-4 capitalize">
-            Contact Us
-          </div>
-          <div className=" text-2xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
-            We offer unique places suitable for your comfort
-          </div>
+        <div className="md:hidden z-40 fixed w-full">
+          {<NavbarBlack />}
         </div>
       </div>
-      <FadeInSetion>
-        <div className="w-full h-full px-5 bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px] pt-20">
-          <div className="flex flex-col justify-center items-start h-full bg-neutral-100 w-full md:px-5 m-5 rounded-lg md:container mx-auto">
-            <div className="font-custom-bold text-xl mx-3 md:mx-0 mt-10 text-black uppercase">
+      {dynamicImages !== null && dynamicText !== null && (
+        <div>
+        <div
+          style={{
+            //Blurry Background Image
+            backgroundImage: `url(${
+              `${config.STRAPI_URL}` +
+              dynamicImages.find(
+                (image) => image.attributes.name === "ContactBackground.jpeg"
+              ).attributes.url
+            })`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "90vh",
+          }}
+          className="fixed top-0"
+        >
+        </div>
+        <div className="fixed top-0 h-screen w-screen bg-black/40 backdrop-filter backdrop-blur-sm"></div>
+      </div>
+      )}
+      <div className={`w-full flex flex-col fixed top-0 z-30 transition-all pt-24 2xl:pt-72
+      ${
+        hidden ? setTimeout(() => {return "hidden"}, 200) : "block"
+      }
+        ${hidden ? "-translate-y-96 scale-0 duration-200 ease-out" : "translate-y-0 scale-100 duration-500 ease-in"}
+      `} style={{
+        height: '100vh'
+      }}>
+            <div className="w-full flex justify-center items-center z-10">
+              <img
+                src={logoWhite}
+                alt="My City Logo"
+                className="w-1/2 sm:w-1/3 md:w-48 lg:w-96 self-start mb-10"
+              ></img>
+            </div>
+            <div className="font-custom-bold text-4xl md:text-5xl text-white text-center pb-4 capitalize">
+              {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "ContactUs_Heading").attributes.text}
+            </div>
+            <div className=" text-2xl md:text-4xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">
+            {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "ContactUs_Subheading").attributes.text}
+            </div>
+      </div>
+        <div className="bg-white translate-y-0 rounded-tl-[50px] md:rounded-tl-[100px] z-30 pt-10" style={{
+        marginTop: '70vh'
+      }}>      
+          <div className="flex flex-col justify-center items-start h-full bg-neutral-100 w-full px-5 m-5 rounded-lg md:container mx-auto">
+            <div className="font-custom-bold text-xl  md:mx-0 mt-10 text-black uppercase">
               Get In Touch
             </div>
-            <hr className="w-36 border-sm my-4 ml-3 mx-3 md:mx-0 border-[1px] border-black" />
+            <hr className="w-36 border-sm my-4 ml-3  md:mx-0 border-[1px] border-black" />
 
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 place-items-start gap-4">
               <div className="w-full flex flex-col justify-center items-start order-2 lg:order-1">
-                <div className="font-custom-kiona text-lg mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-md  md:mx-0 mt-3 text-black">
                   Name
                 </div>
                 <input
-                  className="w-full h-10 rounded-lg px-3 mx-3 md:mx-0 drop-shadow-md"
+                  className="w-full h-10 rounded-lg px-3  md:mx-0 drop-shadow-md"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 ></input>
 
-                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-md  md:mx-0 mt-3 text-black">
                   Phone
                 </div>
                 <input
-                  className="w-full h-10 rounded-lg px-3 mx-3 md:mx-0 drop-shadow-md"
+                  className="w-full h-10 rounded-lg px-3  md:mx-0 drop-shadow-md"
                   type="phone"
                   value={phone}
                   onChange={(e) => {
@@ -143,30 +202,30 @@ function ContactUs() {
                   }}
                 ></input>
 
-                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-md  md:mx-0 mt-3 text-black">
                   Email
                 </div>
                 <input
-                  className="w-full h-10 rounded-lg px-3 mx-3 md:mx-0 drop-shadow-md"
+                  className="w-full h-10 rounded-lg px-3  md:mx-0 drop-shadow-md"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 ></input>
 
-                <div className="font-custom-kiona text-xl mx-3 md:mx-0 mt-3 text-black">
+                <div className="font-custom-kiona text-md  md:mx-0 mt-3 text-black">
                   Message
                 </div>
                 <textarea
-                  className="w-full h-40 rounded-lg px-3 mx-3 md:mx-0 drop-shadow-md"
+                  className="w-full h-40 rounded-lg px-3  md:mx-0 drop-shadow-md"
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
 
-                <div className="font-custom-kiona text-md mx-3 md:mx-0 mt-3 text-primary uppercase">
+                <div className="font-custom-kiona text-md  md:mx-0 mt-3 text-primary uppercase">
                   Preferred method of contact
                 </div>
-                <div className="flex flex-row justify-start items-center mx-3 md:mx-0">
+                <div className="flex flex-row justify-start items-center  md:mx-0">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2 capitalize">
                     {checkboxes.map((checkbox) => (
                       <div
@@ -232,13 +291,16 @@ function ContactUs() {
               </div>
 
               <div className="w-full h-[450px] px-3 md:px-0 pt-10 order-1 lg:order-2">
-                <MapContainer coordinate={{ lat: 40.7128, lng: -74.006 }} />
+                {dynamicText !== null && <MapContainer coordinate={{ 
+                  lat: parseFloat(dynamicText.find((text) => text.attributes.name === "Coordinate").attributes.text.split(",")[0]),
+                  lng: parseFloat(dynamicText.find((text) => text.attributes.name === "Coordinate").attributes.text.split(",")[1])
+                 }} />}
               </div>
             </div>
 
             <div className="flex flex-col justify-center items-center w-full">
               <button
-                className="w-40 h-10 bg-primary text-md hover:bg-secondary font-custom-kiona transition duration-75 text-white rounded-lg mt-5 mb-5"
+                className="w-40 h-10 bg-primary text-md hover:bg-secondary font-custom-kiona transition duration-75 hover:scale-105 text-white rounded-lg mt-5 mb-5"
                 onClick={() => {
                   handleSubmit();
                 }}
@@ -246,19 +308,19 @@ function ContactUs() {
                 SUBMIT
               </button>
             </div>
+            {dynamicText !== null ?<div className="flex flex-col w-full">
             <div className="flex w-full justify-center">
-              <div className="mx-3 my-5 flex flex-col text-center">
+              <div className=" my-5 flex flex-col text-center">
                 <span className="text-zinc-800 text-xs font-normal leading-normal">
-                  Thank you so much for your interest! We’d love to hear from
-                  you and help you book your dream vacation! Please submit your
-                  email or email directly to:{" "}
+                {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "Greeting").attributes.text}
+
                 </span>
                 <span className="text-zinc-800 text-xs font-semibold leading-normal">
-                  info@mycityresidences.com
+                {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "Email").attributes.text}
                 </span>
               </div>
             </div>
-            <div className="pt-5 pl-5">
+            <div className="pt-5 pl-0 md:pl-5">
               <div className=" flex items-center h-full mt-5">
                 <img
                   src={location_black}
@@ -266,7 +328,7 @@ function ContactUs() {
                   className="w-8 pr-3"
                 ></img>
                 <div className=" w-full text-black text-sm flex items-center">
-                  96 Earls Court Road, Kensington, W8 6EG
+                  {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "Address").attributes.text}
                 </div>
               </div>
 
@@ -277,7 +339,7 @@ function ContactUs() {
                   className="w-8 pr-3"
                 ></img>
                 <div className=" w-full text-black text-sm flex items-center">
-                  +44 744 221 1353
+                {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "Phone").attributes.text}
                 </div>
               </div>
 
@@ -288,15 +350,21 @@ function ContactUs() {
                   className="w-8 pr-3"
                 ></img>
                 <div className=" w-full text-black text-sm flex items-center">
-                  info@mycityresidences.comk
+                {dynamicText.find((text) => text.attributes.name === "Email").attributes.text}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </FadeInSetion>
+          : 
+          <div className="flex justify-center items-center h-96">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>  
+          </div>
+        }
+          </div>
       {/* <FadeInSetion> */}
       <Footer></Footer>
+      </div>
+
       {/* </FadeInSetion> */}
       <ToastContainer
         position="bottom-center"
@@ -310,7 +378,7 @@ function ContactUs() {
         pauseOnHover
         theme="light"
       />
-    </>
+    </div>
   );
 }
 

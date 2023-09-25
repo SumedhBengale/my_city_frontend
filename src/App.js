@@ -57,8 +57,8 @@ const App = () => {
           <Route exact path="/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
           <Route exact path="/properties" element={<PropertiesPage />} />
-          <Route exact path="/payment" element={getToken ? <Payment></Payment> : <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/payment/success" element={getToken ? <Success></Success> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path="/payment" element={<Payment></Payment>} />
+          <Route exact path="/payment/success" element={<Success></Success>} />
           <Route exact path="/luxe" element={<LuxeHomePage></LuxeHomePage>} />
           <Route exact path="/luxe/properties" element={<LuxePropertiesPage></LuxePropertiesPage>} />
           <Route exact path="/homeowners" element={<ManagementPage></ManagementPage>} />
@@ -67,7 +67,7 @@ const App = () => {
           <Route exact path="/contact" element={<ContactUsPage></ContactUsPage>} />
           <Route exact path="/property/:id" element={<Property></Property>} />
           <Route exact path='/wishlist' element={getToken ? <Wishlist></Wishlist> : <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path='/book' element={getToken ? <Book></Book> : <Navigate to="/admin/login"></Navigate>} />
+          <Route exact path='/book' element={<Book></Book>} />
           <Route exact path="/trips" element={getToken ? <Trips></Trips> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/notifications" element={getToken ? <Notifications></Notifications> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/help" element={getToken ? <Help></Help> : <Navigate to="/admin/login"></Navigate>} />

@@ -13,6 +13,7 @@ import FadeInSection from "../../../components/fadeIn/fadeInSection";
 import SortDropdown from "./sortDropdown";
 import Filter from "../../../components/filter";
 import { useLocation } from "react-router-dom";
+import { TypeAnimation } from "react-type-animation";
 import {
   getDynamicText,
   getLuxeResidences,
@@ -47,6 +48,7 @@ function PropertiesPage() {
   const [loading, setLoading] = useState(true);
   const [dynamicText, setDynamicText] = useState(null);
   const [videos, setVideos] = useState(null);
+  const [searchHidden, setSearchHidden] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -63,7 +65,7 @@ function PropertiesPage() {
       location.state
         ? {
             filterData: location.state.filterData,
-            limit: location.state.limit ? location.state.limit : 20,
+            limit: location.state.limit ? location.state.limit : 100,
           }
         : {}
     )
@@ -75,16 +77,23 @@ function PropertiesPage() {
       .catch((err) => {
         console.log(err);
       });
-    const handleScroll = () => {
-      const screenHeight = window.innerHeight;
-      const scrollPosition = window.scrollY;
-      console.log(scrollPosition, (screenHeight * 70) / 100);
-      if (scrollPosition >= (screenHeight * 70) / 100) {
-        setBlackNavbar(true);
-      } else {
-        setBlackNavbar(false);
-      }
-    };
+      const handleScroll = () => {
+        const screenHeight = window.innerHeight;
+        const scrollPosition = window.scrollY;
+        // console.log(scrollPosition, screenHeight * 70 / 100)
+        //If scroll position is greater than 1% of screen height, hide this element
+        if(scrollPosition > 20) {
+          setSearchHidden(true);
+        }else{
+          setSearchHidden(false);
+  
+        }
+        if (scrollPosition >= (screenHeight*80)/100) {
+          setBlackNavbar(true);
+        } else {
+          setBlackNavbar(false);
+        }
+      };
 
     window.addEventListener("scroll", handleScroll);
     //Scroll to the ref 'nearbyPropertiesRef' when the page loads
@@ -104,8 +113,7 @@ function PropertiesPage() {
     };
   }, [location.state]);
   return (
-    <>
-      <>
+    <div className="relative">
         {filterVisible && (
           <div className="h-screen w-screen absolute">
             <Filter
@@ -132,88 +140,105 @@ function PropertiesPage() {
             close={() => setFetchedPropertiesFilter(false)}
           ></Filter>
         )}
-        <div
-          style={{
-            width: '100%',
-            height: '80vh',
-          }}
-          className="z-0"
-        >
-          <div className="z-0">
-            {videos !== null && (
-              <video
-                autoPlay
-                loop
-                muted
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                }}
-              >
-                <source
-                  src={
-                    videos !== null &&
-                    `${config.STRAPI_URL}` +
-                      videos.find(
-                        (video) =>
-                          video.attributes.name === "Luxe_PropertiesPage_Video"
-                      ).attributes.video.data.attributes.url
-                  }
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-            )}
+    <div className="fixed top-0 z-40">
+    <div className="hidden md:block z-40 fixed w-full">
+            {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
           </div>
-          {/* Background Image */}
-          <div className="h-full relative">
-            <div className="absolute h-full w-full bg-black/40"></div>
-            <div className="hidden md:block z-30 fixed w-full">
-              {blackNavbar ? <DesktopNavbarBlack /> : <DesktopNavbar />}
-            </div>
-            <div className="md:hidden z-30 fixed w-full">
-              {blackNavbar ? <NavbarBlack /> : <Navbar />}
-            </div>
-            <div className="h-full flex flex-col justify-center items-center">
-              <div className="lg:hidden z-10">
-                <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
-                  {dynamicText !== null &&
-                    dynamicText.find(
-                      (text) => text.attributes.name === "Website_Name"
-                    ).attributes.text}
-                </div>
-              </div>
-
-              <div className="hidden lg:block justify-center items-center z-10">
-                <img
-                  src={luxeLogo}
-                  alt="My City Logo"
-                  className="h-36 self-start mb-10"
-                ></img>
-              </div>
-              <div className=" text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10">
-                {
-                  //split each word in to a seperate div and fade them each one by one
-                  dynamicText !== null &&
-                    dynamicText.find(
-                      (text) => text.attributes.name === "Website_Tagline"
-                    ).attributes.text
+          <div className="md:hidden z-40 fixed w-full">
+            {blackNavbar ? <NavbarBlack /> : <Navbar />}
+          </div>
+    </div>
+  <div
+        style={{
+          width: '100%',
+          height: '90vh',
+        }}
+        className="z-0 fixed top-0 left-0"
+      >
+        <div className="z-0">
+          {videos !== null && (
+            <video
+              autoPlay
+              loop
+              muted
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            >
+              <source
+                src={
+                  videos !== null &&
+                  `${config.STRAPI_URL}` +
+                    videos.find(
+                      (video) => video.attributes.name === "HomePage_Video"
+                    ).attributes.video.data.attributes.url
                 }
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        <div className="absolute h-full w-full bg-black/40"></div>
+        </div>
+      </div>
+      <div className={`w-full flex fixed top-0 justify-center items-center z-30 transition-all 
+      ${
+        searchHidden ? setTimeout(() => {return "hidden"}, 200) : "block"
+      }
+        ${searchHidden ? "-translate-y-96 scale-0 duration-200 ease-out" : "translate-y-0 scale-100 duration-500 ease-in"}
+      `} style={{
+        height: '100vh'
+      }}>
+                <div className={`h-full w-full relative`}>
+          <div className={`h-full flex flex-col items-center pt-40 sm:pt-20 2xl:pt-40`}>
+            <div className="lg:hidden z-10">
+              <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
+                {dynamicText !== null &&
+                  dynamicText.find(
+                    (text) => text.attributes.name === "Website_Name"
+                  ).attributes.text}
               </div>
+            </div>
 
-              <div className="z-20">
-              <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
-              </div>
+            <div className="hidden lg:block justify-center items-center z-10">
+              <img
+                src={luxeLogo}
+                alt="My City Logo"
+                className="h-24 2xl:h-36 self-start mb-5 2xl:mb-10"
+              ></img>
+            </div>
+            <div className=" text-md md:text-2xl w-full text-center font-bold font-custom-adam text-white capitalize sm-3 2xl:mb-10 z-10">
+              {dynamicText !== null && 
+                <div>
+                  <TypeAnimation
+                    cursor={false}
+                    sequence={[
+                      dynamicText.find(
+                        (text) => text.attributes.name === "Website_Tagline"
+                      ).attributes.text,
+                    ]}
+                    wrapper="div"
+                    className="text-md md:text-2xl w-full text-center font-custom-bold text-white capitalize sm-3 lg:mb-10 z-10"
+                  />
+                </div>
+              }
+            </div>
+
+            <div className="z-50">
+            <SearchCard initialData={location.state ? location.state.filterData : null} search={(params) => search(params)}></SearchCard>
             </div>
           </div>
         </div>
-        <div
-          className="bg-white -translate-y-24 rounded-tl-[50px] md:rounded-tl-[100px]"
-          ref={nearbyPropertiesRef}
+      </div>
+      <div className="bg-white translate-y-0 rounded-tl-[50px] md:rounded-tl-[100px]" style={{
+        marginTop: '70vh'
+      }}
+        ref={nearbyPropertiesRef}
         >
           <div className="px-5 md:container md:mx-auto">
             <FadeInSection>
@@ -226,7 +251,7 @@ function PropertiesPage() {
                   limit={
                     location.state && location.state.limit
                       ? location.state.limit
-                      : 20
+                      : 100
                   }
                 ></PropertiesSection>
               ) : (
@@ -236,12 +261,12 @@ function PropertiesPage() {
               )}
             </FadeInSection>
           </div>
-        </div>
         {/* <FadeInSection> */}
         <Footer></Footer>
+      </div>
+
         {/* </FadeInSection> */}
-      </>
-    </>
+    </div>
   );
 }
 
@@ -257,6 +282,7 @@ function PropertiesSection({
   const [sortValue, setSortValue] = useState("p-hl");
   const [sortedResidences, setSortedResidences] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [visibleLimit, setVisibleLimit] = useState(20);
 
   useEffect(() => {
     if (residences) {
@@ -349,13 +375,13 @@ function PropertiesSection({
     <>
       <div className="flex flex-col md:flex-row justify-between pt-10">
         <div className="flex justify-center items-start pt-2">
-          <div className="text-primary font-custom-kiona text-3xl capitalize">
+          <div className="text-primary font-custom-kiona text-2xl md:text-4xl capitalize">
             Available Residences
           </div>
         </div>
         <div className="flex flex-col items-end justify-end mt-3 mb-5 gap-5">
           <div
-            className="h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1"
+            className="h-8 w-8 md:h-10 md:w-10 bg-gray-200 rounded-md flex justify-center items-center p-1 cursor-pointer"
             onClick={() => setFilterVisible(true)}
           >
             <img src={filterBlack} alt="filter" className="h-3/4 w-3/4" />
@@ -377,7 +403,8 @@ function PropertiesSection({
         <div className="flex justify-center  max-w-[1600px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 place-items-center">
             {sortedResidences && loading !== true ? (
-              sortedResidences.map((residence, index) => {
+              //shwo a max of limit residences
+              sortedResidences.slice(0, visibleLimit).map((residence, index) => {
                 return (
                   <PropertyCard key={index} residence={residence}></PropertyCard>
                 );
@@ -395,26 +422,19 @@ function PropertiesSection({
         </div>
       )}
       <div className="flex justify-center my-10">
-        {limit !== 100 && (
+        {visibleLimit !== 100 && (
           <div
             className="w-[178px] h-14 border bg-primary hover:bg-secondary  text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl backdrop-blur-md"
             onClick={() => {
-              setLoading(true);
-              getLuxeResidences({
-                filterData: filterData,
-                limit: 100,
-              })
-                .then((res) => {
-                  console.log(res);
-                  setResidences(res.residences.results);
-                  setLoading(false);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
+              setVisibleLimit(100);
+              //scroll to the top of the page
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
             }}
           >
-            <div className="text-2xl h-full font-custom-kiona flex justify-center items-center">
+            <div className="text-2xl font-custom-kiona h-full flex justify-center items-center">
               View All
             </div>
           </div>

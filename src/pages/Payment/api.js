@@ -30,11 +30,12 @@ export const createIntent = async (quote) => {
 
 
 export const sendSuccessfulPayment = async (paymentIntent, paymentStatus, quoteId) => {
-  try{
+  try {
     const response = await axios.post(`${config.API_URL}/payment/success`, {
       paymentIntent,
       paymentStatus,
-      quoteId
+      quoteId,
+      userToken: localStorage.getItem('token') ? localStorage.getItem('token') : null
     }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -43,9 +44,9 @@ export const sendSuccessfulPayment = async (paymentIntent, paymentStatus, quoteI
     console.log(response);
     return response.data;
   }
-  catch(error){
+  catch (error) {
     console.error(error);
-    if(error.response){
+    if (error.response) {
       return error.response.data;
     }
     throw error;
@@ -55,20 +56,20 @@ export const sendSuccessfulPayment = async (paymentIntent, paymentStatus, quoteI
 export const confirmBooking = async (quote) => {
 
   try {
-      //get request with auth header
-      const response = await axios.post(`${config.API_URL}/bookResidence`, {
-          quote: quote,
-          userId: localStorage.getItem('userId')
-      }, {
-          headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-      });
-      return response.data;
+    //get request with auth header
+    const response = await axios.post(`${config.API_URL}/bookResidence`, {
+      quote: quote,
+      userId: localStorage.getItem('userId')
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response.data;
   }
   catch (error) {
-      if (error.response) {
-          return error.response;
-      }
+    if (error.response) {
+      return error.response;
+    }
   }
 }

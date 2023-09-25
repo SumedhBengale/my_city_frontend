@@ -21,6 +21,12 @@ const PlainDateRangePicker = ({ initialStartDate, initialEndDate, returnData }) 
   const monthStartDate = startOfWeek(monthStart);
   const monthEndDate = endOfWeek(monthEnd);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   const days = []
   let day = monthStartDate;

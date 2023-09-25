@@ -47,7 +47,7 @@ module.exports = {
         'custom-avenir': ['Avenir', 'serif'],
         'custom-avenir-bold': ['Avenir-Bold', 'serif'],
         'custom-avenir-light': ['Avenir-Light', 'serif'],
-        'custom-adam': ['Adam-Regular', 'serif'],
+        'custom-adam': ['Adam', 'serif'],
         'custom-adam-bold': ['Adam-Bold', 'serif'],
         // Add more custom fonts as needed
       },

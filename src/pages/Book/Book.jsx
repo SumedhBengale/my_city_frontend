@@ -11,7 +11,6 @@ import DateRangePicker from "../../components/DateRangePicker";
 function Book() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmTitle, setConfirmTitle] = useState(null);
   const [confirmMessage, setConfirmMessage] = useState(null);
   const [residence, setResidence] = useState(null);
@@ -115,6 +114,7 @@ function Book() {
             initialStartDate={new Date(quote.checkInDateLocalized)}
             initialEndDate={new Date(quote.checkOutDateLocalized)}
             residenceId={residence._id}
+            title={residence.title}
           ></DateRangePicker>
         </div>
       )}
@@ -122,14 +122,6 @@ function Book() {
         <div className="hidden md:block z-20 fixed top-0 w-full">
           {<DesktopNavbar />}
         </div>
-        {confirmVisible && (
-          <div className="fixed top-0 z-20 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center backdrop-filter backdrop-blur-md">
-            <div className="w-full mx-5 md:mx-0 md:w-1/2 h-min bg-white rounded-lg flex flex-col justify-center items-center py-5">
-              <div className="text-2xl font-bold">{confirmTitle}</div>
-              <div className="text-lg font-bold">{confirmMessage}</div>
-            </div>
-          </div>
-        )}
         {residence && quote !== null && totalNights ? (
           <div>
             <div className="flex w-full h-full bg-white shadow-lg justify-between  md:mt-16 ">
@@ -317,7 +309,7 @@ function Book() {
                       <div className="text-sm font-bold">{`£ ${quote.rates.ratePlans[0].ratePlan.money.hostPayout}`}</div>
                     </div>
                   </div>
-                  <div className="w-full flex justify-center h-12">
+                  <div className="w-full flex justify-center h-12 mt-5">
                     <input
                       className="rounded-l-lg px-4 h-full w-full md:w-48 border border-black bg-neutral-100"
                       onChange={(e) => setCoupon(e.target.value)}
@@ -364,15 +356,42 @@ function Book() {
                     </div>
                   </div>
                   <div className="flex flex-grow justify-center items-end">
-                    <button
-                      className={`w-1/2 h-10 mt-6 mb-12 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
+                    {
+                      //If token is not present, show login button
+                      localStorage.getItem("token") === null ? 
+                        <div className="flex gap-4">
+                          <button
+                            className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
+                            onClick={() => navigate("/login")}
+                          >
+                            Login
+                          </button>
+                          <button
+                            className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
+                            onClick={() => navigate('/signup')}
+                          >
+                            Sign Up
+                          </button>
+                          <button
+                            className={`w-full h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
+                              bookingDisabled || !acceptedTerms ? "opacity-50" : ""
+                            }`}
+                            onClick={() => handleBooking()}
+                            disabled={bookingDisabled || !acceptedTerms}
+                          >
+                            Checkout as Guest
+                          </button>
+                        </div>
+                      : <button
+                      className={`w-1/2 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
                         bookingDisabled || !acceptedTerms ? "opacity-50" : ""
                       }`}
                       onClick={() => handleBooking()}
-                      disabled={bookingDisabled && !acceptedTerms}
+                      disabled={bookingDisabled || !acceptedTerms}
                     >
                       Confirm
                     </button>
+                    }
                   </div>
                 </div>
               )}

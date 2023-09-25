@@ -30,13 +30,13 @@ const ReviewCarousel = () => {
     <div className="w-full flex justify-center">
       <div className="w-full md:max-w-[1400px] flex flex-col">
         <div className="w-full flex justify-center mb-5">
-          <h1 className="text-2xl font-custom-kiona font-bold text-center text-primary px-2">
+          <h1 className="text-2xl font-custom-kiona text-center text-primary px-2">
             Hear From Our Happy Customers
           </h1>
         </div>
         <div className="flex justify-between">
           <button
-            className="bg-white w-full text-white z-20"
+            className="bg-white w-min text-white z-20"
             onClick={() => {
               slider?.current.slickPrev();
             }}
@@ -114,7 +114,7 @@ const ReviewCarousel = () => {
                         className="rounded-full w-20"
                       />
                     </div>
-                    <p className="text-2xl capitalize text-primary">{review.attributes.name}</p>
+                    <p className="text-2xl capitalize font-custom-adam text-primary">{review.attributes.name}</p>
                   </div>
                 </div>
               ))
@@ -125,7 +125,7 @@ const ReviewCarousel = () => {
             )}
           </Slider>
           <button
-            className="bg-white w-full text-white z-20"
+            className="bg-white w-min text-white z-20"
             onClick={() => {
               slider?.current.slickNext();
             }}

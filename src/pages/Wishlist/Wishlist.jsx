@@ -181,7 +181,7 @@ function WishlistSection({ setFilterVisible, residences, filterData }) {
 
   return (
     <>
-      <div className="md:container md:mx-auto">
+      <div className="md:container mx-3 md:mx-auto">
         <div className="flex flex-col md:flex-row justify-end pt-10">
           <div className="flex flex-col items-end justify-end mt-3 mb-5 gap-5">
             <div className="flex z-10 items-center">

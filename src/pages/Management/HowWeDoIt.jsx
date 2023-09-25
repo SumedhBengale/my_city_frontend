@@ -5,12 +5,12 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
   return (
     <>
       <div className="container mx-auto">
-        <div className="font-custom-kiona text-4xl text-primary text-center sm:text-start sm:pl-5 pt-10 mb-10">
+        <div className="font-custom-kiona text-2xl md:text-4xl text-primary text-center sm:text-start sm:pl-5 pt-10 mb-10">
           How We Do It?
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pb-20">
           <div className="w-full h-full flex justify-center">
-            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3">
+            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3 drop-shadow-lg">
               <div className="flex justify-center">
                 <img
                   src={
@@ -24,13 +24,13 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
                   className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
                 />
               </div>
-              <div className=" w-full text-center text-secondary  text-xl pt-5 capitalize">
+              <div className=" w-full text-center text-secondary font-custom-kiona text-xl pt-5 capitalize">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Title1"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-center text-primary text-xs font-normal leading-7 my-4 ">
+              <div className=" w-full text-center text-primary text-xs font-custom-avenir font-normal leading-7 my-4 ">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Content1"
@@ -40,7 +40,7 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
           </div>
 
           <div className="w-full h-full flex justify-center">
-            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3">
+            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3 drop-shadow-lg">
               <div className="flex justify-center">
                 <img
                   src={
@@ -54,13 +54,13 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
                   className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
                 />
               </div>
-              <div className=" w-full text-center text-secondary  text-xl  pt-5 capitalize leading-relaxed">
+              <div className=" w-full text-center text-secondary font-custom-kiona text-xl  pt-5 capitalize leading-relaxed">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Title2"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-center text-primary text-xs font-normal leading-7 my-4 ">
+              <div className=" w-full text-center text-primary text-xs font-custom-avenir font-normal leading-7 my-4 ">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Content2"
@@ -70,7 +70,7 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
           </div>
 
           <div className="w-full h-full flex justify-center">
-            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3">
+            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3 drop-shadow-lg">
               <div className="flex justify-center">
                 <img
                   src={
@@ -84,13 +84,13 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
                   className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
                 />
               </div>
-              <div className=" w-full text-center text-secondary  text-xl pt-5 capitalize leading-relaxed">
+              <div className=" w-full text-center text-secondary font-custom-kiona text-xl pt-5 capitalize leading-relaxed">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Title3"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-center text-primary text-xs font-normal leading-7 my-4">
+              <div className=" w-full text-center text-primary text-xs font-custom-avenir font-normal leading-7 my-4">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Content3"
@@ -100,7 +100,7 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
           </div>
 
           <div className="w-full h-full flex justify-center">
-            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3">
+            <div className=" w-full h-full m-5 bg-neutral-100 rounded-2xl border border-white px-3 drop-shadow-lg">
               <div className="flex justify-center">
                 <img
                   src={
@@ -114,13 +114,13 @@ function HowWeDoIt({ dynamicText, dynamicImages }) {
                   className="w-full sm:w-1/2 md:w-[400px] h-[150px] object-cover mt-3 mb-3 rounded-lg"
                 />
               </div>
-              <div className=" w-full text-center text-secondary  text-xl  pt-5 capitalize leading-relaxed">
+              <div className=" w-full text-center text-secondary font-custom-kiona text-xl  pt-5 capitalize leading-relaxed">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Title4"
                   ).attributes.text}
               </div>
-              <div className=" w-full text-center text-primary text-xs font-normal leading-7 my-4 ">
+              <div className=" w-full text-center text-primary font-custom-avenir text-xs font-normal leading-7 my-4 ">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HowWeDoIt_Content4"

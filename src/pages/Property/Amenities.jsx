@@ -1,38 +1,15 @@
 import React from "react";
 import amenityIcon from "../../assets/images/property/amenity_icon.png";
 
-function Amenities(props) {
-  const [showAmenities, setShowAmenities] = React.useState(false);
-  const amenities = props.amenities;
+function Amenities({amenities, showAmenities, setShowAmenities}) {
   console.log(amenities);
   return (
     <div className="w-full md:w-3/4">
-      <div className="text-2xl text-start pt-5 text-primary uppercase pb-2 pl-5">
+      <div className="text-md md:text-xl text-start pt-5 text-primary uppercase pb-2 md:pl-5">
         Amenities
       </div>
-      {showAmenities && (
-        <div className="uppercase">
-          {" "}
-          <div className="flex flex-col mx-5 mb-10">
-            <div className={`grid grid-cols-2 gap-5`}>
-              {amenities.map((amenity, index) => (
-                <div className="flex justify-center">
-                  <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
-                    <img
-                      src={amenityIcon}
-                      className="h-12 w-12"
-                      alt="amenityIcon"
-                    />
-                    <div className="text-start text-sm px-1">{amenity}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
       <div className="flex flex-col justify-start my-10 uppercase">
-        {!showAmenities && (
+        {
           <div className={`grid grid-cols-2 gap-5 mb-5`}>
             {amenities[0] && <div className="flex justify-center">
               <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
@@ -136,7 +113,7 @@ function Amenities(props) {
             </div>}
 
           </div>
-        )}
+        }
         <div className="flex justify-center">
           <button
             className="flex justify-center w-56  fill-primary border text-primary active:text-white hover:text-white border-primary hover:fill-white -primary hover:scale-105 transition duration-75 hover:bg-primary  bg-white  rounded-lg px-3 py-2"

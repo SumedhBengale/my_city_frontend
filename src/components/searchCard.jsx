@@ -24,7 +24,7 @@ function SearchCard({ search, initialData }) {
     initialData && initialData.location ? initialData.location : "any"
   );
   const [priceRange, setPriceRange] = useState(
-    initialData && initialData.priceRange ? initialData.priceRange : [0, 2500]
+    initialData && initialData.priceRange ? initialData.priceRange : [0, 10000]
   );
   const [selectedAmenities, setSelectedAmenities] = useState(
     initialData && initialData.amenities ? initialData.amenities : []
@@ -96,7 +96,7 @@ function SearchCard({ search, initialData }) {
 
   return (
     <div
-      className="md:px-5 z-50"
+      className="md:px-5"
       ref={cardBackdropRef}
       onClick={(e) => {
         //if not cardBackdropRef
@@ -204,7 +204,7 @@ function SearchCard({ search, initialData }) {
                   </div>
                 </div>
                 {locationPickerVisible && (
-                  <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20"
+                  <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20"
                   >
                     <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                     <li
@@ -309,7 +309,7 @@ function SearchCard({ search, initialData }) {
                   </div>
                     </div>
                     {guestNumberPickerVisible && (
-                      <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                      <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
                         <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                           <li
                             className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
@@ -428,7 +428,7 @@ function SearchCard({ search, initialData }) {
                   </div>
                   </div>
                   {roomNumberPickerVisible && (
-                    <div className="absolute top-0 h-min w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
+                    <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-40 translate-y-16 bg-white rounded-lg shadow-lg z-20">
                       <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                         <li
                           className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
@@ -552,7 +552,7 @@ function SearchCard({ search, initialData }) {
                   </div>
             </div>
             {locationPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20"
+              <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20"
               >
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                 <li
@@ -665,7 +665,7 @@ function SearchCard({ search, initialData }) {
                   </div>
             </div>
             {guestNumberPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+              <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
                     className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"
@@ -757,7 +757,7 @@ function SearchCard({ search, initialData }) {
                   </div>
             </div>
             {roomNumberPickerVisible && (
-              <div className="absolute top-0 h-min w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
+              <div className="absolute top-0 h-48 overflow-scroll no-scrollbar w-48 translate-y-24 bg-white rounded-lg shadow-lg z-20">
                 <ul className="flex flex-col gap-2  text-black border font-bold rounded-lg">
                   <li
                     className="flex justify-between items-center px-4 py-2 hover:bg-neutral-100 cursor-pointer"

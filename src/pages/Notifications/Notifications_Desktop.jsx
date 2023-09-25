@@ -8,8 +8,8 @@ function Notifications({ notifications, refresh }) {
       <div className="mx-2 h-full">
         {notifications !== null ? (
           <div className="mt-5">
-            {notifications && notifications.map((notification) => (
-                <Notification notification={notification} refresh={refresh}/>
+            {notifications && (notifications !== null || notifications.length !== 0) && notifications.map((notification) => (
+                <Notification key={notification._id} notification={notification} refresh={(id)=>refresh(id)}/>
             ))}
           </div>
         ) : (

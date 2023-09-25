@@ -6,8 +6,8 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center p-5 lg:px-20 lg:pt-20 gap-10">
-      <div className="text-center lg:text-left pr-5 flex flex-col justify-center items-center">
-        <div className="w-full text-primary font-custom-kiona text-4xl text-center uppercase pb-3 pt-10 md:pt-0">
+      <div className="text-center lg:text-left md:pr-5 flex flex-col justify-center items-center">
+        <div className="w-full text-primary font-custom-kiona text-2xl md:text-4xl text-center uppercase pb-3 pt-10 md:pt-0">
           {dynamicText !== null &&
             dynamicText.find(
               (text) => text.attributes.name === "Introduction_Heading"
