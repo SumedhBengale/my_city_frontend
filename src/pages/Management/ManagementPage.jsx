@@ -392,9 +392,9 @@ function ManagementPage() {
               </div>
             </div>
           )}
-          <div className="h-full flex flex-col items-center z-0 pt-24 2xl:pt-72">
+          <div className="h-full flex flex-col items-center z-0 pt-24 sm:pt-20 2xl:pt-72">
             <div className="max-w-2xl flex flex-col justify-center items-center gap-2 px-3">
-              <div className="font-custom-bold text-center text-4xl md:text-5xl text-white pb-4 uppercase">
+              <div className="font-custom-bold text-center text-3xl md:text-5xl text-white pt-10 pb-4 uppercase">
                 {dynamicText !== null &&
                   dynamicText.find(
                     (text) => text.attributes.name === "HomeOwners_Heading"

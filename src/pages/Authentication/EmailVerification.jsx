@@ -1,13 +1,14 @@
 //Email verificaton page that will take verificationToken from the URL and send it to the backend to verify the user
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { verifyEmail } from './api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EmailVerification() {
     //Get the verification token from last part of the url
+    const navigate = useNavigate();
     const { id } = useParams(); 
     const [verified, setVerified] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -48,7 +49,9 @@ function EmailVerification() {
                         <div className="mb-4">
                             <p className="text-center">Your email has been verified. You can now login.</p>
                         </div>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => window.location.href = '/login'}>Login</button>
+                        <div className="flex justify-center w-full">
+                            <button className="h-12 w-48 bg-primary hover:bg-secondary text-white hover:scale-105 transition duration-75 cursor-pointer rounded-lg"  onClick={() => navigate('/login', { replace: true,state: { from: 'verifyEmail' } })}>Login</button>
+                        </div>
                     </div>
                 ) : (
                     <div>

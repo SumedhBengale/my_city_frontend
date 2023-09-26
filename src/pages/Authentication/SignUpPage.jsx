@@ -14,6 +14,7 @@ import DesktopNavbar from '../../components/desktopNavbar';
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 
 function SignUp() {
+    localStorage.removeItem('token');
     const [videos, setVideos] = React.useState(null);
     useEffect(() => {
       if (localStorage.getItem('token')) {
@@ -46,7 +47,7 @@ function SignUp() {
           toast.success('Please Verify Your Email');
           //wait for 2 seconds before redirecting
           setTimeout(() => {
-            navigate('/login');
+            navigate('/login',  { replace: true,state: { from: 'signup' } });
           }, 2000);
         } else {
           console.log(response);
@@ -69,7 +70,7 @@ function SignUp() {
         <div
         style={{
           width: '100%',
-          height: '100vh',
+          height: '100dvh',
         }}
         className="z-0"
       >
@@ -105,10 +106,10 @@ function SignUp() {
         {/* Background Image */}
         <div className="absolute h-full w-full bg-black/40"></div>
         <div className="h-full relative scale-100 sm:scale-75 2xl:scale-100">
-          <div className="w-full flex justify-center items-start md:items-center md:h-full pt-20 md:pt-0">
+          <div className="w-full flex justify-center items-center h-full pt-20 md:pt-0">
             <div className="mx-4 sm:w-2/3 md:w-1/2 xl:w-1/3">
               <div className='flex justify-center items-center'>
-                  <img src={Logo} alt="My City Logo" className="w-48 self-start mb-5"></img>
+                  <img src={Logo} alt="My City Logo" className="w-48 hidden md:block self-start mb-5"></img>
               </div>
               <div className="w-full h-min p-4 bg-white bg-opacity-5 rounded-2xl border backdrop-blur-md">
                 <div className="WelcomeBack text-white text-[18px] font-bold">Hello There!</div>

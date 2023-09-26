@@ -1,11 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import loginBackground from "../../assets/images/login/login_background.png";
 import Logo from "../../assets/images/white_logo.png";
 import GoogleLogo from "../../assets/images/login/google_logo.svg";
 import FacebookLogo from "../../assets/images/login/facebook_logo.svg";
 import EmailLogo from "../../assets/images/login/email_logo.svg";
-import { useNavigate } from "react-router-dom";
-import { getVideos, login } from "./api";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getVideos, login, sendResetPasswordLink } from "./api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,12 +17,17 @@ import DesktopNavbar from '../../components/desktopNavbar';
 import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
 
 const LoginPage = () => {
+  const location = useLocation();
   const [videos, setVideos] = useState(null);
+  const [forgetDialogVisible, setForgetDialogVisible] = useState(false);
+  const forgetDialogRef = useRef(null);
 
   useEffect(() => {
+    localStorage.removeItem("token");
     getVideos().then((res) => {
       console.log(res.data);
       setVideos(res.data);
+
     });
   }, []);
   const navigate = useNavigate();
@@ -34,6 +39,10 @@ const LoginPage = () => {
       .required("Password is required"),
   });
 
+  const resetPasswordValidationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+  });
+
   const handleSubmit = async (values) => {
     try {
       const response = await login(values.email, values.password);
@@ -43,7 +52,16 @@ const LoginPage = () => {
         localStorage.setItem("userId", response.userId);
         localStorage.setItem("userType", response.userType);
         //Navigate to the previous page
-        navigate(-1);
+        if(location.state && 
+          (location.state.from === "signup" ||
+          location.state.from === "resetPassword" ||
+          location.state.from === "verifyEmail")
+          ){
+            navigate("/");
+          }
+          else{
+            navigate(-1);
+          }
       } else if (response.status === 404) {
         toast.error("User not Found");
       } else if (response.status === 401) {
@@ -59,6 +77,23 @@ const LoginPage = () => {
     }
   };
 
+  const handleResetPassword = async (values) => {
+    try{
+      const response = await sendResetPasswordLink(values.email);
+      if(response.status === 200){
+        toast.success("Password Reset Email Sent");
+      }else if(response.status === 404){
+        toast.error("User not Found");
+      }else{
+        toast.error("Something went wrong");
+      }
+    }
+    catch(error){
+      console.log(error);
+      toast.error("An error occurred while processing your request");
+    }
+  }
+
   return (
     <>
       <div className="hidden md:block z-40 fixed top-0 w-full">
@@ -70,7 +105,7 @@ const LoginPage = () => {
         <div
         style={{
           width: '100%',
-          height: '100vh',
+          height: '100dvh',
         }}
         className="z-0"
       >
@@ -103,17 +138,72 @@ const LoginPage = () => {
             </video>
           )}
         </div>
+        {forgetDialogVisible && (
+                  <div
+                  className="fixed top-0 left-0 w-full flex flex-col justify-center items-center h-full z-40 backdrop-filter backdrop-blur-sm"
+                  //when clicked outside the dialog, close
+                  onClick={(e) => {
+                    if (
+                      forgetDialogRef.current && !forgetDialogRef.current.contains(e.target)
+                    ) {
+                      setForgetDialogVisible(false);
+                    }
+                  }}
+                >
+                  <div className="absolute h-screen w-screen bg-black/40 z-30"></div>
+                <div className="uppercase z-40 h-full w-full sm:w-1/2 md:w-1/3">
+                  <div className="flex flex-col mx-5 mb-10 justify-center items-center h-full">
+                    <div className=" px-4 py-5 bg-white overflow-scroll no-scrollbar h-min rounded-lg w-full"         
+                    ref={forgetDialogRef}>
+                    <div className="text-2xl font-custom-kiona text-primary px-2 pb-4">Reset Password</div>
+                    <Formik
+                      initialValues={{ email: ""}}
+                      validationSchema={resetPasswordValidationSchema}
+                      onSubmit={handleResetPassword}
+                    >
+                      {({ errors, touched }) => (
+                      <Form>
+                        <div className="flex flex-col">
+                          <label className="text-sm font-custom-kiona text-primary px-2 pb-2">Enter your Email</label>
+                          <Field
+                            name="email"
+                            type="text"
+                            className="w-full h-12 px-2 bg-white rounded-lg border"
+                            placeholder="Email"
+                          />
+                          <ErrorMessage
+                            name="email"
+                            component="div"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="flex w-full justify-center">
+                          <button
+                            type="submit"
+                            className="w-48 bg-primary hover:bg-secondary hover:scale-105 transition duration-75 flex justify-center text-white items-center h-12 mt-4 px-2 rounded-lg font-custom-kiona"
+                          >
+                            Reset Password
+                          </button>
+                        </div>
+                      </Form>
+                      )}
+                    </Formik>
+                    </div>
+                  </div>
+                </div>
+                </div>
+        )}
         {/* Background Image */}
         <div className="absolute h-full w-full bg-black/40"></div>
 
         <div className="h-full relative scale-100 sm:scale-75 2xl:scale-100">
-          <div className="w-full flex justify-center items-start md:items-center md:h-full pt-20 md:pt-0">
+          <div className="w-full flex justify-center items-center h-full pt-20 md:pt-0">
           <div className="mx-4 md:w-1/2 xl:w-1/3">
             <div className="w-full flex justify-center items-center">
               <img
                 src={Logo}
                 alt="My City Logo"
-                className="w-48 self-center mb-5"
+                className="w-48 self-center mb-5 hidden md:block"
               ></img>
             </div>
             <div className="w-full h-full p-4 bg-white bg-opacity-5 rounded-2xl border backdrop-blur-md">
@@ -152,7 +242,7 @@ const LoginPage = () => {
                     />
                     {/* Forgot Password Link */}
                     <div className="flex justify-end items-center mt-4">
-                      <div className="text-white underline">
+                      <div className="text-white underline cursor-pointer" onClick={()=>setForgetDialogVisible(true)}>
                         Forgot Password?
                       </div>
                     </div>

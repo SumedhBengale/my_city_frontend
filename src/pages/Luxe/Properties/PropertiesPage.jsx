@@ -195,7 +195,7 @@ function PropertiesPage() {
         height: '100vh'
       }}>
                 <div className={`h-full w-full relative`}>
-          <div className={`h-full flex flex-col items-center pt-40 sm:pt-20 2xl:pt-40`}>
+          <div className={`h-full flex flex-col items-center pt-16 sm:pt-20 2xl:pt-40`}>
             <div className="lg:hidden z-10">
               <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
                 {dynamicText !== null &&

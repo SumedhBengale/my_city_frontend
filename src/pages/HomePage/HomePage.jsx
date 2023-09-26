@@ -133,6 +133,10 @@ function Home() {
   const settings = {
     slidesToShow: 3,
     slidesToScroll: 1,
+    pauseOnHover: true,
+    //Autoscroll after 2 seconds
+    autoplay: true,
+    autoplaySpeed: 2000,
     nextArrow: <div>
       <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -241,7 +245,7 @@ function Home() {
         height: '100vh'
       }}>
                 <div className={`h-full w-full relative`}>
-          <div className={`h-full flex flex-col items-center pt-40 sm:pt-20 2xl:pt-40`}>
+          <div className={`h-full flex flex-col items-center pt-16 sm:pt-20 2xl:pt-40`}>
             <div className="lg:hidden z-10">
               <div className="font-custom-bold text-xl lg:text-3xl text-white text-center pt-10 pb-4">
                 {dynamicText !== null &&
@@ -319,20 +323,6 @@ function Home() {
                   className="px-10 h-[400px] md:h-[600px] flex items-center justify-center" 
                   >
                     <div className="flex h-full justify-center items-center cursor-pointer"
-                      onMouseEnter={() => {
-                        document.body.style.overflow = "hidden";
-                      }}
-                      onMouseLeave={() => {
-                        document.body.style.overflow = "unset";
-                      }}
-                      onWheel={(e)=>{
-                        if(e.deltaY > 0){
-                          sliderRef.current.slickNext();
-                        }else{
-                          sliderRef.current.slickPrev();
-                        }
-
-                      }}
                       >
                     <FeaturedPropertyCard
                       highlighted={

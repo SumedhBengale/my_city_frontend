@@ -80,7 +80,7 @@ function AboutUsPage() {
         <div className="fixed top-0 h-screen w-screen bg-black/40 backdrop-filter backdrop-blur-sm"></div>
       </div>
       )}
-      <div className={`w-full flex flex-col fixed top-0 z-30 transition-all pt-24 2xl:pt-72 
+      <div className={`w-full flex flex-col fixed top-0 z-30 transition-all pt-24 sm:pt-20 2xl:pt-52 
       ${
         hidden ? setTimeout(() => {return "hidden"}, 200) : "block"
       }
@@ -88,14 +88,14 @@ function AboutUsPage() {
       `} style={{
         height: '100vh'
       }}>
-            <div className="w-full flex justify-center items-center z-10">
+            <div className="w-full flex justify-center items-center z-10 pt-20">
               <img
                 src={logoWhite}
                 alt="My City Logo"
                 className="w-1/2 sm:w-1/3 md:w-48 lg:w-96 self-start mb-10"
               ></img>
             </div>
-            <div className="font-custom-bold text-4xl md:text-5xl text-white text-center pb-4 capitalize">
+            <div className="font-custom-bold text-3xl md:text-5xl text-white text-center pb-4 capitalize">
               {dynamicText !== null && dynamicText.find((text) => text.attributes.name === "AboutUs_Heading").attributes.text}
             </div>
             <div className=" text-2xl md:text-4xl w-full text-center font-custom-kiona text-white sm-3 lg:mb-10 capitalize">

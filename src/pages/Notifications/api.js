@@ -11,16 +11,17 @@ export const getNotifications = async () => {
                     notifications: [],
                 }
             };
+        } else {
+            //get request with auth header
+            const response = await axios.post(`${config.API_URL}/notifications/get`, {
+                userId: localStorage.getItem('userId')
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            return response.data;
         }
-        //get request with auth header
-        const response = await axios.post(`${config.API_URL}/notifications/get`, {
-            userId: localStorage.getItem('userId')
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
     } catch (error) {
         if (error.response) {
             return error.response;

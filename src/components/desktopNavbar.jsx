@@ -295,7 +295,10 @@ function DesktopNavbar() {
                 ) : null
               }
             </div>
-            <button className="bg-white text-black font-custom-kiona px-4 py-2 rounded-lg">
+            <button className={`bg-white text-black font-custom-kiona px-4 py-2 rounded-lg ${
+              //If the url is /login, make the login button bold
+              location.pathname === "/login" ? "hidden" : "flex"
+            }`}>
               <NavLink
                 to="/login"
                 exact
