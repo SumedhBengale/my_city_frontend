@@ -27,6 +27,9 @@ function Filter({ initialData, apply, close }) {
   const [selectedAmenities, setSelectedAmenities] = useState(
     initialData ? initialData.selectedAmenities : []
   );
+
+  const [luxeSelection, setLuxeSelection] = useState(false);
+
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
   const essentialAmenities = [
@@ -302,6 +305,7 @@ function Filter({ initialData, apply, close }) {
                   </div>
                 ))}
               </div>
+              
               {showAllAmenities && (
                 <div className="font-bold text-sm mx-5 my-2 col-span-2">
                   All Amenities
@@ -372,6 +376,51 @@ function Filter({ initialData, apply, close }) {
                 </span>
               </div>
             </div>
+
+
+            <div
+              className="flex items-center mt-5 mx-5"
+            >
+              <input
+                type="checkbox"
+                id='luxe'
+                name='luxe'
+                value={luxeSelection}
+                onChange={(e) => {
+                  setLuxeSelection(e.target.checked);
+                }}
+                className="hidden" // Hide the default checkbox
+              />
+                      <label
+                        htmlFor='luxe'
+                        className={` h-5 w-5 border border-primary rounded-md cursor-pointer transition-colors ${
+                          luxeSelection
+                            ? "bg-primary"
+                            : "bg-white"
+                        }`}
+                      >
+                        {(luxeSelection && (
+                          <svg
+                            className="w-4 h-4 text-white"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={4}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )) || <div className="w-4 h-4"></div>}
+                      </label>
+                      <span className="text-sm pl-2 overflow-hidden overflow-ellipsis">
+                        Luxe Properties Only
+                      </span>
+            </div>
+
+
 
             <div className="w-full h-max bg-white rounded-2xl p-5">
               <div className="relative">
@@ -453,6 +502,7 @@ function Filter({ initialData, apply, close }) {
                       bathrooms: selectedbathrooms,
                       amenities: selectedAmenities,
                       priceRange: priceRange,
+                      luxeSelection: luxeSelection
                     })
                   }
                 >

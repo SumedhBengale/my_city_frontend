@@ -269,7 +269,7 @@ function Property() {
                   //residence.tags include "luxe"
                   residence.tags.includes("luxe")
                   ? (
-                    <img src={luxeLogo} alt="host" className="w-10 h-10 md:w-16 md:h-16 rounded-full"></img>
+                    <img src={luxeLogo} alt="luxe" className="w-10 h-10 md:w-16 md:h-16 rounded-full"></img>
                   ) : null
                 }
               <div className="text-lg md:text-2xl font-custom-kiona uppercase text-primary text-start md:text-center">

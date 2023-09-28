@@ -53,6 +53,26 @@ export const sendSuccessfulPayment = async (paymentIntent, paymentStatus, quoteI
   }
 }
 
+export const retrieveQuote = async (quoteId) => {
+  try {
+    const response = await axios.post(`${config.API_URL}/retrieveQuote`, {
+      id: quoteId
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response.data;
+  }
+  catch (error) {
+    console.error(error);
+    if (error.response) {
+      return error.response.data;
+    }
+    throw error;
+  }
+}
+
 export const confirmBooking = async (quote) => {
 
   try {

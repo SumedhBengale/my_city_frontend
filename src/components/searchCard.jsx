@@ -36,6 +36,8 @@ function SearchCard({ search, initialData }) {
   const [roomNumberPickerVisible, setRoomNumberPickerVisible] = useState(false);
   const [locationPickerVisible, setLocationPickerVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
+  const [luxe, setLuxe] = useState(
+    initialData && initialData.luxe ? initialData.luxe : false);
   const cardBackdropRef = React.useRef(null);
   const guestPickerRef = React.useRef(null);
   const guestPickerMobileRef = React.useRef(null);
@@ -130,6 +132,7 @@ function SearchCard({ search, initialData }) {
               setSelectedbathrooms(data.bathrooms);
               setPriceRange(data.priceRange);
               setSelectedAmenities(data.amenities);
+              setLuxe(data.luxeSelection);
             }}
             close={() => setFilterVisible(false)}
           ></Filter>
@@ -833,6 +836,7 @@ function SearchCard({ search, initialData }) {
                   bathrooms: selectedbathrooms,
                   priceRange: priceRange,
                   amenities: selectedAmenities,
+                  luxe: luxe
                 })
               }
             >

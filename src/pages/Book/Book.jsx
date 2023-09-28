@@ -66,7 +66,7 @@ function Book() {
       "/payment",
       {
         state: {
-          quote: quote,
+          quote: quote._id,
         },
       },
       {

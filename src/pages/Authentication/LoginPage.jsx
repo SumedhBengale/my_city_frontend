@@ -308,7 +308,7 @@ const LoginPage = () => {
                   className="w-full text-center self-center text-black flex justify-center items-center"
                   onClick={() => navigate("/signup")}
                 >
-                  SignUp with Email
+                  Sign Up with Email
                 </button>
 
                 <div class="absolute inset-y-0 left-0 z-10 self-start">

@@ -71,7 +71,7 @@ function ContactUs() {
         toast.error("Please provide a valid email address");
         return;
       }
-      if (phone !== "" && phone.length !== 10) {
+      if (phone !== "" && (phone.length !== 10 || phone.length !== 11)) {
         toast.error("Please provide a valid phone number");
         return;
       }

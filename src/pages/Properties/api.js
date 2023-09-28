@@ -2,7 +2,7 @@ import axios from '../../components/axios';
 import config from '../../config/config';
 
 
-export const getResidences = async ({ filterData, limit }) => {
+export const getResidences = async ({ filterData, limit, luxe }) => {
   try {
     // Stringify the filterData object to send it as a JSON string in the query parameters
     const filterDataString = JSON.stringify(filterData);
@@ -16,6 +16,7 @@ export const getResidences = async ({ filterData, limit }) => {
       params: {
         limit: limit ? limit : 100,
         filterData: filterDataString,
+        luxe: luxe
       },
     });
 

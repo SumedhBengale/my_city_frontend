@@ -228,7 +228,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
     if (isSameDay(day, startDate)) {
       setStartDate(null);
       setEndDate(null);
-      changeBookingBlocked(false)
+      changeBookingBlocked(true)
       return;
     }
 
@@ -236,7 +236,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
     if (startDate !== null && endDate !== null) {
       setStartDate(day);
       setEndDate(null);
-      changeBookingBlocked(false)
+      changeBookingBlocked(true)
       return;
     }
   };

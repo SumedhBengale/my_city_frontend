@@ -4,8 +4,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import config from '../../config/config'
 import "./Payment.css";
 import CheckoutForm from "./CheckoutForm";
-import { useLocation } from "react-router-dom";
-import { createIntent } from "./api";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createIntent, retrieveQuote } from "./api";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -13,8 +13,11 @@ import { createIntent } from "./api";
 const stripePromise = loadStripe(config.STRIPE_PUBLISHABLE_KEY);
 
 export default function Payment() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [clientSecret, setClientSecret] = useState("");
+
+
 
   const createPaymentIntent = async (quote) => {
     const response = await createIntent(quote);
@@ -24,22 +27,30 @@ export default function Payment() {
 
   useEffect(() => {
     const paymentActive = localStorage.getItem('paymentActive');
-    if (paymentActive === 'false') {
-      //redirect to homepage and remove the history
-      localStorage.getItem('luxe') === true ? window.history.replaceState(null, null, "/luxe") : window.history.replaceState(null, null, "/")
+    // if (paymentActive === 'false') {
+    //   //redirect to homepage and remove the history
+    //   localStorage.getItem('luxe') === true ? window.history.replaceState(null, null, "/luxe") : window.history.replaceState(null, null, "/")
 
-      return
-    }
+    //   return
+    // }
     //Get the quoteId from url
-    const quote = location.state.quote ? location.state.quote : null;
-    if (!quote) {
+    const quoteId = location.state.quote ? location.state.quote : null;
+    if (!quoteId) {
       window.history.back();
       return
     }
-    console.log(quote)
-    createPaymentIntent(
-      quote
-    );
+    retrieveQuote(quoteId).then((quote) => {
+      console.log("Quote", quote)
+      if (quote.quote.reservationId) {
+        console.log("Quote already reserved")
+        localStorage.setItem('paymentActive', false);
+        localStorage.getItem('luxe') === true ? navigate('/luxe', { replace: true }) : navigate('/', { replace: true })
+      } else {
+        createPaymentIntent(
+          quote.quote
+        );
+      }
+    })
 
   }, [location.state.quote]);
 
@@ -52,11 +63,11 @@ export default function Payment() {
   };
 
   return (
-    <div className="flex h-screen w-full justify-center items-center px-5">
+    <div className="flex h-full 2xl:h-screen w-full justify-center items-center px-5 pt-10">
       <div className="w-[400px]">
         {clientSecret && stripePromise && (
           <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm quoteId={location.state.quote._id} />
+            <CheckoutForm quoteId={location.state.quote} />
           </Elements>
         )}</div>
     </div>

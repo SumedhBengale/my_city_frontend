@@ -47,11 +47,11 @@ function Home() {
   );
   const search = (params) => {
     console.log(params);
-        //Check if startDate and endDate both exist, if any is missing, show toast
-        if (!params.startDate || !params.endDate) {
-          toast.error("Please select both Check-in and Check-out dates");
-          return;
-        }
+        // //Check if startDate and endDate both exist, if any is missing, show toast
+        // if (!params.startDate || !params.endDate) {
+        //   toast.error("Please select both Check-in and Check-out dates");
+        //   return;
+        // }
     //if params.startDate is greater than params.endDate, show toast
     if (params.startDate > params.endDate) {
       toast.error("Cannot Check-in after Check-out");
@@ -60,7 +60,7 @@ function Home() {
     localStorage.setItem("checkInDate", params.startDate? params.startDate : null);
     localStorage.setItem("checkOutDate", params.endDate? params.endDate : null);
     localStorage.setItem("guestCount", params.guests);
-    navigate("/luxe/properties", { state: { filterData: params, limit: 100 } });
+    navigate("/luxe/properties", { state: { filterData: params, limit: 100, luxe: params.luxe === true ? true : false  } });
   };
 
   useEffect(() => {

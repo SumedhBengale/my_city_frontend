@@ -30,14 +30,14 @@ function PropertyCard({ residence, highlighted }) {
     >
       <div className="relative w-full">
         <div className="absolute bottom-7 left-3 rounded-full pl-4 text-sm font-semibold ">
-          <div className="flex text-white">
-            <div className=" text-lg -translate-y-2 font-custom-lora font-normal">
+          <div className="flex text-white justify-center items-center">
+            <div className=" text-lg font-custom-lora font-normal">
               £
             </div>
-            <div className=" text-lg font-custom-lora font-bold">
+            <div className=" text-lg font-custom-kiona">
               {residence.prices.basePrice}
             </div>
-            <div className=" text-sm font-custom-kiona font-normal self-end">/night</div>
+            <div className=" text-sm font-custom-kiona font-normal">/night</div>
           </div>
         </div>
         <div className="w-full p-4">
@@ -64,7 +64,7 @@ function PropertyCard({ residence, highlighted }) {
       </div>
 
       {/*Also fetch these values from the API */}
-      <div className="flex mx-5 flex-col lg:flex-row">
+      <div className="flex mx-5 flex-row">
         <div className="flex justify-start gap-2 w-full text-sm">
           <div className="flex">
             <svg

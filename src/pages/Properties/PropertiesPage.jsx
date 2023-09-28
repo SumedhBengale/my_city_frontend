@@ -33,7 +33,7 @@ function PropertiesPage() {
     localStorage.setItem("checkInDate", params.startDate? params.startDate : null);
     localStorage.setItem("checkOutDate", params.endDate? params.endDate : null);
     localStorage.setItem("guestCount", params.guests);
-    navigate("/properties", { state: { filterData: params } });
+    navigate("/properties", { state: { filterData: params, luxe: params.luxe === true ? true : false  } });
   };
 
   const [blackNavbar, setBlackNavbar] = useState(false);
@@ -62,6 +62,7 @@ function PropertiesPage() {
         ? {
             filterData: location.state.filterData,
             limit: location.state.limit ? location.state.limit : 100,
+            luxe: location.state.luxe ? true : false,
           }
         : {}
     )

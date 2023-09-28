@@ -33,6 +33,7 @@ import EmailVerification from './pages/Authentication/EmailVerification';
 import Payment from './pages/Payment/Payment';
 import Success from './pages/Payment/Success';
 import ResetPassword from './pages/Authentication/ResetPassword';
+import AccountPage from './pages/Account/AccountPage';
 
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
           <Route exact path="/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
           <Route exact path="/reset-password/:id" element={<ResetPassword></ResetPassword>} />
+          <Route exact path="/account" element={<AccountPage></AccountPage>} />
           <Route exact path="/properties" element={<PropertiesPage />} />
           <Route exact path="/payment" element={<Payment></Payment>} />
           <Route exact path="/payment/success" element={<Success></Success>} />

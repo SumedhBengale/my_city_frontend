@@ -38,7 +38,7 @@ const CheckoutForm = (quoteId) => {
     setIsLoading(false);
   };
   return (
-    <>
+    <div className="py-10 md:py-0">
       <form onSubmit={handleSubmit}>
         <LinkAuthenticationElement
           options={{
@@ -47,7 +47,15 @@ const CheckoutForm = (quoteId) => {
             mode: "billing",
           }}
         />
-        <AddressElement options={{ mode: "billing" }} />
+        <AddressElement options={{ mode: "billing",
+        fields:{
+          phone: 'always',
+        },
+        validation:{
+          phone: {
+            required: 'always',
+          }
+        } }} />
         <PaymentElement />
         <button
           disabled={isLoading}
@@ -69,7 +77,7 @@ const CheckoutForm = (quoteId) => {
         pauseOnHover
         theme="light"
       />
-    </>
+    </div>
   );
 };
 
