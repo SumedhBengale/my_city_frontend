@@ -64,7 +64,11 @@ function PropertiesPage() {
             limit: location.state.limit ? location.state.limit : 100,
             luxe: location.state.luxe ? true : false,
           }
-        : {}
+        : {
+            filterData: null,
+            limit: 100,
+            luxe: localStorage.getItem("luxe") === 'true' ? true : false,
+        }
     )
       .then((res) => {
         console.log(res);

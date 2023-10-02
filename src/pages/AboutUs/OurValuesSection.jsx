@@ -153,7 +153,7 @@ function OurValuesSection({ dynamicText, dynamicImages }) {
       <button className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
         onClick={() => {
           localStorage.getItem("luxe") === true ? 
-          navigate("/luxe/properties") : navigate("/properties")
+          navigate("/properties",{state:{luxe:true}}) : navigate("/properties")
         }}
       >
           Explore Residences

@@ -347,7 +347,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
             {bookingBlocked ? <button className="bg-primary w-full text-white font-custom-lora text-lg py-2 rounded-md shadow-md hover:bg-primary/90 focus:outline-none"
               onClick={() => {
                 localStorage.getItem('luxe') === true ?
-                  navigate('/luxe/properties', {
+                  navigate('/properties', {
                     state: {
                       filterData: {
                         location: "any",
@@ -359,6 +359,7 @@ const DateRangePicker = ({ initialStartDate, initialEndDate, residenceMinNights,
                         priceRange: [0, 10000],
                         amenities: [],
                       },
+                      luxe: true
                     }
                   }) :
                   navigate('/properties', {

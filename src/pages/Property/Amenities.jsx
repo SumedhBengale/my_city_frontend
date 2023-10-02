@@ -1,7 +1,8 @@
 import React from "react";
 import amenityIcon from "../../assets/images/property/amenity_icon.png";
+import config from "../../config/config";
 
-function Amenities({amenities, showAmenities, setShowAmenities}) {
+function Amenities({amenities, showAmenities, setShowAmenities, amenityIcons}) {
   console.log(amenities);
   return (
     <div className="w-full md:w-3/4">
@@ -11,106 +12,196 @@ function Amenities({amenities, showAmenities, setShowAmenities}) {
       <div className="flex flex-col justify-start my-10 uppercase">
         {
           <div className={`grid grid-cols-2 gap-5 mb-5`}>
-            {amenities[0] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[0]}</div>
+            {amenities[0] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[0]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[0]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[0]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[1] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[1]}</div>
+            }
+            {amenities[1] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[1]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[1]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[1]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[2] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[2]}</div>
+            }
+            {amenities[2] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[2]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[2]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[2]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[3] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[3]}</div>
+            }
+            {amenities[3] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[3]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[3]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[3]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[4] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[4]}</div>
+            }
+            {amenities[4] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[4]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[4]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[4]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[5] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[5]}</div>
+            }
+            {amenities[5] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[5]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[5]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[5]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[6] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[6]}</div>
+            }
+            {amenities[6] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[6]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[6]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[6]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[7] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[7]}</div>
+            }
+            {amenities[7] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[7]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[7]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[7]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[8] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[8]}</div>
+            }
+            {amenities[8] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[8]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[8]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[8]}</div>
+                </div>
               </div>
-            </div>}
-            {amenities[9] && <div className="flex justify-center">
-              <div className="w-full h-10  -[1px]  hover:scale-105 transition duration-75  text-primary  rounded-xl flex justify-start items-center">
-                <img
-                  src={amenityIcon}
-                  className="h-12 w-12"
-                  alt="amenityIcon"
-                />
-                <div className="text-start text-sm px-1">{amenities[9]}</div>
+            }
+            {amenities[9] && 
+              <div className="flex justify-center">
+                <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
+                  {amenityIcons.find(
+                        (image) => image.attributes.name === amenities[9]
+                      ) ? <img
+                    src={
+                      config.STRAPI_URL +
+                      amenityIcons.find(
+                        (image) => image.attributes.name === amenities[9]
+                      ).attributes.icon.data.attributes.url
+                    }
+                    className="h-8 w-8"
+                    alt="amenityIcon"
+                  /> : null}
+                  <div className="text-start text-sm px-1">{amenities[9]}</div>
+                </div>
               </div>
-            </div>}
+            }
 
           </div>
         }
@@ -122,20 +213,6 @@ function Amenities({amenities, showAmenities, setShowAmenities}) {
             <div className="font-custom-kiona text-md uppercase">{` ${
               showAmenities ? "Hide Amenities" : "Show All Amenities"
             }`}</div>
-            {/*Down arrow svg */}
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-5 w-5 self-center ml-2 -translate-y-[1px] ${
-                showAmenities ? "rotate-180" : ""
-              }`}
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 16a1 1 0 01-.707-.293l-6-6a1 1 0 111.414-1.414L10 13.586l5.293-5.293a1 1 0 111.414 1.414l-6 6A1 1 0 0110 16z"
-                clipRule="evenodd"
-              />
-            </svg> */}
           </button>
         </div>
       </div>

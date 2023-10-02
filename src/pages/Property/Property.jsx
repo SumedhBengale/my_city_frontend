@@ -10,12 +10,14 @@ import DesktopNavbar from "../../components/desktopNavbarBlack";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import amenityIcon from "../../assets/images/property/amenity_icon.png";
 import Carousel from "./Carousel";
+import config from "../../config/config";
 import {
   getResidence,
   getChat,
   initiateChat,
   setWishlist,
   getShowcaseReviews,
+  getAmenityIcons
 } from "./api";
 import bed from "../../assets/images/home/bed.svg";
 import shower from "../../assets/images/home/shower.svg";
@@ -67,11 +69,16 @@ function Property() {
   const [hoveringWishlistButton, setHoveringWishlistButton] = useState(false);
   const navigate = useNavigate();
   const amenitiesDialogRef = useRef(null);
+  const [amenityIcons, setAmenityIcons] = useState(null);
   useEffect(() => {
     console.log("START DATE", startDate);
     console.log("END DATE", endDate);
     getShowcaseReviews(id.id).then((res) => {
       setReviews(res.reviews);
+    });
+    getAmenityIcons().then((res) => {
+      console.log("AMENITY ICONS",res);
+      setAmenityIcons(res.data);
     });
     //Get the property data from the API
     getResidence(id.id).then((res) => {
@@ -112,14 +119,21 @@ function Property() {
             ref={amenitiesDialogRef}>
             <div className="text-2xl font-custom-kiona text-primary px-2 pb-4">ALL AMENITIES</div>
             <div className={`grid grid-cols-2 gap-5 pt-5 md:pt-0`}>
-              {residence.amenities.map((amenity, index) => (
+              {amenityIcons && residence.amenities.map((amenity, index) => (
                 <div className="flex justify-center">
                   <div className="w-full h-10 -[1px] hover:scale-105 transition duration-75  rounded-xl flex justify-start items-center">
-                    <img
-                      src={amenityIcon}
-                      className="h-12 w-12"
+                    {amenityIcons.find(
+                          (image) => image.attributes.name === amenity
+                        ) ? <img
+                      src={
+                        config.STRAPI_URL +
+                        amenityIcons.find(
+                          (image) => image.attributes.name === amenity
+                        ).attributes.icon.data.attributes.url
+                      }
+                      className="h-8 w-8"
                       alt="amenityIcon"
-                    />
+                    /> : null}
                     <div className="text-start text-sm px-1">{amenity}</div>
                   </div>
                 </div>
@@ -186,7 +200,7 @@ function Property() {
                 : (localStorage.setItem("startDate", startDate),
                   localStorage.setItem("endDate", endDate),
                   localStorage.getItem("luxe") === true
-                    ? navigate("/luxe/properties", {
+                    ? navigate("/properties", {
                         state: {
                           filterData: {
                             location: "any",
@@ -198,6 +212,7 @@ function Property() {
                             priceRange: [0, 10000],
                             amenities: [],
                           },
+                          luxe: true
                         },
                       })
                     : navigate("/properties", {
@@ -568,7 +583,7 @@ function Property() {
                         : (localStorage.setItem("startDate", startDate),
                           localStorage.setItem("endDate", endDate),
                           localStorage.getItem("luxe") === true
-                            ? navigate("/luxe/properties", {
+                            ? navigate("/properties", {
                                 state: {
                                   filterData: {
                                     location: "any",
@@ -580,6 +595,7 @@ function Property() {
                                     priceRange: [0, 10000],
                                     amenities: [],
                                   },
+                                  luxe:true
                                 },
                               })
                             : navigate("/properties", {
@@ -612,7 +628,10 @@ function Property() {
                   LOCATION
                 </div>
                 <div className="text-xs md:text-lg font-custom-bold text-secondary pb-5">
-                  {residence.address.full}
+                  {
+                    //Modify the address to remove numbers from the start, any other numbers after a letter are allowed
+                    residence.address.full.replace(/\d+,?\s*/g, '')
+                  }
                 </div>
                 <div className="w-full h-96">
                   {residence ? (
@@ -630,8 +649,8 @@ function Property() {
                 </div>
               </div>
               <div className="w-full flex justify-end pt-5 md:pt-0">
-                {residence ? (
-                  <Amenities amenities={residence.amenities} showAmenities={showAmenities} setShowAmenities={setShowAmenities}></Amenities>
+                {residence && amenityIcons ? (
+                  <Amenities amenities={residence.amenities} showAmenities={showAmenities} setShowAmenities={setShowAmenities} amenityIcons={amenityIcons}></Amenities>
                 ) : (
                   <div className="flex justify-center items-center mt-10">
                     <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>

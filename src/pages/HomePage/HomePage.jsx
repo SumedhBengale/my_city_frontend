@@ -62,6 +62,7 @@ function Home() {
   };
 
   useEffect(() => {
+    localStorage.setItem("luxe", false);
     localStorage.removeItem("checkInDate");
     localStorage.removeItem("checkOutDate");
     localStorage.removeItem("guestCount");

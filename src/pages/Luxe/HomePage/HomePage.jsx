@@ -60,10 +60,11 @@ function Home() {
     localStorage.setItem("checkInDate", params.startDate? params.startDate : null);
     localStorage.setItem("checkOutDate", params.endDate? params.endDate : null);
     localStorage.setItem("guestCount", params.guests);
-    navigate("/luxe/properties", { state: { filterData: params, limit: 100, luxe: params.luxe === true ? true : false  } });
+    navigate("/properties", { state: { filterData: params, limit: 100, luxe: true } });
   };
 
   useEffect(() => {
+    localStorage.setItem("luxe", true);
     localStorage.removeItem("checkInDate");
     localStorage.removeItem("checkOutDate");
     localStorage.removeItem("guestCount");
@@ -339,9 +340,10 @@ function Home() {
               <div
                 className="w-[178px] h-12 bg-white hover:bg-secondary text-primary hover:text-white hover:scale-105 transition duration-75 cursor-pointer rounded-xl shadow-lg backdrop-blur-md"
                 onClick={() =>
-                  navigate("/luxe/properties", {
+                  navigate("/properties", {
                     state: {
                       limit: 100,
+                      luxe:true
                     },
                   })
                 }

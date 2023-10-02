@@ -13,30 +13,30 @@ export const getResidence = async (id) => {
         });
         return response.data;
     } catch (error) {
-        if(error.response) {
+        if (error.response) {
             return error.response;
         }
     }
 }
 
 export const getChat = async (residenceId) => {
-    try{
-        const response = await axios.post(`${config.API_URL}/chat/getChat`,{
+    try {
+        const response = await axios.post(`${config.API_URL}/chat/getChat`, {
             residenceId: residenceId,
-                userId : localStorage.getItem('userId')
+            userId: localStorage.getItem('userId')
         }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             params: {
                 residenceId: residenceId,
-                userId : localStorage.getItem('userId')
+                userId: localStorage.getItem('userId')
             }
         });
         return response.data;
     }
-    catch(error){
-        if(error.response){
+    catch (error) {
+        if (error.response) {
             return error.response;
         }
     }
@@ -45,30 +45,30 @@ export const getChat = async (residenceId) => {
 
 export const initiateChat = async (residenceId, chatId) => {
 
-     try {
+    try {
         console.log("residenceId: ", residenceId)
-      // Send the message to the backend
-      const response = await axios.post(`${config.API_URL}/chat/initiateChat`, {
-        userId: localStorage.getItem('token'),
-        residenceId: residenceId,
-        chatId:  chatId,
-        message: 'I am interested in your property',
-      }, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-      });
+        // Send the message to the backend
+        const response = await axios.post(`${config.API_URL}/chat/initiateChat`, {
+            userId: localStorage.getItem('token'),
+            residenceId: residenceId,
+            chatId: chatId,
+            message: 'I am interested in your property',
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+        });
 
-      // Handle the response and update the UI if needed
-      console.log(response.data);
-      return response.data;
+        // Handle the response and update the UI if needed
+        console.log(response.data);
+        return response.data;
     } catch (error) {
-      console.error('Error sending message:', error);
+        console.error('Error sending message:', error);
     }
 }
 
 
-export const  setWishlist = async (residence) => {
+export const setWishlist = async (residence) => {
     try {
         //get request with auth header
         const response = await axios.post(`${config.API_URL}/wishlist/add`, {
@@ -82,7 +82,7 @@ export const  setWishlist = async (residence) => {
         return response.data;
     }
     catch (error) {
-        if(error.response) {
+        if (error.response) {
             return error.response;
         }
     }
@@ -90,13 +90,26 @@ export const  setWishlist = async (residence) => {
 
 
 export const getShowcaseReviews = async () => {
-    try{
+    try {
         const response = await axios.get(`${config.STRAPI_URL}/api/reviews?populate=*`, {
         })
         return response.data;
     }
-    catch(error){
-        if(error.response){
+    catch (error) {
+        if (error.response) {
+            return error.response;
+        }
+    }
+}
+
+export const getAmenityIcons = async () => {
+    try {
+        const response = await axios.get(`${config.STRAPI_URL}/api/amenities?populate=*&pagination[pageSize]=100&pagination[page]=1`, {
+        })
+        return response.data;
+    }
+    catch (error) {
+        if (error.response) {
             return error.response;
         }
     }

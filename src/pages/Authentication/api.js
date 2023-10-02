@@ -147,3 +147,51 @@ export const getVideos = async () => {
     }
   }
 }
+
+
+export const sendGoogleCode = async (code) => {
+  console.log(code)
+  try {
+    const response = await axios.post(`${API_URL}/google`, { "code": code });
+    return response.data; // Assuming your API returns a JSON response with data
+  } catch (error) {
+    const { response } = error;
+    if (response) {
+      // Error response from the backend
+      const { data, status } = response;
+      return { message: data.message, token: data.token, userId: data.userId, userType: data.userType, status: status };
+    } else {
+      // Network error or other issues
+      return { message: 'An error occurred. Please try again later.', status: 500 };
+    }
+  }
+}
+
+export const googleAuth = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/google`);
+    return response.data; // Assuming your API returns a JSON response with data
+  } catch (error) {
+    const { response } = error;
+    if (response) {
+      // Error response from the backend
+      const { data, status } = response;
+      return { message: data.message, status: status };
+    } else {
+      // Network error or other issues
+      return { message: 'An error occurred. Please try again later.', status: 500 };
+    }
+  }
+}
+
+
+export const getClientId = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/client-id`);
+    return response.data; // Assuming your API returns a JSON response with data
+  } catch (error) {
+    if (error.response) {
+      return error.response;
+    }
+  }
+}

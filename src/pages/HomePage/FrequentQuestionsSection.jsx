@@ -64,7 +64,8 @@ function FrequentQuestion({ question, answer }) {
 
   return (
     <div className="mx-5 mt-5">
-      <div className="Rectangle w-full bg-white hover:bg-primary hover:text-white transition duration:200 linear rounded-lg border border-black flex flex-col py-3"
+      <div className="Rectangle w-full bg-white hover:bg-primary hover:text-white transition duration:200 linear rounded-lg border border-black flex flex-col py-3 cursor-pointer"
+        onClick={() => setAnswerVisible(!answerVisible)}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
@@ -73,8 +74,7 @@ function FrequentQuestion({ question, answer }) {
             {question}
           </div>
           <div             
-          className="w-8 mr-3 h-full flex justify-center items-center cursor-pointer"
-          onClick={() => setAnswerVisible(!answerVisible)}>
+          className="w-8 mr-3 h-full flex justify-center items-center cursor-pointer">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="plus" clipPath="url(#clip0_223_696)">
               <g id="Layer 2">

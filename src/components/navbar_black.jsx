@@ -11,9 +11,7 @@ import Switch from "react-switch";
 function Navbar() {
   const navigate = useNavigate();
   const luxeValue =
-    //If the url is /luxe or /luxe/properties, set the luxeValue to true
-    window.location.pathname === "/luxe" ||
-    window.location.pathname === "/luxe/properties"
+    window.location.pathname === "/luxe" 
       ? true
       : false;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,17 +21,9 @@ function Navbar() {
   const handleLuxeChange = () => {
     localStorage.setItem("luxe", !luxeValue);
 
-    //If on /luxe/properties, redirect to /properties
-    if (window.location.pathname === "/luxe/properties") {
-      navigate("/properties");
-    }
     //If on /luxe, redirect to /
-    else if (window.location.pathname === "/luxe") {
+    if (window.location.pathname === "/luxe") {
       navigate("/");
-    }
-    //If on /properties, redirect to /luxe/properties
-    else if (window.location.pathname === "/properties") {
-      navigate("/luxe/properties");
     }
     //If on /, redirect to /luxe
     else if (window.location.pathname === "/") {
@@ -80,16 +70,35 @@ function Navbar() {
       {accountMenuOpen && (
         <div className="absolute top-0 flex flex-col w-full bg-white drop-shadow-2xl font-custom-kiona">
           <div className="flex w-full justify-between p-3 relative">
-            <img
-              src={hamburgerMenuBlack}
-              alt="hamburger menu"
-              className="opacity-0"
-            />
+          {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/" ? (
+                <button className="bg-primary hover:scale-105 transition duration-75 h-10 text-black font-custom-kiona px-4 w-20 py-1 rounded-lg self-center"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <img src={luxe} alt="My City Logo" className=""></img>
+                </button>
+              ) : null
+            }
+            {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/luxe" ? (
+                <button className="bg-primary hover:scale-105 transition duration-75 h-10 text-black font-custom-kiona px-4 w-20 py-1 rounded-lg self-center"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <div className="font-custom-kiona text-[9px] text-white">Regular</div>
+                </button>
+              ) : null
+            }
 
             <div className="flex items-center justify-center w-full">
               <img src={logoBlack} alt="logo" className="h-12" />
             </div>
-
+            
             <img
               src={notification}
               alt="notification menu"
@@ -105,34 +114,7 @@ function Navbar() {
               alt="hamburger menu"
               onClick={handleAccountMenuClick}
             />
-            <div className="flex items-center">
-              <Switch
-                //COlor on checked
-                width={80}
-                onColor="#fff"
-                offColor="#fff"
-                offHandleColor="#c79744"
-                onHandleColor="#c79744"
-                className="border"
-                uncheckedIcon={
-                  <div className="w-full h-full flex items-center pr-1">
-                    <img src={luxe} alt="My City Logo"></img>
-                  </div>
-                }
-                checkedIcon={
-                  <div className="w-full h-full flex items-center pl-2">
-                    <div className="font-custom-kiona text-[9px] text-black">
-                      Regular
-                    </div>
-                  </div>
-                }
-                checked={luxeValue === true ? true : false}
-                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                onChange={() => {
-                  handleLuxeChange();
-                }}
-              ></Switch>{" "}
-            </div>
+            
           </div>
 
           {!localStorage.getItem("token") ? (
@@ -266,9 +248,7 @@ function Navbar() {
               </NavLink>
               <NavLink
                 to={`${
-                  luxeValue === true
-                    ? "/luxe/properties"
-                    : "/properties"
+                  "/properties"
                 }`}
                 className={`flex justify-between p-2 ${
                   location.pathname === "/properties"

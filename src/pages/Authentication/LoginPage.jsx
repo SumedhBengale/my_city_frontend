@@ -1,34 +1,37 @@
 import { React, useEffect, useState, useRef } from "react";
-import loginBackground from "../../assets/images/login/login_background.png";
 import Logo from "../../assets/images/white_logo.png";
-import GoogleLogo from "../../assets/images/login/google_logo.svg";
-import FacebookLogo from "../../assets/images/login/facebook_logo.svg";
 import EmailLogo from "../../assets/images/login/email_logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getVideos, login, sendResetPasswordLink } from "./api";
+import { getClientId, getVideos, login, sendResetPasswordLink } from "./api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from '../../config/config';
 import Navbar from '../../components/navbar';
-import NavbarBlack from '../../components/navbar_black';
 import DesktopNavbar from '../../components/desktopNavbar';
-import DesktopNavbarBlack from '../../components/desktopNavbarBlack'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from './GoogleLoginButton';
+import { FacebookProvider, LoginButton } from 'react-facebook';
+
 
 const LoginPage = () => {
   const location = useLocation();
   const [videos, setVideos] = useState(null);
   const [forgetDialogVisible, setForgetDialogVisible] = useState(false);
   const forgetDialogRef = useRef(null);
+  const [googleClientId, setGoogleClientId] = useState(null);
 
   useEffect(() => {
     localStorage.removeItem("token");
     getVideos().then((res) => {
       console.log(res.data);
       setVideos(res.data);
-
     });
+    getClientId().then((res) => {
+      console.log(res);
+      setGoogleClientId(res.googleClientId);
+    })
   }, []);
   const navigate = useNavigate();
   // Define the validation schema using Yup
@@ -93,6 +96,7 @@ const LoginPage = () => {
       toast.error("An error occurred while processing your request");
     }
   }
+
 
   return (
     <>
@@ -266,42 +270,33 @@ const LoginPage = () => {
               <hr className="w-full border-sm my-4" />
             </div>
 
-            <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0">
-              <div class="w-full relative h-full z-0 flex">
-                <button className="w-full text-center self-center text-black flex justify-center items-center">
-                  Continue with Facebook
-                </button>
+            {
+              <FacebookProvider appId="1088597931155576">
+                <FacebookLoginButton returnData={(data)=>{}}></FacebookLoginButton>
+                
+                </FacebookProvider>
+            }
+            {googleClientId !== null && <GoogleOAuthProvider clientId="854554698320-ena81rk40rfm6a0diece5ieoeut0k800.apps.googleusercontent.com">
+              <GoogleLoginButton returnData={(data)=>{
+                
+                console.log(data);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userId", data.userId);
+                localStorage.setItem("userType", data.userType);
+                //Navigate to the previous page
+                if(location.state && 
+                  (location.state.from === "signup" ||
+                  location.state.from === "resetPassword" ||
+                  location.state.from === "verifyEmail")
+                  ){
+                    navigate("/");
+                  }
+                  else{
+                    navigate(-1);
+                  }
 
-                <div class="absolute inset-y-0 left-0 z-10 self-start">
-                  <div class="flex h-full items-center justify-center">
-                    <img
-                      src={FacebookLogo}
-                      alt="Google Logo"
-                      className="pl-4 pt-3 self-start z-10"
-                    ></img>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0">
-              <div class="w-full relative h-full z-0 flex">
-                <button className="w-full text-center self-center text-black flex justify-center items-center">
-                  Continue with Google
-                </button>
-
-                <div class="absolute inset-y-0 left-0 z-10 self-start">
-                  <div class="flex h-full items-center justify-center">
-                    <img
-                      src={GoogleLogo}
-                      alt="Google Logo"
-                      className="pl-4 pt-3 self-start z-10"
-                    ></img>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+              }}></GoogleLoginButton>
+            </GoogleOAuthProvider>}
             <div className="w-full h-12 bg-white rounded-lg border border-zinc-900 mt-4 z-0">
               <div class="w-full relative h-full z-0 flex">
                 <button

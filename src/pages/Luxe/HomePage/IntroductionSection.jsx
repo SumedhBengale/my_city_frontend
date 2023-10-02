@@ -32,9 +32,10 @@ function IntroductionSection({ dynamicText, dynamicImages }) {
         <button
           className="relative bg-primary  hover:bg-secondary border text-white shadow-lg hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona text-lg py-3 px-5 rounded-lg"
           onClick={() =>
-            navigate("/luxe/properties", {
+            navigate("/properties", {
               state: {
                 limit: 100,
+                luxe:true
               },
             })
           }

@@ -46,9 +46,10 @@ function OurStorySection({ dynamicText, dynamicImages }) {
                   className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
                   onClick={() => {
                     localStorage.getItem("luxe") === true ?
-                    navigate("/luxe/properties", {
+                    navigate("/properties", {
                       state: {
                         limit: 100,
+                        luxe: true,
                       },
                     })
                     : 

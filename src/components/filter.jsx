@@ -28,7 +28,9 @@ function Filter({ initialData, apply, close }) {
     initialData ? initialData.selectedAmenities : []
   );
 
-  const [luxeSelection, setLuxeSelection] = useState(false);
+  const [luxeSelection, setLuxeSelection] = useState(
+    window.location.pathname === "/luxe" ? true : false
+  );
 
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
@@ -385,6 +387,9 @@ function Filter({ initialData, apply, close }) {
                 type="checkbox"
                 id='luxe'
                 name='luxe'
+                disabled={
+                  window.location.pathname === "/luxe" ? true : false
+                }
                 value={luxeSelection}
                 onChange={(e) => {
                   setLuxeSelection(e.target.checked);
@@ -401,7 +406,7 @@ function Filter({ initialData, apply, close }) {
                       >
                         {(luxeSelection && (
                           <svg
-                            className="w-4 h-4 text-white"
+                            className="w-4 h-4 text-white translate-y-[2px] translate-x-[1px]"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -415,7 +420,10 @@ function Filter({ initialData, apply, close }) {
                           </svg>
                         )) || <div className="w-4 h-4"></div>}
                       </label>
-                      <span className="text-sm pl-2 overflow-hidden overflow-ellipsis">
+                      <span className={`text-sm pl-2 overflow-hidden overflow-ellipsis ${
+                          window.location.pathname === "/luxe" ? "text-gray-400" : "text-black"
+                        }
+                      }`}>
                         Luxe Properties Only
                       </span>
             </div>

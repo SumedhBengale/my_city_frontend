@@ -359,7 +359,7 @@ function Book() {
                     {
                       //If token is not present, show login button
                       localStorage.getItem("token") === null ? 
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 md:gap-2 flex-col md:flex-row">
                           <button
                             className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
                             onClick={() => navigate("/login")}

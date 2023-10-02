@@ -14,9 +14,7 @@ import luxe from "../assets/images/luxe.svg";
 function DesktopNavbar() {
   const navigate = useNavigate();
   const luxeValue =
-    //If the url is /luxe or /luxe/properties, set the luxeValue to true
-    (window.location.pathname === "/luxe" ||
-    window.location.pathname === "/luxe/properties")
+    (window.location.pathname === "/luxe")
       ? true
       : false;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
@@ -73,17 +71,9 @@ function DesktopNavbar() {
 
   const handleLuxeChange = () => {
     localStorage.setItem("luxe", !luxeValue);
-    //If on /luxe/properties, redirect to /properties
-    if (window.location.pathname === "/luxe/properties") {
-      navigate("/properties");
-    }
     //If on /luxe, redirect to /
-    else if (window.location.pathname === "/luxe") {
+    if (window.location.pathname === "/luxe") {
       navigate("/");
-    }
-    //If on /properties, redirect to /luxe/properties
-    else if (window.location.pathname === "/properties") {
-      navigate("/luxe/properties");
     }
     //If on /, redirect to /luxe
     else if (window.location.pathname === "/") {
@@ -147,13 +137,10 @@ function DesktopNavbar() {
           </NavLink>
           <NavLink
             to={`${
-              luxeValue === true
-                ? "/luxe/properties"
-                : "/properties"
+                "/properties"
             }`}
             className={`flex justify-between p-2 uppercase ${
-              location.pathname === "/properties" ||
-              location.pathname === "/luxe/properties"
+              location.pathname === "/properties"
               ? "line line-underline-active font-bold" : "line line-underline"
 
             }`}
@@ -215,100 +202,69 @@ function DesktopNavbar() {
             ref={accountRef}
               src={person}
               alt="hamburger menu"
-              className="h-8"
+              className="h-8 mr-3"
               onClick={handleAccountMenuClick}
             />
             {
               //If url contains /, or /luxe or /properties then show this
-              window.location.pathname === "/" ||
-              window.location.pathname === "/luxe" ||
-              window.location.pathname === "/properties" ||
-              window.location.pathname === "/luxe/properties" ? (
-                <div className="mx-4 flex items-center w-20">
-                  <Switch
-                    //COlor on checked
-                    width={80}
-                    onColor="#fff"
-                    offColor="#fff"
-                    offHandleColor="#c79744"
-                    onHandleColor="#c79744"
-                    className="border"
-                    uncheckedIcon={
-                      <div className="w-full h-full flex items-center pr-1">
-                        <img src={luxe} alt="My City Logo"></img>
-                      </div>
-                    }
-                    checkedIcon={
-                      <div className="w-full h-full flex items-center pl-2">
-                        <div className="font-custom-kiona text-[9px] text-black">
-                          Regular
-                        </div>
-                      </div>
-                    }
-                    checked={luxeValue === true ? true : false}
-                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                    onChange={() => {
-                      handleLuxeChange();
-                    }}
-                  ></Switch>
-                </div>
+              window.location.pathname === "/" ? (
+                <button className="bg-white hover:scale-105 transition duration-75 text-black font-custom-kiona px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <img src={luxe} alt="My City Logo" className="w-8"></img>
+                </button>
+              ) : null
+            }
+            {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/luxe" ? (
+                <button className="bg-white hover:scale-105 transition duration-75 text-black font-custom-kiona px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <div className="font-custom-kiona text-[9px] text-secondary">Regular</div>
+                </button>
               ) : null
             }
           </div>
         ) : (
           <div className="flex gap-5 h-full items-center w-48">
-                        <div className="pl-4 flex items-center">
-              {
-                //If url contains /, or /luxe or /properties then show this
-                window.location.pathname === "/" ||
-                window.location.pathname === "/luxe" ||
-                window.location.pathname === "/properties" ||
-                window.location.pathname === "/luxe/properties" ? (
-                  <div className="pr-4 flex items-center w-20">
-                    <Switch
-                      //COlor on checked
-                      width={80}
-                      onColor="#fff"
-                      offColor="#fff"
-                      offHandleColor="#c79744"
-                      onHandleColor="#c79744"
-                      className="border"
-                      uncheckedIcon={
-                        <div className="w-full h-full flex items-center pr-1">
-                          <img src={luxe} alt="My City Logo"></img>
-                        </div>
-                      }
-                      checkedIcon={
-                        <div className="w-full h-full flex items-center pl-2">
-                          <div className="font-custom-kiona text-[9px] text-black">
-                            Regular
-                          </div>
-                        </div>
-                      }
-                      checked={luxeValue === true ? true : false}
-                      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                      onChange={() => {
-                        handleLuxeChange();
-                      }}
-                    ></Switch>
-                  </div>
-                ) : null
-              }
+            <div className="pl-4 flex items-center">
+            {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/" ? (
+                <button className="bg-white hover:scale-105 transition duration-75 text-black font-custom-kiona px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <img src={luxe} alt="My City Logo" className="w-10"></img>
+                </button>
+              ) : null
+            }
+            {
+              //If url contains /, or /luxe or /properties then show this
+              window.location.pathname === "/luxe" ? (
+                <button className="bg-white hover:scale-105 transition duration-75 text-black font-custom-kiona px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    handleLuxeChange();
+                  }}
+                >
+                  <div className="font-custom-kiona text-sm text-secondary">Regular</div>
+                </button>
+              ) : null
+            }
             </div>
-            <button className={`bg-white text-black font-custom-kiona px-4 py-2 rounded-lg ${
-              //If the url is /login, make the login button bold
-              location.pathname === "/login" ? "hidden" : "flex"
-            }`}>
-              <NavLink
-                to="/login"
-                exact
-                className={`flex justify-between  ${
-                  location.pathname === "/login" ? "underline font-bold" : ""
-                }`}
-              >
-                Login
-              </NavLink>
-            </button>
+            <button className={`bg-white hover:scale-105 transition duration-75 text-black font-custom-kiona px-4 py-2 rounded-lg ${
+              location.pathname === "/login" ? "underline font-bold" : ""
+            }`}
+                  onClick={()=>navigate("/login")}
+                >
+                  <div className="font-custom-kiona text-sm text-secondary">Login</div>
+                </button>
           </div>
         )}
       </div>

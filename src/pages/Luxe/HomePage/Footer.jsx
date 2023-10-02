@@ -26,7 +26,7 @@ function Footer() {
                         <div className='pt-10 pl-5 py-10'>
                             <div className='font-custom-bold text-white font-bold text-xl pl-3' oncli>Explore</div>
                             <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/luxe')}>Home</div>
-                            <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/luxe/properties')}>Properties</div>
+                            <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/properties',{state:{luxe:true}})}>Properties</div>
                             <div className="text-white text-md pt-3 pl-3 cursor-pointer" onClick={()=>navigate('/homeowners')}>Rental Estimate</div>
 
                         </div>

@@ -18,13 +18,12 @@ const Carousel = () => {
   const slider = React.useRef(null);
   const settings = {
     cssEase: "linear",
-    infinite: true,
     slidesToShow: window.innerWidth > 768 ? 5 : 1,
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
     autoplaySpeed: 0,
-    speed: 3000,
+    speed: 8000,
     pauseOnHover: false,
   };
 
