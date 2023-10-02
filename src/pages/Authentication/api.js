@@ -195,3 +195,14 @@ export const getClientId = async () => {
     }
   }
 }
+
+export const sendFacebookData = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/facebook`, {data});
+    return response.data; // Assuming your API returns a JSON response with data
+  } catch (error) {
+    if (error.response) {
+      return error.response;
+    }
+  }
+}

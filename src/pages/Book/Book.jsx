@@ -38,6 +38,11 @@ function Book() {
     ).then((data) => {
       if (data.status === 200) {
         console.log(data.quote);
+        if (data.quote.status === 422) {
+          console.log("DSFS");
+          //Go back to the previous page and replace the state
+          navigate(-1, { replace: true });
+        }
         setQuote(data.quote);
         setTotalNights(
           Math.round(
@@ -358,7 +363,7 @@ function Book() {
                   <div className="flex flex-grow justify-center items-end">
                     {
                       //If token is not present, show login button
-                      localStorage.getItem("token") === null ? 
+                      localStorage.getItem("token") === null ? (
                         <div className="flex gap-4 md:gap-2 flex-col md:flex-row">
                           <button
                             className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
@@ -368,13 +373,15 @@ function Book() {
                           </button>
                           <button
                             className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
-                            onClick={() => navigate('/signup')}
+                            onClick={() => navigate("/signup")}
                           >
                             Sign Up
                           </button>
                           <button
                             className={`w-full h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
-                              bookingDisabled || !acceptedTerms ? "opacity-50" : ""
+                              bookingDisabled || !acceptedTerms
+                                ? "opacity-50"
+                                : ""
                             }`}
                             onClick={() => handleBooking()}
                             disabled={bookingDisabled || !acceptedTerms}
@@ -382,15 +389,19 @@ function Book() {
                             Checkout as Guest
                           </button>
                         </div>
-                      : <button
-                      className={`w-1/2 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
-                        bookingDisabled || !acceptedTerms ? "opacity-50" : ""
-                      }`}
-                      onClick={() => handleBooking()}
-                      disabled={bookingDisabled || !acceptedTerms}
-                    >
-                      Confirm
-                    </button>
+                      ) : (
+                        <button
+                          className={`w-1/2 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px] ${
+                            bookingDisabled || !acceptedTerms
+                              ? "opacity-50"
+                              : ""
+                          }`}
+                          onClick={() => handleBooking()}
+                          disabled={bookingDisabled || !acceptedTerms}
+                        >
+                          Confirm
+                        </button>
+                      )
                     }
                   </div>
                 </div>

@@ -23,35 +23,35 @@ const Carousel = () => {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 0,
-    speed: 8000,
+    speed: 3000,
     pauseOnHover: false,
   };
 
   return (
     <div className="w-full flex justify-center">
       <div className="w-full flex flex-col">
-          <Slider {...settings} className="slider w-full" ref={slider}>
-            {partners ? (
-              partners.map((partner) => (
-                <div key={partner.id} className="partner-card text-center">
-                  <div className="h-20 flex justify-center w-full">
-                    <img
-                      src={
-                        `${config.STRAPI_URL}` +
-                        partner.attributes.image.data.attributes.url
-                      }
-                      alt="Profile"
-                      className="w-32 object-fit"
-                    />
-                  </div>
+        <Slider {...settings} className="slider w-full" ref={slider}>
+          {partners ? (
+            partners.map((partner) => (
+              <div key={partner.id} className="partner-card text-center">
+                <div className="h-20 flex justify-center w-full">
+                  <img
+                    src={
+                      `${config.STRAPI_URL}` +
+                      partner.attributes.image.data.attributes.url
+                    }
+                    alt="Profile"
+                    className="w-32 object-fit"
+                  />
                 </div>
-              ))
-            ) : (
-              <div className="flex justify-center items-center mt-10">
-                <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
               </div>
-            )}
-          </Slider>
+            ))
+          ) : (
+            <div className="flex justify-center items-center mt-10">
+              <div className="animate-spin rounded-full h-5 w-5 border-dashed border-2 border-gray-900"></div>
+            </div>
+          )}
+        </Slider>
       </div>
     </div>
   );
