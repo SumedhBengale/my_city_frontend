@@ -36,6 +36,7 @@ function ManagementPage() {
   const [loading, setLoading] = useState(true);
   const [hidden, setHidden] = useState(false);
   const quoteBackdropRef = useRef();
+  const postcodeInputRef = useRef();
 
   useEffect(() => {
     setLoading(true);
@@ -70,6 +71,7 @@ function ManagementPage() {
       window.addEventListener("scroll", handleScroll);
       return () => {
         window.removeEventListener("scroll", handleScroll);
+        document.body.style.overflow = "unset";
       };
   }, []);
 
@@ -169,6 +171,11 @@ function ManagementPage() {
       </div>
       )}
       <div className={`w-full flex fixed top-0 justify-center items-center z-30 transition-all 
+      ${
+        postcodeInputRef.current !== null && postcodeInputRef.current.value !== "" ?
+         document.body.style.overflow = "unset"
+        : document.body.style.overflow = "hidden"
+      }
       ${
         hidden ? setTimeout(() => {return "hidden"}, 200) : "block"
       }
@@ -408,6 +415,7 @@ function ManagementPage() {
               </div>
               <div className="w-full flex justify-center h-16">
                 <input
+                  ref={postcodeInputRef}
                   className="bg-white rounded-l-lg px-4 h-full w-full md:w-96"
                   onChange={(e) => setPostCode(e.target.value)}
                   placeholder="Enter Postcode"

@@ -14,3 +14,17 @@ export const getPrivacyPolicy = async () => {
         }
     }
 }
+
+//Get Terms Of Use
+export const getTermsOfUse = async () => {
+    try {
+        const response = await axios.get(`${config.STRAPI_URL}/api/terms-of-use`, {
+        })
+        return response.data;
+    }
+    catch (error) {
+        if (error.response) {
+            return error.response;
+        }
+    }
+}

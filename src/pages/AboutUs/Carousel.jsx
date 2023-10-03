@@ -11,7 +11,17 @@ const Carousel = () => {
     getPartners()
       .then((res) => {
         console.log(res.data);
-        setPartners(res.data);
+        //for each item in res.data create an img object and push it to the array
+        let partnersArr = [];
+        res.data.forEach((partner) => {
+          partnersArr.push(
+            <img src={
+              `${config.STRAPI_URL}` +
+              partner.attributes.image.data.attributes.url
+            } alt="Partner" className="w-32 object-fit"/>
+          );
+        });
+        setPartners(partnersArr);
       })
       .catch((err) => {});
   }, []);
@@ -19,12 +29,14 @@ const Carousel = () => {
   const settings = {
     cssEase: "linear",
     slidesToShow: window.innerWidth > 768 ? 5 : 1,
-    slidesToScroll: 1,
+    slidesToScroll: partners ? partners.length : 1,
     arrows: false,
     autoplay: true,
+    infinite: true,
+    swipeToSlide: true,
     autoplaySpeed: 0,
-    speed: 3000,
-    pauseOnHover: false,
+    speed: 3000 * (partners ? partners.length : 1),
+    pauseOnHover: true,
   };
 
   return (
@@ -33,16 +45,9 @@ const Carousel = () => {
         <Slider {...settings} className="slider w-full" ref={slider}>
           {partners ? (
             partners.map((partner) => (
-              <div key={partner.id} className="partner-card text-center">
-                <div className="h-20 flex justify-center w-full">
-                  <img
-                    src={
-                      `${config.STRAPI_URL}` +
-                      partner.attributes.image.data.attributes.url
-                    }
-                    alt="Profile"
-                    className="w-32 object-fit"
-                  />
+              <div className="partner-card text-center">
+                <div className="h-20 flex w-full">
+                  {partner}
                 </div>
               </div>
             ))

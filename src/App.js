@@ -34,6 +34,7 @@ import Success from './pages/Payment/Success';
 import ResetPassword from './pages/Authentication/ResetPassword';
 import AccountPage from './pages/Account/AccountPage';
 import PrivacyPolicy from './pages/Misc/PrivacyPolicy';
+import TermsOfUse from './pages/Misc/TermsOfUse';
 
 
 const App = () => {
@@ -44,7 +45,7 @@ const App = () => {
       <ScrollToTop>
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          {/* <Route exact path="/admin" element={
+          <Route exact path="/admin" element={
             //check whether the user is logged in or not
             getToken ? <Admin></Admin> : <Navigate to="/admin/login"></Navigate>
           } />
@@ -54,7 +55,7 @@ const App = () => {
           <Route exact path="/admin/trips/:id" element={getToken ? <TripsPage></TripsPage> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/trip/:id" element={getToken ? <TripEditor></TripEditor> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/admin/wishlist/:id" element={getToken ? <WishlistEditor></WishlistEditor> : <Navigate to="/admin/login"></Navigate>} />
-          <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer /> : <Navigate to="/admin/login"></Navigate>} /> */}
+          <Route exact path="/admin/review/:id" element={getToken ? <ReviewViewer /> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/login" element={getToken ? <LoginPage></LoginPage> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/signup" element={<SignUpPage></SignUpPage>} />
           <Route exact path="/verify-email/:id" element={<EmailVerification></EmailVerification>} />
@@ -76,6 +77,7 @@ const App = () => {
           <Route exact path="/help" element={getToken ? <Help></Help> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/messages" element={getToken ? <Messages></Messages> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/privacy-policy" element={<PrivacyPolicy></PrivacyPolicy>} />
+          <Route exact path="/terms-of-use" element={<TermsOfUse></TermsOfUse>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </ScrollToTop>

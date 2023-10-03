@@ -142,7 +142,7 @@ function Footer() {
                       ).attributes.text
                     }
                     <div className="flex gap-3 cursor-pointer underline">
-                      <div onClick={() => navigate("terms-of-use")}>
+                      <div onClick={() => navigate("/terms-of-use")}>
                         Terms of Use
                       </div>
                       <div onClick={() => navigate("/privacy-policy")}>
@@ -227,7 +227,7 @@ function Footer() {
                     ).attributes.text
                   }
                   <div className="flex gap-3 cursor-pointer underline">
-                    <div onClick={() => navigate("terms-of-use")}>
+                    <div onClick={() => navigate("/terms-of-use")}>
                       Terms of Use
                     </div>
                     <div onClick={() => navigate("/privacy-policy")}>
