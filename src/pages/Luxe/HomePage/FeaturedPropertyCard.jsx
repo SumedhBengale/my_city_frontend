@@ -23,9 +23,7 @@ function FeaturedPropertyCard({ residence, highlighted }) {
       <div className="relative w-full">
         <div className="absolute bottom-7 left-3 rounded-full pl-4 text-sm font-semibold ">
           <div className="flex text-white justify-center items-center">
-            <div className=" text-lg font-custom-lora font-normal">
-              £
-            </div>
+            <div className=" text-lg font-custom-lora font-normal">£</div>
             <div className=" text-lg font-custom-kiona">
               {residence.prices.basePrice}
             </div>
@@ -50,7 +48,10 @@ function FeaturedPropertyCard({ residence, highlighted }) {
         >
           {residence.title.toString()}
         </div>
-        <p className=" text-xs lg:text-sm line-clamp-1">{`${residence.address.full}`}</p>
+        <p className=" text-xs lg:text-sm line-clamp-1">{`${residence.address.full.replace(
+          /\d+,?\s*/g,
+          ""
+        )}`}</p>
       </div>
 
       {/*Also fetch these values from the API */}
@@ -114,24 +115,13 @@ function FeaturedPropertyCard({ residence, highlighted }) {
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              fill={`
-              primary
-        `}
+              className="mt-[2px]"
+              fill="primary"
             >
-              <g clip-path="url(#clip0_1110_1002)">
-                <path
-                  d="M15.25 8C15.25 9.79579 13.7958 11.25 12 11.25C10.2042 11.25 8.75 9.79579 8.75 8C8.75 6.20421 10.2042 4.75 12 4.75C13.7958 4.75 15.25 6.20421 15.25 8ZM4.75 18C4.75 17.6105 4.93918 17.2138 5.3832 16.804C5.83232 16.3894 6.4903 16.0141 7.27765 15.6987C8.85356 15.0674 10.7588 14.75 12 14.75C13.2412 14.75 15.1464 15.0674 16.7223 15.6987C17.5097 16.0141 18.1677 16.3894 18.6168 16.804C19.0608 17.2138 19.25 17.6105 19.25 18V19C19.25 19.1358 19.1358 19.25 19 19.25H5C4.86421 19.25 4.75 19.1358 4.75 19V18Z"
-                  stroke={`
-                  primary
-        `}
-                  stroke-width="1.5"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_1110_1002">
-                  <rect width="24" height="24" fill="white" />
-                </clipPath>
-              </defs>
+              <path
+                d="M11.5 4C11.5 5.93386 9.93386 7.5 8 7.5C6.06614 7.5 4.5 5.93386 4.5 4C4.5 2.06614 6.06614 0.5 8 0.5C9.93386 0.5 11.5 2.06614 11.5 4ZM0.5 14C0.5 13.5186 0.737162 13.06 1.21364 12.6202C1.69352 12.1773 2.38208 11.7882 3.18469 11.4666C4.79071 10.8233 6.7275 10.5 8 10.5C9.2725 10.5 11.2093 10.8233 12.8153 11.4666C13.6179 11.7882 14.3065 12.1773 14.7864 12.6202C15.2628 13.06 15.5 13.5186 15.5 14V15C15.5 15.2739 15.2739 15.5 15 15.5H1C0.726142 15.5 0.5 15.2739 0.5 15V14Z"
+                stroke="primary"
+              />
             </svg>
 
             <div className={`pl-1 text-primary`}>{residence.accommodates}</div>

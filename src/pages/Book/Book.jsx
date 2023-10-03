@@ -352,11 +352,43 @@ function Book() {
                         />
                       </div>
                       <div className="text-secondary text-sm">
-                        I agree to the Privacy Policy, House rules, Ground rules
-                        for guests, My City Residences Rebooking and Refund
-                        Policy and that My City Residence can charge my payment
-                        method if i’m responsible for damage. I agree to pay the
-                        total amount shown.{" "}
+                        I agree to the{" "}
+                        <span
+                          className="font-bold underline cursor-pointer"
+                          onClick={() => navigate("/privacy-policy")}
+                        >
+                          Privacy Policy
+                        </span>
+                        ,{" "}
+                        <span
+                          className="font-bold underline cursor-pointer"
+                          onClick={() => navigate("/privacy-policy")}
+                        >
+                          House Rules
+                        </span>
+                        ,{" "}
+                        <span
+                          className="font-bold underline cursor-pointer"
+                          onClick={() => navigate("/privacy-policy")}
+                        >
+                          Ground Rules for Guests
+                        </span>
+                        ,{" "}
+                        <span
+                          className="font-bold underline cursor-pointer"
+                          onClick={() => navigate("/privacy-policy")}
+                        >
+                          My City Residences Rebooking and Refund Policy
+                        </span>{" "}
+                        and that My City Residence can{" "}
+                        <span
+                          className="font-bold underline cursor-pointer"
+                          onClick={() => navigate("/privacy-policy")}
+                        >
+                          charge my payment method
+                        </span>{" "}
+                        if I'm responsible for damage. I agree to pay the total
+                        amount shown.
                       </div>
                     </div>
                   </div>
@@ -364,7 +396,7 @@ function Book() {
                     {
                       //If token is not present, show login button
                       localStorage.getItem("token") === null ? (
-                        <div className="flex gap-4 md:gap-2 flex-col md:flex-row">
+                        <div className="flex gap-0 md:gap-2 flex-col md:flex-row">
                           <button
                             className={`w-48 h-10 md:mt-6 mb-5 md:mb-12 px-4 py-2 text-white bg-primary hover:bg-secondary hover:scale-105 transition duration-75 rounded-lg max-w-[400px]`}
                             onClick={() => navigate("/login")}
