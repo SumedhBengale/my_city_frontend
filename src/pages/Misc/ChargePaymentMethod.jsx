@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import blackLogo from "../../assets/images/black_logo.png";
 import NavbarBlack from "../../components/navbar_black";
 import DesktopNavbarBlack from "../../components/desktopNavbarBlack";
-import { getCPM } from "./api";
+import { getPaymentPolicy } from "./api";
 import { marked } from "marked";
 
 function ChargePaymentMethod() {
   const [cpm, setCPM] = useState(null);
   useEffect(() => {
-    getCPM().then((res) => {
+    getPaymentPolicy().then((res) => {
       console.log(res);
       const parsedMarkdown = marked(res.data.attributes.content, {
         gfm: true,
