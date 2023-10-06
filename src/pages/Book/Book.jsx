@@ -362,28 +362,28 @@ function Book() {
                         ,{" "}
                         <span
                           className="font-bold underline cursor-pointer"
-                          onClick={() => navigate("/privacy-policy")}
+                          onClick={() => navigate("/house-rules")}
                         >
                           House Rules
                         </span>
                         ,{" "}
                         <span
                           className="font-bold underline cursor-pointer"
-                          onClick={() => navigate("/privacy-policy")}
+                          onClick={() => navigate("/ground-rules")}
                         >
                           Ground Rules for Guests
                         </span>
                         ,{" "}
                         <span
                           className="font-bold underline cursor-pointer"
-                          onClick={() => navigate("/privacy-policy")}
+                          onClick={() => navigate("/refund-policy")}
                         >
                           My City Residences Rebooking and Refund Policy
                         </span>{" "}
                         and that My City Residence can{" "}
                         <span
                           className="font-bold underline cursor-pointer"
-                          onClick={() => navigate("/privacy-policy")}
+                          onClick={() => navigate("/payment-policy")}
                         >
                           charge my payment method
                         </span>{" "}
