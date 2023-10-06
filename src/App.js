@@ -35,6 +35,10 @@ import ResetPassword from './pages/Authentication/ResetPassword';
 import AccountPage from './pages/Account/AccountPage';
 import PrivacyPolicy from './pages/Misc/PrivacyPolicy';
 import TermsOfUse from './pages/Misc/TermsOfUse';
+import HouseRules from './pages/Misc/HouseRules';
+import GroundRules from './pages/Misc/GroundRules';
+import RefundPolicy from './pages/Misc/RefundPolicy';
+import ChargePaymentMethod from './pages/Misc/ChargePaymentMethod';
 
 
 const App = () => {
@@ -78,6 +82,11 @@ const App = () => {
           <Route exact path="/messages" element={getToken ? <Messages></Messages> : <Navigate to="/admin/login"></Navigate>} />
           <Route exact path="/privacy-policy" element={<PrivacyPolicy></PrivacyPolicy>} />
           <Route exact path="/terms-of-use" element={<TermsOfUse></TermsOfUse>} />
+          <Route exact path="/house-rules" element={<HouseRules></HouseRules>} />
+          <Route exact path="/ground-rules" element={<GroundRules></GroundRules>} />
+          <Route exact path="/refund-policy" element={<RefundPolicy></RefundPolicy>} />
+          <Route exact path="/payment-policy" element={<ChargePaymentMethod></ChargePaymentMethod>} />
+
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </ScrollToTop>
