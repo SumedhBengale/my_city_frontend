@@ -1,32 +1,57 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import'./map.css';
+import React, { Component } from "react";
+// import "./map.css";
+import config from "../../config/config";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-const mapStyles = {
-  width: '100%',
+const containerStyle = {
+  width: "100%",
+  height: "100%",
+  //Rounded edges
+  borderRadius: "10px",
   
 };
 
-class MapContainer extends Component {
-  render() {
-    const { google } = this.props;
-    const { latitude, longitude } = this.props.coordinate; // Replace with your desired coordinate
+function MapContainer({ coordinate }) {
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: config.MAPS_API_KEY,
+  });
 
-    return (
-          <div id='mapBox'>
-            <Map center={true}
-                google={google}
-                zoom={14}
-                style={mapStyles}
-                initialCenter={{ lat: latitude, lng: longitude }}
-            >
-                <Marker position={{ lat: latitude, lng: longitude }} />
-            </Map>
-          </div>
-    );
-  }
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds({
+      lat: coordinate.lat,
+      lng: coordinate.lng,
+    });
+    map.fitBounds(bounds);
+    map.setZoom(14)
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
+  return isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={{
+        lat: coordinate.lat,
+        lng: coordinate.lng,
+      }}
+      zoom={15}
+      onLoad={()=>onLoad}
+      onUnmount={()=>onUnmount}
+    >
+      {/* Marker for coordinate */}
+      <Marker position={{ lat: coordinate.lat, lng: coordinate.lng }} />
+      <></>
+    </GoogleMap>
+  ) : (
+    <></>
+  );
 }
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBoZFGXOCwer9dv34IPMOhFqlApLBQtprs', // Replace with your Google Maps API key
-})(MapContainer);
+export default React.memo(MapContainer);

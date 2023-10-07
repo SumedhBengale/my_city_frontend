@@ -1,26 +1,27 @@
-import React from 'react'
-import Notification from './Notification'
+import React, { useState } from "react";
+import Notification from "./Notification";
 
-function Notifications() {
+function Notifications({ notifications, refresh }) {
+  
   return (
     <>
-        <div className='mx-2 mt-6 pr-5'>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-            <Notification/>
-
-        </div>
+      <div className="mx-2 h-full">
+        {notifications !== null ? (
+          <div className="mt-5">
+            {notifications && (notifications !== null || notifications.length !== 0) && notifications.map((notification) => (
+                <Notification key={notification._id} notification={notification} refresh={(id)=>refresh(id)}/>
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-full justify-center items-center">
+            <div className="text-center text-2xl text-primary w-2/3">
+              No New Notifications
+            </div>
+          </div>
+        )}
+      </div>
     </>
-  )
+  );
 }
 
-export default Notifications
+export default Notifications;

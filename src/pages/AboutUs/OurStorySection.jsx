@@ -1,22 +1,75 @@
-import React from 'react'
-import mcr from '../../assets/images/black_logo.png'
+import React from "react";
+import config from "../../config/config";
+import { useNavigate } from "react-router-dom";
 
-function OurStorySection() {
+function OurStorySection({ dynamicText, dynamicImages }) {
+  const navigate = useNavigate();
   return (
-    <>
-        <div className="Rectangle w-full bg-gray-200 px-10 pt-10 mt-10" >
-          <div className='container mx-auto flex flex-col items-center'>
-              <div className='text-black font-custom font-bold text-center text-2xl'>Our Story</div>
-              <div className='border border-black w-40 mt-3 h-[1px]'></div>
-
-              <div className='text-black text-md pt-5 text-justify'>At My City Residence, we take great pleasure in welcoming guests from all over the world to some of our enticing apartments. If you like discovering new places and dining at top restaurants, I strongly recommend staying here. Our team’s combined experience in the travel industry spans more than three decades, making your time in London simple and pleasurable. Our vast local knowledge and dedication to customer satisfaction make for an even more sophisticated visit. We are excited to host you.We established this organisation to manage and maintain a portfolio of first-rate assets. When searching for a short or extended stay, we want to make sure you have the finest “home away from home” experience possible. All of our houses are in outstanding locations, well-furnished, and well-maintained. We would be honoured to host you and your loved ones in one of our exquisite apartment options.</div>
-              <div className='justify-center flex'>
-                <img src={mcr} alt="mcr" className='w-full h-14 object-contain mt-10 mb-10' />
+    <div>
+      {dynamicText !== null && dynamicImages !== null && (
+        <div className="bg-white rounded-tl-[50px] md:rounded-tl-[100px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 justify-center lg:px-20 pt-10 lg:pt-20 lg:pl-10 gap-2 container mx-auto">
+            <div className="flex justify-center w-full">
+              <img
+                className=" h-[400px] md:h-full w-full sm:w-1/2 lg:w-full rounded-tl-[50px] md:rounded-tl-[100px] md:py-0 lg:pr-10 drop-shadow-lg"
+                src={
+                  `${config.STRAPI_URL}` +
+                  dynamicImages.find(
+                    (image) => image.attributes.name === "OurStory_Image.jpg"
+                  ).attributes.url
+                }
+                alt="Placeholder"
+              />
             </div>
+            <div className="text-center lg:text-left md:pr-5 gap-5">
+              <div className="text-secondary font-custom-kiona text-2xl md:text-5xl capitalize pb-3 drop-shadow-lg">
+                {dynamicText !== null &&
+                  dynamicText.find(
+                    (text) => text.attributes.name === "OurStory_Heading"
+                  ).attributes.text}
+              </div>
+              <div className="flex flex-col">
+                <div className=" w-full text-primary font-custom-avenir text-md pb-5">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "OurStory_Content1"
+                    ).attributes.text}
+                </div>
+                <div className=" w-full text-primary text-md font-custom-avenir pb-5">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "OurStory_Content2"
+                    ).attributes.text}
+                </div>
+                <div className="w-full flex justify-center md:justify-start">
+                  <button
+                  className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
+                  onClick={() => {
+                    localStorage.getItem("luxe") === true ?
+                    navigate("/properties", {
+                      state: {
+                        limit: 100,
+                        luxe: true,
+                      },
+                    })
+                    : 
+                    navigate("/properties", {
+                      state: {
+                        limit: 100,
+                      },
+                    })
+                  }}
+                >
+                  Explore Residences
+                </button>
+              </div>
+              </div>
             </div>
+          </div>
         </div>
-    </>
-  )
+      )}
+    </div>
+  );
 }
 
-export default OurStorySection
+export default OurStorySection;

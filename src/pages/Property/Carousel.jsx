@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
-import Placeholder1 from '../../assets/images/property/placeholder1.png';
-import Placeholder2 from '../../assets/images/property/placeholder2.png';
-import Placeholder3 from '../../assets/images/property/placeholder3.png';
-import Placeholder4 from '../../assets/images/property/placeholder4.png';
-import Placeholder5 from '../../assets/images/property/placeholder5.png';
 
 
-const Carousel = () => {
-  const images = [
-    Placeholder1,
-    Placeholder2,
-    Placeholder3,
-    Placeholder4,
-    Placeholder5,
-  ]
-
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Carousel = ({images, currIndex}) => {
+  console.log(images)
+  const [currentIndex, setCurrentIndex] = useState(currIndex);
   const [touchStartX, setTouchStartX] = useState(null);
 
   const handleNext = () => {
@@ -43,16 +31,16 @@ const Carousel = () => {
 
   return (
     <div
-      className="w-full h-[500px] relative overflow-hidden rounded-2xl"
+      className="w-full h-[300px] md:h-[500px] relative overflow-hidden rounded-lg"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {images.map((image, index) => (
         <img
           key={index}
-          src={image}
+          src={image.original ? image.original : image.thumbnail}
           alt={`placeholder-${index}`}
-          className={`w-full h-[500px] object-cover transition-transform duration-500 transform ${currentIndex === index ? 'translate-x-0' : currentIndex > index ? '-translate-x-full' : 'translate-x-full'} absolute top-0 left-0`}
+          className={`w-full h-[300px] md:h-[500px] object-cover transition-transform duration-500 transform ${currentIndex === index ? 'translate-x-0' : currentIndex > index ? '-translate-x-full' : 'translate-x-full'} absolute top-0 left-0`}
         />
       ))}
       <button

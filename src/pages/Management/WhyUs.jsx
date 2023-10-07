@@ -1,54 +1,60 @@
 import React from 'react'
 import tick from '../../assets/images/management/tick.svg'
+import keyHandover from '../../assets/images/management/key_handover.jpg'
 
 function WhyUs() {
   return (
     <>
-        <div className='text-center font-custom font-normal text-3xl my-10'>Why Us?</div>
-
-        <div className="flex flex-col md:flex-row justify-center items-center mb-10">
-            <div className=" w-full h-max bg-gray-200 ">
-                <div className='flex flex-col gap-4 pb-5 mt-8 container mx-auto'>
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>A guaranteed rental income on time, every month.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>You still get paid even if the property is empty.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>Long term tenancy contract.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>You can visit property anytime with 24 hours notice to check how we are looking after your property.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>No set up fees, monthly commissions or hidden charges.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>A guaranteed contract start date – no worrying about how long it will take to find tenants.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>Regular property inspections, free repairs and maintenance up to $50 including VAT.</div>
-                    </div>
-
-                    <div className='flex justify-start items-center'>
-                        <img src={tick} alt="tick" className=' ml-5 w-5 h-5 object-cover rounded-xl mt-2 mb-2' />
-                        <div className='text-md px-4  text-left'>We deal with all the tenant’s queries, questions and complaints.</div>
+        <div className='flex flex-col md:flex-row justify-center container mx-auto gap-10 my-10'>
+            <div className = 'flex justify-center items-center'>
+                <img src={keyHandover}  alt="key-handover" className="w-full sm:w-80 h-full sm:h-80 object-cover"/>
+            </div>
+            <div className='grid grid-cols-1 lg:grid-cols-2 col-span-2 gap-5'>
+                
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>Guaranteed rental income</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>A guaranteed rental income on time, every month.</div>
                     </div>
                 </div>
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>Inspections & certifications</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>Regular property inspections, free repairs and maintenance up to $50 including VAT.</div>
+                    </div>
+                </div>
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>Long term tenancy contract</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>We offer long term tenancy contracts to our property partners.</div>
+                    </div>
+                </div>
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>Transparency</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>You can visit property anytime with 24 hours notice to check how we are looking after your property.</div>
+                    </div>
+                </div>
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>No Surprises!</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>No set up fees, monthly commissions or hidden charges.</div>
+                    </div>
+                </div>
+                <div className='flex justify-center lg:justify-start'>
+                    <img src={tick} alt="tick" className="w-10 h-10 object-cover mr-5"/>
+                    <div>
+                        <div className='font-custom-bold text-lg fond-bold text-primary text-center sm:text-start sm:pl-5'>End to end management</div>
+                        <div className='text-sm text-primary text-center sm:text-start sm:pl-5'>We deal with all the tenant’s queries, questions and complaints.</div>
+                    </div>
+                </div>
+               
+                
             </div>
         </div>
     </>

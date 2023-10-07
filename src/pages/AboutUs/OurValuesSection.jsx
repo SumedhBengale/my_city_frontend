@@ -1,71 +1,166 @@
-import React from 'react'
-import Image2 from '../../assets/images/about/about_img_2.jpg'
-import Image3 from '../../assets/images/about/about_img_3.jpg'
-import Image4 from '../../assets/images/about/about_img_4.jpg'
-import Image5 from '../../assets/images/about/about_img_5.jpg'
+import React from "react";
+import config from "../../config/config";
+import { useNavigate } from "react-router-dom";
 
-function OurValuesSection() {
+function OurValuesSection({ dynamicText, dynamicImages }) {
+  const navigate = useNavigate();
   return (
     <>
-        <div className='text-black text-center font-custom font-bold text-lg mt-10'>Our Values</div>
+      {dynamicText !== null && dynamicImages !== null && (
+        <div className="flex flex-col gap-10 mt-10 mx-4 md:mx-0">
+          <div className="flex flex-col justify-center items-center gap-5">
+            <div className="text-secondary font-custom-kiona text-center text-5xl capitalize">
+              {dynamicText !== null &&
+                dynamicText.find(
+                  (text) => text.attributes.name === "OurValues_Heading"
+                ).attributes.text}
+            </div>
+            <div className="text-primary text-md pt-5 md:w-2/3 text-center">
+              {dynamicText !== null &&
+                dynamicText.find(
+                  (text) => text.attributes.name === "OurValues_Subheading"
+                ).attributes.text}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:order-1 md:pl-10">
+              <div className="flex flex-col gap-3 justify-center items-center md:items-start">
+                <span className="text-primary  font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) =>
+                        text.attributes.name === "OurValues_ContentHighlight1"
+                    ).attributes.text}
+                </span>
+                <div className="flex justify-center items-center">
+                  <div className="text-secondary drop-shadow-lg text-start font-custom-kiona text-xl md:text-5xl capitalize">
+                    {dynamicText !== null &&
+                      dynamicText.find(
+                        (text) => text.attributes.name === "OurValues_Heading1"
+                      ).attributes.text}
+                  </div>
+                </div>
+              </div>
+              <div className="flex w-full md:w-3/4 leading-normal pb-5">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "OurValues_Content1"
+                    ).attributes.text}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center w-full p-5 order-1 md:order-2">
+              <img
+                className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover"
+                src={
+                  `${config.STRAPI_URL}` +
+                  dynamicImages.find(
+                    (image) => image.attributes.name === "OurValues_Image1.jpg"
+                  ).attributes.url
+                }
+                alt="Placeholder"
+              />
+            </div>
+          </div>
 
-        <div className="w-full pr-8 pt-16 relative lg:pr-20">
-      <div className='w-full h-64 md:h-[400px] rounded-r-[50px] md:rounded-r-[150px] relative'>
-          <img src={Image2} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] " />
-          <div className='absolute top-0  w-full h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] bg-black/30'></div>
-          <div className='absolute top-4 h-full w-full flex items-center justify-center pr-5'>
-            <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col gap-3">
-            <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Performance</div>
-              <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">When it comes to your stay, we try to go above and above for our clients. Our offerings include all of the necessary conveniences and comforts.</div>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:pl-10">
+              <div className="flex flex-col gap-3 justify-center items-center md:items-start">
+                <span className="text-primary font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) =>
+                        text.attributes.name === "OurValues_ContentHighlight2"
+                    ).attributes.text}
+                </span>
+                <div className="flex justify-center items-center">
+                  <div className="text-secondary drop-shadow-lg text-start font-custom-kiona text-xl md:text-5xl capitalize">
+                    {dynamicText !== null &&
+                      dynamicText.find(
+                        (text) => text.attributes.name === "OurValues_Heading2"
+                      ).attributes.text}
+                  </div>
+                </div>
+              </div>
+              <div className="flex w-full md:w-3/4 leading-normal pb-5">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "OurValues_Content2"
+                    ).attributes.text}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center w-full p-5 order-1">
+              <img
+                className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover"
+                src={
+                  `${config.STRAPI_URL}` +
+                  dynamicImages.find(
+                    (image) => image.attributes.name === "OurValues_Image2.jpg"
+                  ).attributes.url
+                }
+                alt="Placeholder"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col justify-center items-center md:items-start gap-5 order-2 md:order-1 md:pl-10">
+              <div className="flex flex-col gap-3 justify-center items-center md:items-start">
+                <span className="text-primary font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) =>
+                        text.attributes.name === "OurValues_ContentHighlight3"
+                    ).attributes.text}
+                </span>
+                <div className="flex justify-center items-center">
+                  <div className="text-secondary drop-shadow-lg text-start font-custom-kiona text-xl md:text-5xl capitalize">
+                    {dynamicText !== null &&
+                      dynamicText.find(
+                        (text) => text.attributes.name === "OurValues_Heading3"
+                      ).attributes.text}
+                  </div>
+                </div>
+              </div>
+              <div className="flex w-full md:w-3/4 leading-normal pb-5">
+                <div className=" text-primary text-center text-md md:text-justify font-normal font-custom-avenir">
+                  {dynamicText !== null &&
+                    dynamicText.find(
+                      (text) => text.attributes.name === "OurValues_Content3"
+                    ).attributes.text}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center w-full p-5 order-1 md:order-2">
+              <img
+                className="h-full w-full max-h-[600px] lg:w-full rounded-md object-cover"
+                src={
+                  `${config.STRAPI_URL}` +
+                  dynamicImages.find(
+                    (image) => image.attributes.name === "OurValues_Image3.jpg"
+                  ).attributes.url
+                }
+                alt="Placeholder"
+              />
             </div>
           </div>
         </div>
-          
-        </div>
-
-        <div className="w-full pl-8 pt-16 lg:pl-20 relative">
-        <div className='w-full h-64 md:h-[400px] rounded-l-[50px] md:rounded-l-[150px] relative'>
-          <img src={Image3} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-l-[50px]  md:rounded-l-[150px] " />
-          <div className='absolute top-0 w-full h-full md:object-fill lg:object-cover rounded-l-[50px]  md:rounded-l-[150px] bg-black/30'></div>
-          <div className='absolute top-4 h-full w-full flex items-center justify-center pl-5'>
-            <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col justify-center gap-3">
-              <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Service</div>
-              <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">Our service is unrivalled. We’ll go above and beyond to make your stay as personalised and memorable as possible.</div>
-            </div>
-          </div>
-        </div>
-        
-        </div>
-
-        <div className="w-full pr-8 pt-16 relative lg:pr-20">
-      <div className='w-full h-64 md:h-[400px] rounded-r-[50px] md:rounded-r-[150px] relative'>
-          <img src={Image4} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] " />
-          <div className='absolute top-0  w-full h-full md:object-fill lg:object-cover rounded-r-[50px]  md:rounded-r-[150px] bg-black/30'></div>
-          <div className='absolute top-4 h-full w-full flex items-center justify-center pr-5'>
-            <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col gap-3">
-            <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Opportunities</div>
-              <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">We have the ideal location for you from a plethora of possibilities. We provide a wide range of property types and locations to meet all interests and needs.</div>
-            </div>
-          </div>
-        </div>
-          
-        </div>
-
-        <div className="w-full pl-8 pt-16 lg:pl-20 relative">
-        <div className='w-full h-64 md:h-[400px] rounded-l-[50px] md:rounded-l-[150px] relative'>
-          <img src={Image5} alt="About Us" className="w-full h-full md:object-fill lg:object-cover rounded-l-[50px]  md:rounded-l-[150px] " />
-          <div className='absolute top-0 w-full h-full md:object-fill lg:object-cover rounded-l-[50px]  md:rounded-l-[150px] bg-black/30'></div>
-          <div className='absolute top-4 h-full w-full flex items-center justify-center pl-5'>
-            <div className=" w-4/5 md:w-1/2 lg:w-2/3 md:py-10 h-max flex flex-col justify-center gap-3">
-              <div className=" w-full text-center text-white font-custom font-bold text-lg md:text-xl px-2 pb-1">Our Team</div>
-              <div className=" w-full text-center text-white text-[12px] font-bold sm:text-lg px-2 pb-2 ">With a specialised team that has unrivalled knowledge in this field and is available to you at any time and day to answer all of your questions.</div>
-            </div>
-          </div>
-        </div>
-        
-        </div>
+      )}
+      <div className="flex justify-center items-center">
+      <button className="bg-primary hover:bg-secondary rounded-lg text-white hover:scale-105 transition duration-75 cursor-pointer font-custom-kiona capitalize py-2 px-4 h-12 w-56 my-3"
+        onClick={() => {
+          localStorage.getItem("luxe") === true ? 
+          navigate("/properties",{state:{luxe:true}}) : navigate("/properties")
+        }}
+      >
+          Explore Residences
+        </button>
+      </div>
     </>
-  )
+  );
 }
 
-export default OurValuesSection
+export default OurValuesSection;
